@@ -1,0 +1,127 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+
+model weightHistory {
+  weightId  Int         @id(map: "weightIdPK")  @default(autoincrement())
+  dayId     Int
+  weight    Float
+  day       dayHistory  @relation(fields: [dayId], references: [dayId], map: "dayIdFK")
+}
+
+model units {
+  unitId        Int     @id(map: "unitIdPK")    @default(autoincrement())
+  unit          String  @db.VarChar(30)         @unique(map: "unitUQ")
+  defaultValue  Float
+  foods         Foods[]
+}
+
+model Foods {
+  foodId              Int       @id(map: "foodIdPK")    @default(autoincrement())
+  name                String    @db.VarChar(200)
+  kcal                Float
+  unitId              Int
+  unit                units     @relation(fields: [unitId], references: [unitId], map: "unitIdFK")
+  perUnit             Float
+  protein             Float
+  fat                 Float
+  saturatedFat        Float?
+  polyunsaturatedFat  Float?
+  monounsaturatedFat  Float?
+  carbohydrate        Float
+  sugar               Float?
+  fiber               Float?
+  mealHistory         mealHistory[]
+  mealSchedule        mealSchedule[]
+}
+
+
+model mealSchedule {
+  mealId          Int         @id(map: "mealScheduleIdPK")    @default(autoincrement())
+  scheduleId      Int
+  schedule        schedules   @relation(fields: [scheduleId], references: [scheduleId])
+  periodName      String
+  mealPeriod      mealPeriods @relation(fields: [periodName], references: [periodName])
+  foodId          Int         
+  food            Foods       @relation(fields: [foodId], references: [foodId])
+}
+
+
+model schedules {
+  scheduleId      Int       @id(map: "scheduleIdPK")  @default(autoincrement())
+  userId          Int
+  user            users     @relation(name: "userSchedules", fields: [userId], references: [userId], map: "userIdFK")
+  coachId         Int
+  coach           users     @relation(name: "coachSchedule", fields: [coachId], references: [userId], map: "coachIdFK")
+  date            DateTime
+  rate            Int?
+  reply           String?
+  mealSchedules   mealSchedule[]
+}
+
+
+model mealHistory {
+  mealId          Int         @id(map: "mealIdPK") @default(autoincrement())
+  dayId           Int
+  day             dayHistory  @relation(fields: [dayId], references: [dayId])
+  foodId          Int
+  foods           Foods       @relation(fields: [foodId], references: [foodId], map: "foodIdFK")
+  periodName  String      @db.VarChar(30)
+  mealPeriod      mealPeriods @relation(fields: [periodName], references: [periodName])
+}
+
+
+
+model dayHistory {
+  dayId         Int          @id(map: "dayIdPK") @default(autoincrement())
+  profileId     Int
+  date          DateTime     @default(now())
+  profileData   profileData @relation(fields: [profileId], references: [profileId], onDelete: NoAction, onUpdate: NoAction, map: "profileIdFK")
+  weightHistory weightHistory[]
+  mealHistory   mealHistory[]
+}
+
+model mealPeriods {
+  periodName    String    @id(map: "periodNameIdPK") @db.VarChar(30)
+  mealHistory   mealHistory[]
+  mealSchedules  mealSchedule[]
+}
+
+model profileData {
+  profileId         Int           @id(map: "profileIdPK") @default(autoincrement())
+  userId            Int
+  registration_date DateTime      @db.Date @default(now())
+  first_name        String        @db.VarChar(100)
+  last_name         String?       @db.VarChar(200)
+  height            Float?
+  target_weight     Float?
+  dayHistory        dayHistory[]
+  users             users         @relation(fields: [userId], references: [userId], onDelete: NoAction, onUpdate: NoAction, map: "userIdFK")
+}
+
+model roles {
+  roleId     Int     @id(map: "roleIdPK") @default(autoincrement())
+  permission String  @db.VarChar(50)
+  users      users[]
+}
+
+model users {
+  userId        Int            @id(map: "userIdPK") @default(autoincrement())
+  email         String         @unique(map: "emailUQ") @db.VarChar(255)
+  password      String         @db.VarChar(255)
+  roleId        Int
+  coahId        Int?
+  profile_data  profileData[]
+  users         users?          @relation("usersTousers", fields: [coahId], references: [userId], onDelete: NoAction, onUpdate: NoAction, map: "coachIdFK")
+  coach         users[]         @relation("usersTousers")
+  roles         roles           @relation(fields: [roleId], references: [roleId], onDelete: NoAction, onUpdate: NoAction, map: "roleIdFK")
+  userSchedules schedules[]     @relation("userSchedules")
+  coachSchedule schedules[]     @relation("coachSchedule")
+}
