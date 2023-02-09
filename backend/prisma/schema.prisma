@@ -40,43 +40,42 @@ model foods {
 }
 
 model connections {
-  connectionId    Int         @id(map: "connectionIdPK") @default(autoincrement())
-  coachId         Int
-  userId          Int
-  user            users       @relation("connections_coachIdTousers", fields: [coachId], references: [userId], onDelete: NoAction, onUpdate: NoAction, map: "coachIdFK")
-  coach           users       @relation("connections_userIdTousers", fields: [userId], references: [userId], onDelete: NoAction, onUpdate: NoAction, map: "userIdFK")
-  schedules       schedules[]
-
+  connectionId Int         @id(map: "connectionIdPK") @default(autoincrement())
+  coachId      Int
+  userId       Int
+  user         users       @relation("connections_coachIdTousers", fields: [coachId], references: [userId], onDelete: NoAction, onUpdate: NoAction, map: "coachIdFK")
+  coach        users       @relation("connections_userIdTousers", fields: [userId], references: [userId], onDelete: NoAction, onUpdate: NoAction, map: "userIdFK")
+  schedules    schedules[]
 }
 
 model users {
-  userId                      Int           @id(map: "userIdPK") @default(autoincrement())
-  email                       String        @unique(map: "emailUQ") @db.VarChar(255)
-  password                    String        @db.VarChar(255)
-  roleId                      Int
-  coachConnections            connections[] @relation("connections_coachIdTousers")
-  userConnections             connections[] @relation("connections_userIdTousers")
-  profile_data                profileData[]
-  roles                       roles         @relation(fields: [roleId], references: [roleId], onDelete: NoAction, onUpdate: NoAction, map: "roleIdFK")
+  userId           Int           @id(map: "userIdPK") @default(autoincrement())
+  email            String        @unique(map: "emailUQ") @db.VarChar(255)
+  password         String        @db.VarChar(255)
+  roleId           Int
+  coachConnections connections[] @relation("connections_coachIdTousers")
+  userConnections  connections[] @relation("connections_userIdTousers")
+  profile_data     profileData[]
+  roles            roles         @relation(fields: [roleId], references: [roleId], onDelete: NoAction, onUpdate: NoAction, map: "roleIdFK")
 }
 
 model schedules {
-  scheduleId   Int      @id(map: "scheduleIdPK") @default(autoincrement())
-  connectionId Int
-  connection   connections @relation(fields: [connectionId], references: [connectionId])
-  mealSchedules mealSchedule[] 
-  date         DateTime
-  rate         Int?
-  reply        String?
+  scheduleId    Int            @id(map: "scheduleIdPK") @default(autoincrement())
+  connectionId  Int
+  date          DateTime
+  rate          Int?
+  reply         String?
+  mealSchedules mealSchedule[]
+  connection    connections    @relation(fields: [connectionId], references: [connectionId])
 }
 
 model mealSchedule {
-  mealScheduleId      Int       @id(map: "mealScheduleIdPK")      @default(autoincrement())
-  mealId              Int
-  meal                meals     @relation(fields: [mealId], references: [mealId]) 
-  scheduleId          Int
-  schedule            schedules @relation(fields: [scheduleId], references: [scheduleId])
-  changedAt           DateTime  @db.Timestamp()
+  mealScheduleId Int       @id(map: "mealScheduleIdPK") @default(autoincrement())
+  mealId         Int
+  scheduleId     Int
+  changedAt      DateTime  @db.Timestamp(6)
+  meal           meals     @relation(fields: [mealId], references: [mealId])
+  schedule       schedules @relation(fields: [scheduleId], references: [scheduleId])
 }
 
 model mealHistory {
@@ -90,22 +89,22 @@ model mealHistory {
 }
 
 model meals {
-  mealId      Int           @id(map: "mealIdPK") @default(autoincrement())
-  foodId      Int
-  amount      Float
-  addedBy     String        @default("user")
-  changedAt   DateTime      @db.Timestamp(6)
-  completed   Boolean       @default(false)
-  mealHistory mealHistory[]
-  mealSchedules mealSchedule[] 
-  food        foods         @relation(fields: [foodId], references: [foodId])
+  mealId        Int            @id(map: "mealIdPK") @default(autoincrement())
+  foodId        Int
+  amount        Float
+  addedBy       String         @default("user")
+  changedAt     DateTime       @db.Timestamp(6)
+  completed     Boolean        @default(false)
+  mealHistory   mealHistory[]
+  mealSchedules mealSchedule[]
+  food          foods          @relation(fields: [foodId], references: [foodId])
 }
 
 model dayHistory {
   dayId         Int             @id(map: "dayIdPK") @default(autoincrement())
   profileId     Int
-  date          DateTime        @default(now())
-  changedAt     DateTime        @db.Timestamp(6)
+  date          DateTime        @db.Date
+  changedAt     DateTime        @default(now()) @db.Timestamp(6)
   profileData   profileData     @relation(fields: [profileId], references: [profileId], onDelete: NoAction, onUpdate: NoAction, map: "profileIdFK")
   mealHistory   mealHistory[]
   weightHistory weightHistory[]
