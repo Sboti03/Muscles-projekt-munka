@@ -1,38 +1,1 @@
-import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../../utils/prirsma.service';
-import { CreateUserDTO } from '../dto/createUserDTO';
-
-@Injectable()
-export class UserService {
-  constructor(private prismaService: PrismaService) {}
-  async getUsers() {
-    const users = await this.prismaService.users.findMany();
-    console.log(users);
-    return users;
-  }
-  async getUser() {
-    const users = await this.prismaService.users.findUnique({
-      where: {
-        email: 'Csanademail@gmail.com',
-      },
-    });
-    console.log(users);
-    return users;
-  }
-
-  async createUsersWithRoles() {
-    const users = await this.prismaService.users.createMany({
-      data: [
-        { email: 'csanademail@gmail.com', password: 'myPassword', roleId: 3 },
-        {
-          email: 'NimrodEmail@asd.hu',
-          password: 'mySecondPassword',
-          roleId: 3,
-        },
-      ],
-    });
-  }
-  getUsersCreateInput(user: CreateUserDTO): string {
-    return 'Email: ' + user.email + ' Password: ' + user.password;
-  }
-}
+import {Injectable} from '@nestjs/common';import {PrismaService} from '../../utils/prirsma.service';import {CreateUserDTO} from '../dto/createUserDTO';import {Prisma} from "@prisma/client";import {Roles} from "../utils/roles";import {encryptData} from "../../utils/bcrypt";@Injectable()export class UserService {  constructor(private prismaService: PrismaService) {}  async getUsers() {    const users = await this.prismaService.users.findMany();    console.log(users);    return users;  }  async getUserByEmail(email: string) {    const users = await this.prismaService.users.findUnique({      where: {        email      },      include: {        roles: true,      }    });    return users;  }  async getUserById(userId: number) {    const users = await this.prismaService.users.findUnique({      where: {        userId      },      include: {        roles: true,      }    });    return users;  }  /*async createUsersWithRoles() {    const users = await this.prismaService.users.createMany({      data: [        { email: 'csanademail@gmail.com', password: 'myPassword', roleId: 3 },        {          email: 'NimrodEmail@asd.hu',          password: 'mySecondPassword',          roleId: 3,        },      ],    });  }*/  getRoleId(isCoach: boolean): number{      return isCoach? Roles.COACH.roleId: Roles.USER.roleId;  }  getUsersCreateInput(user: CreateUserDTO): Prisma.usersCreateInput {    const roleId = this.getRoleId(user.isCoach);    return {      email: user.email,      password: encryptData(user.password),      roles: {        connect: {          roleId        }      }    };  }}
