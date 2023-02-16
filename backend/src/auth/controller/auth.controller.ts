@@ -28,8 +28,8 @@ export class AuthController {
     @UseGuards(RefreshAuthGuard)
     @Post('refresh')
     @HttpCode(HttpStatus.OK)
-    refreshToken(@GetCurrentUserId() userId: number, @GetCurrentUser('refreshToken') refreshToken: string): Promise<Tokens> {
-        return this.authService.re
+    async refreshToken(@GetCurrentUserId() userId: number, @GetCurrentUser('refreshToken') refreshToken: string): Promise<void> {
+        return await this.authService.getNewRefreshToken(userId, refreshToken)
     }
 
 }

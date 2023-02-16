@@ -53,7 +53,7 @@ model users {
   email            String        @unique(map: "emailUQ") @db.VarChar(255)
   password         String        @db.VarChar(255)
   roleId           Int
-  refreshToken     String?       @db.VarChar(255)
+  refreshTokens     String[]
   coachConnections connections[] @relation("connections_coachIdTousers")
   userConnections  connections[] @relation("connections_userIdTousers")
   profile_data     profileData[]
