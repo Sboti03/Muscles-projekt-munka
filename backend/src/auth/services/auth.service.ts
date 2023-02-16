@@ -80,4 +80,11 @@ export class AuthService {
       }
    }
 
+   async getNewRefreshToken(userId: number, refreshToken: string) {
+      const user = await this.userGetService.getUserById(userId)
+      if (!user) throw new ForbiddenException('No user found')
+      const isTokenMatch = compareData(refreshToken, user.refreshToken)
+
+   }
+
 }
