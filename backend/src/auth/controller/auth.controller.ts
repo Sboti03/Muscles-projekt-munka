@@ -3,9 +3,12 @@ import { GetCurrentUser, GetCurrentUserId, Public } from '../decorators/decorato
 import { RefreshAuthGuard } from '../guards/jwt-refresh-auth.guard';
 import { LocalAuthGuard } from '../guards/local-auth.guard';
 import { Tokens } from '../types/token';
+import {AuthService} from "../services/auth.service";
 
 @Controller('auth')
 export class AuthController {
+    constructor(private authService: AuthService) {
+    }
 
 
     @UseGuards(LocalAuthGuard)

@@ -21,4 +21,8 @@ export class UserCheckService {
     const user = await this.getUserService.getUserById(userId);
     return compareData(refreshToken, user.refreshToken);
   }
+  async checkExistingUserByEmail(email: string): Promise<boolean> {
+    const user = await this.getUserService.getUserByEmail(email)
+    return !!user
+  }
 }
