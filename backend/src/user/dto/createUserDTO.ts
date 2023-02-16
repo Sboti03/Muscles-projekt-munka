@@ -5,6 +5,5 @@ export class CreateUserDTO {
   email: string;
   @IsNotEmpty()
   password: string;
-  refreshToken: string;
   isCoach: boolean;
 }
