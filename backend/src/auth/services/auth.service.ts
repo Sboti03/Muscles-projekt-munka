@@ -28,7 +28,7 @@ export class AuthService {
       const passMatch: boolean = compareData(loginDto.password, user.password);
       if (!passMatch) throw new ForbiddenException('Access Denied')
 
-      const {password, refreshToken, ...rest} = user
+      const {password, refreshTokens, ...rest} = user
       const tokens = await this.getTokens(user.userId, user.email)
       await this.userUpdateService.updateRefreshToken(tokens.refreshToken, user.userId)
       return {
@@ -81,10 +81,8 @@ export class AuthService {
    }
 
    async getNewRefreshToken(userId: number, refreshToken: string) {
-      const user = await this.userGetService.getUserById(userId)
-      if (!user) throw new ForbiddenException('No user found')
-      const isTokenMatch = compareData(refreshToken, user.refreshToken)
-
+      const isTokenMatch = this.userCheckService.checkRefreshToken(refreshToken, userId);
+      if (!isTokenMatch) throw new ForbiddenException('Access denied')
    }
 
 }
