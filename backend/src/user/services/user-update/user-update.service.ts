@@ -1,11 +1,13 @@
 import { ConflictException, Injectable } from '@nestjs/common';
 import { encryptData } from '../../../utils/bcrypt';
 import { PrismaService } from '../../../utils/prirsma.service';
-import { UserCheckService } from '../user-check/get-user-data.service';
+import { UserCheckService } from '../user-check/user-check.service';
+import { UserGetService } from '../user-get/user-get.service';
 
 @Injectable()
 export class UserUpdateService {
   constructor(
+    private userGetService: UserGetService,
     private prismaService: PrismaService,
     private checkUserService: UserCheckService,
   ) {}
@@ -19,16 +21,12 @@ export class UserUpdateService {
       where: { userId },
     });
   }
-  async updateRefreshToken(refreshToken: string, userId: number) {
-    if (await this.checkUserService.checkRefreshToken(refreshToken, userId)) {
-      throw new ConflictException('Cannot be the same refreshToken');
-    }
-    refreshToken = encryptData(refreshToken);
+  async pushNewRefreshToken(refreshToken: string, userId: number) {
     return this.prismaService.users.update({
       data: {
         refreshTokens: {
-          push: refreshToken
-        }
+          push: refreshToken,
+        },
       },
       where: { userId },
     });
