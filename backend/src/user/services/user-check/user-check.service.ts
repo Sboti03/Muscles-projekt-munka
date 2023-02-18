@@ -22,6 +22,7 @@ export class UserCheckService {
 
   async checkRefreshToken(refreshToken: string, userId: number) {
     const user = await this.getUserService.getUserById(userId);
+    console.log(refreshToken, 'token')
     for (const token of user.refreshTokens) {
       if (compareData(refreshToken, token)) {
         return true;
