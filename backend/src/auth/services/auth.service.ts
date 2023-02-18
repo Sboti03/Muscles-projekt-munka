@@ -33,7 +33,7 @@ export class AuthService {
         if (!passMatch) throw new ForbiddenException('Access Denied');
 
         const { password, refreshTokens, ...rest } = user;
-        const tokens = await this.getTokens(user.userId, user.email);
+        const tokens = await this.getTokens(user.userId);
         await this.userUpdateService.pushNewRefreshToken(
             tokens.refreshToken,
             user.userId,
@@ -44,10 +44,12 @@ export class AuthService {
         };
     }
 
-    async getTokens(userId: number, email: string): Promise<Tokens> {
+    async getTokens(userId: number): Promise<Tokens> {
+        const user = await this.userGetService.getUserById(userId)
         const jwtPayload: JwtPayload = {
             sub: userId,
-            email: email,
+            email: user.email,
+            role: user.roles
         };
 
         const [accessToken, refreshToken] = await Promise.all([
@@ -83,7 +85,7 @@ export class AuthService {
         );
         const user = await this.userCreateService.createUser(userInput);
         const { password, ...rest } = user;
-        const tokens = await this.getTokens(user.userId, user.email);
+        const tokens = await this.getTokens(user.userId);
         await this.userUpdateService.pushNewRefreshToken(
             tokens.refreshToken,
             user.userId,
@@ -104,8 +106,7 @@ export class AuthService {
             userId,
             refreshToken,
         );
-        const { email } = await this.userGetService.getUserById(userId);
-        return (await this.getTokens(userId, email)).refreshToken;
+        return (await this.getTokens(userId)).refreshToken;
     }
 
     async getNewAccessToken(userId: number, refreshToken: string) {
@@ -114,7 +115,6 @@ export class AuthService {
             userId,
         );
         if (!isTokenMatch) throw new ForbiddenException('Access denied');
-        const { email } = await this.userGetService.getUserById(userId);
-        return (await this.getTokens(userId, email)).accessToken;
+        return (await this.getTokens(userId)).accessToken;
     }
 }

@@ -1,23 +1,13 @@
-import {
-    Body,
-    Controller,
-    Get,
-    HttpCode,
-    HttpStatus,
-    Post,
-    Req,
-    UseGuards,
-} from '@nestjs/common';
-import {
-    GetCurrentUser,
-    GetCurrentUserId,
-    Public,
-} from '../decorators/decorators';
-import { RefreshAuthGuard } from '../guards/jwt-refresh-auth.guard';
-import { LocalAuthGuard } from '../guards/local-auth.guard';
-import { Tokens } from '../types/token';
-import { AuthService } from '../services/auth.service';
-import { CreateUserDTO } from '../../user/dto/createUserDTO';
+import {Body, Controller, Get, HttpCode, HttpStatus, Post, Req, UseGuards,} from '@nestjs/common';
+import {GetCurrentUser, GetCurrentUserId, Public,} from '../decorators/decorators';
+import {RefreshAuthGuard} from '../guards/jwt-refresh-auth.guard';
+import {LocalAuthGuard} from '../guards/local-auth.guard';
+import {AuthService} from '../services/auth.service';
+import {CreateUserDTO} from '../../user/dto/createUserDTO';
+import {Roles} from "../../Role/decorators/ roles.decorator";
+import {RoleEnum} from "../../Role/utils/roles";
+import {JwtAccessGuard} from "../guards/jwt-access.guard";
+import {RolesGuard} from "../guards/role.guard";
 
 
 @Controller('auth')
@@ -43,10 +33,17 @@ export class AuthController {
         return await this.authService.getNewRefreshToken(userId, refreshToken);
     }
 
-
     @UseGuards(RefreshAuthGuard)
     @Post('access')
     async getAccessToken(@GetCurrentUser('refreshToken') refreshToken: string, @GetCurrentUserId() userId: number) {
         return await this.authService.getNewAccessToken(userId, refreshToken);
+    }
+
+
+    @Roles(RoleEnum.COACH)
+    @UseGuards(JwtAccessGuard, RolesGuard)
+    @Get('admin')
+    admin() {
+        return 'Szia admin báttya'
     }
 }
