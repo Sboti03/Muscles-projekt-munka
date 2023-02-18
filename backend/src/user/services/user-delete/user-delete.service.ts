@@ -24,7 +24,7 @@ export class UserDeleteService {
       data: {
         refreshTokens: {
           set: refreshTokens.filter((token) => {
-            !compareData(token, refreshToken);
+            !compareData(token, refreshToken ? refreshToken : '');
           }),
         },
       },

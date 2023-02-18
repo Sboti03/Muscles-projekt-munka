@@ -9,91 +9,112 @@ import { UserUpdateService } from '../../user/services/user-update/user-update.s
 import { CreateUserDTO } from '../../user/dto/createUserDTO';
 import { UserCheckService } from '../../user/services/user-check/user-check.service';
 import { UserCreateService } from '../../user/services/user-create/user-create.service';
+import { UserDeleteService } from '../../user/services/user-delete/user-delete.service';
 
 @Injectable()
 export class AuthService {
-  constructor(
-    private jwtService: JwtService,
-    private userGetService: UserGetService,
-    private userUpdateService: UserUpdateService,
-    private userCheckService: UserCheckService,
-    private userCreateService: UserCreateService,
-  ) {}
+    constructor(
+        private jwtService: JwtService,
+        private userGetService: UserGetService,
+        private userUpdateService: UserUpdateService,
+        private userCheckService: UserCheckService,
+        private userCreateService: UserCreateService,
+        private userDeleteService: UserDeleteService,
+    ) {}
 
-  async validateUser(loginDto: LoginDto) {
-    const user = await this.userGetService.getUserByEmail(loginDto.email);
-    if (!user) throw new ForbiddenException('No user found');
+    async validateUser(loginDto: LoginDto) {
+        const user = await this.userGetService.getUserByEmail(loginDto.email);
+        if (!user) throw new ForbiddenException('No user found');
 
-    const passMatch: boolean = compareData(loginDto.password, user.password);
-    if (!passMatch) throw new ForbiddenException('Access Denied');
+        const passMatch: boolean = compareData(
+            loginDto.password,
+            user.password,
+        );
+        if (!passMatch) throw new ForbiddenException('Access Denied');
 
-    const { password, refreshTokens, ...rest } = user;
-    const tokens = await this.getTokens(user.userId, user.email);
-    await this.userUpdateService.pushNewRefreshToken(
-      tokens.refreshToken,
-      user.userId,
-    );
-    return {
-      user: rest,
-      tokens,
-    };
-  }
+        const { password, refreshTokens, ...rest } = user;
+        const tokens = await this.getTokens(user.userId, user.email);
+        await this.userUpdateService.pushNewRefreshToken(
+            tokens.refreshToken,
+            user.userId,
+        );
+        return {
+            user: rest,
+            tokens,
+        };
+    }
 
-  async getTokens(userId: number, email: string): Promise<Tokens> {
-    const jwtPayload: JwtPayload = {
-      sub: userId,
-      email: email,
-    };
+    async getTokens(userId: number, email: string): Promise<Tokens> {
+        const jwtPayload: JwtPayload = {
+            sub: userId,
+            email: email,
+        };
 
-    const [accessToken, refreshToken] = await Promise.all([
-      this.jwtService.signAsync(jwtPayload, {
-        secret: process.env.AT_SECRET,
-        expiresIn: process.env.AT_EXPIRES,
-      }),
-      this.jwtService.signAsync(jwtPayload, {
-        secret: process.env.RT_SECRET,
-        expiresIn: process.env.RT_EXPIRES,
-      }),
-    ]);
+        const [accessToken, refreshToken] = await Promise.all([
+            this.jwtService.signAsync(jwtPayload, {
+                secret: process.env.AT_SECRET,
+                expiresIn: process.env.AT_EXPIRES,
+            }),
+            this.jwtService.signAsync(jwtPayload, {
+                secret: process.env.RT_SECRET,
+                expiresIn: process.env.RT_EXPIRES,
+            }),
+        ]);
 
-    return {
-      accessToken,
-      refreshToken,
-    };
-  }
+        return {
+            accessToken,
+            refreshToken,
+        };
+    }
 
-  async logOut(userId: number) {
-    return await this.userUpdateService.pushNewRefreshToken('', userId);
-  }
+    async logOut(userId: number) {
+        return await this.userUpdateService.pushNewRefreshToken('', userId);
+    }
 
-  async register(createUserDto: CreateUserDTO) {
-    const exist = await this.userCheckService.checkExistingUserByEmail(
-      createUserDto.email,
-    );
-    if (exist) throw new ForbiddenException('User already exists');
 
-    const userInput = await this.userGetService.getUsersCreateInput(
-      createUserDto,
-    );
-    const user = await this.userCreateService.createUser(userInput);
-    const { password, ...rest } = user;
-    const tokens = await this.getTokens(user.userId, user.email);
-    await this.userUpdateService.pushNewRefreshToken(
-      tokens.refreshToken,
-      user.userId,
-    );
-    return {
-      user: rest,
-      tokens,
-    };
-  }
+    async register(createUserDto: CreateUserDTO) {
+        const exist = await this.userCheckService.checkExistingUserByEmail(
+            createUserDto.email,
+        );
+        if (exist) throw new ForbiddenException('User already exists');
 
-  async getNewRefreshToken(userId: number, refreshToken: string) {
-    const isTokenMatch = this.userCheckService.checkRefreshToken(
-      refreshToken,
-      userId,
-    );
-    if (!isTokenMatch) throw new ForbiddenException('Access denied');
-    return this.getTokens(userId, 'email');
-  }
+        const userInput = await this.userGetService.getUsersCreateInput(
+            createUserDto,
+        );
+        const user = await this.userCreateService.createUser(userInput);
+        const { password, ...rest } = user;
+        const tokens = await this.getTokens(user.userId, user.email);
+        await this.userUpdateService.pushNewRefreshToken(
+            tokens.refreshToken,
+            user.userId,
+        );
+        return {
+            user: rest,
+            tokens,
+        };
+    }
+
+    async getNewRefreshToken(userId: number, refreshToken: string) {
+        const isTokenMatch = this.userCheckService.checkRefreshToken(
+            refreshToken,
+            userId,
+        );
+        if (!isTokenMatch) throw new ForbiddenException('Access denied');
+        await this.userDeleteService.deleteRefreshTokenById(
+            userId,
+            refreshToken,
+        );
+        const { email } = await this.userGetService.getUserById(userId);
+        return (await this.getTokens(userId, email)).refreshToken;
+    }
+
+    async getNewAccessToken(userId: number, refreshToken: string) {
+        const isTokenMatch = this.userCheckService.checkRefreshToken(
+            refreshToken,
+            userId,
+        );
+        if (!isTokenMatch) throw new ForbiddenException('Access denied');
+        const { email } = await this.userGetService.getUserById(userId);
+        return (await this.getTokens(userId, email)).accessToken;
+    }
 }

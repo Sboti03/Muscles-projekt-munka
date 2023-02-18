@@ -25,7 +25,7 @@ export class UserUpdateService {
     return this.prismaService.users.update({
       data: {
         refreshTokens: {
-          push: refreshToken,
+          push: encryptData(refreshToken),
         },
       },
       where: { userId },
