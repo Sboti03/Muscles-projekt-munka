@@ -21,7 +21,7 @@ import { AuthTokenService } from './services/auth-token/auth-token.service';
         LocalStrategy,
         RefreshTokenStrategy,
         RolesGuard,
-        AuthTokenService
+        AuthTokenService,
     ],
     controllers: [AuthController],
     exports: [AuthService],
