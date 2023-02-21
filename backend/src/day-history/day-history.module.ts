@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { DayHistoryService } from './controllers/service/day-history.service';
+import { DayHistoryService } from './services/day-history.service';
 
 @Module({
   providers: [DayHistoryService]
