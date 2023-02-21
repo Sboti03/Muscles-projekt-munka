@@ -50,7 +50,7 @@ export class UserGetService {
   getTokensByUserId(userId: number) {
     return this.prismaService.users.findUnique({
       select: {
-        refreshTokens: true,
+        refreshTokens: true
       },
       where: {
         userId,
