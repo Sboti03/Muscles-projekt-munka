@@ -10,6 +10,7 @@ import {JwtAccessGuard} from "./guards/jwt-access.guard";
 import {LocalAuthGuard} from "./guards/local-auth.guard";
 import {RefreshAuthGuard} from "./guards/jwt-refresh-auth.guard";
 import {RolesGuard} from "./guards/role.guard";
+import { AuthTokenService } from './services/auth-token/auth-token.service';
 
 @Module({
     imports: [UserModule],
@@ -19,7 +20,8 @@ import {RolesGuard} from "./guards/role.guard";
         AccessTokenStrategy,
         LocalStrategy,
         RefreshTokenStrategy,
-        RolesGuard
+        RolesGuard,
+        AuthTokenService
     ],
     controllers: [AuthController],
     exports: [AuthService],
