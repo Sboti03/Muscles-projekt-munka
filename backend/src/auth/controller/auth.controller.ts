@@ -8,11 +8,12 @@ import {Roles} from "../../Role/decorators/ roles.decorator";
 import {RoleEnum} from "../../Role/utils/roles";
 import {JwtAccessGuard} from "../guards/jwt-access.guard";
 import {RolesGuard} from "../guards/role.guard";
+import {AuthTokenService} from "../services/auth-token/auth-token.service";
 
 
 @Controller('auth')
 export class AuthController {
-    constructor(private authService: AuthService) {}
+    constructor(private authService: AuthService, private authTokenService: AuthTokenService) {}
 
     @UseGuards(LocalAuthGuard)
     @Post('login')
@@ -30,13 +31,13 @@ export class AuthController {
     @Post('refresh')
     @HttpCode(HttpStatus.OK)
     async getRefreshToken(@GetCurrentUserId() userId: number, @GetCurrentUser('refreshToken') refreshToken: string) {
-        return await this.authService.getNewRefreshToken(userId, refreshToken);
+        return await this.authTokenService.getNewRefreshToken(userId, refreshToken);
     }
 
     @UseGuards(RefreshAuthGuard)
     @Post('access')
     async getAccessToken(@GetCurrentUser('refreshToken') refreshToken: string, @GetCurrentUserId() userId: number) {
-        return await this.authService.getNewAccessToken(userId, refreshToken);
+        return await this.authTokenService.getNewAccessToken(userId, refreshToken);
     }
 
 
