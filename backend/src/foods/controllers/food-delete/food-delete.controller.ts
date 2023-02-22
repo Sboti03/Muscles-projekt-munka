@@ -8,7 +8,7 @@ import {FoodCheckService} from "../../services/food-check/food-check.service";
 
 @Roles(RoleEnum.ADMIN)
 @UseGuards(JwtAccessGuard, RolesGuard)
-@Controller('food-delete')
+@Controller('food')
 export class FoodDeleteController {
     constructor(private foodDeleteService:FoodDeleteService,
                 private checkService:FoodCheckService) {

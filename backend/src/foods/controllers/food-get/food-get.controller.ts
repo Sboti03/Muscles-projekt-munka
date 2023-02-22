@@ -5,7 +5,7 @@ import {RolesGuard} from "../../../auth/guards/role.guard";
 import {Roles} from "../../../Role/decorators/ roles.decorator";
 import {RoleEnum} from "../../../Role/utils/roles";
 
-@Controller('food-get')
+@Controller('food')
 @UseGuards(JwtAccessGuard)
 export class FoodGetController {
     constructor(private foodGetService:FoodGetService) {

@@ -10,7 +10,7 @@ import {FoodConvertService} from "../../services/food-convert/food-convert.servi
 
 @Roles(RoleEnum.ADMIN)
 @UseGuards(JwtAccessGuard, RolesGuard)
-@Controller('food-update')
+@Controller('food')
 export class FoodUpdateController {
     constructor(private foodUpdateService:FoodUpdateService,
                 private foodConvertService: FoodConvertService) {}
