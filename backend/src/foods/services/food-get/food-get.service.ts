@@ -7,7 +7,16 @@ export class FoodGetService {
 
     constructor(private prismaService: PrismaService) {}
 
-
+    getFoodById(foodId: number) {
+        return this.prismaService.foods.findUnique({
+            where: {
+                foodId
+            },
+            include: {
+                unit: true
+            }
+        })
+    }
     getAllFood() {
         return this.prismaService.foods.findMany({
             include: {
