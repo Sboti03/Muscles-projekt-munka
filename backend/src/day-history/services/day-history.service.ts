@@ -23,4 +23,8 @@ export class DayHistoryService {
         return this.prismaService.dayHistory.findMany({where: { date: searchedDate }});
     }
 
+    getDayHistory() {
+        return this.prismaService.dayHistory.findMany();
+    }
+
 }
