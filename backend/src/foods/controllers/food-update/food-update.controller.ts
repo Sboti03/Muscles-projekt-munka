@@ -2,14 +2,14 @@ import {Controller, Param, Post, UseGuards} from '@nestjs/common';
 import {FoodUpdateService} from "../../services/food-update/food-update.service";
 import {Roles} from "../../../Role/decorators/ roles.decorator";
 import {RoleEnum} from "../../../Role/utils/roles";
-import {JwtAccessGuard} from "../../../auth/guards/jwt-access.guard";
+import {AccessTokenGuard} from "../../../auth/guards/access-token.guard";
 import {RolesGuard} from "../../../auth/guards/role.guard";
 import {FoodUpdateDto} from "../../dto/food-update.dto";
 import {FoodConvertService} from "../../services/food-convert/food-convert.service";
 
 
 @Roles(RoleEnum.ADMIN)
-@UseGuards(JwtAccessGuard, RolesGuard)
+@UseGuards(AccessTokenGuard, RolesGuard)
 @Controller('food')
 export class FoodUpdateController {
     constructor(private foodUpdateService:FoodUpdateService,
