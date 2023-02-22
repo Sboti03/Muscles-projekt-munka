@@ -94,7 +94,7 @@ model meals {
   foodId        Int
   amount        Float
   addedBy       String         @default("user")
-  changedAt     DateTime       @db.Timestamp(6)
+  changedAt     DateTime       @default(now()) @db.Timestamp(6)
   completed     Boolean        @default(false)
   mealHistory   mealHistory[]
   mealSchedules mealSchedule[]
