@@ -16,6 +16,14 @@ export const GetCurrentUserId = createParamDecorator(
   },
 );
 
+export const GetCurrentUserProfileId = createParamDecorator(
+    (_: undefined, context: ExecutionContext): number => {
+        const request = context.switchToHttp().getRequest();
+        const user = request.user;
+        return user.profileId;
+    },
+);
+
 export const GetCurrentUser = createParamDecorator(
     (data: keyof JwtPayloadWithRt | undefined, context: ExecutionContext) => {
       const request = context.switchToHttp().getRequest();

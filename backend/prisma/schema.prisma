@@ -121,7 +121,7 @@ model mealPeriods {
 model profileData {
   profileId         Int          @id(map: "profileIdPK") @default(autoincrement())
   userId            Int
-  registration_date DateTime     @default(now()) @db.Date
+  registrationDate DateTime     @default(now()) @db.Date
   firstName         String       @db.VarChar(100)
   birthDay          DateTime     @db.Date
   lastName          String?      @db.VarChar(200)

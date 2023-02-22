@@ -1,4 +1,19 @@
 import { Injectable } from '@nestjs/common';
+import {PrismaService} from "../../../utils/prirsma.service";
+import ProfileUpdateDto from "../../dto/profile-update.dto";
+import {Prisma} from "@prisma/client";
 
 @Injectable()
-export class ProfileUpdateService {}
+export class ProfileUpdateService {
+    constructor(private readonly prismaService: PrismaService) {
+    }
+
+
+    updateProfile(profileId: number, newProfileData: Prisma.profileDataUpdateInput) {
+        this.prismaService.profileData.update({
+            where: {profileId: profileId},
+            data: newProfileData
+        })
+    }
+
+}
