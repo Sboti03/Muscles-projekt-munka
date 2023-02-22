@@ -1,12 +1,12 @@
 import {Body, Controller, NotFoundException, Post} from '@nestjs/common';
-import {PrismaService} from "../../utils/prirsma.service";
-import {GetCurrentUserProfileId} from "../../auth/decorators/decorators";
-import {DayHistoryCreateService} from "../../day-history/services/day-history-create/day-history-create.service";
+import {PrismaService} from "../../../utils/prirsma.service";
+import {GetCurrentUserProfileId} from "../../../auth/decorators/decorators";
+import {DayHistoryCreateService} from "../../../day-history/services/day-history-create/day-history-create.service";
 import {
     WeightHistoryUpdateOrCreateService
-} from "../services/weight-history-update-or-create/weight-history-update-or-create.service";
-import {DayHistoryGetService} from "../../day-history/services/day-history-get/day-history-get.service";
-import {WeightHistoryDataDto} from "../WeightHistoryData.dto";
+} from "../../services/weight-history-update-or-create/weight-history-update-or-create.service";
+import {DayHistoryGetService} from "../../../day-history/services/day-history-get/day-history-get.service";
+import {WeightHistoryDataDto} from "../../weight-history-data-object/WeightHistoryData.dto";
 
 @Controller('weight-history')
 export class WeightHistoryController {
