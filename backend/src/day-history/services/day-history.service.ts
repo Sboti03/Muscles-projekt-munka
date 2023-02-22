@@ -1,6 +1,4 @@
-import {Body, Injectable} from '@nestjs/common';
-import {GetCurrentUser} from "../../auth/decorators/decorators";
-import {DayHistoryCreateDto} from "../day-history-create-dto/DayHistoryCreate.dto";
+import {Injectable} from '@nestjs/common';
 import {PrismaService} from "../../utils/prirsma.service";
 
 @Injectable()
@@ -21,5 +19,8 @@ export class DayHistoryService {
         });
     }
 
+    getDayHistoryByDate(searchedDate) {
+        return this.prismaService.dayHistory.findMany({where: { date: searchedDate }});
+    }
 
 }
