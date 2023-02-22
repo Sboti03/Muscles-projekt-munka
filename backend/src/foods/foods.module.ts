@@ -25,7 +25,7 @@ import { FoodConvertService } from './services/food-convert/food-convert.service
         JwtAccessGuard,
         RolesGuard,
         FoodConvertService,
-    ]
+    ],
 })
 export class FoodsModule {
 }
