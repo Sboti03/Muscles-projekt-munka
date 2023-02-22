@@ -7,7 +7,7 @@ export class WeightHistoryUpdateOrCreateService {
     }
 
     updateOrCreateWeightHistory(weight: number, dayId: number) {
-        this.prismaService.weightHistory.upsert({
+        return this.prismaService.weightHistory.upsert({
             where: {
                 dayId: dayId,
             },

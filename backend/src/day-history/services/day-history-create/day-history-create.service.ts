@@ -7,7 +7,7 @@ export class DayHistoryCreateService {
     }
 
     createDayHistory(profileId: number, date: Date) {
-        return  this.prismaService.dayHistory.create({
+        return this.prismaService.dayHistory.create({
             data: {
                 profileData: {
                     connect: {
