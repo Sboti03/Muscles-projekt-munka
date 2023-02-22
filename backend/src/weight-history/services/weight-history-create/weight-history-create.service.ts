@@ -5,7 +5,7 @@ import {PrismaService} from "../../../utils/prirsma.service";
 export class WeightHistoryCreateService {
     constructor(private prismaService: PrismaService) {
     }
-    
+
     createWeightHistory(weight: number, dayId: number) {
         this.prismaService.weightHistory.create({
             data: {
