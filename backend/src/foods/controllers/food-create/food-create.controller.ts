@@ -1,6 +1,6 @@
 import {Controller, Post, UseGuards} from '@nestjs/common';
 import {FoodCreateService} from "../../services/food-create/food-create.service";
-import {JwtAccessGuard} from "../../../auth/guards/jwt-access.guard";
+import {AccessTokenGuard} from "../../../auth/guards/access-token.guard";
 import {RolesGuard} from "../../../auth/guards/role.guard";
 import {Roles} from "../../../Role/decorators/ roles.decorator";
 import {RoleEnum} from "../../../Role/utils/roles";
@@ -9,7 +9,7 @@ import {FoodGetService} from "../../services/food-get/food-get.service";
 import {FoodConvertService} from "../../services/food-convert/food-convert.service";
 
 @Roles(RoleEnum.ADMIN)
-@UseGuards(JwtAccessGuard, RolesGuard)
+@UseGuards(AccessTokenGuard, RolesGuard)
 @Controller('food')
 export class FoodCreateController {
     constructor(private foodCreateService:FoodCreateService,

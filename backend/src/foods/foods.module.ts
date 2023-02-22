@@ -9,7 +9,7 @@ import {FoodCheckService} from './services/food-check/food-check.service';
 import {FoodUpdateService} from './services/food-update/food-update.service';
 import {FoodGetService} from './services/food-get/food-get.service';
 import {PrismaService} from "../utils/prirsma.service";
-import {JwtAccessGuard} from "../auth/guards/jwt-access.guard";
+import {AccessTokenGuard} from "../auth/guards/access-token.guard";
 import {RolesGuard} from "../auth/guards/role.guard";
 import { FoodConvertService } from './services/food-convert/food-convert.service';
 
@@ -22,7 +22,7 @@ import { FoodConvertService } from './services/food-convert/food-convert.service
         FoodCheckService,
         FoodCreateService,
         PrismaService,
-        JwtAccessGuard,
+        AccessTokenGuard,
         RolesGuard,
         FoodConvertService,
     ],

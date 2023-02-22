@@ -6,7 +6,7 @@ import {ProfileUpdateService} from './services/profile-update/profile-update.ser
 import {ProfileDeleteService} from './services/profile-delete/profile-delete.service';
 import {PrismaService} from "../utils/prirsma.service";
 import {APP_GUARD} from "@nestjs/core";
-import {JwtAccessGuard} from "../auth/guards/jwt-access.guard";
+import {AccessTokenGuard} from "../auth/guards/access-token.guard";
 import {ProfileConvertService} from "./services/profile-convert/profile-convert.service";
 
 @Module({

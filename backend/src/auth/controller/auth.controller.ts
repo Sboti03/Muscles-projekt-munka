@@ -1,12 +1,12 @@
 import {Body, Controller, Get, HttpCode, HttpStatus, Post, Req, UseGuards,} from '@nestjs/common';
 import {GetCurrentUser, GetCurrentUserId, Public,} from '../decorators/decorators';
-import {RefreshAuthGuard} from '../guards/jwt-refresh-auth.guard';
+import {RefreshTokenGuard} from '../guards/refresh-token.guard';
 import {LocalAuthGuard} from '../guards/local-auth.guard';
 import {AuthService} from '../services/auth.service';
 import {CreateUserDTO} from '../../user/dto/createUserDTO';
 import {Roles} from "../../Role/decorators/ roles.decorator";
 import {RoleEnum} from "../../Role/utils/roles";
-import {JwtAccessGuard} from "../guards/jwt-access.guard";
+import {AccessTokenGuard} from "../guards/access-token.guard";
 import {RolesGuard} from "../guards/role.guard";
 import {AuthTokenService} from "../services/auth-token/auth-token.service";
 
@@ -27,14 +27,14 @@ export class AuthController {
     }
 
     @Public()
-    @UseGuards(RefreshAuthGuard)
+    @UseGuards(RefreshTokenGuard)
     @Post('refresh')
     @HttpCode(HttpStatus.OK)
     async getRefreshToken(@GetCurrentUserId() userId: number, @GetCurrentUser('refreshToken') refreshToken: string) {
         return await this.authTokenService.getNewRefreshToken(userId, refreshToken);
     }
 
-    @UseGuards(RefreshAuthGuard)
+    @UseGuards(RefreshTokenGuard)
     @Post('access')
     async getAccessToken(@GetCurrentUser('refreshToken') refreshToken: string, @GetCurrentUserId() userId: number) {
         return await this.authTokenService.getNewAccessToken(userId, refreshToken);
@@ -42,7 +42,7 @@ export class AuthController {
 
 
     @Roles(RoleEnum.COACH)
-    @UseGuards(JwtAccessGuard, RolesGuard)
+    @UseGuards(AccessTokenGuard, RolesGuard)
     @Get('admin')
     admin() {
         return 'Szia admin báttya'

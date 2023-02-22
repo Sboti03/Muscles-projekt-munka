@@ -5,7 +5,7 @@ import {RoleEnum} from "../../Role/utils/roles";
 import {ROLES_KEY} from "../../Role/decorators/ roles.decorator";
 
 @Injectable()
-export class JwtAccessGuard extends AuthGuard('jwt-access') {
+export class AccessTokenGuard extends AuthGuard('jwt-access') {
     constructor(private reflector: Reflector) {
         super();
     }

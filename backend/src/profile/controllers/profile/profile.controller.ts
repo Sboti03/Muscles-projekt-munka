@@ -5,9 +5,9 @@ import ProfileCreateDto from "../../dto/profile-create.dto";
 import ProfileUpdateDto from "../../dto/profile-update.dto";
 import {ProfileUpdateService} from "../../services/profile-update/profile-update.service";
 import {ProfileConvertService} from "../../services/profile-convert/profile-convert.service";
-import {JwtAccessGuard} from "../../../auth/guards/jwt-access.guard";
+import {AccessTokenGuard} from "../../../auth/guards/access-token.guard";
 
-@UseGuards(JwtAccessGuard)
+@UseGuards(AccessTokenGuard)
 @Controller('profile')
 export class ProfileController {
 

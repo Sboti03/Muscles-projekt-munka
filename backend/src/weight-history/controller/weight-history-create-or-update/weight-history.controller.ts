@@ -1,4 +1,4 @@
-import {Body, Controller, NotFoundException, Post} from '@nestjs/common';
+import {Body, Controller, NotFoundException, Post, UseGuards} from '@nestjs/common';
 import {PrismaService} from "../../../utils/prirsma.service";
 import {GetCurrentUserProfileId} from "../../../auth/decorators/decorators";
 import {DayHistoryCreateService} from "../../../day-history/services/day-history-create/day-history-create.service";
@@ -7,7 +7,10 @@ import {
 } from "../../services/weight-history-update-or-create/weight-history-update-or-create.service";
 import {DayHistoryGetService} from "../../../day-history/services/day-history-get/day-history-get.service";
 import {WeightHistoryDataDto} from "../../dto/WeightHistoryData.dto";
+import {AccessTokenGuard} from "../../../auth/guards/access-token.guard";
 
+
+@UseGuards(AccessTokenGuard)
 @Controller('weight-history')
 export class WeightHistoryController {
 
