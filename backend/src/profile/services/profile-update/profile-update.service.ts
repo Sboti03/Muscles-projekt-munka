@@ -5,12 +5,11 @@ import {Prisma} from "@prisma/client";
 
 @Injectable()
 export class ProfileUpdateService {
-    constructor(private readonly prismaService: PrismaService) {
-    }
+    constructor(private readonly prismaService: PrismaService) {}
 
 
     updateProfile(profileId: number, newProfileData: Prisma.profileDataUpdateInput) {
-        this.prismaService.profileData.update({
+        return this.prismaService.profileData.update({
             where: {profileId: profileId},
             data: newProfileData
         })

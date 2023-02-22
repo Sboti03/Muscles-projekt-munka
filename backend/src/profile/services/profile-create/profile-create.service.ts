@@ -2,6 +2,7 @@ import {Body, Injectable, UseGuards} from '@nestjs/common';
 import {JwtAccessGuard} from "../../../auth/guards/jwt-access.guard";
 import ProfileCreateDto from "../../dto/profile-create.dto";
 import {PrismaService} from "../../../utils/prirsma.service";
+import {Prisma} from "@prisma/client";
 
 @Injectable()
 export class ProfileCreateService {
@@ -10,19 +11,9 @@ export class ProfileCreateService {
 
 
 
-    createProfile(profileCreateDto: ProfileCreateDto, userId: number) {
+    createProfile(profileCreateInput: Prisma.profileDataCreateInput) {
         return this.prismaService.profileData.create({
-            data: {
-                birthDay: profileCreateDto.birthDay,
-                firstName: profileCreateDto.firstName,
-                height: profileCreateDto.height,
-                targetWeight: profileCreateDto.targetWeight,
-                users: {
-                    connect: {
-                        userId: userId
-                    }
-                },
-            },
+            data: profileCreateInput,
         })
     }
 }

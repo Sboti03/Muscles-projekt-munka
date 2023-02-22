@@ -7,6 +7,7 @@ import {ProfileDeleteService} from './services/profile-delete/profile-delete.ser
 import {PrismaService} from "../utils/prirsma.service";
 import {APP_GUARD} from "@nestjs/core";
 import {JwtAccessGuard} from "../auth/guards/jwt-access.guard";
+import {ProfileConvertService} from "./services/profile-convert/profile-convert.service";
 
 @Module({
     providers: [
@@ -18,7 +19,9 @@ import {JwtAccessGuard} from "../auth/guards/jwt-access.guard";
         ProfileCreateService,
         ProfileUpdateService,
         ProfileDeleteService,
-        PrismaService],
+        ProfileConvertService,
+        PrismaService
+    ],
     controllers: [ProfileController]
 })
 export class ProfileModule {

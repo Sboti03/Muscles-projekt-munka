@@ -3,19 +3,25 @@ import {GetCurrentUser, GetCurrentUserId, GetCurrentUserProfileId} from "../../.
 import {ProfileCreateService} from "../../services/profile-create/profile-create.service";
 import ProfileCreateDto from "../../dto/profile-create.dto";
 import ProfileUpdateDto from "../../dto/profile-update.dto";
+import {ProfileUpdateService} from "../../services/profile-update/profile-update.service";
+import {ProfileConvertService} from "../../services/profile-convert/profile-convert.service";
 
 @Controller('profile')
 export class ProfileController {
 
-    constructor(private readonly profileCreateService: ProfileCreateService) {}
+    constructor(private readonly profileCreateService: ProfileCreateService,
+                private profileUpdateService: ProfileUpdateService,
+                private profileConvertService: ProfileConvertService) {}
 
     @Post('create')
-    createProfile(@GetCurrentUserId() userId: number, @Body() profileCreateDto: ProfileCreateDto) {
-        return  this.profileCreateService.createProfile(profileCreateDto, userId)
+    async createProfile(@GetCurrentUserId() userId: number, @Body() profileCreateDto: ProfileCreateDto) {
+        const profileCreateInput = this.profileConvertService.convertProfileCreateDtoToInput(profileCreateDto, userId)
+        return await this.profileCreateService.createProfile(profileCreateInput)
     }
 
     @Post('update')
-    updateProfile(@GetCurrentUserProfileId() profileId: number, @Body() profileUpdateDto: ProfileUpdateDto) {
-
+    async updateProfile(@GetCurrentUserProfileId() profileId: number, @Body() profileUpdateDto: ProfileUpdateDto) {
+        const profileUpdateInput = this.profileConvertService.convertProfileUpdateDtoToInput(profileUpdateDto)
+        return await this.profileUpdateService.updateProfile(profileId, profileUpdateInput)
     }
 }
