@@ -12,7 +12,6 @@ import {PrismaService} from "../utils/prirsma.service";
     MealConvertService,
     MealUpdateService,
     MealDeleteService,
-    MealController
   ],
   providers: [MealCreateService,
     MealConvertService,
