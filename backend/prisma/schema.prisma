@@ -9,7 +9,7 @@ datasource db {
 
 model weightHistory {
   weightId Int        @id(map: "weightIdPK") @default(autoincrement())
-  dayId    Int
+  dayId    Int        @unique
   weight   Float
   day      dayHistory @relation(fields: [dayId], references: [dayId], map: "dayIdFK")
 }
@@ -108,7 +108,7 @@ model dayHistory {
   changedAt     DateTime        @default(now()) @db.Timestamp(6)
   profileData   profileData     @relation(fields: [profileId], references: [profileId], onDelete: NoAction, onUpdate: NoAction, map: "profileIdFK")
   mealHistory   mealHistory[]
-  weightHistory weightHistory[]
+  weightHistory weightHistory?
 
   @@unique([dayId, profileId], map: "dayIdProfileIdUQ")
 }
