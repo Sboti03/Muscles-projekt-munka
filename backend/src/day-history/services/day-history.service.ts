@@ -16,15 +16,18 @@ export class DayHistoryService {
                 },
                 date: date,
             },
+            select: {
+                dayId: true,
+            }
         });
     }
 
-    getDayHistoryByDate(searchedDate) {
-        return this.prismaService.dayHistory.findMany({where: { date: searchedDate }});
+    getDayIdByDate(searchedDate: Date, profileId: number) {
+        return this.prismaService.dayHistory.findFirstOrThrow({
+            select: {dayId: true},
+            where: {date: searchedDate, profileId: profileId}
+        });
     }
 
-    getDayHistory() {
-        return this.prismaService.dayHistory.findMany();
-    }
 
 }
