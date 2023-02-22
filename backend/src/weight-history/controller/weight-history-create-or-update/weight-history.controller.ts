@@ -6,13 +6,13 @@ import {
     WeightHistoryUpdateOrCreateService
 } from "../../services/weight-history-update-or-create/weight-history-update-or-create.service";
 import {DayHistoryGetService} from "../../../day-history/services/day-history-get/day-history-get.service";
-import {WeightHistoryDataDto} from "../../weight-history-data-object/WeightHistoryData.dto";
+import {WeightHistoryDataDto} from "../../dto/WeightHistoryData.dto";
 
 @Controller('weight-history')
 export class WeightHistoryController {
 
     constructor(private prismaService: PrismaService,
-                private dayHistory: DayHistoryCreateService,
+                private dayHistoryCreateService: DayHistoryCreateService,
                 private weightHistoryUpdateOrCreateService: WeightHistoryUpdateOrCreateService,
                 private dayHistoryGetService: DayHistoryGetService) {
     }
@@ -23,7 +23,7 @@ export class WeightHistoryController {
         let dayId: number;
         if (currentProfileId !== -1) {
             try {
-                dayId = (await this.dayHistory.createDayHistory(currentProfileId, weightHistoryData.date)).dayId;
+                dayId = (await this.dayHistoryCreateService.createDayHistory(currentProfileId, weightHistoryData.date)).dayId;
             } catch (e) {
                 dayId = (await this.dayHistoryGetService.getDayIdByDate(weightHistoryData.date, currentProfileId)).dayId;
             }
