@@ -11,7 +11,8 @@ import {DayHistoryGetService} from "./services/day-history-get/day-history-get.s
     ],
     exports: [
         DayHistoryCreateService,
-        DayHistoryGetService
+        DayHistoryGetService,
+        PrismaService
     ]
 })
 export class DayHistoryModule {
