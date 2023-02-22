@@ -1,17 +1,17 @@
 import {Module} from '@nestjs/common';
-import {DayHistoryService} from './services/day-history.service';
+import {DayHistoryCreateService} from './services/day-history-create/day-history-create.service';
 import {PrismaService} from "../utils/prirsma.service";
-import {APP_GUARD} from "@nestjs/core";
-import {JwtAccessGuard} from "../auth/guards/jwt-access.guard";
+import {DayHistoryGetService} from "./services/day-history-get/day-history-get.service";
 
 @Module({
     providers: [
-        {
-            provide: APP_GUARD,
-            useClass: JwtAccessGuard
-        },
-        DayHistoryService,
+        DayHistoryCreateService,
+        DayHistoryGetService,
         PrismaService
+    ],
+    exports: [
+        DayHistoryCreateService,
+        DayHistoryGetService
     ]
 })
 export class DayHistoryModule {
