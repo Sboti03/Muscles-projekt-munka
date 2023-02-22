@@ -1,4 +1,4 @@
-import {PrismaService} from "../../utils/prirsma.service";
+import {PrismaService} from "../../../utils/prirsma.service";
 import {Injectable} from "@nestjs/common";
 
 @Injectable()
@@ -14,13 +14,13 @@ export class MealService {
       });
    }
 
-   updateCompletedByMealId(mealId: number, isComleted: boolean){
+   updateCompletedByMealId(mealId: number, isCompleted: boolean){
       return this.prismaService.meals.update({
          where: {
             mealId,
          },
          data: {
-            completed: isComleted,
+            completed: isCompleted,
          }
       })
    }
