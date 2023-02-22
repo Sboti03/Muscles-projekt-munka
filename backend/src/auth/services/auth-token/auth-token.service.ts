@@ -5,6 +5,7 @@ import {Tokens} from "../../types/token";
 import {JwtPayload} from "../../types/jwt-payload";
 import {UserGetService} from "../../../user/services/user-get/user-get.service";
 import {JwtService} from "@nestjs/jwt";
+import {ProfileGetService} from "../../../profile/services/profile-get/profile-get.service";
 
 @Injectable()
 export class AuthTokenService {
@@ -12,7 +13,8 @@ export class AuthTokenService {
     constructor(private userCheckService: UserCheckService,
                 private userDeleteService: UserDeleteService,
                 private userGetService: UserGetService,
-                private jwtService: JwtService) {
+                private jwtService: JwtService,
+                private profileGetService: ProfileGetService) {
     }
 
     async getNewRefreshToken(userId: number, refreshToken: string) {
@@ -39,10 +41,17 @@ export class AuthTokenService {
 
     async getTokens(userId: number): Promise<Tokens> {
         const user = await this.userGetService.getUserById(userId)
+        let profileId = -1
+        try {
+            profileId = (await this.profileGetService.getProfileIdByUserId(userId)).profileId
+        } catch (e) {
+
+        }
         const jwtPayload: JwtPayload = {
             sub: userId,
             email: user.email,
-            role: user.roles
+            role: user.roles,
+            profileId: profileId
         };
 
         const [accessToken, refreshToken] = await Promise.all([
