@@ -2,7 +2,7 @@ import {PrismaService} from "../../../utils/prirsma.service";
 import {Injectable} from "@nestjs/common";
 
 @Injectable()
-export class MealService {
+export class MealUpdateService {
    constructor(private prismaService: PrismaService){}
 
    updateAmountByMealId(mealId: number, amount: number){
