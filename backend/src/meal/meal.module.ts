@@ -7,7 +7,13 @@ import {MealDeleteService} from "./services/meal-delete/meal-delete.service";
 import {PrismaService} from "../utils/prirsma.service";
 
 @Module({
-  exports: [MealModule],
+  exports: [PrismaService,
+    MealCreateService,
+    MealConvertService,
+    MealUpdateService,
+    MealDeleteService,
+    MealController
+  ],
   providers: [MealCreateService,
     MealConvertService,
     MealUpdateService,
