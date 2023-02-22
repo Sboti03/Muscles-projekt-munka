@@ -11,10 +11,6 @@ import {ProfileConvertService} from "./services/profile-convert/profile-convert.
 
 @Module({
     providers: [
-        {
-            provide: APP_GUARD,
-            useClass: JwtAccessGuard
-        },
         ProfileGetService,
         ProfileCreateService,
         ProfileUpdateService,
