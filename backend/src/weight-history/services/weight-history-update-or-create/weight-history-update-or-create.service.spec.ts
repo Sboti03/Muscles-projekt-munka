@@ -1,15 +1,15 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { WeightHistoryUpdateService } from './weight-history-update.service';
+import { WeightHistoryUpdateOrCreateService } from './weight-history-update-or-create.service';
 
 describe('WeightHistoryUpdateService', () => {
-  let service: WeightHistoryUpdateService;
+  let service: WeightHistoryUpdateOrCreateService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [WeightHistoryUpdateService],
+      providers: [WeightHistoryUpdateOrCreateService],
     }).compile();
 
-    service = module.get<WeightHistoryUpdateService>(WeightHistoryUpdateService);
+    service = module.get<WeightHistoryUpdateOrCreateService>(WeightHistoryUpdateOrCreateService);
   });
 
   it('should be defined', () => {
