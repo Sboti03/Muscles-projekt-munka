@@ -15,7 +15,7 @@ export class FoodCreateController {
     constructor(private foodCreateService:FoodCreateService,
                 private convertService:FoodConvertService) {}
 
-    @Post('create')
+    @Post('/')
      async createFood(foodCreateDto: FoodCreateDto) {
         const foodCreateInput = this.convertService.convertCreateDtoToInput(foodCreateDto)
         return this.foodCreateService.createFood(foodCreateInput)

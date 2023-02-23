@@ -1,4 +1,4 @@
-import {Body, Controller, Get, Post, UseGuards} from '@nestjs/common';
+import {Body, Controller, Get, Patch, Post, UseGuards} from '@nestjs/common';
 import {GetCurrentUser, GetCurrentUserId, GetCurrentUserProfileId} from "../../../auth/decorators/decorators";
 import {ProfileCreateService} from "../../services/profile-create/profile-create.service";
 import ProfileCreateDto from "../../dto/profile-create.dto";
@@ -18,12 +18,12 @@ export class ProfileController {
     @Post('create')
     async createProfile(@GetCurrentUserId() userId: number, @Body() profileCreateDto: ProfileCreateDto) {
         const profileCreateInput = this.profileConvertService.convertProfileCreateDtoToInput(profileCreateDto, userId)
-        return await this.profileCreateService.createProfile(profileCreateInput)
+        return this.profileCreateService.createProfile(profileCreateInput);
     }
 
-    @Post('update')
+    @Patch('update')
     async updateProfile(@GetCurrentUserProfileId() profileId: number, @Body() profileUpdateDto: ProfileUpdateDto) {
         const profileUpdateInput = this.profileConvertService.convertProfileUpdateDtoToInput(profileUpdateDto)
-        return await this.profileUpdateService.updateProfile(profileId, profileUpdateInput)
+        return this.profileUpdateService.updateProfile(profileId, profileUpdateInput);
     }
 }
