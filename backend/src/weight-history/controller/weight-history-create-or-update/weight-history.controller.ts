@@ -32,7 +32,7 @@ export class WeightHistoryController {
             }
             return this.weightHistoryUpdateOrCreateService.updateOrCreateWeightHistory(weightHistoryData.weight, dayId);
         } else {
-            throw new NotFoundException();
+            throw new NotFoundException('No profile id');
         }
     }
 }
