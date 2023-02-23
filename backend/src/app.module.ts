@@ -9,6 +9,7 @@ import {DayHistoryModule} from './day-history/day-history.module';
 import { FoodsModule } from './foods/foods.module';
 import { InitModule } from './init/init.module';
 import {WeightHistoryModule} from "./weight-history/weight-history.module";
+import { GoalsModule } from './goals/goals.module';
 
 @Module({
     imports: [
@@ -20,6 +21,7 @@ import {WeightHistoryModule} from "./weight-history/weight-history.module";
         FoodsModule,
         InitModule,
         WeightHistoryModule,
+        GoalsModule,
     ],
     controllers: [AppController],
     providers: [AppService],
