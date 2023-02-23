@@ -13,7 +13,7 @@ import {DayHistoryGetService} from "./services/day-history-get/day-history-get.s
         DayHistoryCreateService,
         DayHistoryGetService,
         PrismaService
-    ]
+    ],
 })
 export class DayHistoryModule {
 
