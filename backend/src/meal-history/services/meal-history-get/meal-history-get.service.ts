@@ -33,10 +33,24 @@ export class MealHistoryGetService {
                      select: {
                         unit: true
                      }
-                  }
+                  },
                }
             },
-         }
+         },
       })
+   }
+   getAllMealId(dayId: number, periodName: string){
+      return this.prismaService.mealHistory.findMany({
+         select: {
+            mealId: true
+         },
+         where: {
+           periodName,
+           dayId
+         }
+      });
+   }
+   getAllMeal(dayId: number, periodName: string){
+
    }
 }
