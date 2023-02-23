@@ -28,4 +28,16 @@ export class DayHistoryGetService {
         });
     }
 
+    getLatestDayId() {
+        return this.prismaService.dayHistory.findFirst({
+            orderBy: {
+                date: 'desc',
+            },
+            select: {
+                date: true,
+                dayId: true,
+            },
+        });
+    }
+
 }
