@@ -10,8 +10,10 @@ import {AccessTokenGuard} from "../auth/guards/access-token.guard";
 import {ProfileConvertService} from "./services/profile-convert/profile-convert.service";
 import {ProfileUpdateController} from "./controllers/profile-update/profile-update.controller";
 import {ProfileGetController} from "./controllers/profile-get/profile-get.controller";
+import {AuthModule} from "../auth/auth.module";
 
 @Module({
+    imports: [AuthModule],
     providers: [
         ProfileGetService,
         ProfileCreateService,
