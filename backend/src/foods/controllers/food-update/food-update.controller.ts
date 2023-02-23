@@ -1,4 +1,4 @@
-import {Controller, Param, Patch, Post, UseGuards} from '@nestjs/common';
+import {Body, Controller, Param, Patch, Post, UseGuards} from '@nestjs/common';
 import {FoodUpdateService} from "../../services/food-update/food-update.service";
 import {Roles} from "../../../Role/decorators/ roles.decorator";
 import {RoleEnum} from "../../../Role/utils/roles";
@@ -16,7 +16,7 @@ export class FoodUpdateController {
                 private foodConvertService: FoodConvertService) {}
 
     @Patch('/:id')
-    async updateFoodById(@Param('id') foodId: number, foodUpdateDto: FoodUpdateDto) {
+    async updateFoodById(@Param('id') foodId: number,@Body() foodUpdateDto: FoodUpdateDto) {
         const foodUpdateInput = this.foodConvertService.convertUpdateDtoToInput(foodUpdateDto)
         return this.foodUpdateService.updateFoodById(foodId, foodUpdateInput)
     }

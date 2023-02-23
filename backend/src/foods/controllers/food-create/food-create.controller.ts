@@ -1,4 +1,4 @@
-import {Controller, Post, UseGuards} from '@nestjs/common';
+import {Body, Controller, Post, UseGuards} from '@nestjs/common';
 import {FoodCreateService} from "../../services/food-create/food-create.service";
 import {AccessTokenGuard} from "../../../auth/guards/access-token.guard";
 import {RolesGuard} from "../../../auth/guards/role.guard";
@@ -16,7 +16,8 @@ export class FoodCreateController {
                 private convertService:FoodConvertService) {}
 
     @Post('/')
-     async createFood(foodCreateDto: FoodCreateDto) {
+     async createFood(@Body() foodCreateDto: FoodCreateDto) {
+        console.log(foodCreateDto)
         const foodCreateInput = this.convertService.convertCreateDtoToInput(foodCreateDto)
         return this.foodCreateService.createFood(foodCreateInput)
     }
