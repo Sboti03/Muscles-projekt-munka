@@ -10,6 +10,7 @@ import {RolesGuard} from "../../../auth/guards/role.guard";
 import {Roles} from "../../../Role/decorators/ roles.decorator";
 import {RoleEnum} from "../../../Role/utils/roles";
 import {ProfileGetService} from "../../services/profile-get/profile-get.service";
+import {AuthTokenService} from "../../../auth/services/auth-token/auth-token.service";
 
 @UseGuards(AccessTokenGuard)
 @Controller('profile')
@@ -23,12 +24,12 @@ export class ProfileGetController {
     async getAllProfile() {
         return this.profileGetService.getAllProfile();
     }
-
     @Get('/')
     async getProfileData(@GetCurrentUserProfileId() profileId: number) {
         if (profileId === -1) {
             throw new NotFoundException('No profile found')
         }
+
         return this.profileGetService.getProfileDataByProfileId(profileId)
     }
 
