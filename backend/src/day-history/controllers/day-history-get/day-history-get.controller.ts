@@ -3,12 +3,12 @@ import {DayHistoryGetService} from "../../services/day-history-get/day-history-g
 import {DateParam} from "../../../params/date.param";
 import {GetAndCheckProfileId} from "../../../auth/decorators/decorators";
 
-@Controller()
+@Controller('day-history')
 export class DayHistoryGetController {
     constructor(private dayHistoryGetService: DayHistoryGetService) {
     }
 
-    @Get('/day-history/weight/?:date')
+    @Get('/weight/?:date')
     async getWeightByDayIdOrLatestDayId(@Param('date') Currentdate: DateParam, @GetAndCheckProfileId() currentProfileId) {
         let dayId: number;
         try {
