@@ -17,6 +17,13 @@ import {GoalsCheckService} from "./services/goals-check/goals-check.service";
         GoalsConvertService,
         PrismaService,
         GoalsCheckService
+    ],
+    exports: [
+        GoalsGetService,
+        GoalsUpdateService,
+        GoalsConvertService,
+        PrismaService,
+        GoalsCheckService
     ]
 })
 export class GoalsModule {
