@@ -15,11 +15,7 @@ export class MealHistoryGetService {
             }
          },
          select: {
-            meals: {
-               select: {
-                  mealId: true
-               }
-            }
+            mealId: true
          }
       });
    }
