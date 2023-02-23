@@ -1,5 +1,6 @@
 import {Injectable} from '@nestjs/common';
 import {PrismaService} from "../../../utils/prirsma.service";
+import {formatDate} from "../../../utils/date-formatter";
 
 @Injectable()
 export class DayHistoryGetService {
@@ -28,8 +29,29 @@ export class DayHistoryGetService {
         });
     }
 
-    getLatestDayId() {
+    getAllWeight(profileId: number) {
+        return this.prismaService.dayHistory.findMany({
+            where: {
+                profileId
+            },
+            select: {
+                date: true,
+                weightHistory: {
+                    select: {
+                        weight: true
+                    }
+                }
+            }
+        })
+    }
+
+    getLatestDayId(from: Date) {
         return this.prismaService.dayHistory.findFirst({
+            where: {
+              date: {
+                 lte: from
+              }
+            },
             orderBy: {
                 date: 'desc',
             },
