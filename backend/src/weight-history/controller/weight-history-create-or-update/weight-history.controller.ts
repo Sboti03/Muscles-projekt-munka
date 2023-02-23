@@ -1,6 +1,6 @@
 import {Body, Controller, NotFoundException, Patch, Post, UseGuards} from '@nestjs/common';
 import {PrismaService} from "../../../utils/prirsma.service";
-import {GetCurrentUserProfileId} from "../../../auth/decorators/decorators";
+import {GetAndCheckProfileId, GetCurrentUserProfileId} from "../../../auth/decorators/decorators";
 import {DayHistoryCreateService} from "../../../day-history/services/day-history-create/day-history-create.service";
 import {
     WeightHistoryUpdateOrCreateService
@@ -22,17 +22,13 @@ export class WeightHistoryController {
 
 
     @Patch('/update')
-    async createOrUpdate(@Body() weightHistoryData: WeightHistoryDataDto, @GetCurrentUserProfileId() currentProfileId) {
+    async createOrUpdate(@Body() weightHistoryData: WeightHistoryDataDto, @GetAndCheckProfileId() currentProfileId) {
         let dayId: number;
-        if (currentProfileId !== -1) {
-            try {
-                dayId = (await this.dayHistoryGetService.getDayIdByDate(weightHistoryData.date, currentProfileId)).dayId;
-            } catch (e) {
-                dayId = (await this.dayHistoryCreateService.createDayHistory(currentProfileId, weightHistoryData.date)).dayId;
-            }
-            return this.weightHistoryUpdateOrCreateService.updateOrCreateWeightHistory(weightHistoryData.weight, dayId);
-        } else {
-            throw new NotFoundException('No profile id');
+        try {
+            dayId = (await this.dayHistoryGetService.getDayIdByDate(weightHistoryData.date, currentProfileId)).dayId;
+        } catch (e) {
+            dayId = (await this.dayHistoryCreateService.createDayHistory(currentProfileId, weightHistoryData.date)).dayId;
         }
+        return this.weightHistoryUpdateOrCreateService.updateOrCreateWeightHistory(weightHistoryData.weight, dayId);
     }
 }
