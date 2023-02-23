@@ -1,4 +1,4 @@
-import { SetMetadata } from "@nestjs/common";
+import {NotFoundException, SetMetadata} from "@nestjs/common";
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 import { JwtPayload } from "../types/jwt-payload";
 import { JwtPayloadWithRt } from "../types/jwt-payload-token";
@@ -21,6 +21,18 @@ export const GetCurrentUserProfileId = createParamDecorator(
         const request = context.switchToHttp().getRequest();
         const user = request.user;
         return user.profileId;
+    },
+);
+
+export const GetAndCheckProfileId = createParamDecorator(
+    (_: undefined, context: ExecutionContext): number => {
+        const request = context.switchToHttp().getRequest();
+        const user = request.user;
+        const profileId = user.profileId;
+        if (!profileId || profileId === -1) {
+            throw new NotFoundException('No profile found')
+        }
+        return profileId
     },
 );
 
