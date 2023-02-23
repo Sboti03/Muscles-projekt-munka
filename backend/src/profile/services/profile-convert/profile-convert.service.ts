@@ -21,6 +21,11 @@ export class ProfileConvertService {
             firstName: profileCreateDto.firstName,
             lastName: profileCreateDto.lastName,
             height: profileCreateDto.height,
+            goal: {
+                create: {
+
+                }
+            },
             user: {
                 connect: {
                     userId
