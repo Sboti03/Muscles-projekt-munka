@@ -26,7 +26,7 @@ import {ProfileGetService} from "../profile/services/profile-get/profile-get.ser
         ProfileGetService,
     ],
     controllers: [AuthController],
-    exports: [AuthService],
+    exports: [AuthService, AuthTokenService],
 })
 export class AuthModule {
 }
