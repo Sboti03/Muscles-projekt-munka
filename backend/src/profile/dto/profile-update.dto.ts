@@ -1,7 +1,7 @@
 import {IsDate, IsNotEmpty, IsNumber, IsString} from "class-validator";
 import {IsNullable} from "../../utils/IsNullable.validation";
 
-export default class ProfileUpdateDto {
+export default class ProfileUpdateDto{
     @IsNullable()
     @IsString()
     firstName?: string
@@ -18,7 +18,4 @@ export default class ProfileUpdateDto {
     @IsNumber()
     height?: number
 
-    @IsNullable()
-    @IsNumber()
-    targetWeight?: number
 }

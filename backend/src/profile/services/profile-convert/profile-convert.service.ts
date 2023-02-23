@@ -6,17 +6,12 @@ import ProfileCreateDto from "../../dto/profile-create.dto";
 
 @Injectable()
 export class ProfileConvertService {
-
-    constructor(private prismaService: PrismaService) {
-    }
-
-
     convertProfileUpdateDtoToInput(profileUpdateDto: ProfileUpdateDto): Prisma.profileDataUpdateInput {
         return {
             birthDay: profileUpdateDto.birthDay,
             firstName: profileUpdateDto.firstName,
             height: profileUpdateDto.height,
-            targetWeight: profileUpdateDto.targetWeight,
+            lastName: profileUpdateDto.lastName,
         }
     }
 
@@ -24,13 +19,13 @@ export class ProfileConvertService {
         return {
             birthDay: profileCreateDto.birthDay,
             firstName: profileCreateDto.firstName,
+            lastName: profileCreateDto.lastName,
             height: profileCreateDto.height,
-            targetWeight: profileCreateDto.targetWeight,
-            users: {
+            user: {
                 connect: {
                     userId
                 }
-            }
+            },
         }
     }
 
