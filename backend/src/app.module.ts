@@ -8,6 +8,7 @@ import {ProfileModule} from "./profile/profile.module";
 import {DayHistoryModule} from './day-history/day-history.module';
 import { FoodsModule } from './foods/foods.module';
 import { InitModule } from './init/init.module';
+import {WeightHistoryModule} from "./weight-history/weight-history.module";
 
 @Module({
     imports: [
@@ -17,7 +18,8 @@ import { InitModule } from './init/init.module';
         ConfigModule.forRoot({isGlobal: true}),
         DayHistoryModule,
         FoodsModule,
-        InitModule
+        InitModule,
+        WeightHistoryModule,
     ],
     controllers: [AppController],
     providers: [AppService],
