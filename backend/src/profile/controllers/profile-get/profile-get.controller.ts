@@ -19,12 +19,12 @@ export class ProfileGetController {
 
     @Roles(RoleEnum.ADMIN)
     @UseGuards(RolesGuard)
-    @Get()
+    @Get('all')
     async getAllProfile() {
         return this.profileGetService.getAllProfile();
     }
 
-    @Get('me')
+    @Get('/')
     async getProfileData(@GetCurrentUserProfileId() profileId: number) {
         if (profileId === -1) {
             throw new NotFoundException('No profile found')
