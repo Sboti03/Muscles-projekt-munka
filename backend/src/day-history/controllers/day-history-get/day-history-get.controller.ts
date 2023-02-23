@@ -9,14 +9,13 @@ export class DayHistoryGetController {
     }
 
     @Get('/weight/?:date')
-    async getWeightByDayIdOrLatestDayId(@Param('date') Currentdate: DateParam, @GetAndCheckProfileId() currentProfileId) {
+    async getWeightByDayIdOrLatestDayId(@Param('date') currentDate: DateParam, @GetAndCheckProfileId() currentProfileId) {
         let dayId: number;
         try {
-            dayId = ((await this.dayHistoryGetService.getDayIdByDate(Currentdate.date, currentProfileId)).dayId);
+            dayId = ((await this.dayHistoryGetService.getDayIdByDate(currentDate.date, currentProfileId)).dayId);
         } catch (e) {
             dayId = (await this.dayHistoryGetService.getLatestDayId()).dayId;
         }
         return this.dayHistoryGetService.getWeightByDayId(dayId);
-
     }
 }
