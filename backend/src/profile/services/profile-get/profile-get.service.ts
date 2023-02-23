@@ -28,4 +28,8 @@ export class ProfileGetService {
         })
     }
 
+    getAllProfile() {
+        return this.prismaService.profileData.findMany({})
+    }
+
 }

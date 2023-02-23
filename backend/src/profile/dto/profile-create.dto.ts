@@ -12,18 +12,13 @@ export default class ProfileCreateDto {
     @IsString()
     lastName?: string
 
-    @Type(()=> Date)
+    @Type(() => Date)
     @IsDate()
     birthDay: Date
 
     @IsNullable()
-    @Type(()=> Number)
+    @Type(() => Number)
     @IsNumber()
     height?: number
-
-    @IsNullable()
-    @Type(()=> Number)
-    @IsNumber()
-    targetWeight?: number
 
 }
