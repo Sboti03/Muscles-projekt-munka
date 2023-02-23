@@ -1,7 +1,7 @@
 export const Roles = {
-  USER: { roleId: 0, roleName: 'user' },
-  COACH: { roleId: 1, roleName: 'coach' },
-  ADMIN: { roleId: 2, roleName: 'admin' },
+  USER: { roleId: 1, roleName: 'user' },
+  COACH: { roleId: 2, roleName: 'coach' },
+  ADMIN: { roleId: 3, roleName: 'admin' },
 };
 
 export type RoleType = {

@@ -2,6 +2,8 @@ import {HttpCode, Injectable} from '@nestjs/common';
 import {PrismaService} from "../utils/prirsma.service";
 import {Roles} from "../Role/utils/roles";
 import {Units} from "../units/units/units";
+import {encryptData} from "../utils/bcrypt";
+import {AuthService} from "../auth/services/auth.service";
 
 @Injectable()
 export class InitService {
@@ -32,6 +34,21 @@ export class InitService {
             return e
         }
 
+    }
+
+    async createAdmin(userId: number) {
+        return this.prismaService.users.update({
+            where: {
+                userId
+            },
+            data: {
+                roles: {
+                    connect: {
+                        roleId: Roles.ADMIN.roleId
+                    }
+                }
+            }
+        })
     }
 
 }

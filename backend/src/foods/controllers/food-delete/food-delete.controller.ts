@@ -14,7 +14,7 @@ export class FoodDeleteController {
                 private checkService:FoodCheckService) {
     }
 
-    @Delete('/delete/:id')
+    @Delete('/:id')
     async deleteFood(@Param('id') id: number) {
         if (await this.checkService.checkValidFood(id)) {
             return this.foodDeleteService.deleteFoodById(id)
