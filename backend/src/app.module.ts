@@ -7,10 +7,18 @@ import {ConfigModule} from '@nestjs/config'
 import {ProfileModule} from "./profile/profile.module";
 import {DayHistoryModule} from './day-history/day-history.module';
 import { FoodsModule } from './foods/foods.module';
-import { UnitsModule } from './units/units.module';
+import { InitModule } from './init/init.module';
 
 @Module({
-    imports: [UserModule, AuthModule, ProfileModule, ConfigModule.forRoot({isGlobal: true}), DayHistoryModule, FoodsModule, UnitsModule],
+    imports: [
+        UserModule,
+        AuthModule,
+        ProfileModule,
+        ConfigModule.forRoot({isGlobal: true}),
+        DayHistoryModule,
+        FoodsModule,
+        InitModule
+    ],
     controllers: [AppController],
     providers: [AppService],
 })
