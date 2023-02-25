@@ -54,7 +54,7 @@ model connectionRequest {
   coachId             Int
   user                users    @relation("conn_req_userToUser", fields: [userId], references: [userId])
   coach               users    @relation("conn_req_coachToUser", fields: [coachId], references: [userId])
-  requestDate         DateTime
+  requestDate         DateTime @default(now())
   requestBy           Int
 }
 
