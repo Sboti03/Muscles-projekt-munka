@@ -1,7 +1,7 @@
 import {Controller, Get, HttpCode, HttpStatus, Res} from '@nestjs/common';
 import {InitService} from "./init.service";
 import {Response} from "express";
-import {AuthService} from "../auth/services/auth.service";
+import {AuthService} from "../../auth/services/auth.service";
 
 @Controller('init')
 export class InitController {

@@ -1,5 +1,5 @@
 import {Module} from '@nestjs/common';
-import {PrismaService} from "../utils/prirsma.service";
+import {PrismaService} from "../Common/utils/prirsma.service";
 import {
     WeightHistoryUpdateOrCreateService
 } from "./services/weight-history-update-or-create/weight-history-update-or-create.service";

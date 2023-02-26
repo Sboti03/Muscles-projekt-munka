@@ -1,7 +1,7 @@
 import {Body, Injectable, UseGuards} from '@nestjs/common';
 import {AccessTokenGuard} from "../../../auth/guards/access-token.guard";
 import ProfileCreateDto from "../../dto/profile-create.dto";
-import {PrismaService} from "../../../utils/prirsma.service";
+import {PrismaService} from "../../../Common/utils/prirsma.service";
 import {Prisma} from "@prisma/client";
 
 @Injectable()

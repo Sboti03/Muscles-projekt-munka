@@ -1,7 +1,5 @@
 import {Injectable} from '@nestjs/common';
-import {PrismaService} from "../../../utils/prirsma.service";
-import {formatDate} from "../../../utils/date-formatter";
-
+import {PrismaService} from "../../../Common/utils/prirsma.service";
 @Injectable()
 export class DayHistoryGetService {
     constructor(private prismaService: PrismaService) {

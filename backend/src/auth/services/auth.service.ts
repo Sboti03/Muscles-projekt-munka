@@ -3,7 +3,7 @@ import { ForbiddenException, Injectable } from '@nestjs/common';
 import { JwtPayload } from '../types/jwt-payload';
 import { Tokens } from '../types/token';
 import { UserGetService } from '../../user/services/user-get/user-get.service';
-import { compareData } from '../../utils/bcrypt';
+import { compareData } from '../../Common/utils/bcrypt';
 import LoginDto from '../dto/login.dto';
 import { UserUpdateService } from '../../user/services/user-update/user-update.service';
 import { CreateUserDTO } from '../../user/dto/createUserDTO';

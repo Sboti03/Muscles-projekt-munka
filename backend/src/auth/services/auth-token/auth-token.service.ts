@@ -6,6 +6,7 @@ import {JwtPayload} from "../../types/jwt-payload";
 import {UserGetService} from "../../../user/services/user-get/user-get.service";
 import {JwtService} from "@nestjs/jwt";
 import {ProfileGetService} from "../../../profile/services/profile-get/profile-get.service";
+import {RoleEnum} from "../../../Common/Role/utils/roles";
 
 @Injectable()
 export class AuthTokenService {
@@ -50,7 +51,7 @@ export class AuthTokenService {
         const jwtPayload: JwtPayload = {
             sub: userId,
             email: user.email,
-            role: user.roles,
+            role: RoleEnum[user.roles.roleName.toUpperCase()],
             profileId: profileId
         };
 

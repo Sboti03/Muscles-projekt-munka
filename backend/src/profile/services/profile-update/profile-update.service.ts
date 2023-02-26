@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import {PrismaService} from "../../../utils/prirsma.service";
+import {PrismaService} from "../../../Common/utils/prirsma.service";
 import ProfileUpdateDto from "../../dto/profile-update.dto";
 import {Prisma} from "@prisma/client";
 

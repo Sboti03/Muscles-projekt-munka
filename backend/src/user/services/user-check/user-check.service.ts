@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../../../utils/prirsma.service';
-import { compareData } from '../../../utils/bcrypt';
+import { PrismaService } from '../../../Common/utils/prirsma.service';
+import { compareData } from '../../../Common/utils/bcrypt';
 import { UserGetService } from '../user-get/user-get.service';
 
 @Injectable()

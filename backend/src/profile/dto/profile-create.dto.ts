@@ -1,5 +1,5 @@
 import {IsDate, IsNotEmpty, IsNumber, IsString, ValidateIf} from "class-validator";
-import {IsNullable} from "../../utils/IsNullable.validation";
+import {IsNullable} from "../../Common/utils/IsNullable.validation";
 import {Type} from "class-transformer";
 
 export default class ProfileCreateDto {

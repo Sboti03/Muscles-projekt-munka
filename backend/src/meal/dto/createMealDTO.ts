@@ -1,5 +1,5 @@
 import {IsNotEmpty, IsNumber} from "class-validator";
-import {RoleEnum} from "../../Role/utils/roles";
+import {RoleEnum} from "../../Common/Role/utils/roles";
 
 
 export class CreateMealDTO {

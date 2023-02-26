@@ -4,7 +4,7 @@ import {GoalsGetService} from './services/goals-get/goals-get.service';
 import {GoalsConvertService} from './services/goals-convert/goals-convert.service';
 import {GoalsUpdateController} from './controllers/goals-update/goals-update.controller';
 import {GoalsGetController} from './controllers/goals-get/goals-get.controller';
-import {PrismaService} from "../utils/prirsma.service";
+import {PrismaService} from "../Common/utils/prirsma.service";
 import {GoalsCheckService} from "./services/goals-check/goals-check.service";
 @Module({
     controllers: [

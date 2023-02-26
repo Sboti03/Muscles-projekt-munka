@@ -48,16 +48,30 @@ model connections {
   schedules    schedules[]
 }
 
+model connectionRequest {
+  connectionRequestId Int      @id() @default(autoincrement())
+  userId              Int
+  coachId             Int
+  user                users    @relation("conn_req_userToUser", fields: [userId], references: [userId])
+  coach               users    @relation("conn_req_coachToUser", fields: [coachId], references: [userId])
+  requestDate         DateTime @default(now())
+  requestBy           Int
+
+  @@unique([userId, coachId])
+}
+
 model users {
-  userId           Int           @id(map: "userIdPK") @default(autoincrement())
-  email            String        @unique(map: "emailUQ") @db.VarChar(255)
-  password         String        @db.VarChar(255)
-  roleId           Int
-  refreshTokens    String[]
-  coachConnections connections[] @relation("connections_coachIdTousers")
-  userConnections  connections[] @relation("connections_userIdTousers")
-  profile_data     profileData?
-  roles            roles         @relation(fields: [roleId], references: [roleId], onDelete: NoAction, onUpdate: NoAction, map: "roleIdFK")
+  userId                 Int                 @id(map: "userIdPK") @default(autoincrement())
+  email                  String              @unique(map: "emailUQ") @db.VarChar(255)
+  password               String              @db.VarChar(255)
+  roleId                 Int
+  refreshTokens          String[]
+  coachConnections       connections[]       @relation("connections_coachIdTousers")
+  userConnections        connections[]       @relation("connections_userIdTousers")
+  profile_data           profileData?
+  roles                  roles               @relation(fields: [roleId], references: [roleId], onDelete: NoAction, onUpdate: NoAction, map: "roleIdFK")
+  userConnectionRequest  connectionRequest[] @relation("conn_req_userToUser")
+  coachConnectionRequest connectionRequest[] @relation("conn_req_coachToUser")
 }
 
 model schedules {
