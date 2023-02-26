@@ -1,6 +1,6 @@
 import {ConflictException, Controller, Get, Param, UseGuards} from '@nestjs/common';
 import {DayHistoryGetService} from "../../services/day-history-get/day-history-get.service";
-import {DateParam} from "../../../params/date.param";
+import {DateParam} from "../../../Common/params/date.param";
 import {GetAndCheckProfileId} from "../../../auth/decorators/decorators";
 import {AccessTokenGuard} from "../../../auth/guards/access-token.guard";
 
