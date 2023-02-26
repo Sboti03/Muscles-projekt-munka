@@ -1,7 +1,7 @@
 import {Controller, Delete, ImATeapotException, Param, UseGuards} from '@nestjs/common';
 import {AccessTokenGuard} from "../../../auth/guards/access-token.guard";
-import {Roles} from "../../../Role/decorators/ roles.decorator";
-import {RoleEnum} from "../../../Role/utils/roles";
+import {Roles} from "../../../Common/Role/decorators/ roles.decorator";
+import {RoleEnum} from "../../../Common/Role/utils/roles";
 import {RolesGuard} from "../../../auth/guards/role.guard";
 import {FoodDeleteService} from "../../services/food-delete/food-delete.service";
 import {FoodCheckService} from "../../services/food-check/food-check.service";

@@ -1,5 +1,5 @@
 import {IsDate, IsNotEmpty, IsNumber, IsString} from "class-validator";
-import {IsNullable} from "../../utils/IsNullable.validation";
+import {IsNullable} from "../../Common/utils/IsNullable.validation";
 
 export default class ProfileUpdateDto{
     @IsNullable()

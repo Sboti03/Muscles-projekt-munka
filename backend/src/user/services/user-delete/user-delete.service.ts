@@ -1,7 +1,7 @@
 import { ConflictException, Injectable } from '@nestjs/common';
-import { compareData } from '../../../utils/bcrypt';
+import { compareData } from '../../../Common/utils/bcrypt';
 import { UserCheckService } from '../user-check/user-check.service';
-import { PrismaService } from '../../../utils/prirsma.service';
+import { PrismaService } from '../../../Common/utils/prirsma.service';
 import { UserGetService } from '../user-get/user-get.service';
 
 @Injectable()

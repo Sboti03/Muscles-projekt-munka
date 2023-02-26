@@ -1,5 +1,5 @@
 import {IsNumber} from "class-validator";
-import {RoleEnum} from "../../Role/utils/roles";
+import {RoleEnum} from "../../Common/Role/utils/roles";
 import {IsNullable} from "../../decorators/class-validator.decorator";
 
 export class UpdateMealDTO {

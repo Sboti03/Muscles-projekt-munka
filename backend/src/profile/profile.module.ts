@@ -4,7 +4,7 @@ import {ProfileCreateController} from './controllers/profile-create/profile-crea
 import {ProfileCreateService} from './services/profile-create/profile-create.service';
 import {ProfileUpdateService} from './services/profile-update/profile-update.service';
 import {ProfileDeleteService} from './services/profile-delete/profile-delete.service';
-import {PrismaService} from "../utils/prirsma.service";
+import {PrismaService} from "../Common/utils/prirsma.service";
 import {APP_GUARD} from "@nestjs/core";
 import {AccessTokenGuard} from "../auth/guards/access-token.guard";
 import {ProfileConvertService} from "./services/profile-convert/profile-convert.service";

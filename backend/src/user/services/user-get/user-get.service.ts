@@ -1,9 +1,9 @@
 import {Injectable} from '@nestjs/common';
-import {PrismaService} from '../../../utils/prirsma.service';
-import {Roles} from '../../../Role/utils/roles';
+import {PrismaService} from '../../../Common/utils/prirsma.service';
+import {Roles} from '../../../Common/Role/utils/roles';
 import {CreateUserDTO} from '../../dto/createUserDTO';
 import {Prisma} from '@prisma/client';
-import {encryptData} from '../../../utils/bcrypt';
+import {encryptData} from '../../../Common/utils/bcrypt';
 
 @Injectable()
 export class UserGetService {

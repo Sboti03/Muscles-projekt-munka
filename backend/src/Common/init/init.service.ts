@@ -3,7 +3,7 @@ import {PrismaService} from "../utils/prirsma.service";
 import {Roles} from "../Role/utils/roles";
 import {Units} from "../units/units/units";
 import {encryptData} from "../utils/bcrypt";
-import {AuthService} from "../auth/services/auth.service";
+import {AuthService} from "../../auth/services/auth.service";
 
 @Injectable()
 export class InitService {

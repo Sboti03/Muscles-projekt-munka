@@ -1,5 +1,5 @@
 import {Body, Controller, NotFoundException, Patch, Post, UseGuards} from '@nestjs/common';
-import {PrismaService} from "../../../utils/prirsma.service";
+import {PrismaService} from "../../../Common/utils/prirsma.service";
 import {GetAndCheckProfileId, GetCurrentUserProfileId} from "../../../auth/decorators/decorators";
 import {DayHistoryCreateService} from "../../../day-history/services/day-history-create/day-history-create.service";
 import {

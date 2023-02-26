@@ -1,6 +1,6 @@
 import {IsNotEmpty, IsNumber, IsString} from "class-validator";
 import {Exclude, Transform, Type} from "class-transformer";
-import {UnitsEnum} from "../../units/units/units";
+import {UnitsEnum} from "../../Common/units/units/units";
 import {IsNullable} from "../../decorators/class-validator.decorator";
 
 export class FoodUpdateDto {

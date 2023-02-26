@@ -1,7 +1,7 @@
 import {Body, Controller, Param, Patch, Post, UseGuards} from '@nestjs/common';
 import {FoodUpdateService} from "../../services/food-update/food-update.service";
-import {Roles} from "../../../Role/decorators/ roles.decorator";
-import {RoleEnum} from "../../../Role/utils/roles";
+import {Roles} from "../../../Common/Role/decorators/ roles.decorator";
+import {RoleEnum} from "../../../Common/Role/utils/roles";
 import {AccessTokenGuard} from "../../../auth/guards/access-token.guard";
 import {RolesGuard} from "../../../auth/guards/role.guard";
 import {FoodUpdateDto} from "../../dto/food-update.dto";

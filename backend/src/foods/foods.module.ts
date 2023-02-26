@@ -8,7 +8,7 @@ import {FoodCreateService} from './services/food-create/food-create.service';
 import {FoodCheckService} from './services/food-check/food-check.service';
 import {FoodUpdateService} from './services/food-update/food-update.service';
 import {FoodGetService} from './services/food-get/food-get.service';
-import {PrismaService} from "../utils/prirsma.service";
+import {PrismaService} from "../Common/utils/prirsma.service";
 import {AccessTokenGuard} from "../auth/guards/access-token.guard";
 import {RolesGuard} from "../auth/guards/role.guard";
 import { FoodConvertService } from './services/food-convert/food-convert.service';

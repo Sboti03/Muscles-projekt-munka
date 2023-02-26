@@ -56,6 +56,8 @@ model connectionRequest {
   coach               users    @relation("conn_req_coachToUser", fields: [coachId], references: [userId])
   requestDate         DateTime @default(now())
   requestBy           Int
+
+  @@unique([userId, coachId])
 }
 
 model users {

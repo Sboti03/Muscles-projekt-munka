@@ -7,8 +7,8 @@ import {ProfileUpdateService} from "../../services/profile-update/profile-update
 import {ProfileConvertService} from "../../services/profile-convert/profile-convert.service";
 import {AccessTokenGuard} from "../../../auth/guards/access-token.guard";
 import {RolesGuard} from "../../../auth/guards/role.guard";
-import {Roles} from "../../../Role/decorators/ roles.decorator";
-import {RoleEnum} from "../../../Role/utils/roles";
+import {Roles} from "../../../Common/Role/decorators/ roles.decorator";
+import {RoleEnum} from "../../../Common/Role/utils/roles";
 import {ProfileGetService} from "../../services/profile-get/profile-get.service";
 
 @UseGuards(AccessTokenGuard)

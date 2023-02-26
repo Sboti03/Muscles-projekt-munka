@@ -1,4 +1,4 @@
-import {RoleType} from "../../Role/utils/roles";
+import {RoleType} from "../../Common/Role/utils/roles";
 
 export type JwtPayload = {
     email: string;

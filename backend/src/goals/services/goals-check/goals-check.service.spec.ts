@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import {GoalsCheckService} from "./goals-check.service";
-import {PrismaService} from "../../../utils/prirsma.service";
+import {PrismaService} from "../../../Common/utils/prirsma.service";
 import {GoalsGetService} from "../goals-get/goals-get.service";
 
 describe('GoalsCheckService', () => {

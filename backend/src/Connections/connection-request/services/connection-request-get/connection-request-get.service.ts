@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import {PrismaService} from "../../../utils/prirsma.service";
-import {RoleEnum} from "../../../Role/utils/roles";
+import {PrismaService} from "../../../../Common/utils/prirsma.service";
+import {RoleEnum} from "../../../../Common/Role/utils/roles";
 import {Prisma} from "@prisma/client";
 
 @Injectable()
