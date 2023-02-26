@@ -8,10 +8,14 @@ import {ConnectionRequestDeleteService} from './services/connection-request-dele
 import {PrismaService} from "../../Common/utils/prirsma.service";
 import {ConnectionRequestCreateService} from './services/connection-request-create/connection-request-create.service';
 import {ConnectionModule} from "../connection/connection.module";
+import {
+    ConnectionRequestDeleteController
+} from "./controllers/connection-request-delete/connection-request-delete.controller";
+import {ConnectionRequestGetController} from "./controllers/connection-request-get/connection-request-get.controller";
 
 @Module({
     imports: [ConnectionModule],
-    controllers: [ConnectionRequestCreateController],
+    controllers: [ConnectionRequestDeleteController, ConnectionRequestGetController, ConnectionRequestCreateController],
     providers: [
         PrismaService,
         ConnectionRequestGetService,

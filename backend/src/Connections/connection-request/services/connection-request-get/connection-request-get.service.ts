@@ -31,7 +31,7 @@ export class ConnectionRequestGetService {
     getUserAndCoachId(id: number, requesterId: number, requesterRole: RoleEnum): {userId: number, coachId: number} {
         const isRequesterUser = requesterRole === RoleEnum.USER
         const userId = isRequesterUser ? requesterId : id
-        const coachId = isRequesterUser ? requesterId : id
+        const coachId = isRequesterUser ?  id : requesterId
         return {userId, coachId}
     }
 
@@ -39,8 +39,8 @@ export class ConnectionRequestGetService {
     getConnectionRequestCreateInput(userId: number, requesterId: number, coachId: number): Prisma.connectionRequestCreateInput {
         return {
             coach: {connect: {userId: coachId}},
+            user: {connect: {userId}},
             requestBy: requesterId,
-            user: {connect: {userId}}
         }
     }
 }

@@ -14,9 +14,9 @@ export class ConnectionRequestCheckService {
     async checkExistingConnectionRequest(userId: number, coachId: number) {
         try {
             await this.getService.getConnectionRequestIdByIds(userId, coachId)
-            return false
-        } catch (e) {
             return true
+        } catch (e) {
+            return false
         }
     }
 

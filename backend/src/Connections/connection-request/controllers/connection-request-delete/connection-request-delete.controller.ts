@@ -18,7 +18,7 @@ import {
 @Controller('connection-request')
 export class ConnectionRequestDeleteController {
 
-    constructor(private userGetService: UserGetService,
+    constructor(
                 private getService: ConnectionRequestGetService,
                 private checkService: ConnectionRequestCheckService,
                 private deleteService:ConnectionRequestDeleteService) {

@@ -15,8 +15,7 @@ import {
 @Controller('connection-request')
 export class ConnectionRequestGetController {
 
-    constructor(private userGetService: UserGetService,
-                private getService: ConnectionRequestGetService) {
+    constructor(private getService: ConnectionRequestGetService) {
     }
 
     @UseGuards(ProfileGuard)

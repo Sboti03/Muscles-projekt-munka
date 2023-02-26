@@ -16,8 +16,7 @@ import {ConnectionCheckService} from "../../../connection/services/connection-ch
 @Controller('connection-request')
 export class ConnectionRequestCreateController {
 
-    constructor(private userGetService: UserGetService,
-                private getService: ConnectionRequestGetService,
+    constructor(private getService: ConnectionRequestGetService,
                 private checkService: ConnectionRequestCheckService,
                 private createService:ConnectionRequestCreateService,
                 private connectionCheckService:ConnectionCheckService) {
@@ -29,11 +28,12 @@ export class ConnectionRequestCreateController {
                                   @GetCurrentUserId() requesterId: number,
                                   @GetCurrentUser('role') requesterRole: RoleEnum) {
         const {userId, coachId} = this.getService.getUserAndCoachId(idParam.id, requesterId, requesterRole)
-        const isConnectionExist = await this.checkService.checkExistingConnectionRequest(userId, coachId)
+
+        const isConnectionExist = await this.connectionCheckService.checkExistingConnection(userId, coachId)
         if (isConnectionExist) {
             throw new ConflictException('Existing connection')
         }
-        const isConnectionRequestExist = await this.connectionCheckService.checkExistingConnection(userId, coachId)
+        const isConnectionRequestExist = await this.checkService.checkExistingConnectionRequest(userId, coachId)
         if (isConnectionRequestExist) {
             throw new ConflictException('Existing connection request')
         }

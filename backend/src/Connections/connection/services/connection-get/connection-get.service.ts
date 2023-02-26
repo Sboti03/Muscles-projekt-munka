@@ -8,7 +8,7 @@ export class ConnectionGetService {
     }
 
     getConnectionByIds(userId: number, coachId: number) {
-        this.prismaService.connections.findFirstOrThrow({
+        return this.prismaService.connections.findFirstOrThrow({
             where: {
                 userId,
                 coachId
