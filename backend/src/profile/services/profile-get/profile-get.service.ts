@@ -20,7 +20,7 @@ export class ProfileGetService {
         })
     }
 
-    getProfileDataByProfileId(profileId: number) {
+    getAllProfileDataByProfileId(profileId: number) {
         return this.prismaService.profileData.findFirstOrThrow({
             where: {
                 profileId
@@ -28,8 +28,35 @@ export class ProfileGetService {
         })
     }
 
-    getAllProfile() {
+    getAllProfileAllData() {
         return this.prismaService.profileData.findMany({})
     }
+
+    getAllProfile() {
+        return this.prismaService.profileData.findMany({
+            select:{
+                profileId: true,
+                userId: true,
+                firstName: true,
+                lastName: true
+            }
+        })
+    }
+
+    getProfileDataByProfileId(profileId: number) {
+        return this.prismaService.profileData.findUniqueOrThrow({
+            where: {profileId},
+            select: {
+                firstName: true,
+                lastName: true,
+                birthDay: true,
+                height: true,
+                registrationDate: true,
+                userId: true
+            }
+        })
+    }
+
+
 
 }
