@@ -12,9 +12,12 @@ import {
     ConnectionRequestDeleteController
 } from "./controllers/connection-request-delete/connection-request-delete.controller";
 import {ConnectionRequestGetController} from "./controllers/connection-request-get/connection-request-get.controller";
+import {ProfileModule} from "../../profile/profile.module";
+import {ConnectionCheckService} from "../connection/services/connection-check/connection-check.service";
+import {ConnectionGetService} from "../connection/services/connection-get/connection-get.service";
 
 @Module({
-    imports: [ConnectionModule],
+    imports: [ProfileModule],
     controllers: [ConnectionRequestDeleteController, ConnectionRequestGetController, ConnectionRequestCreateController],
     providers: [
         PrismaService,
@@ -22,7 +25,15 @@ import {ConnectionRequestGetController} from "./controllers/connection-request-g
         ConnectionRequestCheckService,
         ConnectionRequestDeleteService,
         ConnectionRequestCreateService,
-    ]
+        ConnectionCheckService,
+        ConnectionGetService,
+
+    ],
+    exports: [
+        ConnectionRequestGetService,
+        ConnectionRequestCheckService,
+        ConnectionRequestDeleteService,
+        ConnectionRequestCreateService,]
 })
 export class ConnectionRequestModule {
 }

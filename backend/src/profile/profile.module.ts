@@ -11,6 +11,7 @@ import {ProfileConvertService} from "./services/profile-convert/profile-convert.
 import {ProfileUpdateController} from "./controllers/profile-update/profile-update.controller";
 import {ProfileGetController} from "./controllers/profile-get/profile-get.controller";
 import {AuthModule} from "../auth/auth.module";
+import {ProfileCheckService} from './services/profile-check/profile-check.service';
 
 @Module({
     imports: [AuthModule],
@@ -20,9 +21,19 @@ import {AuthModule} from "../auth/auth.module";
         ProfileUpdateService,
         ProfileDeleteService,
         ProfileConvertService,
-        PrismaService
+        PrismaService,
+        ProfileCheckService
     ],
-    controllers: [ProfileCreateController, ProfileUpdateController, ProfileGetController]
+    controllers: [ProfileCreateController, ProfileUpdateController, ProfileGetController],
+    exports:
+        [ProfileGetService,
+        ProfileCreateService,
+        ProfileUpdateService,
+        ProfileDeleteService,
+        ProfileConvertService,
+        PrismaService,
+        ProfileCheckService
+    ]
 })
 export class ProfileModule {
 }

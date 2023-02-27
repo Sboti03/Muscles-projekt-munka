@@ -8,10 +8,21 @@ export class ConnectionGetService {
     }
 
     getConnectionByIds(userId: number, coachId: number) {
-        return this.prismaService.connections.findFirstOrThrow({
+        console.log(userId + 'User id', coachId + 'coach id')
+        return this.prismaService.connections.findUniqueOrThrow({
             where: {
-                userId,
-                coachId
+                userId_coachId: {userId, coachId}
+            }
+        })
+    }
+
+    getAllConnection(id: number) {
+        return this.prismaService.connections.findMany({
+            where: {
+                OR: [
+                    {userId: id},
+                    {coachId: id}
+                ]
             }
         })
     }
