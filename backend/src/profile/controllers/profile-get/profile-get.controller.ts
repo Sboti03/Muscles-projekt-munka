@@ -1,18 +1,13 @@
-import {Body, Controller, Get, NotFoundException, Patch, Post, UseGuards} from '@nestjs/common';
-import {GetCurrentUserId, GetCurrentUserProfileId} from "../../../auth/decorators/decorators";
-import {ProfileCreateService} from "../../services/profile-create/profile-create.service";
-import ProfileCreateDto from "../../dto/profile-create.dto";
-import ProfileUpdateDto from "../../dto/profile-update.dto";
-import {ProfileUpdateService} from "../../services/profile-update/profile-update.service";
-import {ProfileConvertService} from "../../services/profile-convert/profile-convert.service";
+import {Controller, Get, NotFoundException, Param, UseGuards} from '@nestjs/common';
+import {GetCurrentUserProfileId} from "../../../auth/decorators/decorators";
 import {AccessTokenGuard} from "../../../auth/guards/access-token.guard";
 import {RolesGuard} from "../../../auth/guards/role.guard";
 import {Roles} from "../../../Common/Role/decorators/ roles.decorator";
 import {RoleEnum} from "../../../Common/Role/utils/roles";
 import {ProfileGetService} from "../../services/profile-get/profile-get.service";
-import {AuthTokenService} from "../../../auth/services/auth-token/auth-token.service";
+import {ProfileGuard} from "../../../auth/guards/profile.guard";
 
-@UseGuards(AccessTokenGuard)
+@UseGuards(AccessTokenGuard, ProfileGuard)
 @Controller('profile')
 export class ProfileGetController {
 
@@ -20,21 +15,41 @@ export class ProfileGetController {
 
     @Roles(RoleEnum.ADMIN)
     @UseGuards(RolesGuard)
-    @Get('all')
-    async getAllProfile() {
-        return this.profileGetService.getAllProfile();
+    @Get('admin/all')
+    async getAllProfileAdminVersion() {
+        return this.profileGetService.getAllProfileAllData();
     }
+
+    @Roles(RoleEnum.ADMIN)
+    @UseGuards(RolesGuard)
+    @Get('admin/id/:id')
+    async getAllProfileDataById(@Param('id') id: number) {
+        return this.profileGetService.getAllProfileDataByProfileId(id)
+    }
+
+
     @Get('/')
     async getProfileData(@GetCurrentUserProfileId() profileId: number) {
-        if (profileId === -1) {
+        return this.profileGetService.getAllProfileDataByProfileId(profileId)
+    }
+
+    @Get('all')
+    async getAllProfile() {
+        return this.profileGetService.getAllProfileAllData();
+    }
+
+    @Get('/:id')
+    async getProfileDataById(@Param('id') id: number) {
+        try {
+            return await this.profileGetService.getProfileDataByProfileId(id)
+
+        }catch (e) {
             throw new NotFoundException('No profile found')
         }
-
-        return this.profileGetService.getProfileDataByProfileId(profileId)
     }
 
 
-    
+
 
 
 }
