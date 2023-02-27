@@ -1,18 +1,19 @@
 import { Injectable } from '@nestjs/common';
-import {CreateMealDTO} from "../../dto/createMealDTO";
 import {Prisma} from "@prisma/client";
+import {CreateMealHistoryDTO} from "../../../meal-history/dto/createMealHistoryDTO";
+import {RoleEnum} from "../../../Role/utils/roles";
 
 @Injectable()
 export class MealConvertService {
    constructor() {}
 
-   convertMealCreateDtoToInput(createMealDTO: CreateMealDTO): Prisma.mealsCreateInput{
+   convertMealCreateDtoToInput(createMealHistoryDTO: CreateMealHistoryDTO, addedBy: RoleEnum): Prisma.mealsCreateInput{
       return {
-         amount: createMealDTO.amount,
-         addedBy: createMealDTO.addedBy.valueOf(),
+         amount: createMealHistoryDTO.amount,
+         addedBy: addedBy.valueOf(),
          food: {
             connect: {
-               foodId: createMealDTO.foodId
+               foodId: createMealHistoryDTO.foodId
             }
          },
       }
