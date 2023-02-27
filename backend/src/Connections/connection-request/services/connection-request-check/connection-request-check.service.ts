@@ -13,7 +13,7 @@ export class ConnectionRequestCheckService {
 
     async checkExistingConnectionRequest(userId: number, coachId: number) {
         try {
-            await this.getService.getConnectionRequestIdByIds(userId, coachId)
+            const result = await this.getService.getConnectionRequestIdByIds(userId, coachId)
             return true
         } catch (e) {
             return false

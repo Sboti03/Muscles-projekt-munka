@@ -11,7 +11,7 @@ import {RolesGuard} from "../guards/role.guard";
 import {AuthTokenService} from "../services/auth-token/auth-token.service";
 
 
-@Controller('auth')
+@Controller('api/auth')
 export class AuthController {
     constructor(private authService: AuthService, private authTokenService: AuthTokenService) {}
 

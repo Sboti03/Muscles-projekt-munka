@@ -46,10 +46,12 @@ model connections {
   connectionId Int         @id(map: "connectionIdPK") @default(autoincrement())
   coachId      Int
   userId       Int
-  user         users       @relation("connections_coachIdTousers", fields: [coachId], references: [userId], onDelete: NoAction, onUpdate: NoAction, map: "coachIdFK")
-  coach        users       @relation("connections_userIdTousers", fields: [userId], references: [userId], onDelete: NoAction, onUpdate: NoAction, map: "userIdFK")
+  user         users       @relation("connections_coachIdTousers", fields: [userId], references: [userId], onDelete: NoAction, onUpdate: NoAction, map: "userIdFK")
+  coach        users       @relation("connections_userIdTousers", fields: [coachId], references: [userId], onDelete: NoAction, onUpdate: NoAction, map: "coachIdFK")
   changedAt    DateTime    @default(now()) @updatedAt @db.Timestamp(6)
   schedules    schedules[]
+
+  @@unique([userId, coachId])
 }
 
 model connectionRequest {

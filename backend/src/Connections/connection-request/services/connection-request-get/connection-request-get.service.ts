@@ -43,4 +43,12 @@ export class ConnectionRequestGetService {
             requestBy: requesterId,
         }
     }
+
+    getConnectionRequestById(connectionRequestId: number) {
+        return this.prismaService.connectionRequest.findUniqueOrThrow({
+            where: {
+                connectionRequestId: connectionRequestId
+            }
+        })
+    }
 }

@@ -26,7 +26,7 @@ export class ConnectionRequestDeleteController {
 
     @UseGuards(ProfileGuard)
     @Delete('/')
-    async createConnectionRequest(@Body() idParam: IdParam,
+    async deleteConnectionRequest(@Body() idParam: IdParam,
                                   @GetCurrentUserId() requesterId: number,
                                   @GetCurrentUser('role') requesterRole: RoleEnum) {
         const {userId, coachId} = this.getService.getUserAndCoachId(idParam.id, requesterId, requesterRole)

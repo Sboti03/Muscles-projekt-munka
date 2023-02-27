@@ -11,6 +11,7 @@ import {
     ConnectionRequestCreateService
 } from "../../services/connection-request-create/connection-request-create.service";
 import {ConnectionCheckService} from "../../../connection/services/connection-check/connection-check.service";
+import {ProfileCheckService} from "../../../../profile/services/profile-check/profile-check.service";
 
 @UseGuards(AccessTokenGuard)
 @Controller('connection-request')
@@ -19,7 +20,8 @@ export class ConnectionRequestCreateController {
     constructor(private getService: ConnectionRequestGetService,
                 private checkService: ConnectionRequestCheckService,
                 private createService:ConnectionRequestCreateService,
-                private connectionCheckService:ConnectionCheckService) {
+                private connectionCheckService:ConnectionCheckService,
+                private profileCheckService:ProfileCheckService) {
     }
 
     @UseGuards(ProfileGuard)
@@ -28,7 +30,11 @@ export class ConnectionRequestCreateController {
                                   @GetCurrentUserId() requesterId: number,
                                   @GetCurrentUser('role') requesterRole: RoleEnum) {
         const {userId, coachId} = this.getService.getUserAndCoachId(idParam.id, requesterId, requesterRole)
-
+        const otherProfileExist = await this.profileCheckService.checkExistingProfileByUserId(
+            requesterId === userId ? coachId : userId)
+        if (!otherProfileExist) {
+            throw new ConflictException('Other profile do not exists')
+        }
         const isConnectionExist = await this.connectionCheckService.checkExistingConnection(userId, coachId)
         if (isConnectionExist) {
             throw new ConflictException('Existing connection')
