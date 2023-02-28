@@ -1,6 +1,7 @@
 import {Injectable} from '@nestjs/common';
 import {CreateMealHistoryDTO} from "../../dto/createMealHistoryDTO";
 import {Prisma} from "@prisma/client";
+import {UpdateMealHistoryDTO} from "../../dto/updateMealHistoryDTO";
 
 
 @Injectable()
@@ -23,6 +24,18 @@ export class MealHistoryConvertService {
          meals: {
             connect: {
                mealId
+            }
+         }
+      }
+   }
+
+   async convertMealHistoryUpdateDtoToMealUpdateInput(updateMealHistoryDTO: UpdateMealHistoryDTO): Promise<Prisma.mealsUpdateInput> {
+      return {
+         amount: updateMealHistoryDTO.amount,
+         completed: updateMealHistoryDTO.isCompleted,
+         mealHistory: {
+            connect: {
+               mealHistoryId: updateMealHistoryDTO.mealHistoryId
             }
          }
       }

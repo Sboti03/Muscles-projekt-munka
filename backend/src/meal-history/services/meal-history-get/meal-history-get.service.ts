@@ -19,6 +19,39 @@ export class MealHistoryGetService {
          }
       });
    }
+   getMealHistoryByMealhistoryId(mealHistoryId: number){
+      return this.prismaService.mealHistory.findFirst({
+         where: {
+            mealHistoryId
+         }
+      })
+   }
+
+   getProfileIdByMealHistoryId(mealHistoryId: number){
+      return this.prismaService.mealHistory.findFirstOrThrow({
+         where: {
+            mealHistoryId
+         },
+         select: {
+            day: {
+               select: {
+                  profileId: true
+               }
+            }
+         },
+
+      })
+   }
+   getMealIdByMealHistoryId(mealHistoryId: number) {
+      return this.prismaService.mealHistory.findFirst({
+         where: {
+            mealHistoryId
+         },
+         select: {
+            mealId: true
+         }
+      })
+   }
 
    getAllMealHistory(dayId: number, periodName: string){
       return this.prismaService.mealHistory.findMany({

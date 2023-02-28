@@ -1,5 +1,6 @@
 import {PrismaService} from "../../../utils/prirsma.service";
 import {Injectable} from "@nestjs/common";
+import {Prisma} from "@prisma/client";
 
 @Injectable()
 export class MealUpdateService {
@@ -22,6 +23,15 @@ export class MealUpdateService {
          data: {
             completed: isCompleted,
          }
+      })
+   }
+
+   updateMealByMealId(mealUpdateInput: Prisma.mealsUpdateInput, mealId) {
+      return this.prismaService.meals.update({
+         where: {
+            mealId
+         },
+         data: mealUpdateInput
       })
    }
 }
