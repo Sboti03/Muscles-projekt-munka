@@ -1,8 +1,7 @@
-import {Controller, Post} from '@nestjs/common';
+import {Controller, Post, UseGuards} from '@nestjs/common';
 import {GetCurrentUser, GetCurrentUserProfileId} from "../../../auth/decorators/decorators";
-import {RoleEnum} from "../../../Role/utils/roles";
+import {RoleEnum} from "../../../Common/Role/utils/roles";
 import {CreateMealHistoryDTO} from "../../dto/createMealHistoryDTO";
-import {PrismaService} from "../../../utils/prirsma.service";
 import {DayHistoryGetService} from "../../../day-history/services/day-history-get/day-history-get.service";
 import {DayHistoryCreateService} from "../../../day-history/services/day-history-create/day-history-create.service";
 import {MealCreateService} from "../../../meal/services/meal-create/meal-create.service";
@@ -10,10 +9,11 @@ import {MealGetService} from "../../../meal/services/meal-get/meal-get.service";
 import {MealHistoryCreateService} from "../../services/meal-history-create/meal-history-create.service";
 import {MealHistoryConvertService} from "../../services/meal-history-convert/meal-history-convert.service";
 import {DayHistoryCheckService} from "../../../day-history/services/day-history-check/day-history-check.service";
-import {MealHistoryGetService} from "../../services/meal-history-get/meal-history-get.service";
-import {MealUpdateService} from "../../../meal/services/meal-update/meal-update.service";
-import {MealHistoryCheckService} from "../../services/meal-history-check/meal-history-check.service";
+import {AccessTokenGuard} from "../../../auth/guards/access-token.guard";
+import {ProfileGuard} from "../../../auth/guards/profile.guard";
 
+
+@UseGuards(AccessTokenGuard, ProfileGuard)
 @Controller('meal-history')
 export class MealHistoryCreateController {
 
@@ -26,7 +26,6 @@ export class MealHistoryCreateController {
                 private dayHistoryCheckService: DayHistoryCheckService) {}
 
     @Post('/create')
-    // @UseGuards(AccessTokenGuard)
     async createMealHistory(@GetCurrentUser('role') addedBy: RoleEnum,createMealHistoryDTO: CreateMealHistoryDTO, @GetCurrentUserProfileId() profileId: number){
         const isDayHistoryExist = this.dayHistoryCheckService.checkExistingDayHistory(profileId, createMealHistoryDTO.date)
         if (!isDayHistoryExist) {

@@ -1,6 +1,4 @@
 import {Injectable} from '@nestjs/common';
-import {UpdateMealHistoryDTO} from "../../dto/updateMealHistoryDTO";
-import {PrismaService} from "../../../utils/prirsma.service";
 import {MealHistoryGetService} from "../meal-history-get/meal-history-get.service";
 
 

@@ -1,4 +1,4 @@
-import {Controller, NotAcceptableException, NotFoundException, Post} from '@nestjs/common';
+import {Controller, NotAcceptableException, NotFoundException, Post, UseGuards} from '@nestjs/common';
 import {UpdateMealHistoryDTO} from "../../dto/updateMealHistoryDTO";
 import {GetCurrentUserProfileId} from "../../../auth/decorators/decorators";
 import {MealHistoryConvertService} from "../../services/meal-history-convert/meal-history-convert.service";
@@ -6,7 +6,10 @@ import {DayHistoryCheckService} from "../../../day-history/services/day-history-
 import {MealHistoryGetService} from "../../services/meal-history-get/meal-history-get.service";
 import {MealUpdateService} from "../../../meal/services/meal-update/meal-update.service";
 import {MealHistoryCheckService} from "../../services/meal-history-check/meal-history-check.service";
+import {AccessTokenGuard} from "../../../auth/guards/access-token.guard";
+import {ProfileGuard} from "../../../auth/guards/profile.guard";
 
+@UseGuards(AccessTokenGuard, ProfileGuard)
 @Controller('meal-history')
 export class MealHistoryUpdateController {
     constructor(private mealHistoryConvertService: MealHistoryConvertService,
@@ -19,7 +22,6 @@ export class MealHistoryUpdateController {
 
 
     @Post('/update')
-    // @UseGuards(AccessTokenGuard)
     async updateMealHistory(updateMealHistoryDTO: UpdateMealHistoryDTO, @GetCurrentUserProfileId() currentProfileId: number){
 
         const isMealHistoryExisting = await this.mealHistoryCheckService.checkExistingMealHistoryById(updateMealHistoryDTO.mealHistoryId)

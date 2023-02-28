@@ -7,32 +7,34 @@ import {UpdateMealHistoryDTO} from "../../dto/updateMealHistoryDTO";
 @Injectable()
 export class MealHistoryConvertService {
 
-   constructor() {}
-   async convertMealHistoryDtoToInput(dayId: number, mealId: number, createMealHistoryDTO: CreateMealHistoryDTO): Promise<Prisma.mealHistoryCreateInput>{
-      return {
+    constructor() {
+    }
 
-         day: {
-            connect: {
-               dayId
-            }
-         },
-         mealPeriod: {
-            connect: {
-               periodName: createMealHistoryDTO.periodName
-            }
-         },
-         meals: {
-            connect: {
-               mealId
-            }
-         }
-      }
-   }
+    async convertMealHistoryDtoToInput(dayId: number, mealId: number, createMealHistoryDTO: CreateMealHistoryDTO): Promise<Prisma.mealHistoryCreateInput> {
+        return {
 
-   async convertMealHistoryUpdateDtoToMealUpdateInput(updateMealHistoryDTO: UpdateMealHistoryDTO): Promise<Prisma.mealsUpdateInput> {
-      return {
-         amount: updateMealHistoryDTO.amount,
-         completed: updateMealHistoryDTO.isCompleted,
-      }
-   }
+            day: {
+                connect: {
+                    dayId
+                }
+            },
+            mealPeriod: {
+                connect: {
+                    periodName: createMealHistoryDTO.periodName
+                }
+            },
+            meals: {
+                connect: {
+                    mealId
+                }
+            }
+        }
+    }
+
+    async convertMealHistoryUpdateDtoToMealUpdateInput(updateMealHistoryDTO: UpdateMealHistoryDTO): Promise<Prisma.mealsUpdateInput> {
+        return {
+            amount: updateMealHistoryDTO.amount,
+            completed: updateMealHistoryDTO.isCompleted,
+        }
+    }
 }

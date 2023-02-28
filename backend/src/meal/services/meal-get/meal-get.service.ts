@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import {CreateMealHistoryDTO} from "../../../meal-history/dto/createMealHistoryDTO";
-import {RoleEnum} from "../../../Role/utils/roles";
 import {Prisma} from "@prisma/client";
+import {RoleEnum} from "../../../Common/Role/utils/roles";
 
 @Injectable()
 export class MealGetService {

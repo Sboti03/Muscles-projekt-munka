@@ -10,16 +10,18 @@ import {MealModule} from "../meal/meal.module";
 
 @Module({
    imports: [DayHistoryModule, MealModule],
-   exports: [
-      MealHistoryCreateService,
-      MealHistoryConvertService,
-      MealHistoryGetService
-   ],
    providers: [
       MealHistoryCreateService,
       MealHistoryConvertService,
       MealHistoryGetService
    ],
-   controllers: [MealHistoryGetController, MealHistoryCreateController, MealHistoryUpdateController]
+   controllers: [MealHistoryGetController, MealHistoryCreateController, MealHistoryUpdateController],
+   exports: [
+      MealHistoryCreateService,
+      MealHistoryConvertService,
+      MealHistoryGetService
+   ],
 })
-export class MealHistoryModule {}
+export class MealHistoryModule {
+
+}
