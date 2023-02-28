@@ -1,10 +1,9 @@
-import { Controller, ForbiddenException, Post} from '@nestjs/common';
+import {Controller, ForbiddenException, Post, UseGuards} from '@nestjs/common';
 import {GetCurrentUser, GetCurrentUserProfileId} from "../../../auth/decorators/decorators";
 import {PrismaService} from "../../../utils/prirsma.service";
 import {DayHistoryGetService} from "../../../day-history/services/day-history-get/day-history-get.service";
 import {DayHistoryCreateService} from "../../../day-history/services/day-history-create/day-history-create.service";
 import {MealCreateService} from "../../../meal/services/meal-create/meal-create.service";
-import {MealConvertService} from "../../../meal/services/meal-convert/meal-convert.service";
 import {RoleEnum} from "../../../Role/utils/roles";
 import {MealHistoryCreateService} from "../../services/meal-history-create/meal-history-create.service";
 import {CreateMealHistoryDTO} from "../../dto/createMealHistoryDTO";
@@ -14,6 +13,7 @@ import {UpdateMealHistoryDTO} from "../../dto/updateMealHistoryDTO";
 import {MealHistoryGetService} from "../../services/meal-history-get/meal-history-get.service";
 import {MealUpdateService} from "../../../meal/services/meal-update/meal-update.service";
 import {MealHistoryCheckService} from "../../services/meal-history-check/meal-history-check";
+import {MealGetService} from "../../../meal/services/meal-get/meal-get.service";
 
 @Controller('meal-history')
 export class MealHistoryController {
@@ -22,7 +22,7 @@ export class MealHistoryController {
                private dayHistoryGetService: DayHistoryGetService,
                private dayHistoryCreateService: DayHistoryCreateService,
                private mealCreateService: MealCreateService,
-               private mealConvertService: MealConvertService,
+               private mealGetService: MealGetService,
                private mealHistoryCreateService: MealHistoryCreateService,
                private mealHistoryConvertService: MealHistoryConvertService,
                private dayHistoryCheckService: DayHistoryCheckService,
@@ -31,19 +31,21 @@ export class MealHistoryController {
                private mealHistoryCheckService: MealHistoryCheckService) {}
 
    @Post('/create')
+   @UseGuards(AccessTokenGuard)
    async createMealHistory(@GetCurrentUser('role') addedBy: RoleEnum,createMealHistoryDTO: CreateMealHistoryDTO, @GetCurrentUserProfileId() profileId: number){
       const isDayHistoryExist = this.dayHistoryCheckService.checkExistingDayHistory(profileId, createMealHistoryDTO.date)
       if (!isDayHistoryExist) {
          await this.dayHistoryCreateService.createDayHistory(profileId, createMealHistoryDTO.date);
       }
       const {dayId} = (await this.dayHistoryGetService.getDayIdByDate(createMealHistoryDTO.date, profileId));
-      const mealCreateInput = this.mealConvertService.convertMealCreateDtoToInput(createMealHistoryDTO, addedBy)
+      const mealCreateInput = this.mealGetService.getMealCreateInput(createMealHistoryDTO, addedBy)
       const {mealId} = await this.mealCreateService.createMeal(mealCreateInput)
       const mealHistoryCreateInput = await this.mealHistoryConvertService.convertMealHistoryDtoToInput(dayId, mealId, createMealHistoryDTO, profileId)
       return this.mealHistoryCreateService.createMealHistory(mealHistoryCreateInput)
    }
 
    @Post('/update')
+   @UseGuards(AccessTokenGuard)
    async updateMealHistory(updateMealHistoryDTO: UpdateMealHistoryDTO, @GetCurrentUserProfileId() profileId: number){
       const isDayHistoryExist = this.dayHistoryCheckService.checkExistingDayHistory(profileId, updateMealHistoryDTO.date)
       if (!isDayHistoryExist) {

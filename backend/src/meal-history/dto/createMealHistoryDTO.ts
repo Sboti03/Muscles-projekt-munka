@@ -1,6 +1,6 @@
 import {IsDate, IsNotEmpty, IsNumber} from "class-validator";
 import {PeriodNamesEnum} from "../../utils/period-name";
-import {Transform} from "class-transformer";
+import {Transform, Type} from "class-transformer";
 
 export class CreateMealHistoryDTO{
    @Transform(({value}) => PeriodNamesEnum[value])
@@ -8,6 +8,7 @@ export class CreateMealHistoryDTO{
    periodName: PeriodNamesEnum;
    @IsDate()
    @IsNotEmpty()
+   @Type(()=> Date)
    date: Date;
    @IsNumber()
    @IsNotEmpty()
