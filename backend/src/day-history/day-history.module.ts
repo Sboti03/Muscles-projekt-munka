@@ -3,12 +3,14 @@ import {DayHistoryCreateService} from './services/day-history-create/day-history
 import {PrismaService} from "../Common/utils/prirsma.service";
 import {DayHistoryGetService} from "./services/day-history-get/day-history-get.service";
 import {DayHistoryGetController} from "./controllers/day-history-get/day-history-get.controller";
+import {DayHistoryCheckService} from "./services/day-history-check/day-history-check.service";
 
 @Module({
     providers: [
         DayHistoryCreateService,
         DayHistoryGetService,
-        PrismaService
+        PrismaService,
+        DayHistoryCheckService
     ],
     controllers: [
         DayHistoryGetController
@@ -16,7 +18,8 @@ import {DayHistoryGetController} from "./controllers/day-history-get/day-history
     exports: [
         DayHistoryCreateService,
         DayHistoryGetService,
-        PrismaService
+        PrismaService,
+        DayHistoryCheckService
     ],
 })
 export class DayHistoryModule {
