@@ -4,7 +4,7 @@ import {MealController} from "./controller/meal.controller";
 import {MealGetService} from "./services/meal-convert/meal-convert.service";
 import {MealUpdateService} from "./services/meal-update/meal-update.service";
 import {MealDeleteService} from "./services/meal-delete/meal-delete.service";
-import {PrismaService} from "../utils/prirsma.service";
+import {PrismaService} from "../Common/utils/prirsma.service";
 
 @Module({
   exports: [PrismaService,

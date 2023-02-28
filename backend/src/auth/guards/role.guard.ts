@@ -1,7 +1,7 @@
 import {Injectable, CanActivate, ExecutionContext} from '@nestjs/common';
 import {Reflector} from '@nestjs/core';
-import {RoleEnum} from "../../Role/utils/roles";
-import {ROLES_KEY} from "../../Role/decorators/ roles.decorator";
+import {RoleEnum} from "../../Common/Role/utils/roles";
+import {ROLES_KEY} from "../../Common/Role/decorators/ roles.decorator";
 import {JwtPayload} from "../types/jwt-payload";
 
 @Injectable()

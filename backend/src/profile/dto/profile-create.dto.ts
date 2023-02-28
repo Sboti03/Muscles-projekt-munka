@@ -1,5 +1,5 @@
 import {IsDate, IsNotEmpty, IsNumber, IsString, ValidateIf} from "class-validator";
-import {IsNullable} from "../../utils/IsNullable.validation";
+import {IsNullable} from "../../Common/utils/IsNullable.validation";
 import {Type} from "class-transformer";
 
 export default class ProfileCreateDto {
@@ -12,18 +12,13 @@ export default class ProfileCreateDto {
     @IsString()
     lastName?: string
 
-    @Type(()=> Date)
+    @Type(() => Date)
     @IsDate()
     birthDay: Date
 
     @IsNullable()
-    @Type(()=> Number)
+    @Type(() => Number)
     @IsNumber()
     height?: number
-
-    @IsNullable()
-    @Type(()=> Number)
-    @IsNumber()
-    targetWeight?: number
 
 }

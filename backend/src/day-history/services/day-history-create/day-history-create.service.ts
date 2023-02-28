@@ -1,5 +1,5 @@
 import {Injectable} from '@nestjs/common';
-import {PrismaService} from "../../../utils/prirsma.service";
+import {PrismaService} from "../../../Common/utils/prirsma.service";
 
 @Injectable()
 export class DayHistoryCreateService {
@@ -7,7 +7,7 @@ export class DayHistoryCreateService {
     }
 
     createDayHistory(profileId: number, date: Date) {
-        this.prismaService.dayHistory.create({
+        return this.prismaService.dayHistory.create({
             data: {
                 profileData: {
                     connect: {

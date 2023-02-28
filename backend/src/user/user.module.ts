@@ -1,6 +1,6 @@
 import {Module} from '@nestjs/common';
 import {UserController} from './controller/user.controller';
-import {PrismaService} from '../utils/prirsma.service';
+import {PrismaService} from '../Common/utils/prirsma.service';
 import {UserGetService} from './services/user-get/user-get.service';
 import {UserCheckService} from './services/user-check/user-check.service';
 import {UserUpdateService} from './services/user-update/user-update.service';

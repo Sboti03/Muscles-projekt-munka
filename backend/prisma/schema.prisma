@@ -8,22 +8,24 @@ datasource db {
 }
 
 model weightHistory {
-  weightId Int        @id(map: "weightIdPK") @default(autoincrement())
-  dayId    Int
-  weight   Float
-  day      dayHistory @relation(fields: [dayId], references: [dayId], map: "dayIdFK")
+  weightId  Int        @id(map: "weightIdPK") @default(autoincrement())
+  dayId     Int        @unique
+  weight    Float
+  day       dayHistory @relation(fields: [dayId], references: [dayId], map: "dayIdFK")
+  changedAt DateTime   @default(now()) @updatedAt @db.Timestamp(6)
 }
 
 model units {
-  unitId       Int     @id(map: "unitIdPK") @default(autoincrement())
-  unit         String  @unique(map: "unitUQ") @db.VarChar(30)
+  unitId       Int      @id(map: "unitIdPK") @default(autoincrement())
+  unit         String   @unique(map: "unitUQ") @db.VarChar(30)
   defaultValue Float
   foods        foods[]
+  changedAt    DateTime @default(now()) @updatedAt @db.Timestamp(6)
 }
 
 model foods {
-  foodId             Int     @id(map: "foodIdPK") @default(autoincrement())
-  name               String  @db.VarChar(200)
+  foodId             Int      @id(map: "foodIdPK") @default(autoincrement())
+  name               String   @db.VarChar(200)
   kcal               Float
   unitId             Int
   perUnit            Float
@@ -35,29 +37,49 @@ model foods {
   carbohydrate       Float
   sugar              Float?
   fiber              Float?
-  unit               units   @relation(fields: [unitId], references: [unitId], map: "unitIdFK")
+  unit               units    @relation(fields: [unitId], references: [unitId], map: "unitIdFK")
   meals              meals[]
+  changedAt          DateTime @default(now()) @updatedAt @db.Timestamp(6)
 }
 
 model connections {
   connectionId Int         @id(map: "connectionIdPK") @default(autoincrement())
   coachId      Int
   userId       Int
-  user         users       @relation("connections_coachIdTousers", fields: [coachId], references: [userId], onDelete: NoAction, onUpdate: NoAction, map: "coachIdFK")
-  coach        users       @relation("connections_userIdTousers", fields: [userId], references: [userId], onDelete: NoAction, onUpdate: NoAction, map: "userIdFK")
+  user         users       @relation("connections_coachIdTousers", fields: [userId], references: [userId], onDelete: NoAction, onUpdate: NoAction, map: "userIdFK")
+  coach        users       @relation("connections_userIdTousers", fields: [coachId], references: [userId], onDelete: NoAction, onUpdate: NoAction, map: "coachIdFK")
+  changedAt    DateTime    @default(now()) @updatedAt @db.Timestamp(6)
   schedules    schedules[]
+
+  @@unique([userId, coachId])
+}
+
+model connectionRequest {
+  connectionRequestId Int      @id() @default(autoincrement())
+  userId              Int
+  coachId             Int
+  user                users    @relation("conn_req_userToUser", fields: [userId], references: [userId])
+  coach               users    @relation("conn_req_coachToUser", fields: [coachId], references: [userId])
+  requestDate         DateTime @default(now())
+  requestBy           Int
+  changedAt           DateTime @default(now()) @updatedAt @db.Timestamp(6)
+
+  @@unique([userId, coachId])
 }
 
 model users {
-  userId           Int           @id(map: "userIdPK") @default(autoincrement())
-  email            String        @unique(map: "emailUQ") @db.VarChar(255)
-  password         String        @db.VarChar(255)
-  roleId           Int
-  refreshTokens    String[]
-  coachConnections connections[] @relation("connections_coachIdTousers")
-  userConnections  connections[] @relation("connections_userIdTousers")
-  profile_data     profileData[]
-  roles            roles         @relation(fields: [roleId], references: [roleId], onDelete: NoAction, onUpdate: NoAction, map: "roleIdFK")
+  userId                 Int                 @id(map: "userIdPK") @default(autoincrement())
+  email                  String              @unique(map: "emailUQ") @db.VarChar(255)
+  password               String              @db.VarChar(255)
+  roleId                 Int
+  refreshTokens          String[]
+  coachConnections       connections[]       @relation("connections_coachIdTousers")
+  userConnections        connections[]       @relation("connections_userIdTousers")
+  profile_data           profileData?
+  roles                  roles               @relation(fields: [roleId], references: [roleId], onDelete: NoAction, onUpdate: NoAction, map: "roleIdFK")
+  userConnectionRequest  connectionRequest[] @relation("conn_req_userToUser")
+  coachConnectionRequest connectionRequest[] @relation("conn_req_coachToUser")
+  changedAt              DateTime            @default(now()) @updatedAt @db.Timestamp(6)
 }
 
 model schedules {
@@ -68,13 +90,14 @@ model schedules {
   reply         String?
   mealSchedules mealSchedule[]
   connection    connections    @relation(fields: [connectionId], references: [connectionId])
+  changedAt     DateTime       @default(now()) @updatedAt @db.Timestamp(6)
 }
 
 model mealSchedule {
   mealScheduleId Int       @id(map: "mealScheduleIdPK") @default(autoincrement())
   mealId         Int
   scheduleId     Int
-  changedAt      DateTime  @db.Timestamp(6)
+  changedAt      DateTime  @default(now()) @updatedAt @db.Timestamp(6)
   meal           meals     @relation(fields: [mealId], references: [mealId])
   schedule       schedules @relation(fields: [scheduleId], references: [scheduleId])
 }
@@ -84,6 +107,7 @@ model mealHistory {
   dayId         Int
   mealId        Int
   periodName    String      @db.VarChar(30)
+  changedAt     DateTime    @default(now()) @updatedAt @db.Timestamp(6)
   day           dayHistory  @relation(fields: [dayId], references: [dayId])
   mealPeriod    mealPeriods @relation(fields: [periodName], references: [periodName])
   meals         meals       @relation(fields: [mealId], references: [mealId], map: "mealIdFK")
@@ -94,7 +118,7 @@ model meals {
   foodId        Int
   amount        Float
   addedBy       String         @default("user")
-  changedAt     DateTime       @default(now()) @db.Timestamp(6)
+  changedAt     DateTime       @default(now()) @updatedAt @db.Timestamp(6)
   completed     Boolean        @default(false)
   mealHistory   mealHistory[]
   mealSchedules mealSchedule[]
@@ -102,13 +126,13 @@ model meals {
 }
 
 model dayHistory {
-  dayId         Int             @id(map: "dayIdPK") @default(autoincrement())
+  dayId         Int            @id(map: "dayIdPK") @default(autoincrement())
   profileId     Int
-  date          DateTime        @db.Date
-  changedAt     DateTime        @default(now()) @db.Timestamp(6)
-  profileData   profileData     @relation(fields: [profileId], references: [profileId], onDelete: NoAction, onUpdate: NoAction, map: "profileIdFK")
+  date          DateTime       @db.Date
+  changedAt     DateTime       @default(now()) @updatedAt @db.Timestamp(6)
+  profileData   profileData    @relation(fields: [profileId], references: [profileId], onDelete: NoAction, onUpdate: NoAction, map: "profileIdFK")
   mealHistory   mealHistory[]
-  weightHistory weightHistory[]
+  weightHistory weightHistory?
 
   @@unique([dayId, profileId], map: "dayIdProfileIdUQ")
 }
@@ -116,23 +140,38 @@ model dayHistory {
 model mealPeriods {
   periodName  String        @id(map: "periodNameIdPK") @db.VarChar(30)
   mealHistory mealHistory[]
+  changedAt   DateTime      @default(now()) @updatedAt @db.Timestamp(6)
 }
 
 model profileData {
-  profileId         Int          @id(map: "profileIdPK") @default(autoincrement())
-  userId            Int
+  profileId        Int          @id(map: "profileIdPK") @default(autoincrement())
+  userId           Int          @unique
   registrationDate DateTime     @default(now()) @db.Date
-  firstName         String       @db.VarChar(100)
-  birthDay          DateTime     @db.Date
-  lastName          String?      @db.VarChar(200)
-  height            Float?
-  targetWeight      Float?
-  dayHistory        dayHistory[]
-  users             users        @relation(fields: [userId], references: [userId], onDelete: NoAction, onUpdate: NoAction, map: "userIdFK")
+  firstName        String       @db.VarChar(100)
+  birthDay         DateTime     @db.Date
+  lastName         String?      @db.VarChar(200)
+  height           Float?
+  dayHistory       dayHistory[]
+  user             users        @relation(fields: [userId], references: [userId], onDelete: NoAction, onUpdate: NoAction, map: "userIdFK")
+  goal             goals?
+  changedAt        DateTime     @default(now()) @updatedAt @db.Timestamp(6)
+}
+
+model goals {
+  goalId              Int         @id() @default(autoincrement())
+  profileId           Int         @unique
+  profile             profileData @relation(fields: [profileId], references: [profileId])
+  targetWeight        Float?
+  targetCalories      Float?
+  carbohydratesPerDay Int         @default(50)
+  proteinPerDay       Int         @default(30)
+  fatPerDay           Int         @default(20)
+  changedAt           DateTime    @default(now()) @updatedAt @db.Timestamp(6)
 }
 
 model roles {
-  roleId   Int     @id(map: "roleIdPK") @default(autoincrement())
-  roleName String  @db.VarChar(50)
-  users    users[]
+  roleId    Int      @id(map: "roleIdPK") @default(autoincrement())
+  roleName  String   @db.VarChar(50)
+  users     users[]
+  changedAt DateTime @default(now()) @updatedAt @db.Timestamp(6)
 }
