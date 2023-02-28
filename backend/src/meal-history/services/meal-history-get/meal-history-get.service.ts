@@ -19,8 +19,8 @@ export class MealHistoryGetService {
          }
       });
    }
-   getMealHistoryByMealhistoryId(mealHistoryId: number){
-      return this.prismaService.mealHistory.findFirst({
+   getMealHistoryById(mealHistoryId: number){
+      return this.prismaService.mealHistory.findUniqueOrThrow({
          where: {
             mealHistoryId
          }

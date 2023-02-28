@@ -33,11 +33,6 @@ export class MealHistoryConvertService {
       return {
          amount: updateMealHistoryDTO.amount,
          completed: updateMealHistoryDTO.isCompleted,
-         mealHistory: {
-            connect: {
-               mealHistoryId: updateMealHistoryDTO.mealHistoryId
-            }
-         }
       }
    }
 }

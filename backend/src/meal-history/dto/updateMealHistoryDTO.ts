@@ -1,13 +1,21 @@
 import {IsBoolean, IsNumber} from "class-validator";
 import {IsNullable} from "../../decorators/class-validator.decorator";
+import {Type} from "class-transformer";
 
 export class UpdateMealHistoryDTO{
    @IsNumber()
+   @Type(()=> Number)
    mealHistoryId: number;
+
+
+   @IsNullable()
+   @Type(()=> Number)
    @IsNumber()
-   @IsNullable()
    amount?: number;
-   @IsBoolean()
+
+
    @IsNullable()
+   @Type(()=> Boolean)
+   @IsBoolean()
    isCompleted?: boolean;
 }
