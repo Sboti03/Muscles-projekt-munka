@@ -7,7 +7,7 @@ export class AdminBlockService {
     }
 
     blockUserByUserId(userId: number) {
-        this.prismaService.users.update({
+       return this.prismaService.users.update({
             where: {
               userId,
             },
