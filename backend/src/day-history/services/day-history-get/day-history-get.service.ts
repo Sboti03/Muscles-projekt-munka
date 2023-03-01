@@ -1,5 +1,6 @@
 import {Injectable} from '@nestjs/common';
 import {PrismaService} from "../../../Common/utils/prirsma.service";
+import {PeriodNamesEnum} from "../../../Common/utils/PeriodNames";
 @Injectable()
 export class DayHistoryGetService {
     constructor(private prismaService: PrismaService) {
@@ -7,7 +8,7 @@ export class DayHistoryGetService {
 
     getDayIdByDate(searchedDate: Date, profileId: number) {
         return this.prismaService.dayHistory.findFirstOrThrow({
-            select: {dayId: true},
+                select: {dayId: true},
             where: {date: searchedDate, profileId: profileId}
         });
     }
@@ -58,6 +59,31 @@ export class DayHistoryGetService {
                 dayId: true,
             },
         });
+    }
+
+
+    getAllMealHistoryByIds(dayId: number, periodName: PeriodNamesEnum) {
+        return this.prismaService.mealHistory.findMany({
+            where: {
+                dayId,
+                periodName: periodName.valueOf()
+            },
+            select: {
+                meals: {
+                    select: {
+                        amount: true,
+                        addedBy: true,
+                        completed: true,
+                        food: true,
+                        mealHistory: {
+                            select: {
+                                mealHistoryId: true,
+                            }
+                        }
+                    },
+                },
+            }
+        })
     }
 
 

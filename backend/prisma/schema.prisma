@@ -11,7 +11,7 @@ model weightHistory {
   weightId  Int        @id(map: "weightIdPK") @default(autoincrement())
   dayId     Int        @unique
   weight    Float
-  day       dayHistory @relation(fields: [dayId], references: [dayId], map: "dayIdFK")
+  day       dayHistory @relation(fields: [dayId], references: [dayId], map: "dayIdFK", onDelete: Cascade)
   changedAt DateTime   @default(now()) @updatedAt @db.Timestamp(6)
 }
 
@@ -37,7 +37,7 @@ model foods {
   carbohydrate       Float
   sugar              Float?
   fiber              Float?
-  unit               units    @relation(fields: [unitId], references: [unitId], map: "unitIdFK")
+  unit               units    @relation(fields: [unitId], references: [unitId], map: "unitIdFK") // DELETE TEST
   meals              meals[]
   changedAt          DateTime @default(now()) @updatedAt @db.Timestamp(6)
 }
@@ -46,8 +46,8 @@ model connections {
   connectionId Int         @id(map: "connectionIdPK") @default(autoincrement())
   coachId      Int
   userId       Int
-  user         users       @relation("connections_coachIdTousers", fields: [userId], references: [userId], onDelete: NoAction, onUpdate: NoAction, map: "userIdFK")
-  coach        users       @relation("connections_userIdTousers", fields: [coachId], references: [userId], onDelete: NoAction, onUpdate: NoAction, map: "coachIdFK")
+  user         users       @relation("connections_coachIdTousers", fields: [userId], references: [userId], onDelete: Cascade, onUpdate: NoAction, map: "userIdFK")
+  coach        users       @relation("connections_userIdTousers", fields: [coachId], references: [userId], onDelete: Cascade, onUpdate: NoAction, map: "coachIdFK")
   changedAt    DateTime    @default(now()) @updatedAt @db.Timestamp(6)
   schedules    schedules[]
 
@@ -58,8 +58,8 @@ model connectionRequest {
   connectionRequestId Int      @id() @default(autoincrement())
   userId              Int
   coachId             Int
-  user                users    @relation("conn_req_userToUser", fields: [userId], references: [userId])
-  coach               users    @relation("conn_req_coachToUser", fields: [coachId], references: [userId])
+  user                users    @relation("conn_req_userToUser", fields: [userId], references: [userId], onDelete: Cascade)
+  coach               users    @relation("conn_req_coachToUser", fields: [coachId], references: [userId], onDelete: Cascade)
   requestDate         DateTime @default(now())
   requestBy           Int
   changedAt           DateTime @default(now()) @updatedAt @db.Timestamp(6)
@@ -89,7 +89,7 @@ model schedules {
   rate          Int?
   reply         String?
   mealSchedules mealSchedule[]
-  connection    connections    @relation(fields: [connectionId], references: [connectionId])
+  connection    connections    @relation(fields: [connectionId], references: [connectionId], onDelete: Cascade)
   changedAt     DateTime       @default(now()) @updatedAt @db.Timestamp(6)
 }
 
@@ -98,8 +98,8 @@ model mealSchedule {
   mealId         Int
   scheduleId     Int
   changedAt      DateTime  @default(now()) @updatedAt @db.Timestamp(6)
-  meal           meals     @relation(fields: [mealId], references: [mealId])
-  schedule       schedules @relation(fields: [scheduleId], references: [scheduleId])
+  meal           meals     @relation(fields: [mealId], references: [mealId], onDelete: Cascade)
+  schedule       schedules @relation(fields: [scheduleId], references: [scheduleId], onDelete: Cascade)
 }
 
 model mealHistory {
@@ -108,9 +108,9 @@ model mealHistory {
   mealId        Int
   periodName    String      @db.VarChar(30)
   changedAt     DateTime    @default(now()) @updatedAt @db.Timestamp(6)
-  day           dayHistory  @relation(fields: [dayId], references: [dayId])
+  day           dayHistory  @relation(fields: [dayId], references: [dayId], onDelete: Cascade)
   mealPeriod    mealPeriods @relation(fields: [periodName], references: [periodName])
-  meals         meals       @relation(fields: [mealId], references: [mealId], map: "mealIdFK")
+  meals         meals       @relation(fields: [mealId], references: [mealId], map: "mealIdFK", onDelete: Cascade)
 }
 
 model meals {
@@ -122,7 +122,7 @@ model meals {
   completed     Boolean        @default(false)
   mealHistory   mealHistory[]
   mealSchedules mealSchedule[]
-  food          foods          @relation(fields: [foodId], references: [foodId])
+  food          foods          @relation(fields: [foodId], references: [foodId], onDelete: NoAction)
 }
 
 model dayHistory {

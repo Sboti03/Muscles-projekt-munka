@@ -7,15 +7,18 @@ import { MealHistoryCreateController } from './controllers/meal-history-create/m
 import { MealHistoryUpdateController } from './controllers/meal-history-update/meal-history-update.controller';
 import {DayHistoryModule} from "../day-history/day-history.module";
 import {MealModule} from "../meal/meal.module";
+import { MealHistoryDeleteController } from './controllers/meal-history-delete/meal-history-delete.controller';
+import { MealHistoryDeleteService } from './services/meal-history-delete/meal-history-delete.service';
 
 @Module({
    imports: [DayHistoryModule, MealModule],
    providers: [
       MealHistoryCreateService,
       MealHistoryConvertService,
-      MealHistoryGetService
+      MealHistoryGetService,
+      MealHistoryDeleteService
    ],
-   controllers: [MealHistoryGetController, MealHistoryCreateController, MealHistoryUpdateController],
+   controllers: [MealHistoryGetController, MealHistoryCreateController, MealHistoryUpdateController, MealHistoryDeleteController],
    exports: [
       MealHistoryCreateService,
       MealHistoryConvertService,
