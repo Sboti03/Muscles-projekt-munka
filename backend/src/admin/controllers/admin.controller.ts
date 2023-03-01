@@ -1,4 +1,4 @@
-import {Body, Controller, Delete, UseGuards} from '@nestjs/common';
+import {Body, Controller, Delete, Patch, UseGuards} from '@nestjs/common';
 import {AccessTokenGuard} from "../../auth/guards/access-token.guard";
 import {ProfileGuard} from "../../auth/guards/profile.guard";
 import {AdminBlockService} from "../services/admin-block/admin-block.service";
@@ -18,6 +18,13 @@ export class AdminController {
     @Delete()
     async deleteUserByUserId(@Body() id: number) {
         return this.adminDeleteService.deleteUserByUserId(id);
+    }
+
+    @Roles(RoleEnum.ADMIN)
+    @UseGuards(RolesGuard)
+    @Patch()
+    async blockUserByUserId(@Body() id: number) {
+        return this.adminBlockService.blockUserByUserId(id);
     }
 
 }
