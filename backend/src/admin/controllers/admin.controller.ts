@@ -22,7 +22,7 @@ export class AdminController {
 
     @Roles(RoleEnum.ADMIN)
     @UseGuards(RolesGuard)
-    @Patch()
+    @Patch('/block')
     async blockUserByUserId(@Body() id: number) {
         return this.adminBlockService.blockUserByUserId(id);
     }
