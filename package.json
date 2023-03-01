@@ -1,8 +1,0 @@
-{
-  "dependencies": {
-    "express-session": "^1.17.3"
-  },
-  "devDependencies": {
-    "@types/express-session": "^1.17.6"
-  }
-}
