@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import {Module} from '@nestjs/common';
 import {AdminBlockService} from "./services/admin-block/admin-block.service";
 import {AdminDeleteService} from "./services/admin-delete/admin-delete.service";
 import {PrismaService} from "../Common/utils/prirsma.service";
@@ -19,4 +19,5 @@ import {AdminController} from "./controllers/admin.controller";
         PrismaService,
     ]
 })
-export class AdminModule {}
+export class AdminModule {
+}
