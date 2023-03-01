@@ -1,4 +1,19 @@
-import { Injectable } from '@nestjs/common';
+import {Injectable} from '@nestjs/common';
+import {PrismaService} from "../../../Common/utils/prirsma.service";
 
 @Injectable()
-export class AdminBlockService {}
+export class AdminBlockService {
+    constructor(private prismaService: PrismaService) {
+    }
+
+    blockUserByUserId(userId: number) {
+        this.prismaService.users.update({
+            where: {
+              userId,
+            },
+            data: {
+                isBlocked: true,
+            },
+        });
+    }
+}
