@@ -80,6 +80,7 @@ model users {
   userConnectionRequest  connectionRequest[] @relation("conn_req_userToUser")
   coachConnectionRequest connectionRequest[] @relation("conn_req_coachToUser")
   changedAt              DateTime            @default(now()) @updatedAt @db.Timestamp(6)
+  isBlocked              Boolean             @default(false)
 }
 
 model schedules {
