@@ -1,4 +1,13 @@
-import {Controller, NotAcceptableException, NotFoundException, Post, UseGuards} from '@nestjs/common';
+import {
+    Body,
+    Controller,
+    NotAcceptableException,
+    NotFoundException,
+    Param,
+    Patch,
+    Post,
+    UseGuards
+} from '@nestjs/common';
 import {UpdateMealHistoryDTO} from "../../dto/updateMealHistoryDTO";
 import {GetCurrentUserProfileId} from "../../../auth/decorators/decorators";
 import {MealHistoryConvertService} from "../../services/meal-history-convert/meal-history-convert.service";
@@ -21,8 +30,8 @@ export class MealHistoryUpdateController {
     }
 
 
-    @Post('/update')
-    async updateMealHistory(updateMealHistoryDTO: UpdateMealHistoryDTO, @GetCurrentUserProfileId() currentProfileId: number){
+    @Patch('/update')
+    async updateMealHistory(@Body() updateMealHistoryDTO: UpdateMealHistoryDTO, @GetCurrentUserProfileId() currentProfileId: number){
 
         const isMealHistoryExisting = await this.mealHistoryCheckService.checkExistingMealHistoryById(updateMealHistoryDTO.mealHistoryId)
         if (!isMealHistoryExisting) {

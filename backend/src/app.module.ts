@@ -13,6 +13,7 @@ import { GoalsModule } from './goals/goals.module';
 import { ConnectionRequestModule } from './Connections/connection-request/connection-request.module';
 import { ConnectionModule } from './Connections/connection/connection.module';
 import { AdminModule } from './admin/admin.module';
+import {MealHistoryModule} from "./meal-history/meal-history.module";
 
 @Module({
     imports: [
@@ -28,6 +29,7 @@ import { AdminModule } from './admin/admin.module';
         ConnectionRequestModule,
         ConnectionModule,
         AdminModule,
+        MealHistoryModule,
     ],
     controllers: [AppController],
     providers: [AppService],

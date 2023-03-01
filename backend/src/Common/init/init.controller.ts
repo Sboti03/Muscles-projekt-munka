@@ -21,6 +21,14 @@ export class InitController {
         }
     }
 
+
+
+    @Get('period')
+    async initPeriods() {
+        await this.initService.initPeriods()
+        return 'Done'
+    }
+
     @Get('admin')
     async initAdmin() {
         const admin = await this.authService.register(

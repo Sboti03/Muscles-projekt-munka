@@ -1,4 +1,4 @@
-import {Controller, Post, UseGuards} from '@nestjs/common';
+import {Body, Controller, Post, UseGuards} from '@nestjs/common';
 import {GetCurrentUser, GetCurrentUserProfileId} from "../../../auth/decorators/decorators";
 import {RoleEnum} from "../../../Common/Role/utils/roles";
 import {CreateMealHistoryDTO} from "../../dto/createMealHistoryDTO";
@@ -23,15 +23,16 @@ export class MealHistoryCreateController {
                 private mealGetService: MealGetService,
                 private mealHistoryCreateService: MealHistoryCreateService,
                 private mealHistoryConvertService: MealHistoryConvertService,
-                private dayHistoryCheckService: DayHistoryCheckService) {}
+                private dayHistoryCheckService: DayHistoryCheckService) {
+    }
 
     @Post('/create')
-    async createMealHistory(@GetCurrentUser('role') addedBy: RoleEnum,createMealHistoryDTO: CreateMealHistoryDTO, @GetCurrentUserProfileId() profileId: number){
-        const isDayHistoryExist = this.dayHistoryCheckService.checkExistingDayHistory(profileId, createMealHistoryDTO.date)
+    async createMealHistory(@GetCurrentUser('role') addedBy: RoleEnum, @Body() createMealHistoryDTO: CreateMealHistoryDTO, @GetCurrentUserProfileId() profileId: number) {
+        const isDayHistoryExist = await this.dayHistoryCheckService.checkExistingDayHistory(profileId, createMealHistoryDTO.date)
         if (!isDayHistoryExist) {
             await this.dayHistoryCreateService.createDayHistory(profileId, createMealHistoryDTO.date);
         }
-        const {dayId} = (await this.dayHistoryGetService.getDayIdByDate(createMealHistoryDTO.date, profileId));
+        const {dayId} = await this.dayHistoryGetService.getDayIdByDate(createMealHistoryDTO.date, profileId);
         const mealCreateInput = this.mealGetService.getMealCreateInput(createMealHistoryDTO, addedBy)
         const {mealId} = await this.mealCreateService.createMeal(mealCreateInput)
         const mealHistoryCreateInput = await this.mealHistoryConvertService.convertMealHistoryDtoToInput(dayId, mealId, createMealHistoryDTO)
