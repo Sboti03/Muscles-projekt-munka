@@ -12,6 +12,7 @@ import {WeightHistoryModule} from "./weight-history/weight-history.module";
 import { GoalsModule } from './goals/goals.module';
 import { ConnectionRequestModule } from './Connections/connection-request/connection-request.module';
 import { ConnectionModule } from './Connections/connection/connection.module';
+import { AdminModule } from './admin/admin.module';
 
 @Module({
     imports: [
@@ -26,6 +27,7 @@ import { ConnectionModule } from './Connections/connection/connection.module';
         GoalsModule,
         ConnectionRequestModule,
         ConnectionModule,
+        AdminModule,
     ],
     controllers: [AppController],
     providers: [AppService],
