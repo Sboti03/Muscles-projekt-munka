@@ -12,6 +12,7 @@ import {WeightHistoryModule} from "./weight-history/weight-history.module";
 import { GoalsModule } from './goals/goals.module';
 import { ConnectionRequestModule } from './Connections/connection-request/connection-request.module';
 import { ConnectionModule } from './Connections/connection/connection.module';
+import {MealHistoryModule} from "./meal-history/meal-history.module";
 
 @Module({
     imports: [
@@ -26,6 +27,7 @@ import { ConnectionModule } from './Connections/connection/connection.module';
         GoalsModule,
         ConnectionRequestModule,
         ConnectionModule,
+        MealHistoryModule,
     ],
     controllers: [AppController],
     providers: [AppService],

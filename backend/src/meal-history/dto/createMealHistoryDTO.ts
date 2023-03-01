@@ -10,6 +10,7 @@ export class CreateMealHistoryDTO{
    @IsNotEmpty()
    @Type(()=> Date)
    date: Date;
+
    @IsNumber()
    @IsNotEmpty()
    foodId: number;

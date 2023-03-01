@@ -9,20 +9,23 @@ import {DayHistoryModule} from "../day-history/day-history.module";
 import {MealModule} from "../meal/meal.module";
 import { MealHistoryDeleteController } from './controllers/meal-history-delete/meal-history-delete.controller';
 import { MealHistoryDeleteService } from './services/meal-history-delete/meal-history-delete.service';
+import {MealHistoryCheckService} from "./services/meal-history-check/meal-history-check.service";
 
 @Module({
    imports: [DayHistoryModule, MealModule],
+   controllers: [MealHistoryGetController, MealHistoryCreateController, MealHistoryUpdateController, MealHistoryDeleteController],
    providers: [
       MealHistoryCreateService,
       MealHistoryConvertService,
       MealHistoryGetService,
-      MealHistoryDeleteService
+      MealHistoryDeleteService,
+      MealHistoryCheckService,
    ],
-   controllers: [MealHistoryGetController, MealHistoryCreateController, MealHistoryUpdateController, MealHistoryDeleteController],
    exports: [
       MealHistoryCreateService,
       MealHistoryConvertService,
-      MealHistoryGetService
+      MealHistoryGetService,
+      MealHistoryDeleteService,
    ],
 })
 export class MealHistoryModule {

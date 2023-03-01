@@ -1,9 +1,10 @@
 import {HttpCode, Injectable} from '@nestjs/common';
 import {PrismaService} from "../utils/prirsma.service";
-import {Roles} from "../Role/utils/roles";
-import {Units} from "../units/units/units";
+import {RoleEnum, Roles} from "../Role/utils/roles";
+import {Units, UnitsEnum} from "../units/units/units";
 import {encryptData} from "../utils/bcrypt";
 import {AuthService} from "../../auth/services/auth.service";
+import {PeriodNamesEnum} from "../utils/PeriodNames";
 
 @Injectable()
 export class InitService {
@@ -34,6 +35,17 @@ export class InitService {
             return e
         }
 
+    }
+
+    async initPeriods() {
+        const values = Object.values(PeriodNamesEnum)
+        for (const v of values) {
+            await this.prismaService.mealPeriods.create({
+                data: {
+                    periodName: v
+                }
+            })
+        }
     }
 
     async createAdmin(userId: number) {

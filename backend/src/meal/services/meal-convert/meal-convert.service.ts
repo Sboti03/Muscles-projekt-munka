@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
-export class MealGetService {
+export class MealConvertService {
    constructor() {}
 
 

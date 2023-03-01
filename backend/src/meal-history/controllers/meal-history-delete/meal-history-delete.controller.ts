@@ -14,7 +14,7 @@ export class MealHistoryDeleteController {
 
     constructor(private mealHistoryCheckService:MealHistoryCheckService,
                 private mealHistoryGetService:MealHistoryGetService,
-                private mealHistoryDeleteService:MealHistoryDeleteService) {
+                private mealDeleteService:MealDeleteService) {
     }
     @Delete()
     async deleteMealHistory(@GetCurrentUserProfileId() currentProfileId: number,@Body() deleteMealHistoryDTO: DeleteMealHistoryDTO) {
@@ -27,7 +27,8 @@ export class MealHistoryDeleteController {
         if (profileId !== currentProfileId) {
             throw new ConflictException('Not the same profile')
         }
-        return this.mealHistoryDeleteService.deleteMealHistoryById(mealHistoryId)
+        const {mealId} = await this.mealHistoryGetService.getMealIdByMealHistoryId(mealHistoryId)
+        return this.mealDeleteService.deleteMealByMealId(mealId)
     }
 
 }

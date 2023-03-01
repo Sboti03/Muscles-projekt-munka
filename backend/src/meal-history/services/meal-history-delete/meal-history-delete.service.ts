@@ -8,7 +8,7 @@ export class MealHistoryDeleteService {
 
     deleteMealHistoryById(mealHistoryId: number) {
         return this.prismaService.mealHistory.delete({
-            where: {mealHistoryId}
+                where: {mealHistoryId}
         })
     }
 }
