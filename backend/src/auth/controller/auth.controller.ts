@@ -29,7 +29,7 @@ import {UserDeleteService} from "../../user/services/user-delete/user-delete.ser
 import {UserUpdateService} from "../../user/services/user-update/user-update.service";
 
 
-@Controller('api/auth')
+@Controller('auth')
 export class AuthController {
     constructor(private authService: AuthService, private authTokenService: AuthTokenService,
                 private userCheckService:UserCheckService,
