@@ -1,23 +1,34 @@
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
-import { ValidationPipe } from '@nestjs/common';
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import {NestFactory} from '@nestjs/core';
+import {AppModule} from './app.module';
+import {RequestMethod, ValidationPipe} from '@nestjs/common';
+import {DocumentBuilder, SwaggerModule} from '@nestjs/swagger';
 import * as cookieParser from "cookie-parser";
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  app.useGlobalPipes(new ValidationPipe({
-    transform: true
-  }));
-  const config = new DocumentBuilder()
-      .setTitle('Muscles API')
-      .setDescription('The Muscles API')
-      .setVersion('1.0')
-      .addTag('muscles')
-      .build();
-  const document = SwaggerModule.createDocument(app, config);
-  app.use(cookieParser())
-  SwaggerModule.setup('api', app, document);
-  await app.listen(3000);
+    const app = await NestFactory.create(AppModule);
+    app.useGlobalPipes(new ValidationPipe({
+        transform: true
+    }));
+
+    app.setGlobalPrefix('api/', {
+        exclude: [
+            {path: '/', method: RequestMethod.ALL},
+            {path: '/admin', method: RequestMethod.ALL}
+        ]
+    })
+
+    const config = new DocumentBuilder()
+        .setTitle('Muscles API')
+        .setDescription('The Muscles API')
+        .setVersion('1.0')
+        .addTag('muscles')
+        .build();
+    const document = SwaggerModule.createDocument(app, config);
+
+    SwaggerModule.setup('api', app, document);
+    app.use(cookieParser())
+
+    await app.listen(3000);
 }
+
 bootstrap();

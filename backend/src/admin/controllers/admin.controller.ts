@@ -8,7 +8,7 @@ import {Roles} from "../../Common/Role/decorators/ roles.decorator";
 import {RolesGuard} from "../../auth/guards/role.guard";
 
 @UseGuards(AccessTokenGuard, ProfileGuard)
-@Controller('/admin/user')
+@Controller('api/admin/user')
 export class AdminController {
     constructor(private adminBlockService: AdminBlockService, private adminDeleteService: AdminDeleteService) {
     }
