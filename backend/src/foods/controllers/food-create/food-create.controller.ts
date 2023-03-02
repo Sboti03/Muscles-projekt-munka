@@ -17,7 +17,6 @@ export class FoodCreateController {
 
     @Post('/')
      async createFood(@Body() foodCreateDto: FoodCreateDto) {
-        console.log(foodCreateDto)
         const foodCreateInput = this.convertService.convertCreateDtoToInput(foodCreateDto)
         return this.foodCreateService.createFood(foodCreateInput)
     }

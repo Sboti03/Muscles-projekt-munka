@@ -5,7 +5,7 @@ import {GetAndCheckProfileId, GetCurrentUserProfileId} from "../../../auth/decor
 import {AccessTokenGuard} from "../../../auth/guards/access-token.guard";
 import {DayHistoryCheckService} from "../../services/day-history-check/day-history-check.service";
 import {MealHistoryGetService} from "../../../meal-history/services/meal-history-get/meal-history-get.service";
-import DeleteMealHistoryDTO from "../../../meal-history/dto/deleteMealHistoryDTO";
+import DeleteMealHistoryDto from "../../../meal-history/dto/deleteMealHistory.dto";
 import MealHistoryGetDto from "../../dto/meal-history-get.dto";
 
 @UseGuards(AccessTokenGuard)

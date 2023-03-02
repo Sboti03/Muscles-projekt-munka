@@ -11,17 +11,18 @@ export class RefreshTokenStrategy extends PassportStrategy(
 ) {
     constructor() {
         super({
-            jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+            jwtFromRequest: ExtractJwt.fromExtractors([
+                RefreshTokenStrategy.extractJWT,
+                ExtractJwt.fromAuthHeaderAsBearerToken()
+            ]),
             secretOrKey: process.env.RT_SECRET,
             passReqToCallback: true,
+            ignoreExpiration: false
         });
     }
 
     validate(req: express.Request, payload: JwtPayload) {
-        const refreshToken = req
-            ?.get('authorization')
-            ?.replace('Bearer', '')
-            .trim();
+        const refreshToken = req.cookies.refreshToken
 
         if (!refreshToken)
             throw new ForbiddenException('Refresh token malformed');
@@ -30,5 +31,12 @@ export class RefreshTokenStrategy extends PassportStrategy(
             ...payload,
             refreshToken,
         };
+    }
+
+    private static extractJWT(req: express.Request): string | null {
+        if (req.cookies && 'refreshToken' in req.cookies) {
+            return req.cookies.refreshToken;
+        }
+        return null;
     }
 }

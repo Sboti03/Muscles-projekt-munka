@@ -8,7 +8,7 @@ import {
     Post,
     UseGuards
 } from '@nestjs/common';
-import {UpdateMealHistoryDTO} from "../../dto/updateMealHistoryDTO";
+import {UpdateMealHistoryDto} from "../../dto/updateMealHistory.dto";
 import {GetCurrentUserProfileId} from "../../../auth/decorators/decorators";
 import {MealHistoryConvertService} from "../../services/meal-history-convert/meal-history-convert.service";
 import {DayHistoryCheckService} from "../../../day-history/services/day-history-check/day-history-check.service";
@@ -31,7 +31,7 @@ export class MealHistoryUpdateController {
 
 
     @Patch('/update')
-    async updateMealHistory(@Body() updateMealHistoryDTO: UpdateMealHistoryDTO, @GetCurrentUserProfileId() currentProfileId: number){
+    async updateMealHistory(@Body() updateMealHistoryDTO: UpdateMealHistoryDto, @GetCurrentUserProfileId() currentProfileId: number){
 
         const isMealHistoryExisting = await this.mealHistoryCheckService.checkExistingMealHistoryById(updateMealHistoryDTO.mealHistoryId)
         if (!isMealHistoryExisting) {

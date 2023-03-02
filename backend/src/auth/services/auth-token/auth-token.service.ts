@@ -7,6 +7,7 @@ import {UserGetService} from "../../../user/services/user-get/user-get.service";
 import {JwtService} from "@nestjs/jwt";
 import {ProfileGetService} from "../../../profile/services/profile-get/profile-get.service";
 import {RoleEnum} from "../../../Common/Role/utils/roles";
+import {Response} from "express";
 
 @Injectable()
 export class AuthTokenService {
@@ -19,15 +20,6 @@ export class AuthTokenService {
     }
 
     async getNewRefreshToken(userId: number, refreshToken: string) {
-        const isTokenMatch = this.userCheckService.checkRefreshToken(
-            refreshToken,
-            userId,
-        );
-        if (!isTokenMatch) throw new ForbiddenException('Access denied');
-        await this.userDeleteService.deleteRefreshTokenById(
-            userId,
-            refreshToken,
-        );
         return (await this.getTokens(userId)).refreshToken;
     }
 
@@ -70,6 +62,29 @@ export class AuthTokenService {
             accessToken,
             refreshToken,
         };
+    }
+
+    getATMaxAge() {
+        return 1000 * 60 * 60
+    }
+
+    getRTMaxAge() {
+        return 1000 * 60 * 60 * 24 * 365
+    }
+
+    storeTokens(tokens: Tokens, res:Response) {
+        this.storeACToken(tokens.accessToken, res)
+        this.storeRfToken(tokens.refreshToken, res)
+    }
+
+    storeRfToken(token: string, res: Response) {
+        const rtMaxAge = this.getRTMaxAge();
+        res.cookie('refreshToken', token, {httpOnly: true, maxAge: rtMaxAge})
+    }
+
+    storeACToken(token: string, res: Response) {
+        const atMaxAge = this.getATMaxAge();
+        res.cookie('accessToken', token, {httpOnly: true, maxAge: atMaxAge})
     }
 
 }

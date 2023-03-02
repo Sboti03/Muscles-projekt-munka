@@ -14,7 +14,7 @@ export class UserDeleteService {
   async deleteRefreshTokenById(userId: number, refreshToken: string) {
     const checkedRefreshToken: boolean =
       await this.checkUserService.checkRefreshToken(refreshToken, userId);
-    if (checkedRefreshToken === false) {
+    if (!checkedRefreshToken) {
       throw new ConflictException('No token found');
     }
     const { refreshTokens } = await this.userGetService.getTokensByUserId(
