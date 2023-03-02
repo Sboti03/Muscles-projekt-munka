@@ -6,7 +6,7 @@ import { UserGetService } from '../../user/services/user-get/user-get.service';
 import { compareData } from '../../Common/utils/bcrypt';
 import LoginDto from '../dto/login.dto';
 import { UserUpdateService } from '../../user/services/user-update/user-update.service';
-import { CreateUserDTO } from '../../user/dto/createUserDTO';
+import { CreateUserDto } from '../../user/dto/createUser.dto';
 import { UserCheckService } from '../../user/services/user-check/user-check.service';
 import { UserCreateService } from '../../user/services/user-create/user-create.service';
 import {JwtService} from "@nestjs/jwt";
@@ -51,7 +51,7 @@ export class AuthService {
     }
 
 
-    async register(createUserDto: CreateUserDTO) {
+    async register(createUserDto: CreateUserDto) {
         const exist = await this.userCheckService.checkExistingUserByEmail(
             createUserDto.email,
         );

@@ -1,7 +1,7 @@
 import {Body, Controller, Post, UseGuards} from '@nestjs/common';
 import {GetCurrentUser, GetCurrentUserProfileId} from "../../../auth/decorators/decorators";
 import {RoleEnum} from "../../../Common/Role/utils/roles";
-import {CreateMealHistoryDTO} from "../../dto/createMealHistoryDTO";
+import {CreateMealHistoryDto} from "../../dto/createMealHistory.dto";
 import {DayHistoryGetService} from "../../../day-history/services/day-history-get/day-history-get.service";
 import {DayHistoryCreateService} from "../../../day-history/services/day-history-create/day-history-create.service";
 import {MealCreateService} from "../../../meal/services/meal-create/meal-create.service";
@@ -27,7 +27,7 @@ export class MealHistoryCreateController {
     }
 
     @Post('/create')
-    async createMealHistory(@GetCurrentUser('role') addedBy: RoleEnum, @Body() createMealHistoryDTO: CreateMealHistoryDTO, @GetCurrentUserProfileId() profileId: number) {
+    async createMealHistory(@GetCurrentUser('role') addedBy: RoleEnum, @Body() createMealHistoryDTO: CreateMealHistoryDto, @GetCurrentUserProfileId() profileId: number) {
         const isDayHistoryExist = await this.dayHistoryCheckService.checkExistingDayHistory(profileId, createMealHistoryDTO.date)
         if (!isDayHistoryExist) {
             await this.dayHistoryCreateService.createDayHistory(profileId, createMealHistoryDTO.date);

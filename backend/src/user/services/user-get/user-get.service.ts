@@ -1,7 +1,7 @@
 import {Injectable} from '@nestjs/common';
 import {PrismaService} from '../../../Common/utils/prirsma.service';
 import {Roles} from '../../../Common/Role/utils/roles';
-import {CreateUserDTO} from '../../dto/createUserDTO';
+import {CreateUserDto} from '../../dto/createUser.dto';
 import {Prisma} from '@prisma/client';
 import {encryptData} from '../../../Common/utils/bcrypt';
 
@@ -36,7 +36,7 @@ export class UserGetService {
         return isCoach ? Roles.COACH.roleId : Roles.USER.roleId;
     }
 
-    getUsersCreateInput(user: CreateUserDTO): Prisma.usersCreateInput {
+    getUsersCreateInput(user: CreateUserDto): Prisma.usersCreateInput {
         const roleId = this.getRoleId(user.isCoach);
         return {
             email: user.email,

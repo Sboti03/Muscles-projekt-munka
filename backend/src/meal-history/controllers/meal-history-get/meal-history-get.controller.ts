@@ -6,4 +6,5 @@ export class MealHistoryGetController {
     constructor(private prismaService:PrismaService) {
     }
 
+
 }
