@@ -61,4 +61,10 @@ export class UserGetService {
             },
         });
     }
+
+    getAllUser() {
+        return this.prismaService.users.findMany({
+            include: {roles: true}
+        })
+    }
 }

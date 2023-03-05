@@ -1,8 +1,8 @@
-import {RoleType} from "../../Common/Role/utils/roles";
+import {RoleEnum, RoleType} from "../../Common/Role/utils/roles";
 
 export type JwtPayload = {
     email: string;
     sub: number;
-    role: RoleType;
+    role: RoleEnum;
     profileId: number;
   };
