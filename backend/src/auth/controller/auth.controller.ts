@@ -12,7 +12,7 @@ import {
     Res,
     UseGuards,
 } from '@nestjs/common';
-import {GetCurrentUser, GetCurrentUserId, Public,} from '../decorators/decorators';
+import {GetCurrentUser, GetCurrentUserId, GetCurrentUserRefreshToken, Public,} from '../decorators/decorators';
 import {RefreshTokenGuard} from '../guards/refresh-token.guard';
 import {LocalAuthGuard} from '../guards/local-auth.guard';
 import {AuthService} from '../services/auth.service';
@@ -52,12 +52,11 @@ export class AuthController {
         return userData
     }
 
-    @Public()
     @UseGuards(RefreshTokenGuard)
     @Get('refresh')
     @HttpCode(HttpStatus.OK)
     @Header('Content-Type', 'application/json')
-    async getRefreshToken(@Res({passthrough: true}) res: Response, @GetCurrentUserId() userId: number, @GetCurrentUser('refreshToken') refreshToken: string) {
+    async getRefreshToken(@Res({passthrough: true}) res: Response, @GetCurrentUserId() userId: number, @GetCurrentUserRefreshToken() refreshToken: string) {
         const isTokenMatch = await this.userCheckService.checkRefreshToken(refreshToken, userId);
         if (!isTokenMatch) { throw new ForbiddenException('Access denied') }
         await this.userDeleteService.deleteRefreshTokenById(userId, refreshToken);
@@ -73,7 +72,7 @@ export class AuthController {
     @UseGuards(RefreshTokenGuard)
     @Header('Content-Type', 'application/json')
     @Get('access')
-    async getAccessToken(@Res({passthrough: true}) res: Response, @GetCurrentUser('refreshToken') refreshToken: string, @GetCurrentUserId() userId: number) {
+    async getAccessToken(@Res({passthrough: true}) res: Response, @GetCurrentUserRefreshToken() refreshToken: string, @GetCurrentUserId() userId: number) {
         const acToken = await this.authTokenService.getNewAccessToken(userId, refreshToken);
         this.authTokenService.storeACToken(acToken, res)
         return acToken
@@ -86,4 +85,11 @@ export class AuthController {
     admin() {
         return 'Szia admin báttya'
     }
+
+    @UseGuards(AccessTokenGuard)
+    @Get('logout')
+    logout(@GetCurrentUserId() userId: number, @GetCurrentUserRefreshToken() refreshToken: string){
+        return this.authService.logOut(userId)
+    }
+
 }

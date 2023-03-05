@@ -1,38 +1,52 @@
 import {useEffect, useState} from "react";
-import axios  from "axios";
+import axios, {Axios} from "axios";
 import {AxiosResponse} from 'axios'
 
 function useFetch<T>(path: string, method: Methods, body?: Object) {
     const [isLoading, setIsLoading] = useState(true)
-    const [error, setError] = useState(undefined)
+    const [error, setError] = useState<any>(undefined)
     const [response, setResponse] = useState<T | undefined>(undefined)
 
     useEffect(()=> {
-        setIsLoading(true)
-        setError(undefined)
-        setResponse(undefined)
-        let req:  Promise<AxiosResponse<any, any>>
-        switch (method) {
-            case Methods.GET:
-               req = axios.get(path)
-                break
-            case Methods.POST:
-                req = axios.post(path, body)
-                break
-            case Methods.DELETE:
-                req = axios.delete(path)
-                break;
-            case Methods.PATCH:
-                req = axios.patch(path)
+        const fetchData = async () => {
+            setIsLoading(true)
+            try {
+                const res = await getAxios(path, method, body)
+                setResponse(res.data as T)
+            } catch (error: any) {
+                if (error.response) {
+                    setError(error.response.data)
+                } else if(error.request) {
+                    setError(error.request.data)
+                } else {
+                    setError(error)
+                }
+            } finally {
+                setIsLoading(false)
+            }
+
         }
-        req.then(res=> {
-            setResponse(res.data as T)
-        })
-        req.catch(error => setError(error))
-        req.finally(()=> setIsLoading(false))
+        fetchData()
     }, [])
     return {isLoading, error, response}
 }
+
+export async function singleFetch<T>(path: string, method: Methods, body?: Object) {
+    try {
+        const res = await getAxios(path, method, body)
+        return {response: res as T}
+    } catch (error: any) {
+        if (error.response) {
+            return {error: error.response.data}
+        } else if(error.request) {
+            return {error: error.request.data}
+        } else {
+            return {error}
+        }
+    }
+}
+
+
 
 
 export enum Methods {
@@ -42,5 +56,18 @@ export enum Methods {
     PATCH,
 }
 
+
+function getAxios(path: string, method: Methods, body?: Object) {
+    switch (method) {
+        case Methods.GET:
+            return axios.get(path)
+        case Methods.POST:
+            return axios.post(path, body)
+        case Methods.PATCH:
+            return axios.patch(path)
+        case Methods.DELETE:
+            return axios.delete(path)
+    }
+}
 
 export default useFetch

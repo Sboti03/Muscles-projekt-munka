@@ -48,6 +48,7 @@ export class AuthService {
 
 
     async logOut(userId: number) {
+
         return await this.userUpdateService.pushNewRefreshToken('', userId);
     }
 
