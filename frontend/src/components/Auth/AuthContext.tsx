@@ -4,7 +4,10 @@ import {User} from "../Types/User";
 
 interface AuthContextValue {
     user: User | undefined,
-    setUser: (user: User) => void
+    setUser: (user: User | undefined) => void,
+    setIsAccessTokenExpired: (isAccessTokenExpired: boolean) => void,
+    login: () => void,
+    logout: () => void,
 }
 
 
