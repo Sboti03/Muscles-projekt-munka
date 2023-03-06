@@ -89,7 +89,7 @@ export class AuthController {
     @UseGuards(AccessTokenGuard)
     @Get('logout')
     logout(@GetCurrentUserId() userId: number, @GetCurrentUserRefreshToken() refreshToken: string){
-        return this.authService.logOut(userId)
+        return this.authService.logOut(userId, refreshToken)
     }
 
 }

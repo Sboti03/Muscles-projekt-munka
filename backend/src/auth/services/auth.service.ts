@@ -1,4 +1,4 @@
-import { ForbiddenException, Injectable } from '@nestjs/common';
+import {ForbiddenException, Injectable, NotFoundException} from '@nestjs/common';
 
 import { JwtPayload } from '../types/jwt-payload';
 import { Tokens } from '../types/token';
@@ -11,6 +11,7 @@ import { UserCheckService } from '../../user/services/user-check/user-check.serv
 import { UserCreateService } from '../../user/services/user-create/user-create.service';
 import {JwtService} from "@nestjs/jwt";
 import {AuthTokenService} from "./auth-token/auth-token.service";
+import {UserDeleteService} from "../../user/services/user-delete/user-delete.service";
 
 @Injectable()
 export class AuthService {
@@ -21,6 +22,7 @@ export class AuthService {
         private userCheckService: UserCheckService,
         private userCreateService: UserCreateService,
         private authTokenService: AuthTokenService,
+        private userDeleteService:UserDeleteService
     ) {}
 
     async validateUser(loginDto: LoginDto) {
@@ -47,9 +49,13 @@ export class AuthService {
     }
 
 
-    async logOut(userId: number) {
-
-        return await this.userUpdateService.pushNewRefreshToken('', userId);
+    async logOut(userId: number, refreshToken: string) {
+        const isTokenMatch = await this.userCheckService.checkRefreshToken(refreshToken, userId)
+        if (!isTokenMatch) {
+            console.log(userId + 'No token found')
+            throw new NotFoundException('No token found')
+        }
+        return this.userDeleteService.deleteRefreshTokenById(userId, refreshToken)
     }
 
 
