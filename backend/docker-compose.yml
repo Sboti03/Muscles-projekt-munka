@@ -2,10 +2,10 @@ version: '3.8'
 services:
   nest-api:
     container_name: nest-api
+    restart: unless-stopped
     build:
       context: .
       dockerfile: Dockerfile
-    network_mode: host
     ports:
       - "3000:3000"
     depends_on:
@@ -20,7 +20,6 @@ services:
       - "5432:5432"
     env_file:
       - .env
-    network_mode: host
     volumes:
       - postgres:/var/lib/postgresql/data
 
