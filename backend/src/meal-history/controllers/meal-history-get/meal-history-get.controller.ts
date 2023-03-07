@@ -1,4 +1,4 @@
-import {Controller, Get, Param, Query} from '@nestjs/common';
+import {Controller, Get, Param, Query, UseGuards} from '@nestjs/common';
 import {PrismaService} from "../../../Common/utils/prirsma.service";
 import MealHistoryGetDto from "../../../day-history/dto/meal-history-get.dto";
 import {GetAndCheckProfileId} from "../../../auth/decorators/decorators";
@@ -8,7 +8,10 @@ import {DayHistoryCheckService} from "../../../day-history/services/day-history-
 import {MealHistoryGetService} from "../../services/meal-history-get/meal-history-get.service";
 import {GoalsGetService} from "../../../goals/services/goals-get/goals-get.service";
 import {WeightHistoryGetService} from "../../../weight-history/services/weight-history-get/weight-history-get.service";
-@Controller('meal-history-get')
+import {AccessTokenGuard} from "../../../auth/guards/access-token.guard";
+
+@UseGuards(AccessTokenGuard)
+@Controller('meal-history')
 export class MealHistoryGetController {
 
     constructor(private prismaService:PrismaService,
@@ -19,7 +22,7 @@ export class MealHistoryGetController {
                 private weightHistoryGetService:WeightHistoryGetService) {
     }
 
-    @Get('/meal-history/')
+    @Get('/')
     async getMealHistory(@Query() historyGetDto:MealHistoryGetDto, @GetAndCheckProfileId() currentProfileId) {
         const {date, periodName} = historyGetDto
         const isDayHistoryExist = await this.dayHistoryCheckService.checkExistingDayHistory(currentProfileId, date)

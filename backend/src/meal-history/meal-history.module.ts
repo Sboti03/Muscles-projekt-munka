@@ -16,9 +16,10 @@ import {DayHistoryGetService} from "../day-history/services/day-history-get/day-
 import {DayHistoryCreateService} from "../day-history/services/day-history-create/day-history-create.service";
 import {MealCreateService} from "../meal/services/meal-create/meal-create.service";
 import {GoalsModule} from "../goals/goals.module";
+import {FoodsModule} from "../foods/foods.module";
 
 @Module({
-    imports: [MealModule, DayHistoryModule, GoalsModule, WeightHistoryModule],
+    imports: [MealModule, DayHistoryModule, GoalsModule, WeightHistoryModule, FoodsModule],
     controllers: [MealHistoryGetController, MealHistoryCreateController, MealHistoryUpdateController, MealHistoryDeleteController],
     providers: [
         MealHistoryCreateService,

@@ -26,6 +26,7 @@ import { FoodConvertService } from './services/food-convert/food-convert.service
         RolesGuard,
         FoodConvertService,
     ],
+    exports: [FoodCheckService]
 })
 export class FoodsModule {
 }
