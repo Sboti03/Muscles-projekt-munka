@@ -7,12 +7,14 @@ import {DayHistoryCheckService} from "../../services/day-history-check/day-histo
 import {MealHistoryGetService} from "../../../meal-history/services/meal-history-get/meal-history-get.service";
 import DeleteMealHistoryDto from "../../../meal-history/dto/deleteMealHistory.dto";
 import MealHistoryGetDto from "../../dto/meal-history-get.dto";
+import {GoalsGetService} from "../../../goals/services/goals-get/goals-get.service";
 
 @UseGuards(AccessTokenGuard)
 @Controller('day-history')
 export class DayHistoryGetController {
     constructor(private dayHistoryGetService: DayHistoryGetService,
-                private dayHistoryCheckService:DayHistoryCheckService) {
+                private dayHistoryCheckService:DayHistoryCheckService,
+                private goalsGetService:GoalsGetService) {
     }
 
     @Get('/weight/all')
@@ -30,7 +32,7 @@ export class DayHistoryGetController {
     }
 
     @Get('/meal-history/')
-    async getMealHistory(@Query() historyGetDto:MealHistoryGetDto, @GetCurrentUserProfileId() currentProfileId) {
+    async getMealHistory(@Query() historyGetDto:MealHistoryGetDto, @GetAndCheckProfileId() currentProfileId) {
         const {date, periodName} = historyGetDto
         const isDayHistoryExist = await this.dayHistoryCheckService.checkExistingDayHistory(currentProfileId, date)
         if (!isDayHistoryExist) {
@@ -38,6 +40,16 @@ export class DayHistoryGetController {
         }
         const {dayId} = await this.dayHistoryGetService.getDayIdByDate(date, currentProfileId)
         return this.dayHistoryGetService.getAllMealHistoryByIds(dayId, periodName)
+    }
+
+    @Get('data')
+    async getDayHistoryData(@Param() dateParam: DateParam, @GetAndCheckProfileId() currentProfileId) {
+        const {date} = dateParam
+        const isDayHistoryExist = await this.dayHistoryCheckService.checkExistingDayHistory(currentProfileId, date)
+        const goals = this.goalsGetService.getGoalByProfileId(currentProfileId);
+        return {
+
+        }
     }
 
 
