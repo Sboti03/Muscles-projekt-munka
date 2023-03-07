@@ -168,6 +168,8 @@ model goals {
   proteinPerDay       Int         @default(30)
   fatPerDay           Int         @default(20)
   date                DateTime    @default(now()) @db.Date
+
+  @@unique([profileId, date])
 }
 
 model roles {

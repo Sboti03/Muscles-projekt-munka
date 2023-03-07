@@ -6,7 +6,24 @@ export class WeightHistoryGetService {
     constructor(private prismaService:PrismaService) {
     }
 
-    getWeightHistoryByDay() {
-
+    getWeightFromDate(date: Date, profileId: number) {
+        return this.prismaService.weightHistory.findFirst({
+            where: {
+                day: {
+                    profileId: profileId,
+                    date: {
+                        lte: date
+                    }
+                },
+            },
+            select: {
+                weight: true,
+                day: {
+                    select: {
+                        date: true
+                    }
+                }
+            }
+        })
     }
 }
