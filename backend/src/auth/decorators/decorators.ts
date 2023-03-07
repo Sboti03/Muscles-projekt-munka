@@ -50,6 +50,18 @@ export const GetCurrentUser = createParamDecorator(
     (data: keyof JwtPayloadWithRt | undefined, context: ExecutionContext) => {
         const request = context.switchToHttp().getRequest();
         if (!data) return request.user;
+        console.log(request.user)
         return request.user[data];
+    },
+);
+
+export const GetCurrentUserRefreshToken = createParamDecorator(
+    (_: undefined, context: ExecutionContext) => {
+        const request = context.switchToHttp().getRequest();
+        const cookies = request.cookies;
+        if (!cookies?.refreshToken) {
+            throw new NotFoundException('No token found')
+        }
+        return cookies.refreshToken
     },
 );

@@ -3,6 +3,10 @@ import {LoginData, usePostLogin} from "./LoginFetch";
 import AuthContext from "../AuthContext";
 import NavigatorContext, {Page} from "../../Navigator/NavigatorContext";
 import {RoleEnum} from "../../Types/Roles";
+import {Input} from "@mui/joy";
+import Mail from '../../../assets/SVG/mail.svg'
+import Lock from '../../../assets/SVG/Lock.svg'
+import Eye from '../../../assets/SVG/eye.svg'
 
 function LoginPage() {
     const {setUser} = useContext(AuthContext)
@@ -31,14 +35,12 @@ function LoginPage() {
     return (
         <>
             <form onSubmit={login}>
-                <label>
-                    <div>Email</div>
-                    <div><input name="email" placeholder="email"/></div>
-                </label>
-                <label>
-                    <div>Password</div>
-                    <div><input name="password" placeholder="password"/></div>
-                </label>
+                <div>
+                    <Input startDecorator={<img src={Mail} />} placeholder="Email" name="email"/>
+                </div>
+                <div>
+                    <Input startDecorator={<img src={Lock} />} endDecorator={<button><img src={Eye}/></button>} placeholder="Password" name="password"/>
+                </div>
                 <button type="submit">Login</button>
             </form>
         </>
