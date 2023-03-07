@@ -3,7 +3,7 @@ import {Simulate} from "react-dom/test-utils";
 import error = Simulate.error;
 
 export default async function newAccessToken() {
-    const {error, response} = await singleFetch('/api/auth/access', Methods.GET)
+    const {error, response} = await singleFetch<any>('/api/auth/access', Methods.GET)
     if (error) {
         return error
     } else {
