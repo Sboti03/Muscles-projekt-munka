@@ -5,6 +5,8 @@ WORKDIR /app/backend
 COPY package*.json ./
 COPY prisma ./prisma/
 
+RUN npx primsa db push
+RUN npx primsa generate
 RUN npm install
 
 

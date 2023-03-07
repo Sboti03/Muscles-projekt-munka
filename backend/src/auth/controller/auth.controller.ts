@@ -88,7 +88,9 @@ export class AuthController {
 
     @UseGuards(AccessTokenGuard)
     @Get('logout')
-    logout(@GetCurrentUserId() userId: number, @GetCurrentUserRefreshToken() refreshToken: string){
+    logout(@Res({passthrough: true}) res: Response, @GetCurrentUserId() userId: number, @GetCurrentUserRefreshToken() refreshToken: string){
+        res.clearCookie('accessToken')
+        res.clearCookie('refreshToken')
         return this.authService.logOut(userId, refreshToken)
     }
 
