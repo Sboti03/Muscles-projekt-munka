@@ -1,4 +1,4 @@
-import {Body, Controller, Post, UseGuards} from '@nestjs/common';
+import {Body, Controller, NotFoundException, Post, UseGuards} from '@nestjs/common';
 import {GetCurrentUser, GetCurrentUserProfileId} from "../../../auth/decorators/decorators";
 import {RoleEnum} from "../../../Common/Role/utils/roles";
 import {CreateMealHistoryDto} from "../../dto/createMealHistory.dto";
@@ -11,6 +11,7 @@ import {MealHistoryConvertService} from "../../services/meal-history-convert/mea
 import {DayHistoryCheckService} from "../../../day-history/services/day-history-check/day-history-check.service";
 import {AccessTokenGuard} from "../../../auth/guards/access-token.guard";
 import {ProfileGuard} from "../../../auth/guards/profile.guard";
+import {FoodCheckService} from "../../../foods/services/food-check/food-check.service";
 
 
 @UseGuards(AccessTokenGuard, ProfileGuard)
@@ -23,11 +24,16 @@ export class MealHistoryCreateController {
                 private mealGetService: MealGetService,
                 private mealHistoryCreateService: MealHistoryCreateService,
                 private mealHistoryConvertService: MealHistoryConvertService,
-                private dayHistoryCheckService: DayHistoryCheckService) {
+                private dayHistoryCheckService: DayHistoryCheckService,
+                private foodCheckService:FoodCheckService) {
     }
 
     @Post('/create')
     async createMealHistory(@GetCurrentUser('role') addedBy: RoleEnum, @Body() createMealHistoryDTO: CreateMealHistoryDto, @GetCurrentUserProfileId() profileId: number) {
+        const isFoodExist = await this.foodCheckService.checkValidFood(createMealHistoryDTO.foodId)
+        if (!isFoodExist) {
+            throw new NotFoundException('No food found')
+        }
         const isDayHistoryExist = await this.dayHistoryCheckService.checkExistingDayHistory(profileId, createMealHistoryDTO.date)
         if (!isDayHistoryExist) {
             await this.dayHistoryCreateService.createDayHistory(profileId, createMealHistoryDTO.date);

@@ -8,7 +8,7 @@ export class FoodCheckService {
 
     async checkValidFood(foodId: number) {
         try {
-            await this.prismaService.foods.findUnique({
+            await this.prismaService.foods.findUniqueOrThrow({
                 where: {foodId}
             })
             return true
