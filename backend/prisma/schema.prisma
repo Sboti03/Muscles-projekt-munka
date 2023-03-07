@@ -154,7 +154,7 @@ model profileData {
   height           Float?
   dayHistory       dayHistory[]
   user             users        @relation(fields: [userId], references: [userId], onDelete: NoAction, onUpdate: NoAction, map: "userIdFK")
-  goal             goals?
+  goal             goals[]
   changedAt        DateTime     @default(now()) @updatedAt @db.Timestamp(6)
 }
 
@@ -167,7 +167,7 @@ model goals {
   carbohydratesPerDay Int         @default(50)
   proteinPerDay       Int         @default(30)
   fatPerDay           Int         @default(20)
-  changedAt           DateTime    @default(now()) @updatedAt @db.Timestamp(6)
+  date                DateTime    @default(now()) @db.Date
 }
 
 model roles {

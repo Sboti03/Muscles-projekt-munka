@@ -6,6 +6,7 @@ import {
 import {WeightHistoryController} from "./controller/weight-history-create-or-update/weight-history.controller";
 import {DayHistoryGetService} from "../day-history/services/day-history-get/day-history-get.service";
 import {DayHistoryCreateService} from "../day-history/services/day-history-create/day-history-create.service";
+import { WeightHistoryGetService } from './services/weight-history-get/weight-history-get.service';
 
 @Module({
     providers: [
@@ -13,6 +14,7 @@ import {DayHistoryCreateService} from "../day-history/services/day-history-creat
         PrismaService,
         DayHistoryCreateService,
         DayHistoryGetService,
+        WeightHistoryGetService,
     ],
     controllers: [WeightHistoryController],
     exports: [
