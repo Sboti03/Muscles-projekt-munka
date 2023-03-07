@@ -1,12 +1,12 @@
-import useFetch, {Methods} from "../utils/Fetch";
+import useFetch, {Methods, singleFetch} from "../utils/Fetch";
 import {User} from "../Types/User";
-import {useContext, useEffect} from "react";
+import {useContext, useEffect, useMemo} from "react";
 import newAccessToken from "../Auth/Refresh/RefreshTokens";
 import AuthContext from "../Auth/AuthContext";
 
 export default function AdminPage() {
-
     const {isLoading, response, error} = useFetch<Array<AdminRes>>('/api/user/all', Methods.GET)
+
     const {setIsAccessTokenExpired} = useContext(AuthContext)
     useEffect(()=> {
         if (error) {
