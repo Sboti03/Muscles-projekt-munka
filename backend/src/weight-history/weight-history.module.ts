@@ -7,21 +7,23 @@ import {WeightHistoryController} from "./controller/weight-history-create-or-upd
 import {DayHistoryGetService} from "../day-history/services/day-history-get/day-history-get.service";
 import {DayHistoryCreateService} from "../day-history/services/day-history-create/day-history-create.service";
 import { WeightHistoryGetService } from './services/weight-history-get/weight-history-get.service';
+import {DayHistoryModule} from "../day-history/day-history.module";
+import {DayHistoryCreateDto} from "../day-history/dto/DayHistoryCreate.dto";
+import { WeightHistoryGetController } from './controller/weight-history-get/weight-history-get.controller';
 
 @Module({
     providers: [
         WeightHistoryUpdateOrCreateService,
         PrismaService,
-        DayHistoryCreateService,
         DayHistoryGetService,
+        DayHistoryCreateService,
         WeightHistoryGetService,
     ],
-    controllers: [WeightHistoryController],
+    controllers: [WeightHistoryController, WeightHistoryGetController],
     exports: [
         WeightHistoryUpdateOrCreateService,
         PrismaService,
-        DayHistoryGetService,
-        DayHistoryCreateService
+        WeightHistoryGetService
     ]
 })
 export class WeightHistoryModule {

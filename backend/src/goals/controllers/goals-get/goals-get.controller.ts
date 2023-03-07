@@ -10,7 +10,7 @@ export class GoalsGetController {
 
     @Get()
     async getGoalsById(@GetAndCheckProfileId() profileId: number) {
-        return this.goalsGetService.getGoalByProfileId(profileId)
+        return this.goalsGetService.getGoalsByProfileId(profileId)
     }
 
 }
