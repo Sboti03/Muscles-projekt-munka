@@ -1,3 +1,4 @@
+import './Login.css'
 import {FormEvent, useContext, useEffect, useState} from "react";
 import {LoginData, usePostLogin} from "./LoginFetch";
 import AuthContext from "../AuthContext";
@@ -7,6 +8,7 @@ import {Input} from "@mui/joy";
 import Mail from '../../../assets/SVG/mail.svg'
 import Lock from '../../../assets/SVG/Lock.svg'
 import Eye from '../../../assets/SVG/eye.svg'
+
 
 function LoginPage() {
     const {setUser} = useContext(AuthContext)
@@ -34,14 +36,16 @@ function LoginPage() {
 
     return (
         <>
-            <form onSubmit={login}>
-                <div>
-                    <Input startDecorator={<img src={Mail} />} placeholder="Email" name="email"/>
+            <form onSubmit={login} className="login-box">
+                <div className="login-box-elements">
+                    <div>
+                        <Input className="Input" startDecorator={<img src={Mail}/>} placeholder="Email" name="email"/>
+                    </div>
+                    <div>
+                        <Input className="Input" startDecorator={<img src={Lock} />} endDecorator={<button className="classic-btn"><img src={Eye}/></button>} placeholder="Password" name="password"/>
+                    </div>
+                    <button type="submit">Login</button>
                 </div>
-                <div>
-                    <Input startDecorator={<img src={Lock} />} endDecorator={<button><img src={Eye}/></button>} placeholder="Password" name="password"/>
-                </div>
-                <button type="submit">Login</button>
             </form>
         </>
     )

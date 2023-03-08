@@ -1,0 +1,23 @@
+.login-box {
+    display: flex;
+    justify-content: center;
+}
+
+.login-box-elements {
+    margin: 10pt;
+    max-width: 250pt;
+}
+.login-box-elements > div {
+    margin: 10pt;
+}
+.Input {
+    border: none !important;
+    border-bottom: 1pt solid black !important;
+    border-radius: 0 !important;
+    outline: none !important;
+}
+.Input:focus {
+    border: none;
+    outline: none;
+
+}
