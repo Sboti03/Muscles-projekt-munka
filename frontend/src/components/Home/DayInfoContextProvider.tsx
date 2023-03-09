@@ -8,7 +8,7 @@ import {da} from "date-fns/locale";
 
 export default function DayInfoContextProvider(props: PropsWithChildren) {
     const [dayInfo, setDayInfo] = useState<DayInfoData | undefined>()
-    const [currentDate, setCurrentDate] = useState(new Date(2023, 2, 11))
+    const [currentDate, setCurrentDate] = useState(new Date())
 
     useEffect(()=> {
         fetchDay(currentDate)
@@ -76,7 +76,7 @@ function calculateDayInfoData(mealHistoryResponse: MealHistoryResponse): DayInfo
     }
 }
 
-function normalizeDate(date: Date) {
+export function normalizeDate(date: Date) {
     return date.toISOString().split('T')[0]
 }
 

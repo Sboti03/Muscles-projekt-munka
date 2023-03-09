@@ -1,14 +1,22 @@
+import 'react-day-picker/dist/style.css';
 import './DayPickerBar.css'
 import {DayPicker} from "react-day-picker";
 import {useContext, useState} from "react";
 import DayInfoContext from "../DayInfoContext";
-import 'react-day-picker/dist/style.css';
+import {da, fi} from "date-fns/locale";
+import {normalizeDate} from "../DayInfoContextProvider";
+
 export default function DayPickerBar() {
 
     const {setCurrentDate, currentDate} = useContext(DayInfoContext)
     const [isDaySelectorEnabled, setIsDaySelectorEnabled] = useState(false)
 
-    function openDatePicker() {
+    function setPrevDay() {
+        setCurrentDate(subtractDays(new Date(currentDate), 1))
+    }
+
+    function setNextDay() {
+        setCurrentDate(subtractDays(new Date(currentDate), -1))
 
     }
 
@@ -31,16 +39,28 @@ export default function DayPickerBar() {
                 </div>
             }
             <div className="day-picker-elements">
-                <button className="mini-btn btn">
-                    26
+                <button onClick={setPrevDay} className="mini-btn btn">
+                    {subtractDays(new Date(currentDate), 1).getDate()}
                 </button>
                 <button onClick={()=> setIsDaySelectorEnabled(!isDaySelectorEnabled)} className="big-btn btn">
-                    today
+                    {dateCompare(new Date(), currentDate) ? 'today' : currentDate.getDate()}
                 </button>
-                <button className="mini-btn btn">
-                    28
+                <button onClick={setNextDay} className="mini-btn btn">
+                    {subtractDays(new Date(currentDate), -1).getDate()}
                 </button>
             </div>
         </div>
     )
+}
+
+function subtractDays(date: Date, days: number) {
+    date.setDate(date.getDate() - days);
+    return date;
+}
+
+function dateCompare(firstDate: Date, secondDate: Date) {
+    return firstDate.getFullYear() === secondDate.getFullYear() &&
+        firstDate.getDate() === secondDate.getDate() &&
+        firstDate.getMonth() === secondDate.getMonth();
+
 }

@@ -1,3 +1,13 @@
+.rdp-day_selected,
+.rdp-day_selected:focus-visible,
+.rdp-day_selected:hover {
+    color: white;
+    opacity: 1;
+    background-color: #6F00B3;
+}
+
+
+
 .day-picker {
     display: flex;
     justify-content: center;
@@ -49,13 +59,4 @@
     border: 1px solid rgba(0, 0, 0, 0.42);
     border-radius: 10pt;
     z-index: 1;
-}
-
-
-.rdp-day_selected,
-.rdp-day_selected:focus-visible,
-.rdp-day_selected:hover {
-    color: white;
-    opacity: 1;
-    background-color: #6F00B3;
 }
