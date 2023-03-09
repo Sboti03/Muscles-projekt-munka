@@ -1,5 +1,5 @@
 import React from "react";
-import {HomeResponse} from "./Data/HomeResponse";
+import {MealHistoryResponse} from "./Data/MealHistoryResponse";
 import {DayInfoData} from "./Data/DayInfoData";
 
 export interface DayContextValue {

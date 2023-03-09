@@ -8,5 +8,8 @@ export interface DayInfoData {
     totalFat: number,
     totalCarbohydrate: number,
     totalProtein: number,
+    progressProtein: number,
+    progressFat: number,
+    progressCarbohydrate: number
 
 }

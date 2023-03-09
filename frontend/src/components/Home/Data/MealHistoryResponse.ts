@@ -1,4 +1,4 @@
-export interface HomeResponse {
+export interface MealHistoryResponse {
     dayHistory: DayHistory[];
     goal:       Goal;
     weight:     Weight;

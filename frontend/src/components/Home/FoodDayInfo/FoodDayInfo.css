@@ -1,0 +1,47 @@
+:root {
+    --main-color: #6F00B3;
+}
+
+.food-day-container {
+    max-width: 800pt;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16pt;
+    background-color: var(--main-color);
+    color: white;
+    border-radius: 10pt;
+    min-height: 200pt;
+}
+
+.food-day-info-box {
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+}
+
+.food-day-info-box {
+
+}
+
+.fdi-mini-text {
+}
+
+.food-day-progress-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    text-align: center;
+}
+
+.food-day-progress-box > div {
+    margin-left: 50pt;
+    margin-right: 50pt;
+}
+
+.fdi-mini-text > :first-child{
+    font-size: 1.3em;
+}
+
+.fdi-main-text > :first-child {
+    font-size: 1.3em;
+}

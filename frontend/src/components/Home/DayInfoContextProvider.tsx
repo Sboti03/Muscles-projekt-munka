@@ -1,9 +1,10 @@
 import DayInfoContext from "./DayInfoContext";
 import {PropsWithChildren, useEffect, useState} from "react";
 import {Methods, singleFetch} from "../utils/Fetch";
-import {DayHistory, HomeResponse} from "./Data/HomeResponse";
+import {DayHistory, MealHistoryResponse} from "./Data/MealHistoryResponse";
 import {DayInfoData} from "./Data/DayInfoData";
 import {getOffsetLeft} from "@mui/material";
+import {da} from "date-fns/locale";
 
 export default function DayInfoContextProvider(props: PropsWithChildren) {
     const [dayInfo, setDayInfo] = useState<DayInfoData | undefined>()
@@ -14,7 +15,7 @@ export default function DayInfoContextProvider(props: PropsWithChildren) {
     }, [currentDate])
 
     async function fetchDay(date: Date) {
-        const result = await singleFetch<HomeResponse>(`/api/meal-history/data/${normalizeDate(date)}`, Methods.GET)
+        const result = await singleFetch<MealHistoryResponse>(`/api/meal-history/data/${normalizeDate(date)}`, Methods.GET)
         if (result.error) {
             // TODO Hnalde error
         } else if (result.response) {
@@ -33,41 +34,50 @@ export default function DayInfoContextProvider(props: PropsWithChildren) {
 }
 
 
-function calculateDayInfoData(homeResponse: HomeResponse): DayInfoData {
+function calculateDayInfoData(mealHistoryResponse: MealHistoryResponse): DayInfoData {
     const PROTEIN_PER_KCAL = 4;
     const FAT_PER_KCAL = 9;
     const CARBOHYDRATE_PER_KCAL = 4;
-    const {goal} = homeResponse
+
+    const {goal} = mealHistoryResponse
+
     let eatenFat = 0;
     let eatenCarbohydrate = 0;
     let eaten = 0;
-    let left = goal.targetCalories ? goal.targetCalories : 0;
+    let totalCalorie = goal.targetCalories ? goal.targetCalories : 0;
     let eatenProtein = 0;
-    homeResponse.dayHistory.forEach(day => {
+
+    mealHistoryResponse.dayHistory.forEach(day => {
+        const perEach = (day.meals.amount) / day.meals.food.perUnit
         const {food} = day.meals
-        eatenFat += food.fat;
-        eatenCarbohydrate += food.carbohydrate;
-        eatenProtein += food.protein;
-        eaten += day.meals.amount / food.perUnit * food.kcal
+        eatenFat += food.fat * perEach;
+        eatenCarbohydrate += food.carbohydrate * perEach;
+        eatenProtein += food.protein * perEach;
+        eaten += perEach * food.kcal
     })
 
-    const totalProtein = left * (goal.proteinPerDay / 100) / PROTEIN_PER_KCAL;
-    const totalCarbohydrate = left * (goal.carbohydratesPerDay / 100) / CARBOHYDRATE_PER_KCAL;
-    const totalFat = left * (goal.fatPerDay / 100) / FAT_PER_KCAL;
+    const totalProtein = totalCalorie * (goal.proteinPerDay / 100) / PROTEIN_PER_KCAL;
+    const totalCarbohydrate = totalCalorie * (goal.carbohydratesPerDay / 100) / CARBOHYDRATE_PER_KCAL;
+    const totalFat = totalCalorie * (goal.fatPerDay / 100) / FAT_PER_KCAL;
 
     return  {
-        weight: homeResponse.weight.weight,
+        weight: mealHistoryResponse.weight.weight,
         eatenFat,
         eatenCarbohydrate,
         eaten,
-        left: left - eaten,
+        left: totalCalorie - eaten,
         eatenProtein,
         totalProtein,
         totalCarbohydrate,
         totalFat,
+        progressCarbohydrate: clamp(Math.round(eatenCarbohydrate / totalCarbohydrate * 100)),
+        progressProtein: clamp(Math.round(eatenCarbohydrate / totalCarbohydrate * 100)),
+        progressFat: clamp(Math.round(eatenCarbohydrate / totalCarbohydrate * 100)),
     }
 }
 
 function normalizeDate(date: Date) {
     return date.toISOString().split('T')[0]
 }
+
+const clamp = (num: number) => Math.min(Math.max(num, 0), 100);

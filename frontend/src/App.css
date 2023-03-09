@@ -7,3 +7,9 @@
 .classic-btn:hover {
   filter: drop-shadow(3px 5px 2px rgba(0, 0, 0, 0.91));
 }
+
+.full-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
