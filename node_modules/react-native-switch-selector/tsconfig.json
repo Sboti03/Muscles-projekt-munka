@@ -1,0 +1,13 @@
+{
+  // Change this to match your project
+  "include": [
+    "index.js"
+  ],
+  "compilerOptions": {
+    "allowJs": true,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "outDir": "types",
+    "declarationMap": true
+  }
+}

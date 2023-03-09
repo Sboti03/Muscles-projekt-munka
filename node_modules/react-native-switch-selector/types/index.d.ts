@@ -1,0 +1,111 @@
+declare class SwitchSelector {
+    constructor(props: any);
+    state: {
+        selected: any;
+    };
+    panResponder: any;
+    animatedValue: any;
+    componentDidUpdate(prevProps: any): void;
+    getSwipeDirection(gestureState: any): "RIGHT" | "LEFT";
+    getBgColor(): any;
+    responderEnd: (evt: any, gestureState: any) => void;
+    shouldSetResponder: (evt: any, gestureState: any) => boolean;
+    animate: (value: any, last: any) => void;
+    toggleItem: (index: any, callOnPress?: boolean) => void;
+    render(): any;
+}
+declare namespace SwitchSelector {
+    namespace defaultProps {
+        const style: {};
+        const textStyle: {};
+        const selectedTextStyle: {};
+        const textContainerStyle: {};
+        const selectedTextContainerStyle: {};
+        const imageStyle: {};
+        const options: any[];
+        const textColor: string;
+        const selectedColor: string;
+        const fontSize: number;
+        const backgroundColor: string;
+        const borderColor: string;
+        const borderRadius: number;
+        const borderWidth: number;
+        const hasPadding: boolean;
+        const valuePadding: number;
+        const height: number;
+        const bold: boolean;
+        const buttonMargin: number;
+        const buttonColor: string;
+        const returnObject: boolean;
+        const animationDuration: number;
+        const disabled: boolean;
+        const disableValueChangeOnPress: boolean;
+        const initial: number;
+        const value: number;
+        const onPress: any;
+        const accessibilityLabel: any;
+        const testID: any;
+    }
+    namespace propTypes {
+        const style_1: any;
+        export { style_1 as style };
+        const textStyle_1: any;
+        export { textStyle_1 as textStyle };
+        const selectedTextStyle_1: any;
+        export { selectedTextStyle_1 as selectedTextStyle };
+        const textContainerStyle_1: any;
+        export { textContainerStyle_1 as textContainerStyle };
+        const selectedTextContainerStyle_1: any;
+        export { selectedTextContainerStyle_1 as selectedTextContainerStyle };
+        const imageStyle_1: any;
+        export { imageStyle_1 as imageStyle };
+        const options_1: any;
+        export { options_1 as options };
+        const textColor_1: any;
+        export { textColor_1 as textColor };
+        const selectedColor_1: any;
+        export { selectedColor_1 as selectedColor };
+        const fontSize_1: any;
+        export { fontSize_1 as fontSize };
+        const backgroundColor_1: any;
+        export { backgroundColor_1 as backgroundColor };
+        const borderColor_1: any;
+        export { borderColor_1 as borderColor };
+        const borderRadius_1: any;
+        export { borderRadius_1 as borderRadius };
+        const borderWidth_1: any;
+        export { borderWidth_1 as borderWidth };
+        const hasPadding_1: any;
+        export { hasPadding_1 as hasPadding };
+        const valuePadding_1: any;
+        export { valuePadding_1 as valuePadding };
+        const height_1: any;
+        export { height_1 as height };
+        const bold_1: any;
+        export { bold_1 as bold };
+        const buttonMargin_1: any;
+        export { buttonMargin_1 as buttonMargin };
+        const buttonColor_1: any;
+        export { buttonColor_1 as buttonColor };
+        const returnObject_1: any;
+        export { returnObject_1 as returnObject };
+        const animationDuration_1: any;
+        export { animationDuration_1 as animationDuration };
+        const disabled_1: any;
+        export { disabled_1 as disabled };
+        const disableValueChangeOnPress_1: any;
+        export { disableValueChangeOnPress_1 as disableValueChangeOnPress };
+        const initial_1: any;
+        export { initial_1 as initial };
+        const value_1: any;
+        export { value_1 as value };
+        const onPress_1: any;
+        export { onPress_1 as onPress };
+        const accessibilityLabel_1: any;
+        export { accessibilityLabel_1 as accessibilityLabel };
+        const testID_1: any;
+        export { testID_1 as testID };
+    }
+}
+export default SwitchSelector;
+//# sourceMappingURL=index.d.ts.map
