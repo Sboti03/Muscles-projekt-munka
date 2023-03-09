@@ -1,4 +1,4 @@
-import {Text} from "@react-native-material/core";
+import { Text} from "@react-native-material/core";
 
 export default function AdminPage(){
    return(

@@ -1,6 +1,6 @@
 import {useContext} from "react";
 import NavigatorProvider, {Page} from "./NavigatorProvider";
-import LoginForm from "../loginForm";
+import LoginPage from "../loginPage";
 import HomePage from "../home/homePage";
 import RegisterPage from "../register/registerpage";
 import AdminPage from "../admin/adminPage";
@@ -11,7 +11,7 @@ export default function Pages() {
 
    switch (page) {
       case Page.LOGIN:
-         return <LoginForm />
+         return <LoginPage />
       case Page.HOME:
          return <HomePage />
       case Page.REGISTER:
