@@ -63,8 +63,8 @@ export default function RegisterPage() {
                   hasPadding
                   animationDuration={250}
                   options={[
-                      { label: "Coach", value: true }, //images.feminino = require('./path_to/assets/img/feminino.png')
-                      { label: 'Normal', value: false } //images.masculino = require('./path_to/assets/img/masculino.png')
+                      { label: "Coach", value: true },
+                      { label: 'Normal', value: false }
                   ]}
               />
 
