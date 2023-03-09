@@ -33,7 +33,7 @@ export class MealHistoryGetController {
         return this.dayHistoryGetService.getAllMealHistoryByIds(dayId, periodName)
     }
 
-    @Get('data')
+    @Get('data/:date')
     async getDayHistoryData(@Param() dateParam: DateParam, @GetAndCheckProfileId() currentProfileId) {
         const {date} = dateParam
         let dayHistory;
