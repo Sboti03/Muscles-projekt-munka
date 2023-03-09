@@ -7,5 +7,6 @@ module hu.muscles.desktop {
 
 
     opens hu.muscles.desktop to javafx.fxml;
+    opens hu.muscles.desktop.loginData to com.fasterxml.jackson.databind;
     exports hu.muscles.desktop;
 }
