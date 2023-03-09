@@ -7,6 +7,7 @@ import {loginPageStyle} from "../loginPage";
 import Ripple from 'react-native-material-ripple';
 import axios from "axios";
 import {BASE_URL} from "@env";
+// @ts-ignore
 import SwitchSelector from "react-native-switch-selector";
 
 
