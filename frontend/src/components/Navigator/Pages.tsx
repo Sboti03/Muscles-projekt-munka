@@ -1,7 +1,7 @@
 import {PropsWithChildren, useContext, useState} from "react";
 import NavigatorContext, {Page} from "./NavigatorContext";
 import LoginPage from "../Auth/Login/LoginPage";
-import HomePage from "../Home/HomePage";
+import HomePage from "../Home/DayPage";
 import AdminPage from "../Admin/AdminPage";
 
 export default function Pages() {

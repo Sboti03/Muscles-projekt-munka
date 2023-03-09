@@ -34,7 +34,7 @@ function useFetch<T>(path: string, method: Methods, body?: Object) {
 export async function singleFetch<T>(path: string, method: Methods, body?: Object) {
     try {
         const res = await getAxios(path, method, body)
-        return {response: res as T}
+        return {response: res.data as T}
     } catch (error: any) {
         if (error.response) {
             return {error: error.response.data}

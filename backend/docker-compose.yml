@@ -13,7 +13,7 @@ services:
     env_file:
       - .env
   postgres:
-    image: postgres:13
+    image: postgres:latest
     container_name: postgres
     restart: always
     ports:
