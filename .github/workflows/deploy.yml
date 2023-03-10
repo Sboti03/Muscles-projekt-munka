@@ -21,4 +21,5 @@ jobs:
         port: ${{ secrets.GCLOUD_VM_SSH_PORT }}
         script: |
           cd Muscles-projekt-munka/backend/
+          chmod +x deploy.sh
           ./deploy.sh
