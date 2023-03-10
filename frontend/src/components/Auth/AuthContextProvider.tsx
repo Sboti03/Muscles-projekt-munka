@@ -5,19 +5,21 @@ import NavigatorContext, {Page} from "../Navigator/NavigatorContext";
 import {RoleEnum} from "../Types/Roles";
 import newAccessToken from "./Refresh/RefreshTokens";
 import {Methods, singleFetch} from "../utils/Fetch";
+import {Simulate} from "react-dom/test-utils";
 
-function AuthContextProvider(props:PropsWithChildren) {
+
+function AuthContextProvider(props: PropsWithChildren) {
     const [user, setUser] = useState<User | undefined>(undefined)
     const [isAccessTokenExpired, setIsAccessTokenExpired] = useState(false)
     const {changePage} = useContext(NavigatorContext)
 
-    useEffect(()=> {
+    useEffect(() => {
         if (user !== undefined) {
             window.localStorage.setItem('user', JSON.stringify(user))
         }
     }, [user])
 
-    useEffect(()=> {
+    useEffect(() => {
         if (isAccessTokenExpired) {
             setIsAccessTokenExpired(false)
             newAccessToken().then(r => {
@@ -26,7 +28,16 @@ function AuthContextProvider(props:PropsWithChildren) {
         }
     }, [isAccessTokenExpired])
 
-    useEffect(()=> {
+    useEffect(() => {
+        const accessTokenRedirect = async (page: Page) => {
+            const result = await newAccessToken()
+            if (result!.response) {
+                changePage(page)
+            } else {
+                changePage(Page.LOGIN)
+            }
+        }
+
         const save = window.localStorage.getItem('user')
         if (save) {
             if (JSON.parse(save) !== null) {
@@ -36,19 +47,21 @@ function AuthContextProvider(props:PropsWithChildren) {
                 if (savedUser.roles.roleName === RoleEnum.ADMIN) {
                     page = Page.ADMIN
                 }
-                changePage(page)
+                accessTokenRedirect(page)
+
             }
 
         }
     }, [])
 
     function logout() {
-        singleFetch('/api/auth/logout', Methods.GET).then(()=> {
+        singleFetch('/api/auth/logout', Methods.GET).then(() => {
             setUser(undefined)
             window.localStorage.setItem('user', '')
             changePage(Page.LOGIN)
         })
     }
+
     function login() {
         changePage(Page.LOGIN)
     }

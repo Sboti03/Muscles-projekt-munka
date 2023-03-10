@@ -5,6 +5,7 @@ import DayInfoContext from "./DayInfoContext";
 import FoodDayInfo from "./FoodDayInfo/FoodDayInfo";
 import DayInfoContextProvider from "./DayInfoContextProvider";
 import DayPickerBar from "./DayPicker/DayPickerBar";
+import DayPeriodInfo from "./DayPeriodInfo/DayPeriodInfo";
 
 export default function HomePage() {
 
@@ -13,6 +14,9 @@ export default function HomePage() {
             <DayPickerBar />
             <div className="full-center">
                 <FoodDayInfo />
+            </div>
+            <div>
+                <DayPeriodInfo />
             </div>
         </DayInfoContextProvider>
     )
