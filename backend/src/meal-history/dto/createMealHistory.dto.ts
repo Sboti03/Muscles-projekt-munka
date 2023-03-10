@@ -2,9 +2,10 @@ import {IsDate, IsNotEmpty, IsNumber} from "class-validator";
 import {Transform, Type} from "class-transformer";
 import {PeriodNamesEnum} from "../../Common/utils/PeriodNames";
 import {ApiProperty} from "@nestjs/swagger";
+import {UnitsEnum} from "../../Common/units/units/units";
 
 export class CreateMealHistoryDto {
-    @Transform(({value}) => PeriodNamesEnum[value])
+    @Transform(({value}) => Object.values(PeriodNamesEnum).find(periodName => periodName === value))
     @IsNotEmpty()
     @ApiProperty({example: 'breakfast'})
     periodName: PeriodNamesEnum;

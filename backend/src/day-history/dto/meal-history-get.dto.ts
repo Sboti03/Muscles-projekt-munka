@@ -11,8 +11,8 @@ export default class MealHistoryGetDto {
     @IsNotEmpty()
     date: Date
 
-    @Transform(({value})=> PeriodNamesEnum[value])
+    @Transform(({value})=> Object.values(PeriodNamesEnum).find(periodName => periodName === value))
     @IsNotEmpty()
-    @ApiProperty({example: 'BREAKFAST'})
+    @ApiProperty({example: 'breakfast'})
     periodName: PeriodNamesEnum
 }
