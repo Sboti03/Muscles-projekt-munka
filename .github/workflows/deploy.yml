@@ -15,57 +15,10 @@ jobs:
     - name: SSH into Google Cloud VM
       uses: appleboy/ssh-action@master
       with:
-        host: 34.22.242.178
-        username: somogyibotond03
-        key: > 
-          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
-        port: 22
+        host: ${{ secrets.GCLOUD_VM_INSTANCE_IP }}
+        username: ${{ secrets.GCLOUD_VM_USERNAME }}
+        key: ${{ secrets.GCLOUD_VM_PRIVATE_KEY }}
+        port: ${{ secrets.GCLOUD_VM_SSH_PORT }}
         script: |
           cd Muscles-projekt-munka/backend/
           ./deploy.sh
