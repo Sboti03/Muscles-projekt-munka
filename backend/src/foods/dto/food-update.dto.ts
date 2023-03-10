@@ -3,6 +3,7 @@ import {Exclude, Transform, Type} from "class-transformer";
 import {UnitsEnum} from "../../Common/units/units/units";
 import {IsNullable} from "../../decorators/class-validator.decorator";
 import {ApiProperty} from "@nestjs/swagger";
+import {PeriodNamesEnum} from "../../Common/utils/PeriodNames";
 
 export class FoodUpdateDto {
 
@@ -19,7 +20,7 @@ export class FoodUpdateDto {
     kcal?: number
 
 
-    @Transform(({value}) => UnitsEnum[value])
+    @Transform(({value}) => Object.values(UnitsEnum).find(unit => unit === value))
     @IsNullable()
     @ApiProperty({example: 20})
     unit?: UnitsEnum
