@@ -21,5 +21,8 @@ jobs:
         port: ${{ secrets.GCLOUD_VM_SSH_PORT }}
         script: |
           cd Muscles-projekt-munka/backend/
-          chmod +x deploy.sh
-          ./deploy.sh
+          git fetch
+          git reset --hard origin/main
+          sudo docker compose down
+          sudo docker compose up --build -d
+
