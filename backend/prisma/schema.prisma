@@ -167,6 +167,10 @@ model goals {
   carbohydratesPerDay Int         @default(50)
   proteinPerDay       Int         @default(30)
   fatPerDay           Int         @default(20)
+  breakfastPerDay     Int         @default(30)
+  lunchPerDay         Int         @default(40)
+  dinnerPerDay        Int         @default(25)
+  otherPerDay         Int         @default(5)
   date                DateTime    @default(now()) @db.Date
 
   @@unique([profileId, date])

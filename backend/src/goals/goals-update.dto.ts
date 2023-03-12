@@ -33,4 +33,29 @@ export class GoalsUpdateDto {
     @IsNumber()
     @Min(0)
     fatPerDay?: number
+
+
+    @IsNullable()
+    @Type(()=> Number)
+    @IsNumber()
+    @Min(0)
+    breakfastPerDay?: number
+
+    @IsNullable()
+    @Type(()=> Number)
+    @IsNumber()
+    @Min(0)
+    lunchPerDay?: number
+
+    @IsNullable()
+    @Type(()=> Number)
+    @IsNumber()
+    @Min(0)
+    dinnerPerDay?: number
+
+    @IsNullable()
+    @Type(()=> Number)
+    @IsNumber()
+    @Min(0)
+    otherPerDay?: number
 }
