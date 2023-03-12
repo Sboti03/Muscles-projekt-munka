@@ -34,7 +34,7 @@ export class MealHistoryGetController {
     }
     //test
     @Get('data/:date')
-    async getDayHistoryData(@Param() dateParam: DateParam, @GetAndCheckProfileId() currentProfileId) {
+    async getDayHistoryData(@Param('date') dateParam: DateParam, @GetAndCheckProfileId() currentProfileId) {
         const {date} = dateParam
         let dayHistory;
         const isDayHistoryExist = await this.dayHistoryCheckService.checkExistingDayHistory(currentProfileId, date)

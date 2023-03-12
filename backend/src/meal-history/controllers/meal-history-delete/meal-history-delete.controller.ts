@@ -16,7 +16,7 @@ export class MealHistoryDeleteController {
                 private mealDeleteService:MealDeleteService) {
     }
     @Delete(':id')
-    async deleteMealHistory(@GetCurrentUserProfileId() currentProfileId: number,@Param() deleteMealHistoryDTO: DeleteMealHistoryDto) {
+    async deleteMealHistory(@GetCurrentUserProfileId() currentProfileId: number,@Param('id') deleteMealHistoryDTO: DeleteMealHistoryDto) {
         const {mealHistoryId} = deleteMealHistoryDTO
         const isMealHistoryExist = await this.mealHistoryCheckService.checkExistingMealHistoryById(mealHistoryId)
         if (!isMealHistoryExist) {

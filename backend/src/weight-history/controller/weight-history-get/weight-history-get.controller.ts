@@ -15,7 +15,7 @@ export class WeightHistoryGetController {
     }
 
     @Get('/weight/:date')
-    async getWeight(@Param() currentDate: DateParam, @GetAndCheckProfileId() currentProfileId) {
+    async getWeight(@Param('date') currentDate: DateParam, @GetAndCheckProfileId() currentProfileId) {
         const day = await this.dayHistoryGetService.getLatestDayId(currentDate.date)
         if (!day) {
             throw new ConflictException('No day found')

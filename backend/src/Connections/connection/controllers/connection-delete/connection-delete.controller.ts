@@ -26,7 +26,7 @@ export class ConnectionDeleteController {
 
     @UseGuards(ProfileGuard)
     @Delete(':id')
-    async deleteConnectionRequest(@Param() idParam: IdParam,
+    async deleteConnectionRequest(@Param('id') idParam: IdParam,
                                   @GetCurrentUserId() requesterId: number,
                                   @GetCurrentUser('role') requesterRole: RoleEnum) {
         if (idParam.id === requesterId) {

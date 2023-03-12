@@ -17,7 +17,7 @@ export class AdminController {
     @Roles(RoleEnum.ADMIN)
     @UseGuards(RolesGuard)
     @Delete(':id')
-    async deleteUserByUserId(@Param() idParam: IdParam) {
+    async deleteUserByUserId(@Param('id') idParam: IdParam) {
         return this.adminDeleteService.deleteUserByUserId(idParam.id);
     }
 
