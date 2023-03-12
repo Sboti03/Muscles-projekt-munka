@@ -25,7 +25,7 @@ model units {
 
 model foods {
   foodId             Int      @id(map: "foodIdPK") @default(autoincrement())
-  name               String   @db.VarChar(200)
+  name               String   @unique @db.VarChar(200)
   kcal               Float
   unitId             Int
   perUnit            Float
