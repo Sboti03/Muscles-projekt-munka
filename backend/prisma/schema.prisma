@@ -111,7 +111,7 @@ model mealHistory {
   changedAt     DateTime    @default(now()) @updatedAt @db.Timestamp(6)
   day           dayHistory  @relation(fields: [dayId], references: [dayId], onDelete: Cascade)
   mealPeriod    mealPeriods @relation(fields: [periodName], references: [periodName])
-  meals         meals       @relation(fields: [mealId], references: [mealId], map: "mealIdFK", onDelete: Cascade)
+  meal          meals       @relation(fields: [mealId], references: [mealId], map: "mealIdFK", onDelete: Cascade)
 }
 
 model meals {
