@@ -48,8 +48,8 @@ function calculateDayInfoData(mealHistoryResponse: MealHistoryResponse): DayInfo
     let eatenProtein = 0;
 
     mealHistoryResponse.dayHistory.forEach(day => {
-        const perEach = (day.meals.amount) / day.meals.food.perUnit
-        const {food} = day.meals
+        const perEach = (day.meal.amount) / day.meal.food.perUnit
+        const {food} = day.meal
         eatenFat += food.fat * perEach;
         eatenCarbohydrate += food.carbohydrate * perEach;
         eatenProtein += food.protein * perEach;

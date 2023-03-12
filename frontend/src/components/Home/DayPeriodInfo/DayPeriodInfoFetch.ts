@@ -2,7 +2,7 @@ import {Methods, singleFetch} from "../../utils/Fetch";
 import {normalizeDate} from "../DayInfoContextProvider";
 import {DayPeriodResponse} from "../Data/DayPeriodResponse";
 
-export default async function dayPeriodInfoFetch(date: Date, periodName: DayPeriodName) {
+export default async function dayPeriodInfoFetch(date: Date, periodName: DayPeriodName): Promise<DayPeriodInfoFetchResponse> {
     const {error, response} = await singleFetch<DayPeriodResponse[]>(`/api/meal-history/?date=${normalizeDate(date)}&periodName=${periodName}`, Methods.GET)
     if (response) {
         return {response}
@@ -12,7 +12,13 @@ export default async function dayPeriodInfoFetch(date: Date, periodName: DayPeri
 
 export enum DayPeriodName {
     BREAKFAST= 'breakfast',
-    DINNER = 'Dinner',
-    LUNCH = 'Lunch',
-    OTHER = 'Other'
+    DINNER = 'dinner',
+    LUNCH = 'lunch',
+    OTHER = 'other'
+}
+
+
+export interface DayPeriodInfoFetchResponse {
+    response?: DayPeriodResponse[],
+    error?: any
 }

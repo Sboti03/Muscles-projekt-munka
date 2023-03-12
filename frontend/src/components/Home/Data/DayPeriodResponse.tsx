@@ -1,4 +1,3 @@
-
 export interface Food {
     foodId: number;
     name: string;
@@ -16,23 +15,24 @@ export interface Food {
     changedAt: Date;
 }
 
-export interface MealHistory {
-    mealHistoryId: number;
-}
-
-export interface DayPeriodResponse {
+export interface Meal {
     amount: number;
     addedBy: string;
     completed: boolean;
     food: Food;
-    mealHistory: MealHistory[];
+}
+
+export interface DayPeriodResponse {
+    meal: Meal;
+    mealHistoryId: number;
 }
 
 
 export function getMinimalInfo(dayPeriodResponse:DayPeriodResponse[]) {
     let totalCalorie = 0;
     if (dayPeriodResponse.length > 0) {
-        dayPeriodResponse.forEach((meal, i)=> {
+        dayPeriodResponse.forEach((response, i)=> {
+            const {meal} = response
             totalCalorie += meal.food.kcal / meal.food.perUnit * meal.amount
         })
     }

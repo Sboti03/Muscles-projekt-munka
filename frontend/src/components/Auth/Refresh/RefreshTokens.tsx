@@ -14,7 +14,6 @@ export default async function newAccessToken() {
         }
     } else {
         if (response) {
-            //
             return {
                 response: response,
                 error: undefined

@@ -1,4 +1,25 @@
 .dpi-container {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    background-color: #58008a;
+    border-radius: 20pt;
+    color: white;
+    margin-top: 5pt;
+    margin-bottom: 5pt;
+    width: 100%;
+    text-align: left;
+    padding: 10pt;
+}
+
+.dpi-container:hover {
+    background-color: #6F00B3;
+    cursor: pointer;
+}
+
+.dpi-container:active {
+    background-color: #7800c2;
+}
+.dpi {
+    margin: 0 auto;
+    max-width: 300pt;
 }

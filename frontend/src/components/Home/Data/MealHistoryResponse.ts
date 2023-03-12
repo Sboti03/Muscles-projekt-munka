@@ -5,7 +5,7 @@ export interface MealHistoryResponse {
 }
 
 export interface DayHistory {
-    meals: Meals;
+    meal: Meals;
 }
 
 export interface Meals {
