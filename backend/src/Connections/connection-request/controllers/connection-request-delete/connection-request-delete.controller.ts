@@ -1,4 +1,4 @@
-import {Body, ConflictException, Controller, Delete, Post, UseGuards} from '@nestjs/common';
+import {Body, ConflictException, Controller, Delete, Param, Post, UseGuards} from '@nestjs/common';
 import {AccessTokenGuard} from "../../../../auth/guards/access-token.guard";
 import {IdParam} from "../../../../Common/params/id.param";
 import {GetCurrentUser, GetCurrentUserId} from "../../../../auth/decorators/decorators";
@@ -25,8 +25,8 @@ export class ConnectionRequestDeleteController {
     }
 
     @UseGuards(ProfileGuard)
-    @Delete('/')
-    async deleteConnectionRequest(@Body() idParam: IdParam,
+    @Delete(':id')
+    async deleteConnectionRequest(@Param() idParam: IdParam,
                                   @GetCurrentUserId() requesterId: number,
                                   @GetCurrentUser('role') requesterRole: RoleEnum) {
         const {userId, coachId} = this.getService.getUserAndCoachId(idParam.id, requesterId, requesterRole)

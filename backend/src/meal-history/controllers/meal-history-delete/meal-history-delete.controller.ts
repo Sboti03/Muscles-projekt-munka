@@ -1,4 +1,4 @@
-import {Body, ConflictException, Controller, Delete, NotFoundException, UseGuards} from '@nestjs/common';
+import {Body, ConflictException, Controller, Delete, NotFoundException, Param, UseGuards} from '@nestjs/common';
 import {AccessTokenGuard} from "../../../auth/guards/access-token.guard";
 import {ProfileGuard} from "../../../auth/guards/profile.guard";
 import DeleteMealHistoryDto from "../../dto/deleteMealHistory.dto";
@@ -15,8 +15,8 @@ export class MealHistoryDeleteController {
                 private mealHistoryGetService:MealHistoryGetService,
                 private mealDeleteService:MealDeleteService) {
     }
-    @Delete()
-    async deleteMealHistory(@GetCurrentUserProfileId() currentProfileId: number,@Body() deleteMealHistoryDTO: DeleteMealHistoryDto) {
+    @Delete(':id')
+    async deleteMealHistory(@GetCurrentUserProfileId() currentProfileId: number,@Param() deleteMealHistoryDTO: DeleteMealHistoryDto) {
         const {mealHistoryId} = deleteMealHistoryDTO
         const isMealHistoryExist = await this.mealHistoryCheckService.checkExistingMealHistoryById(mealHistoryId)
         if (!isMealHistoryExist) {
