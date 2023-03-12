@@ -11,7 +11,7 @@ export class MealHistoryGetService {
             where: {
                 dayId,
                 periodName,
-                meals: {
+                meal: {
                     foodId
                 }
             },
@@ -63,7 +63,7 @@ export class MealHistoryGetService {
                 periodName: periodName.valueOf()
             },
             include: {
-                meals: {
+                meal: {
                     include: {
                         food: {
                             include: {
@@ -82,7 +82,7 @@ export class MealHistoryGetService {
                 dayId
             },
             select: {
-                meals: {
+                meal: {
                     select: {
                         amount: true,
                         food: {
@@ -121,7 +121,7 @@ export class MealHistoryGetService {
                 periodName
             },
             include: {
-                meals: {
+                meal: {
                     include: {
                         food: {
                             include: {
