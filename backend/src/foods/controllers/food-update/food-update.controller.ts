@@ -6,6 +6,7 @@ import {AccessTokenGuard} from "../../../auth/guards/access-token.guard";
 import {RolesGuard} from "../../../auth/guards/role.guard";
 import {FoodUpdateDto} from "../../dto/food-update.dto";
 import {FoodConvertService} from "../../services/food-convert/food-convert.service";
+import {IdParam} from "../../../Common/params/id.param";
 
 
 @Roles(RoleEnum.ADMIN)
@@ -16,8 +17,8 @@ export class FoodUpdateController {
                 private foodConvertService: FoodConvertService) {}
 
     @Patch('/:id')
-    async updateFoodById(@Param('id') foodId: number,@Body() foodUpdateDto: FoodUpdateDto) {
+    async updateFoodById(@Param() idParam: IdParam,@Body() foodUpdateDto: FoodUpdateDto) {
         const foodUpdateInput = this.foodConvertService.convertUpdateDtoToInput(foodUpdateDto)
-        return this.foodUpdateService.updateFoodById(foodId, foodUpdateInput)
+        return this.foodUpdateService.updateFoodById(idParam.id, foodUpdateInput)
     }
 }
