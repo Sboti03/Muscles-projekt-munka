@@ -88,7 +88,7 @@ function readFoods() {
     let foods: Prisma.foodsCreateInput[] = []
     // [0]     [1]                [2]            [3]    [4]                  [5]          [6]
     // [0]Name;[1]Calories (kcal);[2]Protein (g);[3]Fat;[4]Carbohydrates (g);[5]Fiber (g);[6]Sugar (g)
-    const file = fs.readFileSync( process.cwd() +'/food.csv', 'utf8')
+    const file = fs.readFileSync( process.cwd() +'/prisma/food.csv', 'utf8')
     const lines = file.split('\r\n');
     for (let i = 0; i < lines.length; i++) {
         if (i !== 0) {
