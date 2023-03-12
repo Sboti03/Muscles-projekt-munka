@@ -10,7 +10,12 @@ export class GoalsConvertService {
             carbohydratesPerDay: goalsUpdateDto.carbohydratesPerDay,
             proteinPerDay: goalsUpdateDto.proteinPerDay,
             targetCalories: goalsUpdateDto.targetCalories,
-            targetWeight: goalsUpdateDto.targetWeight
+            targetWeight: goalsUpdateDto.targetWeight,
+
+            breakfastPerDay: goalsUpdateDto.breakfastPerDay,
+            lunchPerDay: goalsUpdateDto.lunchPerDay,
+            dinnerPerDay: goalsUpdateDto.dinnerPerDay,
+            otherPerDay: goalsUpdateDto.otherPerDay
         }
     }
 
