@@ -17,7 +17,7 @@ export default function DayInfoContextProvider(props: PropsWithChildren) {
     async function fetchDay(date: Date) {
         const result = await singleFetch<MealHistoryResponse>(`/api/meal-history/data/${normalizeDate(date)}`, Methods.GET)
         if (result.error) {
-            // TODO Hnalde error
+            // TODO Handle error
         } else if (result.response) {
             const {response} = result
             setDayInfo(calculateDayInfoData(response))

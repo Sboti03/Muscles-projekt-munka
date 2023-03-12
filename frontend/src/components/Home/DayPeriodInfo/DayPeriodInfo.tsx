@@ -1,24 +1,38 @@
 import './DayPeriodInfo.css'
-import {useContext, useEffect} from "react";
-import dayPeriodInfoFetch from "./DayPeriodInfoFetch";
+import {useContext, useEffect, useState} from "react";
+import dayPeriodInfoFetch, {DayPeriodName} from "./DayPeriodInfoFetch";
 import DayInfoContext from "../DayInfoContext";
+import {getMinimalInfo} from "../Data/DayPeriodResponse";
+
 export default function DayPeriodInfo() {
     const {currentDate} = useContext(DayInfoContext)
-    useEffect(()=> {
-        dayPeriodInfoFetch(currentDate, dayPeriodName.BREAKFAST)
-    }, [])
+    const [totalCalorie, setTotalCalorie] = useState(0)
+    useEffect(() => {
+        setDayPeriodInfo(currentDate, DayPeriodName.BREAKFAST)
+
+    }, [currentDate])
+
     return (
         <div className="dpi-container">
-            <div>{dayPeriodName.BREAKFAST}</div>
-            <div></div>
+            <div>
+                <div>{DayPeriodName.BREAKFAST}</div>
+                <div>{totalCalorie}kcal</div>
+            </div>
         </div>
     )
+
+
+    async function setDayPeriodInfo(currentDate: Date, dayPeriodName: DayPeriodName) {
+        const result = await dayPeriodInfoFetch(currentDate, dayPeriodName)
+        if (result.response) {
+            setTotalCalorie(getMinimalInfo(result.response))
+        } else {
+
+        }
+    }
+
 }
 
 
-export enum dayPeriodName {
-    BREAKFAST= 'Breakfast',
-    DINNER = 'Dinner',
-    LUNCH = 'Lunch',
-    OTHER = 'Other'
-}
+
+
