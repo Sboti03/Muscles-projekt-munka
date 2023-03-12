@@ -28,7 +28,7 @@ export default function DayPickerBar() {
     }
 
     return (
-        <div className="day-picker">
+        <>
             {isDaySelectorEnabled &&
                 <div className="day-picker-component">
                     <DayPicker
@@ -49,7 +49,7 @@ export default function DayPickerBar() {
                     {subtractDays(new Date(currentDate), -1).getDate()}
                 </button>
             </div>
-        </div>
+        </>
     )
 }
 

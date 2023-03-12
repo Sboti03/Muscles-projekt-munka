@@ -10,6 +10,11 @@ export interface DayInfoData {
     totalProtein: number,
     progressProtein: number,
     progressFat: number,
-    progressCarbohydrate: number
+    progressCarbohydrate: number,
+    totalBreakfast: number,
+    totalDinner: number,
+    totalLunch: number,
+    totalOther: number,
+
 
 }

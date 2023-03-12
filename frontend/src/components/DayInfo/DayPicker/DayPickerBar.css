@@ -24,6 +24,7 @@
     display: flex;
     justify-content: center;
     border: none;
+    font-size: 18px;
     border-radius: 10pt;
     margin: 5pt;
     color: white;

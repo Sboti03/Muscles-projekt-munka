@@ -64,7 +64,7 @@ function getAxios(path: string, method: Methods, body?: Object) {
         case Methods.POST:
             return axios.post(path, body)
         case Methods.PATCH:
-            return axios.patch(path)
+            return axios.patch(path, body)
         case Methods.DELETE:
             return axios.delete(path)
     }

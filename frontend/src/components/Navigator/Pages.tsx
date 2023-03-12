@@ -1,7 +1,7 @@
 import {PropsWithChildren, useContext, useState} from "react";
 import NavigatorContext, {Page} from "./NavigatorContext";
 import LoginPage from "../Auth/Login/LoginPage";
-import HomePage from "../Home/DayPage";
+import DayPage from "../DayInfo/DayPage";
 import AdminPage from "../Admin/AdminPage";
 import RegisterPage from "../Auth/Register/Register Page";
 
@@ -13,7 +13,7 @@ export default function Pages() {
         case Page.LOGIN:
             return <LoginPage />
         case Page.HOME:
-            return <HomePage />
+            return <DayPage />
         case Page.REGISTER:
             return <RegisterPage />
         case Page.ADMIN:

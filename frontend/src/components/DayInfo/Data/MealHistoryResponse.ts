@@ -32,6 +32,11 @@ export interface Goal {
     proteinPerDay:       number;
     fatPerDay:           number;
     date:                Date;
+    breakfastPerDay: number;
+    lunchPerDay: number;
+    dinnerPerDay: number;
+    otherPerDay: number;
+
 }
 
 export interface Weight {

@@ -1,16 +1,15 @@
 import DayInfoContext from "./DayInfoContext";
 import {PropsWithChildren, useEffect, useState} from "react";
 import {Methods, singleFetch} from "../utils/Fetch";
-import {DayHistory, MealHistoryResponse} from "./Data/MealHistoryResponse";
+import {MealHistoryResponse} from "./Data/MealHistoryResponse";
 import {DayInfoData} from "./Data/DayInfoData";
-import {getOffsetLeft} from "@mui/material";
-import {da} from "date-fns/locale";
+import {DayPeriodResponse} from "./Data/DayPeriodResponse";
 
 export default function DayInfoContextProvider(props: PropsWithChildren) {
     const [dayInfo, setDayInfo] = useState<DayInfoData | undefined>()
     const [currentDate, setCurrentDate] = useState(new Date())
-
-    useEffect(()=> {
+    const [dayPeriodInfo, setDayPeriodInfo] = useState<DayPeriodResponse>()
+    useEffect(() => {
         fetchDay(currentDate)
     }, [currentDate])
 
@@ -27,7 +26,7 @@ export default function DayInfoContextProvider(props: PropsWithChildren) {
     }
 
     return (
-        <DayInfoContext.Provider value={{fetchDay, dayInfo, currentDate, setCurrentDate}}>
+        <DayInfoContext.Provider value={{fetchDay, dayInfo, currentDate, setCurrentDate, setDayPeriodInfo, dayPeriodInfo}}>
             {props.children}
         </DayInfoContext.Provider>
     )
@@ -59,8 +58,14 @@ function calculateDayInfoData(mealHistoryResponse: MealHistoryResponse): DayInfo
     const totalProtein = totalCalorie * (goal.proteinPerDay / 100) / PROTEIN_PER_KCAL;
     const totalCarbohydrate = totalCalorie * (goal.carbohydratesPerDay / 100) / CARBOHYDRATE_PER_KCAL;
     const totalFat = totalCalorie * (goal.fatPerDay / 100) / FAT_PER_KCAL;
+    const targetCalorie = goal.targetCalories ? goal.targetCalories : 2000
 
-    return  {
+    const totalBreakfast = (targetCalorie * goal.breakfastPerDay) / 100
+    const totalDinner = (targetCalorie * goal.dinnerPerDay) / 100
+    const totalLunch = (targetCalorie * goal.lunchPerDay) / 100
+    const totalOther = totalCalorie - (totalBreakfast + totalDinner + totalLunch)
+
+    return {
         weight: mealHistoryResponse.weight.weight,
         eatenFat,
         eatenCarbohydrate,
@@ -73,6 +78,10 @@ function calculateDayInfoData(mealHistoryResponse: MealHistoryResponse): DayInfo
         progressCarbohydrate: clamp(Math.round(eatenCarbohydrate / totalCarbohydrate * 100)),
         progressProtein: clamp(Math.round(eatenCarbohydrate / totalCarbohydrate * 100)),
         progressFat: clamp(Math.round(eatenCarbohydrate / totalCarbohydrate * 100)),
+        totalBreakfast,
+        totalDinner,
+        totalLunch,
+        totalOther,
     }
 }
 
