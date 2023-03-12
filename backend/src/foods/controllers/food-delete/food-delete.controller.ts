@@ -5,6 +5,7 @@ import {RoleEnum} from "../../../Common/Role/utils/roles";
 import {RolesGuard} from "../../../auth/guards/role.guard";
 import {FoodDeleteService} from "../../services/food-delete/food-delete.service";
 import {FoodCheckService} from "../../services/food-check/food-check.service";
+import {IdParam} from "../../../Common/params/id.param";
 
 @Roles(RoleEnum.ADMIN)
 @UseGuards(AccessTokenGuard, RolesGuard)
@@ -15,7 +16,8 @@ export class FoodDeleteController {
     }
 
     @Delete('/:id')
-    async deleteFood(@Param('id') id: number) {
+    async deleteFood(@Param() idParam: IdParam) {
+        const {id} = idParam
         if (await this.checkService.checkValidFood(id)) {
             return this.foodDeleteService.deleteFoodById(id)
         } else {

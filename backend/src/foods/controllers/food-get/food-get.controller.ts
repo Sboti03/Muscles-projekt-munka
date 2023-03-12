@@ -4,6 +4,7 @@ import {FoodGetService} from "../../services/food-get/food-get.service";
 import {RolesGuard} from "../../../auth/guards/role.guard";
 import {Roles} from "../../../Common/Role/decorators/ roles.decorator";
 import {RoleEnum} from "../../../Common/Role/utils/roles";
+import {IdParam} from "../../../Common/params/id.param";
 
 @Controller('food')
 @UseGuards(AccessTokenGuard)
@@ -19,8 +20,8 @@ export class FoodGetController {
     @Get(':id')
     @Roles(RoleEnum.ADMIN)
     @UseGuards(RolesGuard)
-    async getFoodById(@Param('id') id: number) {
-        return this.foodGetService.getFoodById(id);
+    async getFoodById(@Param() idParam: IdParam) {
+        return this.foodGetService.getFoodById(idParam.id);
     }
 
 }

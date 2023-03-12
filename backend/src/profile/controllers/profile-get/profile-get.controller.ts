@@ -6,6 +6,7 @@ import {Roles} from "../../../Common/Role/decorators/ roles.decorator";
 import {RoleEnum} from "../../../Common/Role/utils/roles";
 import {ProfileGetService} from "../../services/profile-get/profile-get.service";
 import {ProfileGuard} from "../../../auth/guards/profile.guard";
+import {IdParam} from "../../../Common/params/id.param";
 
 @UseGuards(AccessTokenGuard, ProfileGuard)
 @Controller('profile')
@@ -23,8 +24,8 @@ export class ProfileGetController {
     @Roles(RoleEnum.ADMIN)
     @UseGuards(RolesGuard)
     @Get('admin/id/:id')
-    async getAllProfileDataById(@Param('id') id: number) {
-        return this.profileGetService.getAllProfileDataByProfileId(id)
+    async getAllProfileDataById(@Param() idParam: IdParam) {
+        return this.profileGetService.getAllProfileDataByProfileId(idParam.id)
     }
 
 
@@ -39,9 +40,9 @@ export class ProfileGetController {
     }
 
     @Get('/:id')
-    async getProfileDataById(@Param('id') id: number) {
+    async getProfileDataById(@Param() idParam: IdParam) {
         try {
-            return await this.profileGetService.getProfileDataByProfileId(id)
+            return await this.profileGetService.getProfileDataByProfileId(idParam.id)
 
         }catch (e) {
             throw new NotFoundException('No profile found')
