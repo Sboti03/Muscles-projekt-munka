@@ -2,23 +2,28 @@ import './DayPeriodInfo.css'
 import {useContext, useEffect, useState} from "react";
 import dayPeriodInfoFetch, {DayPeriodInfoFetchResponse, DayPeriodName} from "./DayPeriodInfoFetch";
 import DayInfoContext from "../DayInfoContext";
-import {getMinimalInfo} from "../Data/DayPeriodResponse";
+import {DayPeriodResponse, getMinimalInfo} from "../Data/DayPeriodResponse";
 import DayPeriodInfoContainer from "./DayPeriodInfoContainer";
 import DayPeriodContext from "./DayPeriodContext";
 
 export default function DayPeriodInfo() {
 
     const {currentDate, dayInfo} = useContext(DayInfoContext)
-    const {setBreakfast, setLunch, setDinner, setOther, setSelectedPeriodInfo} = useContext(DayPeriodContext)
+    const {setSelectedPeriodInfo, dinner, lunch, breakfast, other} = useContext(DayPeriodContext)
     const [breakfastCalories, setBreakfastCalories] = useState(0)
     const [lunchCalories, setLunchCalories] = useState(0)
     const [dinnerCalories, setDinnerCalories] = useState(0)
     const [otherCalories, setOtherCalories] = useState(0)
 
     useEffect(() => {
-        setDayPeriodInfo(currentDate)
-
-    }, [currentDate])
+        const setter = async ()=> {
+            setBreakfastCalories(await getDayPeriodInfo(breakfast))
+            setLunchCalories(await getDayPeriodInfo(lunch))
+            setDinnerCalories(await getDayPeriodInfo(dinner))
+            setOtherCalories(await getDayPeriodInfo(other))
+        }
+        setter()
+    }, [currentDate, breakfast, other, lunch, dinner])
 
 
     return (
@@ -41,38 +46,9 @@ export default function DayPeriodInfo() {
         </div>
     )
 
-
-    async function setDayPeriodInfo(currentDate: Date) {
-
-        const breakfast = await dayPeriodInfoFetch(currentDate, DayPeriodName.BREAKFAST)
-        setBreakfastCalories(await getDayPeriodInfo(breakfast))
-        if (breakfast.response) {
-            setBreakfast(breakfast.response)
-        }
-
-        const lunch = await dayPeriodInfoFetch(currentDate, DayPeriodName.LUNCH)
-        setLunchCalories(await getDayPeriodInfo(lunch))
-        if (lunch.response) {
-            setLunch(lunch.response)
-        }
-
-        const dinner = await dayPeriodInfoFetch(currentDate, DayPeriodName.DINNER)
-        setDinnerCalories(await getDayPeriodInfo(dinner))
-        if (dinner.response) {
-            setDinner(dinner.response)
-        }
-
-        const other = await dayPeriodInfoFetch(currentDate, DayPeriodName.OTHER)
-        setOtherCalories(await getDayPeriodInfo(other))
-        if (other.response) {
-            setOther(other.response)
-        }
-
-    }
-
-    async function getDayPeriodInfo(fetchResponse: DayPeriodInfoFetchResponse) {
-        if (fetchResponse.response) {
-            return getMinimalInfo(fetchResponse.response)
+    async function getDayPeriodInfo(dayPeriodResponse: DayPeriodResponse[] | undefined) {
+        if (dayPeriodResponse) {
+            return getMinimalInfo(dayPeriodResponse)
         } else {
             return 0
         }

@@ -12,6 +12,7 @@ export enum Page {
     REGISTER,
     HOME,
     ADMIN,
+    FOOD_SEARCH,
 
 }
 

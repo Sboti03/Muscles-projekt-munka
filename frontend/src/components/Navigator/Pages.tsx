@@ -1,9 +1,10 @@
-import {PropsWithChildren, useContext, useState} from "react";
+import {useContext} from "react";
 import NavigatorContext, {Page} from "./NavigatorContext";
 import LoginPage from "../Auth/Login/LoginPage";
 import DayPage from "../DayInfo/DayPage";
 import AdminPage from "../Admin/AdminPage";
 import RegisterPage from "../Auth/Register/Register Page";
+import FoodSearchPage from "../FoodAdder/FoodSearchPage";
 
 export default function Pages() {
 
@@ -18,5 +19,7 @@ export default function Pages() {
             return <RegisterPage />
         case Page.ADMIN:
             return <AdminPage />
+        case Page.FOOD_SEARCH:
+            return <FoodSearchPage />
     }
 }

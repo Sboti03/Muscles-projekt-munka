@@ -4,14 +4,17 @@ import Pages from "./components/Navigator/Pages";
 import NavigatorContextProvider from "./components/Navigator/NavigatorContextProvider";
 import NavBar from "./static/NavBar/NavBar";
 import {CssVarsProvider, extendTheme} from "@mui/joy";
+import FoodContextProvider from "./components/FoodAdder/FoodContextProvider";
 
 function App() {
     return (
         <CssVarsProvider theme={Theme}>
             <NavigatorContextProvider>
                 <AuthContextProvider>
-                    <NavBar />
-                    <Pages/>
+                    <FoodContextProvider>
+                        <NavBar />
+                        <Pages/>
+                    </FoodContextProvider>
                 </AuthContextProvider>
             </NavigatorContextProvider>
         </CssVarsProvider>

@@ -16,7 +16,7 @@ export interface DayPeriodContextValue {
     selectedPeriodInfo: DayPeriodName | undefined,
     setSelectedPeriodInfo: (selectedDayInfo: DayPeriodName) => void,
     deleteMealHistory: (mealHistoryId: number) => any,
-    setMealCompleted: (completed: boolean, mealHistoryId: number) => any
+    setMealCompleted: (completed: boolean, mealHistoryId: number) => any,
 }
 
 

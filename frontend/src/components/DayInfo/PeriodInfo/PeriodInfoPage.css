@@ -2,3 +2,24 @@
     max-width: 300pt;
     margin: 0 auto;
 }
+
+.add-container {
+    display: flex;
+    justify-content: center;
+}
+
+.add-btn {
+    background: none;
+    border: none;
+    font-size: 25px;
+    color: #6F00B3;
+}
+
+.add-btn:hover {
+    cursor: pointer;
+    color: #58008a;
+}
+
+.add-btn:active {
+    color: #7800c2;
+}

@@ -1,12 +1,21 @@
-import {DayPeriodInfoFetchResponse, DayPeriodName} from "../DayPeriodInfo/DayPeriodInfoFetch";
+import {DayPeriodName} from "../DayPeriodInfo/DayPeriodInfoFetch";
 import {useContext, useMemo} from "react";
 import DayPeriodContext from "../DayPeriodInfo/DayPeriodContext";
 import Food from "./Food";
 import './PeriodInfoPage.css'
-export default function PeriodInfoPage(props: {dayPeriodName: DayPeriodName }) {
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faCirclePlus} from "@fortawesome/free-solid-svg-icons";
+import NavigatorContext, {Page} from "../../Navigator/NavigatorContext";
+import FoodContext from "../../FoodAdder/FoodContext";
+import DayInfoContext from "../DayInfoContext";
+
+export default function PeriodInfoPage(props: { dayPeriodName: DayPeriodName }) {
 
     const {dinner, other, lunch, breakfast} = useContext(DayPeriodContext)
-    const periodData = useMemo(()=> {
+    const {currentDate} = useContext(DayInfoContext)
+    const {changePage} = useContext(NavigatorContext)
+    const {setCurrentDate} = useContext(FoodContext)
+    const periodData = useMemo(() => {
         switch (props.dayPeriodName) {
             case DayPeriodName.BREAKFAST:
                 return breakfast;
@@ -20,12 +29,21 @@ export default function PeriodInfoPage(props: {dayPeriodName: DayPeriodName }) {
     }, [props.dayPeriodName, dinner, other, lunch, breakfast])
 
 
+    function loadFoodPSearchPage() {
+        setCurrentDate(currentDate)
+        changePage(Page.FOOD_SEARCH)
+    }
 
     return (
         <>
-          <div className="food-container">
-              {periodData?.map((data, i)=> <Food data={data} key={i}/>)}
-          </div>
+            <div className="food-container">
+                {periodData?.map((data, i) => <Food data={data} key={i}/>)}
+            </div>
+            <div onClick={loadFoodPSearchPage} className="add-container">
+                <button className="add-btn">
+                    <FontAwesomeIcon icon={faCirclePlus} />
+                </button>
+            </div>
         </>
     )
 }

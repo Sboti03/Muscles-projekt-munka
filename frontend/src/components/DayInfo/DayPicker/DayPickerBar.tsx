@@ -17,7 +17,6 @@ export default function DayPickerBar() {
 
     function setNextDay() {
         setCurrentDate(subtractDays(new Date(currentDate), -1))
-
     }
 
     function setSelectedDay(selectedDay: Date | undefined) {
