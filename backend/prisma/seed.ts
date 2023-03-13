@@ -3,11 +3,9 @@ import {Roles} from "../src/Common/Role/utils/roles";
 import {PrismaService} from "../src/Common/utils/prirsma.service";
 import {PeriodNamesEnum} from "../src/Common/utils/PeriodNames";
 import {encryptData} from "../src/Common/utils/bcrypt";
-import {Units, UnitsEnum} from "../src/Common/units/units/units";
+import {Units} from "../src/Common/units/units/units";
 import * as fs from "fs";
-import * as path from "path";
 import * as process from "process";
-import * as readline from "readline";
 const prisma = new PrismaClient()
 async function main() {
     const prisma: PrismaService = new PrismaService()
@@ -31,7 +29,7 @@ async function main() {
             roles: {connectOrCreate: {where: {roleId: Roles.ADMIN.roleId}, create: {roleId: Roles.ADMIN.roleId, roleName: Roles.ADMIN.roleName}}},
             email: 'admin@muscles.com',
             password: encryptData('admin'),
-            profile_data: {
+            profileData: {
                 create: {birthDay: new Date(),goal: {create: [{}]}, height: 200, firstName: 'admin'}
             }
         }
@@ -74,6 +72,7 @@ async function main() {
         })
         console.log(result)
     }
+    console.log(admin, units)
 }
 main()
     .then(async () => {

@@ -46,6 +46,13 @@ export class UserGetService {
                     roleId,
                 },
             },
+            profileData: {
+                create: {
+                    goal: {
+                        create: [{}]
+                    },
+                }
+            }
         };
     }
 
