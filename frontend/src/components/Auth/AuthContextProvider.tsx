@@ -4,13 +4,13 @@ import {User} from "../Types/User";
 import NavigatorContext, {Page} from "../Navigator/NavigatorContext";
 import newAccessToken from "./Refresh/RefreshTokens";
 import {Methods, singleFetch} from "../utils/Fetch";
-
+import './Auth.css'
+import {RegisterData} from "./Register/RegisterData";
 
 const newAccessTokenTime = 1000 * 60 * 30
 
 function AuthContextProvider(props: PropsWithChildren) {
     const [user, setUser] = useState<User | undefined>(undefined)
-    const [isAccessTokenExpired, setIsAccessTokenExpired] = useState(false)
     const {changePage} = useContext(NavigatorContext)
     saveObject(user, 'user')
 
@@ -28,20 +28,30 @@ function AuthContextProvider(props: PropsWithChildren) {
 
     useEffect(()=> {
         const user = loadObject<User>('user')
+        setUser(user)
         if (user) {
-            setUser(user)
+            authRedirect()
         }
-        accessTokenRedirect(Page.HOME)
+        changePage(Page.LOGIN)
     }, [])
 
-    useEffect(() => {
-        if (isAccessTokenExpired) {
-            setIsAccessTokenExpired(false)
-            newAccessToken().then(r => {
-                console.log(r)
-            })
+    async function authRedirect() {
+        const profile = await isProfileExist()
+        if (profile) {
+            getGoals()
         }
-    }, [isAccessTokenExpired])
+    }
+
+    async function getGoals() {
+        const {response, error} = await singleFetch('/api/goals', Methods.GET)
+        console.log(response, error)
+    }
+
+    async function isProfileExist() {
+        const {response, error} = await singleFetch('/api/profile', Methods.GET)
+        return !error;
+
+    }
 
     const accessTokenRedirect = async (page: Page) => {
         const result = await newAccessToken()
@@ -62,9 +72,17 @@ function AuthContextProvider(props: PropsWithChildren) {
         changePage(Page.LOGIN)
     }
 
+    async function register(registerData:RegisterData) {
+        const {response, error} = await singleFetch('api/auth/register', Methods.POST, registerData)
+        if (error) {
+            return {error, response: undefined}
+        }
+        return {response, error: undefined}
+    }
+
     return (
         <AuthContext.Provider
-            value={{user, setUser, setIsAccessTokenExpired, login, logout}}>
+            value={{user, setUser, login, logout, register}}>
             {props.children}
         </AuthContext.Provider>
     )

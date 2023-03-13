@@ -4,7 +4,7 @@ import {LoginData, usePostLogin} from "./LoginFetch";
 import AuthContext from "../AuthContext";
 import NavigatorContext, {Page} from "../../Navigator/NavigatorContext";
 import {RoleEnum} from "../../Types/Roles";
-import {Input} from "@mui/joy";
+import {Button, Input} from "@mui/joy";
 import Mail from '../../../assets/SVG/mail.svg'
 import Lock from '../../../assets/SVG/Lock.svg'
 import Eye from '../../../assets/SVG/eye.svg'
@@ -34,6 +34,10 @@ function LoginPage() {
         }
     }, [response])
 
+    function loadRegister() {
+        changePage(Page.REGISTER)
+    }
+
     return (
         <>
             <form onSubmit={login} className="login-box">
@@ -44,7 +48,12 @@ function LoginPage() {
                     <div>
                         <Input className="Input" startDecorator={<img src={Lock} />} endDecorator={<button className="classic-btn"><img src={Eye}/></button>} placeholder="Password" name="password"/>
                     </div>
-                    <button type="submit">Login</button>
+                    <div className="full-center">
+                        <button className="login-btn btn" type="submit">Login</button>
+                    </div>
+                    <div className="full-center">
+                        <button className="register-btn btn" onClick={loadRegister} type="button">Register</button>
+                    </div>
                 </div>
             </form>
         </>

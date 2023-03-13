@@ -2,7 +2,7 @@ import React from "react";
 
 
 interface NavigatorContextValue {
-    page: Page,
+    page: Page | undefined,
     changePage: (page: Page) => void
 }
 
@@ -13,7 +13,6 @@ export enum Page {
     HOME,
     ADMIN,
     FOOD_SEARCH,
-
 }
 
 

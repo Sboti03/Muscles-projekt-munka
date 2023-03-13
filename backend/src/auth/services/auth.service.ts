@@ -63,7 +63,7 @@ export class AuthService {
         const exist = await this.userCheckService.checkExistingUserByEmail(
             createUserDto.email,
         );
-        if (exist) throw new ForbiddenException('User.ts already exists');
+        if (exist) throw new ForbiddenException('User already exists');
 
         const userInput = await this.userGetService.getUsersCreateInput(
             createUserDto,

@@ -4,6 +4,7 @@
   "description": "",
   "author": "",
   "private": true,
+  "private": true,
   "license": "UNLICENSED",
   "scripts": {
     "setup": "npx prisma db push && npx prisma generate",

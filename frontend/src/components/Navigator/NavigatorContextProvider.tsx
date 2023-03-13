@@ -4,7 +4,7 @@ import LoginPage from "../Auth/Login/LoginPage";
 
 export default function NavigatorContextProvider(props:PropsWithChildren) {
 
-    const [page, setPage] = useState(Page.HOME)
+    const [page, setPage] = useState<Page>()
     return (
         <NavigatorContext.Provider value={{page, changePage: setPage}}>
             {props.children}

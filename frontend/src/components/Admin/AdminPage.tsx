@@ -11,7 +11,7 @@ export default function AdminPage() {
     useEffect(()=> {
         if (error) {
             if (error.statusCode === 401) {
-                setIsAccessTokenExpired(true)
+
             }
         }
     }, [error])
