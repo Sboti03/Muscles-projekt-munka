@@ -1,7 +1,4 @@
 import {ForbiddenException, Injectable, NotFoundException} from '@nestjs/common';
-
-import { JwtPayload } from '../types/jwt-payload';
-import { Tokens } from '../types/token';
 import { UserGetService } from '../../user/services/user-get/user-get.service';
 import { compareData } from '../../Common/utils/bcrypt';
 import LoginDto from '../dto/login.dto';
@@ -63,11 +60,10 @@ export class AuthService {
         const exist = await this.userCheckService.checkExistingUserByEmail(
             createUserDto.email,
         );
-        if (exist) throw new ForbiddenException('User.ts already exists');
+        if (exist) throw new ForbiddenException('User already exists');
 
-        const userInput = await this.userGetService.getUsersCreateInput(
-            createUserDto,
-        );
+        const userInput = await this.userGetService.getUsersCreateInput(createUserDto);
+
         const user = await this.userCreateService.createUser(userInput);
         const { password, ...rest } = user;
         const tokens = await this.authTokenService.getTokens(user.userId);

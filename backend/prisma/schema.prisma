@@ -75,7 +75,7 @@ model users {
   refreshTokens          String[]
   coachConnections       connections[]       @relation("connections_coachIdTousers")
   userConnections        connections[]       @relation("connections_userIdTousers")
-  profile_data           profileData?
+  profileData            profileData?
   roles                  roles               @relation(fields: [roleId], references: [roleId], onDelete: NoAction, onUpdate: NoAction, map: "roleIdFK")
   userConnectionRequest  connectionRequest[] @relation("conn_req_userToUser")
   coachConnectionRequest connectionRequest[] @relation("conn_req_coachToUser")
@@ -148,8 +148,8 @@ model profileData {
   profileId        Int          @id(map: "profileIdPK") @default(autoincrement())
   userId           Int          @unique
   registrationDate DateTime     @default(now()) @db.Date
-  firstName        String       @db.VarChar(100)
-  birthDay         DateTime     @db.Date
+  firstName        String       @default("") @db.VarChar(100)
+  birthDay         DateTime?    @db.Date
   lastName         String?      @db.VarChar(200)
   height           Float?
   dayHistory       dayHistory[]
@@ -162,8 +162,8 @@ model goals {
   goalId              Int         @id() @default(autoincrement())
   profileId           Int         @unique
   profile             profileData @relation(fields: [profileId], references: [profileId])
-  targetWeight        Float?
-  targetCalories      Float?
+  targetWeight        Float       @default(70)
+  targetCalories      Float       @default(2000)
   carbohydratesPerDay Int         @default(50)
   proteinPerDay       Int         @default(30)
   fatPerDay           Int         @default(20)

@@ -18,18 +18,29 @@ export class GoalsGetService {
         })
     }
 
-    getGoalByProfileIdAndDate(profileId: number, date: Date) {
-        return this.prismaService.goals.findFirst({
-            where: {
-                profileId: profileId,
-                date: {
-                    lte: date
+    async getGoalByProfileIdAndDate(profileId: number, date: Date) {
+        try {
+            return await this.prismaService.goals.findFirstOrThrow({
+                where: {
+                    profileId: profileId,
+                    date: {
+                        lte: date
+                    }
+                },
+                orderBy: {
+                    date: 'desc'
                 }
-            },
-            orderBy: {
-                date: 'desc'
-            }
-        })
+            })
+        } catch (e) {
+            return this.prismaService.goals.findFirst({
+                where: {
+                    profileId: profileId
+                },
+                orderBy: {
+                    date: 'asc'
+                }
+            })
+        }
     }
 
 
