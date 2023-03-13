@@ -17,7 +17,8 @@ async function main() {
             update: {},
             create: {
                 roleId: roles.roleId,
-                roleName: roles.roleName
+                roleName: roles.roleName,
+                users: {create: []}
             }
         })
         console.log(result)
@@ -46,18 +47,6 @@ async function main() {
         return result
     })
 
-    const foods = readFoods()
-    console.log(foods)
-    for (const food of foods) {
-        const result =  await prisma.foods.upsert({
-            where: {
-                name: food.name
-            },
-            update: {},
-            create: food
-        })
-        console.log(result)
-    }
     const periodNames = Object.values(PeriodNamesEnum).map(async periodName => {
         const result = await prisma.mealPeriods.upsert({
             where: {periodName: periodName},
@@ -70,6 +59,18 @@ async function main() {
         return result
     })
     console.log(periodNames, roles)
+
+    const foods = readFoods()
+    for (const food of foods) {
+        const result = await prisma.foods.upsert({
+            where: {
+                name: food.name
+            },
+            update: {},
+            create: food
+        })
+        console.log(result)
+    }
 }
 main()
     .then(async () => {
@@ -89,20 +90,20 @@ function readFoods() {
     // [0]     [1]                [2]            [3]    [4]                  [5]          [6]
     // [0]Name;[1]Calories (kcal);[2]Protein (g);[3]Fat;[4]Carbohydrates (g);[5]Fiber (g);[6]Sugar (g)
     const file = fs.readFileSync( process.cwd() +'/prisma/food.csv', 'utf8')
-    const lines = file.split('\r\n');
+    const lines = file.split('\n');
     for (let i = 0; i < lines.length; i++) {
         if (i !== 0) {
             const food = lines[i].split(';')
             foods.push({
                 name: food[0].toLowerCase(),
-                unit: {connect: {unit: UnitsEnum.GRAM}},
-                kcal: parseInt(food[1]),
-                protein: parseInt(food[2]),
-                fat: parseInt(food[3]),
-                carbohydrate: parseInt(food[4]),
-                fiber: parseInt(food[5]),
-                sugar: parseInt(food[6]),
-                perUnit: 100
+                kcal: parseFloat(food[1]),
+                protein: parseFloat(food[2]),
+                fat: parseFloat(food[3]),
+                carbohydrate: parseFloat(food[4]),
+                fiber: parseFloat(food[5]),
+                sugar: parseFloat(food[6]),
+                perUnit: 100,
+                unit: {connect: {unit: 'gram'}},
             })
         }
     }
