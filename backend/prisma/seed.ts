@@ -28,7 +28,7 @@ async function main() {
         where: {email: 'admin@muscles.com'},
         update: {},
         create: {
-            roles: {connect: {roleId: Roles.ADMIN.roleId}},
+            roles: {connectOrCreate: {where: {roleId: Roles.ADMIN.roleId}, create: {roleId: Roles.ADMIN.roleId, roleName: Roles.ADMIN.roleName}}},
             email: 'admin@muscles.com',
             password: encryptData('admin'),
             profile_data: {
