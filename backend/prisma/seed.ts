@@ -30,7 +30,10 @@ async function main() {
         create: {
             roles: {connect: {roleId: Roles.ADMIN.roleId}},
             email: 'admin@muscles.com',
-            password: encryptData('admin')
+            password: encryptData('admin'),
+            profile_data: {
+                create: {birthDay: new Date(),goal: {create: [{}]}, height: 200, firstName: 'admin'}
+            }
         }
     })
     const units = Units.map(async unit => {
