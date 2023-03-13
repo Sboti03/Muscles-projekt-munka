@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -53,8 +54,8 @@ public class LoginController {
             ObjectMapper om = new ObjectMapper();
             LoginResponse user = om.readValue(response, LoginResponse.class);
             if (!userIsAdmin(user)) {
-                //url.LOGOUT();
-                //TODO: logout
+                textAreaTest.setText("Your profile does not have admin rights. ");
+                url.LOGOUT();
                 return;
             }
             loginModel = new LoginModel(user);
@@ -79,14 +80,9 @@ public class LoginController {
 
     private void showMainWindow(LoginModel loginModel) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(app.class.getResource("main-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1080, 1920);
-        Stage stage = new Stage();
+        Stage stage = (Stage) loginButton.getScene().getWindow();
+        stage.getScene().setRoot(fxmlLoader.load());
         ((MainViewController) fxmlLoader.getController()).setLoginModel(loginModel);
-        stage.setTitle("Admin");
-        stage.setOnShowing(event -> {
-            closeLoginWindow();
-        });
-        setNewWindow(scene, stage);
     }
 
     public static void setNewWindow(Scene scene, Stage stage) {
@@ -105,6 +101,7 @@ public class LoginController {
         FXMLLoader fxmlLoader = new FXMLLoader(app.class.getResource("login-view.fxml"));
         Stage stage = (Stage) loginButton.getScene().getWindow();
         stage.close();
+
     }
 
 
