@@ -2,26 +2,18 @@ import {Button, IconButton, Text, TextInput, VStack} from "@react-native-materia
 import React, {useContext, useState} from "react";
 import NavigatorContext, {Page} from "./navigator/NavigatorProvider";
 import {StyleSheet, View} from "react-native";
-import axios from "axios";
 import {BASE_URL} from "@env";
 import {MaterialCommunityIcons} from '@expo/vector-icons';
 import Ripple from "react-native-material-ripple";
+import AuthContext from "./auth/AuthContext";
 
 const loginAPI: string = BASE_URL + 'api/auth/login'
 export default function LoginPage() {
     const {changePage} = useContext(NavigatorContext)
+    const {login, setUser} = useContext(AuthContext)
     const [email, setEmail] = useState<string>('email')
     const [password, setPassword] = useState<string>('password')
 
-    const login = () => {
-        axios.post(loginAPI, {email: email, password: password})
-            .then(function (response) {
-                console.log(response.data)
-                changePage(Page.HOME)
-            },).catch(function (error) {
-            console.log(error.request)
-        })
-    }
 
 
     return (
@@ -48,7 +40,7 @@ export default function LoginPage() {
 
                 <Button title={'Login'}
                         onPress={() => {
-                            login()
+                            login(email, password)
                         } }
                         style={loginPageStyle.button}
                 />

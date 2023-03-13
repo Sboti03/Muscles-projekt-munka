@@ -8,21 +8,71 @@ import axios from "axios";
 import {StyleSheet} from "react-native";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import * as Progress from 'react-native-progress';
+import AuthContext from "../auth/AuthContext";
+import createFood from "../food/createFood";
+import CreateMealHistory from "../mealHistory/createMealHistory";
+import {UnitsEnum} from "../food/food";
+import {err} from "react-native-svg/lib/typescript/xml";
 
 const getAllProfileInfo = BASE_URL + 'api/user/all'
-const logoutAPI = BASE_URL + 'api/auth/logout'
+const getAllGoalData = BASE_URL + 'api/goals'
+const profileCreate = BASE_URL + 'api/profile/create'
+const profileGet = BASE_URL + 'api/profile'
+const getMealHistoryData = BASE_URL + 'api/meal-history/data?date=2023-03-10'
+const createFoodApi = BASE_URL + 'api/food'
+const createMealHistoryApi = BASE_URL + 'api/meal-history/create'
 
 
 function HomePage(){
    const {changePage} = useContext(NavigatorContext)
-
-    const logout = () => {
-       axios.get(logoutAPI)
+    const {logout} = useContext(AuthContext)
+    
+    const postFood = () => {
+        axios.post(createFoodApi, {name: 'Chicken breast',
+            kcal: 165,
+            carbohydrate: 0,
+            fiber: 0,
+            protein: 31,
+            unit: "GRAM",
+            perUnit: 100,
+            sugar: 0,
+            saturatedFat: 1,
+            polyunsaturatedFat: 0.75,
+            monounsaturatedFat: 1.25,
+            fat: 3.58})
+            .then(function (response) {
+                console.log(response.data)
+            }).catch(function (error) {
+            console.log(error)
+            console.log('alma')
+        })
+    }
+    const getData = () => {
+       axios.get(profileGet)
            .then(function (response) {
                console.log(response.data)
-           }).catch(function (error) {
+           })
+           .catch(function (error) {
                console.log(error)
-       })
+        })
+    }
+    const createMealHistory = () => {
+        axios.post(createFoodApi, CreateMealHistory())
+            .then(function (response) {
+                console.log(response.data)
+            }).catch(function (error) {
+            console.log(error)
+            console.log('alma')
+        })
+    }
+    const createProfile = () => {
+       axios.post(profileCreate, {firstName: 'Csanad', lastName: 'Kormos', birthDay: '2000-05-30', height:175})
+           .then(function (response) {
+               console.log(response.data)
+           })
+           .catch(function (error) {
+               console.log(error)
+           })
     }
 
    return(
@@ -83,9 +133,16 @@ function HomePage(){
                   </HStack>
               </VStack>
           </Box>
+          <Button title={'getData'} onPress={() => {
+              getData()
+          }
+          }/>
+          <Button title={'createProfile'} onPress={() => {
+              createProfile()
+          }
+          }/>
           <Button title={'Logout'} onPress={() => {
               logout()
-              changePage(Page.LOGIN)
           }}/>
 
       </Flex>
