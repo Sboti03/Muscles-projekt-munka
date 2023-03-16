@@ -46,6 +46,7 @@ export class UserGetService {
                     roleId,
                 },
             },
+            refreshTokens: [],
             profileData: {
                 create: {
                     goal: {
