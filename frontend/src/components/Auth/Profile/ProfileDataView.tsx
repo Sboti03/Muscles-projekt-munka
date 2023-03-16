@@ -13,19 +13,19 @@ export default function ProfileDataView() {
             <div>
                 <form>
                     <div>
-                        <Input type="text" name="firstName" value={response?.fistName} disabled/>
+                        <Input type="text" name="firstName" value={response?.fistName} placeholder="First name"/>
                     </div>
                     <div>
-                        <Input type="text" name="firstName" value={response?.lastName} disabled/>
+                        <Input type="text" name="lastName" value={response?.lastName} placeholder="Last name"/>
                     </div>
                     <div>
-                        <Input type="text" name="firstName" value={response?.height} disabled/>
+                        <Input type="number" name="height" value={response?.height} placeholder="Height in cm"/>
                     </div>
                     <div>
-                        <Input type="text" name="firstName" value={response?.birthDay?.toISOString()} disabled/>
+                        <Input type="text" name="birthDay" value={response?.birthDay?.toISOString()} placeholder="Birth day"/>
                     </div>
                     <div>
-                        {normalizeDate(response!.registrationDate)}
+                        <Input contentEditable={false} value={response?.registrationDate} />
                     </div>
                 </form>
             </div>
