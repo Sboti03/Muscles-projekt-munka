@@ -14,6 +14,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.CookieManager;
+import java.net.CookiePolicy;
+import java.net.URL;
+import java.net.URLConnection;
+import java.nio.charset.StandardCharsets;
+import java.util.ResourceBundle;
+
 
 public class MainViewController {
 
@@ -44,6 +53,9 @@ public class MainViewController {
     }
 
 
+
+
+
     @FXML
     public void createClick(ActionEvent actionEvent) {
     }
@@ -72,7 +84,19 @@ public class MainViewController {
 
 
     private String loadAllFood() {
-        ResponseEntity<String> response = restTemplate.getForEntity(url.GET_ALL_FOOD(), String.class);
-        return response.getBody();
+        try {
+            URL url = new URL(this.url.GET_ALL_FOOD());
+            URLConnection connection = url.openConnection();
+            String authToken = loginModel.getLoginData().getTokens().getAccessToken();
+            connection.setRequestProperty("Authorization", "Bearer " + authToken);
+            connection.connect();
+            InputStream responseStream = connection.getInputStream();
+            return new String(responseStream.readAllBytes(), StandardCharsets.UTF_8);
+        }   catch (IOException e) {
+            System.out.println(e.getMessage());
+            testArea.setText(e.getMessage());
+            return "error";
+        }
     }
+
 }
