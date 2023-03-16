@@ -97,14 +97,6 @@ public class LoginController {
     }
 
 
-    private void closeLoginWindow() {
-        FXMLLoader fxmlLoader = new FXMLLoader(app.class.getResource("login-view.fxml"));
-        Stage stage = (Stage) loginButton.getScene().getWindow();
-        stage.close();
-
-    }
-
-
     private boolean userIsAdmin(LoginResponse loginResponse) {
         return loginResponse.getUser().getRoles().getRoleName().equals("admin");
     }
