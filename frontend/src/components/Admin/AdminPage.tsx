@@ -7,7 +7,6 @@ import AuthContext from "../Auth/AuthContext";
 export default function AdminPage() {
     const {isLoading, response, error} = useFetch<Array<AdminRes>>('/api/user/all', Methods.GET)
 
-    const {setIsAccessTokenExpired} = useContext(AuthContext)
     useEffect(()=> {
         if (error) {
             if (error.statusCode === 401) {

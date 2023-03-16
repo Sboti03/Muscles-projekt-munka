@@ -5,6 +5,8 @@ import DayPage from "../DayInfo/DayPage";
 import AdminPage from "../Admin/AdminPage";
 import RegisterPage from "../Auth/Register/Register Page";
 import FoodSearchPage from "../FoodAdder/FoodSearchPage";
+import ProfileCreatePage from "../Auth/Profile/ProfileCreatePage";
+import ProfileViewPage from "../Auth/Profile/ProfileViewPage";
 
 export default function Pages() {
 
@@ -21,5 +23,9 @@ export default function Pages() {
             return <AdminPage />
         case Page.FOOD_SEARCH:
             return <FoodSearchPage />
+        case Page.PROFILE_CREATE:
+            return <ProfileCreatePage />
+        case Page.PROFILE_VIEW:
+            return <ProfileViewPage />
     }
 }

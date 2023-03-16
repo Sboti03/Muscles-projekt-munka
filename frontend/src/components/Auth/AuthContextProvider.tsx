@@ -7,6 +7,7 @@ import {Methods, singleFetch} from "../utils/Fetch";
 import './Auth.css'
 import {RegisterData} from "./Register/RegisterData";
 
+
 const newAccessTokenTime = 1000 * 60 * 30
 
 function AuthContextProvider(props: PropsWithChildren) {
@@ -16,8 +17,8 @@ function AuthContextProvider(props: PropsWithChildren) {
 
     useEffect(()=> {
         const newTokenTimer = setInterval(async () => {
-            const result = await newAccessToken()
-            if (result?.error) {
+            const result = getRefreshTokenFromServer()
+            if (!result) {
                 login()
             }
         }, newAccessTokenTime)
@@ -30,37 +31,29 @@ function AuthContextProvider(props: PropsWithChildren) {
         const user = loadObject<User>('user')
         setUser(user)
         if (user) {
-            authRedirect()
+            getRefreshTokenFromServer().then(result=> {
+                if (result) {
+                    changePage(Page.HOME)
+                } else {
+                    changePage(Page.HOME)
+                }
+            })
         }
         changePage(Page.LOGIN)
     }, [])
 
-    async function authRedirect() {
-        const profile = await isProfileExist()
-        if (profile) {
-            getGoals()
-        }
-    }
 
     async function getGoals() {
         const {response, error} = await singleFetch('/api/goals', Methods.GET)
-        console.log(response, error)
+        // TODO
     }
 
-    async function isProfileExist() {
-        const {response, error} = await singleFetch('/api/profile', Methods.GET)
-        return !error;
 
-    }
-
-    const accessTokenRedirect = async (page: Page) => {
+    async function getRefreshTokenFromServer() {
         const result = await newAccessToken()
-        if (result!.response) {
-            changePage(page)
-        } else {
-            login()
-        }
+        return !result?.error;
     }
+
     function logout() {
         singleFetch('/api/auth/logout', Methods.GET)
         setUser(undefined)

@@ -12,7 +12,11 @@ function useFetch<T>(path: string, method: Methods, body?: Object) {
             setIsLoading(true)
             try {
                 const res = await getAxios(path, method, body)
-                setResponse(res.data as T)
+                const result = res.data as T
+                for (let key in result) {
+                    result[key] = removeNull(result[key])
+                }
+                setResponse(result)
             } catch (error: any) {
                 if (error.response) {
                     setError(error.response.data)
@@ -46,7 +50,12 @@ export async function singleFetch<T>(path: string, method: Methods, body?: Objec
     }
 }
 
-
+function removeNull(obj: any) {
+    if (obj === null) {
+        return undefined
+    }
+    return obj
+}
 
 
 export enum Methods {

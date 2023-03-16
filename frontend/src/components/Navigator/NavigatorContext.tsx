@@ -13,6 +13,8 @@ export enum Page {
     HOME,
     ADMIN,
     FOOD_SEARCH,
+    PROFILE_CREATE,
+    PROFILE_VIEW,
 }
 
 

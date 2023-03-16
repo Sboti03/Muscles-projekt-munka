@@ -1,18 +1,24 @@
-import {Alert, Input} from "@mui/joy";
+import {Alert, CircularProgress, Input} from "@mui/joy";
 import Mail from "../../../assets/SVG/mail.svg";
 import Lock from "../../../assets/SVG/Lock.svg";
 import Eye from "../../../assets/SVG/eye.svg";
-import {FormEvent, useContext, useEffect, useState} from "react";
+import {FormEvent, useContext, useState} from "react";
 import SwitchSelector from "react-switch-selector";
 import {OptionType} from "react-switch-selector/dist/SwitchSelector.props";
 import './Register.css'
 import {RegisterData} from "./RegisterData";
 import AuthContext from "../AuthContext";
+import NavigatorContext, {Page} from "../../Navigator/NavigatorContext";
+
 export default function RegisterPage() {
 
     const {register} = useContext(AuthContext)
+    const {changePage} = useContext(NavigatorContext)
     const [alert, setAlert] = useState<string | undefined>(undefined)
+    const [isLoading, setIsLoading] = useState(false)
     const [isCoach, setIsCoach] = useState(false)
+    const [isPasswordVisible, setIsPasswordVisible] = useState(false)
+    const [isRePasswordVisible, setReIsPasswordVisible] = useState(false)
     function displayAlert(alertText: string) {
         setAlert(alertText)
         setTimeout(()=> {
@@ -47,6 +53,7 @@ export default function RegisterPage() {
             return;
         }
         const registerData: RegisterData = {email, password, isCoach}
+        setIsLoading(true)
         handleRegisterResponse(registerData)
     }
 
@@ -55,42 +62,50 @@ export default function RegisterPage() {
     async function handleRegisterResponse(registerData: RegisterData) {
         const result = await register(registerData)
         if (result.response) {
-
+            changePage(Page.PROFILE_CREATE)
         } else {
+            setIsLoading(false)
             setAlert(result.error.message)
         }
     }
 
-    useEffect(()=> {
-        console.log(isCoach)
-    }, [isCoach])
-
     function loadLogin() {
+        changePage(Page.LOGIN)
+    }
 
+    function changePasswordVisibility() {
+        setIsPasswordVisible(prevState => !prevState);
+    }
+
+    function changeRePasswordVisibility() {
+        setReIsPasswordVisible(prevState => !prevState)
     }
 
     return (
         <form onSubmit={handleRegister} className="login-box">
             <div className="login-box-elements">
                <div className="switch-selector">
-                   <SwitchSelector onChange={selectedOptionValue => setIsCoach(selectedOptionValue as boolean)} options={NormalCoachOption} />
+                   <SwitchSelector disabled={isLoading} onChange={selectedOptionValue => setIsCoach(selectedOptionValue as boolean)} options={NormalCoachOption} />
                </div>
                 <div>
-                    <Input required type="email" className="Input" startDecorator={<img src={Mail}/>} placeholder="Email" name="email"/>
+                    <Input disabled={isLoading} required type="email" className="Input" startDecorator={<img src={Mail}/>} placeholder="Email" name="email"/>
                 </div>
                 <div>
-                    <Input required type="password" className="Input" startDecorator={<img src={Lock} />} endDecorator={<button className="classic-btn"><img src={Eye}/></button>} placeholder="Password" name="password"/>
+                    <Input disabled={isLoading} required type={`${isPasswordVisible ? "text" : "password"}`} className="Input" startDecorator={<img src={Lock} />} endDecorator={<button type="button" onClick={changePasswordVisibility} className="classic-btn"><img src={Eye}/></button>} placeholder="Password" name="password"/>
                 </div>
                 <div>
-                    <Input required type="password" className="Input" startDecorator={<img src={Lock} />} endDecorator={<button className="classic-btn"><img src={Eye}/></button>} placeholder="Password again" name="passwordAgain"/>
+                    <Input disabled={isLoading} required type={`${isRePasswordVisible ? "text" : "password"}`} className="Input" startDecorator={<img src={Lock} />} endDecorator={<button type="button" onClick={changeRePasswordVisibility} className="classic-btn"><img src={Eye}/></button>} placeholder="Password again" name="passwordAgain"/>
                 </div>
                 <div className="full-center">
-                    <button className="login-btn btn" type="submit">Register</button>
+                    <button disabled={isLoading} className="login-btn btn" type="submit">Register</button>
                 </div>
                 <div className="full-center">
-                    <button className="register-btn btn" onClick={loadLogin} type="button">Login</button>
+                    <button disabled={isLoading} className="register-btn btn" onClick={loadLogin} type="button">Login</button>
                 </div>
                 {alert && <Alert color={"danger"}>{alert}</Alert>}
+                <div className="full-center">
+                    {isLoading && <CircularProgress />}
+                </div>
             </div>
         </form>
     )
