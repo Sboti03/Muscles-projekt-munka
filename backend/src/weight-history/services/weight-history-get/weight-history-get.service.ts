@@ -16,11 +16,16 @@ export class WeightHistoryGetService {
                     }
                 },
             },
+            orderBy: {
+                day: {
+                    date: 'desc'
+                }
+            },
             select: {
                 weight: true,
                 day: {
                     select: {
-                        date: true
+                        date: true,
                     }
                 }
             }
@@ -28,7 +33,7 @@ export class WeightHistoryGetService {
         try {
             return await request
         } catch (e) {
-            return {weight: undefined, day: undefined}
+            return {weight: undefined, day: {date: undefined}}
         }
     }
 }
