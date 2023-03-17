@@ -1,27 +1,24 @@
 package hu.muscles.desktop.controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import hu.muscles.desktop.foodsData.Foods;
 import hu.muscles.desktop.models.LoginModel;
 import hu.muscles.desktop.urls.Urls;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.CookieManager;
-import java.net.CookiePolicy;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
-import java.util.ResourceBundle;
+import java.util.List;
 
 
 public class MainViewController {
@@ -53,9 +50,6 @@ public class MainViewController {
     }
 
 
-
-
-
     @FXML
     public void createClick(ActionEvent actionEvent) {
     }
@@ -74,16 +68,22 @@ public class MainViewController {
 
     @FXML
     public void foodsClick(ActionEvent actionEvent) {
+        List<Foods> foods = loadAllFood();
         try {
-            System.out.println(loginModel.getLoginData().getUser().getEmail() + ", aki " + loginModel.getLoginData().getUser().getRoles().getRoleName() + "megkapta:\n\n" + loadAllFood());
-            testArea.setText(loginModel.getLoginData().getUser().getEmail() + ", aki " + loginModel.getLoginData().getUser().getRoles().getRoleName() + "megkapta:\n\n" + loadAllFood());
+            if (foods != null) {
+                System.out.println(loginModel.getLoginData().getUser().getEmail() + ", aki " + loginModel.getLoginData().getUser().getRoles().getRoleName() + "megkapta:\n\n" + loadAllFood());
+                testArea.setText(loginModel.getLoginData().getUser().getEmail() + ", aki " + loginModel.getLoginData().getUser().getRoles().getRoleName() + "megkapta:\n\n" + loadAllFood());
+            } else {
+                testArea.setText("Couldn't read foods.");
+            }
         } catch (Exception e) {
             testArea.setText(e.getMessage());
+            e.printStackTrace();
         }
     }
 
 
-    private String loadAllFood() {
+    private List<Foods> loadAllFood() {
         try {
             URL url = new URL(this.url.GET_ALL_FOOD());
             URLConnection connection = url.openConnection();
@@ -91,11 +91,25 @@ public class MainViewController {
             connection.setRequestProperty("Authorization", "Bearer " + authToken);
             connection.connect();
             InputStream responseStream = connection.getInputStream();
-            return new String(responseStream.readAllBytes(), StandardCharsets.UTF_8);
-        }   catch (IOException e) {
+            return foodConverterToPOJO((new String(responseStream.readAllBytes(), StandardCharsets.UTF_8)));
+        } catch (IOException e) {
+            testArea.setText(e.getMessage());
+            e.printStackTrace();
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private List<Foods> foodConverterToPOJO(String response) {
+        try {
+            ObjectMapper om = new ObjectMapper();
+            return om.readValue(response, new TypeReference<List<Foods>>() {
+            });
+        } catch (JsonProcessingException e) {
             System.out.println(e.getMessage());
             testArea.setText(e.getMessage());
-            return "error";
+            e.printStackTrace();
+            return null;
         }
     }
 

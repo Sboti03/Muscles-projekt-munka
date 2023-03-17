@@ -7,7 +7,6 @@ public class LoginResponse {
     private User user;
     private Tokens tokens;
 
-
     @JsonProperty("user")
     public User getUser() {
         return this.user;
@@ -26,4 +25,6 @@ public class LoginResponse {
     public void setTokens(Tokens tokens) {
         this.tokens = tokens;
     }
+
+
 }
