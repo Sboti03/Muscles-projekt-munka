@@ -15,4 +15,6 @@ module hu.muscles.desktop {
     opens hu.muscles.desktop.urls to javafx.fxml;
     exports hu.muscles.desktop.models;
     exports hu.muscles.desktop.loginData;
+    exports hu.muscles.desktop.foodsData;
+    opens hu.muscles.desktop.foodsData to com.fasterxml.jackson.databind;
 }
