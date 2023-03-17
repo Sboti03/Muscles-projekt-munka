@@ -23,7 +23,8 @@
     "react-native-progress": "^5.0.0",
     "react-native-svg": "13.4.0",
     "react-native-switch-selector": "^2.3.0",
-    "react-native-switch-selector-fix": "^2.0.4"
+    "react-native-switch-selector-fix": "^2.0.4",
+    "@react-native-community/datetimepicker": "6.7.3"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
