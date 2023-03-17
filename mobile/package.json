@@ -17,6 +17,8 @@
     "react": "18.2.0",
     "react-hook-form": "^7.43.5",
     "react-native": "0.71.3",
+    "react-native-date-picker": "^4.2.9",
+    "react-native-form-component": "^2.6.8",
     "react-native-material-ripple": "^0.9.1",
     "react-native-progress": "^5.0.0",
     "react-native-svg": "13.4.0",

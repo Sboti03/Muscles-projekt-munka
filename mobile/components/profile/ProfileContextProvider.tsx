@@ -1,19 +1,20 @@
 import {PropsWithChildren, useState} from "react";
 import ProfileContext, {Profile, ProfileContextValue} from "./ProfileProvider";
+import profileProvider from "./ProfileProvider";
 
 export default function ProfileContextProvider({children}: PropsWithChildren) {
-    const [profile, setProfile] = useState<Profile | undefined>(undefined)
+    const [profile, setProfile] = useState<Profile>({})
     const profileContextValue: ProfileContextValue = {
-        profile: undefined,
+        profile: profile,
         updateProfile: (profile:Profile) => {
-            setProfile(profile)
+                    setProfile(profile)
         },
+
         deleteProfileOnLogout: () => {
-            setProfile(undefined)
+            setProfile({})
         }
     }
 
-    setProfile({...profile, birthDay: new Date()})
 
     return(<ProfileContext.Provider value={profileContextValue}>
         {children}

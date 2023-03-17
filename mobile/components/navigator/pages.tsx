@@ -19,13 +19,9 @@ export default function Pages() {
          return <RegisterPage />
       case Page.ADMIN:
          return <AdminPage />
-      case Page.FIRSTNAME:
-         return <ProfileFormPages placeHolder={'FirstName'} />
-      case Page.LASTNAME:
-         return <ProfileFormPages placeHolder={'LastName'} />
-      case Page.BIRTHDAY:
-         return <ProfileFormPages placeHolder={'Birthdate'} />
-      case Page.TARGETWEIGHT:
-         return <ProfileFormPages placeHolder={'TargetWeight'} skipButton={true}/>
+      case Page.NAME:
+         return <ProfileFormPages birthDay={false} />
+      case Page.BIRTHDAYANDWEIGHT:
+         return <ProfileFormPages birthDay={true} />
    }
 }

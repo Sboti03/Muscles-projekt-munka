@@ -150,7 +150,7 @@ function HomePage(){
 }
 export default HomePage;
 
-const homePageStyle = StyleSheet.create({
+export const homePageStyle = StyleSheet.create({
     page: {
         backgroundColor: "#cbb9ff",
     },

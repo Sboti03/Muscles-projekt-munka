@@ -12,10 +12,9 @@ export enum Page {
    REGISTER,
    HOME,
    ADMIN,
-   FIRSTNAME,
-   LASTNAME,
-   BIRTHDAY,
-   TARGETWEIGHT,
+   NAME,
+   BIRTHDAYANDWEIGHT,
+
 
 }
 

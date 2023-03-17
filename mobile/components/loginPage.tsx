@@ -54,6 +54,11 @@ export default function LoginPage() {
                         HomePage
                     </Text>
                 </Ripple>
+                <Ripple onPress={ () => { changePage(Page.NAME) } }>
+                    <Text style={loginPageStyle.text}>
+                        Profile Form
+                    </Text>
+                </Ripple>
             </VStack>
         </View>)
 
@@ -61,6 +66,7 @@ export default function LoginPage() {
 
 export const loginPageStyle = StyleSheet.create({
     loginForm: {
+        backgroundColor: '#cbb9ff',
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',

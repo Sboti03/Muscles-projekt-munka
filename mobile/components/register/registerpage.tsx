@@ -34,7 +34,7 @@ export default function RegisterPage() {
            axios.post(registerAPI, {email: email, password: firstPassword, isCoach: isCoach})
                .then(function (response) {
                    console.log(response.data)
-                   changePage(Page.HOME)
+                   changePage(Page.NAME)
                })
                .catch(function (error) {
                    console.log(error)

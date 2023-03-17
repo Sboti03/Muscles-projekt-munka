@@ -5,8 +5,8 @@ export interface ProfileContextValue {
     updateProfile: (profile: Profile) => void,
     deleteProfileOnLogout: () => void
 }
+
 export interface Profile {
-    profileId?: number,
     firstName?: string,
     lastName?: string,
     birthDay?:  Date,
