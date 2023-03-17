@@ -75,11 +75,13 @@ public class MainViewController {
                 testArea.setText(loginModel.getLoginData().getUser().getEmail() + ", aki " + loginModel.getLoginData().getUser().getRoles().getRoleName() + "megkapta:\n\n" + loadAllFood());
             } else {
                 testArea.setText("Couldn't read foods.");
+                return;
             }
         } catch (Exception e) {
             testArea.setText(e.getMessage());
             e.printStackTrace();
         }
+
     }
 
 
@@ -111,6 +113,10 @@ public class MainViewController {
             e.printStackTrace();
             return null;
         }
+    }
+
+    private void loadFootdsToTable() {
+        //TODO: load to table
     }
 
 }
