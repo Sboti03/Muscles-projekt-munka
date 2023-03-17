@@ -7,13 +7,6 @@ export class GoalsGetService {
 
     getGoalsByProfileId(profileId: number) {
         return this.prismaService.goals.findFirst({
-            select: {
-                fatPerDay: true,
-                carbohydratesPerDay: true,
-                proteinPerDay: true,
-                targetCalories: true,
-                targetWeight: true
-            },
             orderBy: {
                 date: 'desc'
             },

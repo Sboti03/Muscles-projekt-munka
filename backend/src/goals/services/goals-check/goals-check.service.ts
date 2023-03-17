@@ -11,6 +11,7 @@ export class GoalsCheckService {
     async checkGoalsUpdateDto(goalsUpdateDto:GoalsUpdateDto, profileId: number) {
         const oldData = await this.goalsGetService.getGoalsByProfileId(profileId)
         const {fatPerDay, proteinPerDay, carbohydratesPerDay, breakfastPerDay, lunchPerDay, dinnerPerDay, otherPerDay} = Object.assign(oldData, goalsUpdateDto)
+
         const sumOfMacros = fatPerDay + carbohydratesPerDay + proteinPerDay
 
         const sumOfPeriodCalories = breakfastPerDay + lunchPerDay + dinnerPerDay + otherPerDay

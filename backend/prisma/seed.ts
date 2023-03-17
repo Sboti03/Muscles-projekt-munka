@@ -9,18 +9,35 @@ import * as process from "process";
 const prisma = new PrismaClient()
 async function main() {
     const prisma: PrismaService = new PrismaService()
-    const roles = Object.values(Roles).map(async roles => {
-        const result = await prisma.roles.upsert({
-            where: {roleId: roles.roleId},
-            update: {},
-            create: {
-                roleId: roles.roleId,
-                roleName: roles.roleName,
-                users: {create: []}
-            }
-        })
-        console.log(result)
-        return result
+
+    await prisma.roles.upsert({
+        where: {roleId: Roles.ADMIN.roleId},
+        update: {},
+        create: {
+            roleId: Roles.ADMIN.roleId,
+            roleName: Roles.ADMIN.roleName,
+            users: {create: []}
+        }
+    })
+
+    await prisma.roles.upsert({
+        where: {roleId: Roles.USER.roleId},
+        update: {},
+        create: {
+            roleId: Roles.USER.roleId,
+            roleName: Roles.USER.roleName,
+            users: {create: []}
+        }
+    })
+
+    await prisma.roles.upsert({
+        where: {roleId: Roles.COACH.roleId},
+        update: {},
+        create: {
+            roleId: Roles.COACH.roleId,
+            roleName: Roles.COACH.roleName,
+            users: {create: []}
+        }
     })
     const admin = await prisma.users.upsert({
         where: {email: 'admin@muscles.com'},
@@ -59,7 +76,7 @@ async function main() {
         console.log(result)
         return result
     })
-    console.log(periodNames, roles)
+    console.log(periodNames)
 
     const foods = readFoods()
     for (const food of foods) {
