@@ -1,0 +1,16 @@
+.formLabel {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.formContainer {
+    max-width: 200px;
+}
+
+.formContainer > form > div {
+    margin: 10px;
+}
+
+.formContainer > form > div > div  {
+    max-width: 100px !important;
+}

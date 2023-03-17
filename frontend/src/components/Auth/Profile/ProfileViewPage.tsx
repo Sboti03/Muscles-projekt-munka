@@ -1,4 +1,4 @@
-import ProfileDataView from "./ProfileDataView";
+import ProfileDataView from "./ProfileDataView/ProfileDataView";
 
 
 export default function ProfileViewPage() {

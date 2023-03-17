@@ -3,18 +3,23 @@ import React from "react";
 
 interface NavigatorContextValue {
     page: Page | undefined,
-    changePage: (page: Page) => void
+    changePage: (page: Page) => void,
+    pageHistory: Page[],
+    setPrevPage: ()=> void,
 }
 
 
 export enum Page {
-    LOGIN,
-    REGISTER,
-    HOME,
-    ADMIN,
-    FOOD_SEARCH,
-    PROFILE_CREATE,
-    PROFILE_VIEW,
+    LOGIN= 'login',
+    REGISTER = 'register',
+    HOME = 'home',
+    ADMIN = 'admin',
+    FOOD_SEARCH = 'food_search',
+    PROFILE_CREATE = 'profile_create',
+    PROFILE_VIEW = "PROFILE_VIEW",
+    RESULTS = "RESULTS",
+    GOALS = "GOALS",
+    PROFILE_DATA = "PROFILE_DATA",
 }
 
 

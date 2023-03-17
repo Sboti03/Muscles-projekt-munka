@@ -1,0 +1,9 @@
+.container {
+    display: flex;
+    justify-content: center;
+    max-width: 300px;
+}
+
+.container > form > div {
+    margin: 10px;
+}

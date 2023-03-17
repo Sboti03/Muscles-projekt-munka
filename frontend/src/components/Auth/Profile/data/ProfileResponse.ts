@@ -1,6 +1,6 @@
 export interface ProfileResponse {
     birthDay: Date | undefined
-    fistName: string
+    firstName: string
     lastName: string
     height: number | undefined
     registrationDate: string

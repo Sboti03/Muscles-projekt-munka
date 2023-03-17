@@ -27,6 +27,13 @@ export default App
 
 const Theme = extendTheme({
     components: {
+        JoyFormLabel: {
+            styleOverrides: {
+                root: props => ({
+                    fontSize: '16px'
+                })
+            }
+        },
         JoyLinearProgress: {
             styleOverrides: {
                 root: props => ({

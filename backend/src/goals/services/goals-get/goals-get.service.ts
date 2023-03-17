@@ -6,7 +6,7 @@ export class GoalsGetService {
     constructor(private prismaService:PrismaService) {}
 
     getGoalByProfileId(profileId: number) {
-        return this.prismaService.goals.findUnique({
+        return this.prismaService.goals.findFirst({
             select: {
                 fatPerDay: true,
                 carbohydratesPerDay: true,
@@ -14,7 +14,12 @@ export class GoalsGetService {
                 targetCalories: true,
                 targetWeight: true
             },
-            where:{profileId}
+            orderBy: {
+                date: 'desc'
+            },
+            where: {
+                profileId,
+            }
         })
     }
 

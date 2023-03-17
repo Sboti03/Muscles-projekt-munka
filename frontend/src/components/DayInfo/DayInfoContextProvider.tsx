@@ -4,6 +4,7 @@ import {Methods, singleFetch} from "../utils/Fetch";
 import {MealHistoryResponse} from "./Data/MealHistoryResponse";
 import {DayInfoData} from "./Data/DayInfoData";
 import {DayPeriodResponse} from "./Data/DayPeriodResponse";
+import {da} from "date-fns/locale";
 
 export default function DayInfoContextProvider(props: PropsWithChildren) {
     const [dayInfo, setDayInfo] = useState<DayInfoData | undefined>()
@@ -85,8 +86,10 @@ function calculateDayInfoData(mealHistoryResponse: MealHistoryResponse): DayInfo
     }
 }
 
-export function normalizeDate(date: Date) {
-    return date.toISOString().split('T')[0]
+export function normalizeDate(date?: Date) {
+    if (date) {
+        return date.toISOString().split('T')[0]
+    }
 }
 
 const clamp = (num: number) => Math.min(Math.max(num, 0), 100);

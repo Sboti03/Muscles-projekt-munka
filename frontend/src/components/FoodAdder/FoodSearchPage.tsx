@@ -13,14 +13,14 @@ export default function FoodSearchPage() {
         <>
             <Input type="search" value={search} onChange={(e)=>setSearch(e.target.value)}/>
             {result?.map(food=> (
-                <>
+                <div key={food.foodId}>
                     <div>
                         {food.name}
                     </div>
                     <div>
                         {food.foodId}
                     </div>
-                </>
+                </div>
             ))}
         </>
     )

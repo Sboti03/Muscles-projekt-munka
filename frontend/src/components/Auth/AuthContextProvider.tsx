@@ -34,6 +34,7 @@ function AuthContextProvider(props: PropsWithChildren) {
             getRefreshTokenFromServer().then(result=> {
                 if (result) {
                     changePage(Page.HOME)
+
                 } else {
                     changePage(Page.HOME)
                 }

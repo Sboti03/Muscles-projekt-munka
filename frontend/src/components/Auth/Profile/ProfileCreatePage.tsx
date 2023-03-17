@@ -14,7 +14,6 @@ export default function ProfileCreatePage() {
             <form>
                 <Input value={profileData.firstName} name="firstName" placeholder="First name" />
                 <Input value={profileData.lastName} name="lastName" placeholder="Last name" />
-
             </form>
         </>
     )
