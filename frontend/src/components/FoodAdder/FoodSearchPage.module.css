@@ -1,0 +1,13 @@
+.container {
+    display: flex;
+    justify-content: center;
+}
+
+.foodResultBox {
+    width: 500px;
+}
+
+.foodResultBox > div {
+    display: flex;
+    gap: 10px;
+}

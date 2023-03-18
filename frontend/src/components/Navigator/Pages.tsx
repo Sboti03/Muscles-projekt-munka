@@ -5,11 +5,11 @@ import DayPage from "../DayInfo/DayPage";
 import AdminPage from "../Admin/AdminPage";
 import RegisterPage from "../Auth/Register/Register Page";
 import FoodSearchPage from "../FoodAdder/FoodSearchPage";
-import ProfileCreatePage from "../Auth/Profile/ProfileCreatePage";
-import ProfileViewPage from "../Auth/Profile/ProfileViewPage";
-import ProfileDataView from "../Auth/Profile/ProfileDataView/ProfileDataView";
-import ProfileDataEditSelector from "../Auth/Profile/ProfileDataEditSelector";
-import GoalsDataView from "../Auth/Profile/GoalsDataView/GoalsDataView";
+import ProfileCreatePage from "../Profile/ProfileCreatePage";
+import ProfileViewPage from "../Profile/ProfileViewPage";
+import ProfileDataView from "../Profile/ProfileDataView/ProfileDataView";
+import ProfileDataEditSelector from "../Profile/ProfileDataEditSelector";
+import GoalsDataView from "../Profile/GoalsDataView/GoalsDataView";
 
 export default function Pages() {
 

@@ -34,6 +34,14 @@ const Theme = extendTheme({
                 })
             }
         },
+        JoyButton: {
+          styleOverrides: {
+              root: props => ({
+                  backgroundColor: '#6F00B3',
+
+              }),
+          }
+        },
         JoyLinearProgress: {
             styleOverrides: {
                 root: props => ({

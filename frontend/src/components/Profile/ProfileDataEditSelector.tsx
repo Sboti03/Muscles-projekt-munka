@@ -1,8 +1,8 @@
 import {Button} from "@mui/joy";
 import React, {useContext} from "react";
-import NavigatorContext, {Page} from "../../Navigator/NavigatorContext";
-import AuthContextProvider from "../AuthContextProvider";
-import AuthContext from "../AuthContext";
+import NavigatorContext, {Page} from "../Navigator/NavigatorContext";
+import AuthContextProvider from "../Auth/AuthContextProvider";
+import AuthContext from "../Auth/AuthContext";
 
 export default function ProfileDataEditSelector() {
     const {changePage, setPrevPage} = useContext(NavigatorContext)

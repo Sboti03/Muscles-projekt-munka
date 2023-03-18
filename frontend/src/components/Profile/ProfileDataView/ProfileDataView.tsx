@@ -1,12 +1,13 @@
-import useFetch, {Methods, singleFetch} from "../../../utils/Fetch";
+import useFetch, {Methods, singleFetch} from "../../utils/Fetch";
 import {Button, CircularProgress, Input} from "@mui/joy";
 import {ProfileResponse} from "../data/ProfileResponse";
 import React, {useContext, useEffect, useState} from "react";
 import {ProfileData} from "../data/ProfileData";
 import DatePicker from 'react-date-picker'
 import styles from './ProfileDataView.module.css'
-import {normalizeDate} from "../../../DayInfo/DayInfoContextProvider";
-import NavigatorContext from "../../../Navigator/NavigatorContext";
+import {normalizeDate} from "../../DayInfo/DayInfoContextProvider";
+import NavigatorContext from "../../Navigator/NavigatorContext";
+import LoadingManager from "../../Loading/LoadingManager";
 
 export default function ProfileDataView() {
     const {response, error} = useFetch<ProfileResponse>('api/profile', Methods.GET)
@@ -44,9 +45,8 @@ export default function ProfileDataView() {
     }
 
     return (
-        <>
+        <LoadingManager isLoading={isLoading}>
             <Button type="button" onClick={()=> setPrevPage()}>Back</Button>
-            {isLoading && <CircularProgress />}
             <div className={styles.container}>
                 <form onSubmit={handleSubmit} >
                     <div>
@@ -73,7 +73,7 @@ export default function ProfileDataView() {
                     <Button type="submit">Save</Button>
                 </form>
             </div>
-        </>
+        </LoadingManager>
     )
 
     function changeFirstName(event: React.ChangeEvent<HTMLInputElement>) {
