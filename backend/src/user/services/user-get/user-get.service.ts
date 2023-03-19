@@ -16,7 +16,7 @@ export class UserGetService {
                 email,
             },
             include: {
-                roles: true,
+                roles: true
             },
         });
     }

@@ -1,4 +1,4 @@
-import {Module} from '@nestjs/common';
+import {LoggerService, Module} from '@nestjs/common';
 import {AuthController} from './controller/auth.controller';
 import {AuthService} from './services/auth.service';
 import {JwtService} from '@nestjs/jwt';
@@ -6,9 +6,6 @@ import {AccessTokenStrategy} from './strategy/access-token.strategy';
 import {LocalStrategy} from './strategy/local.strategy';
 import {RefreshTokenStrategy} from './strategy/refresh-token.strategy';
 import {UserModule} from '../user/user.module';
-import {AccessTokenGuard} from "./guards/access-token.guard";
-import {LocalAuthGuard} from "./guards/local-auth.guard";
-import {RefreshTokenGuard} from "./guards/refresh-token.guard";
 import {RolesGuard} from "./guards/role.guard";
 import {AuthTokenService} from './services/auth-token/auth-token.service';
 import {ProfileGetService} from "../profile/services/profile-get/profile-get.service";
@@ -24,6 +21,8 @@ import {ProfileGetService} from "../profile/services/profile-get/profile-get.ser
         RolesGuard,
         AuthTokenService,
         ProfileGetService,
+
+
     ],
     controllers: [AuthController],
     exports: [AuthService, AuthTokenService],

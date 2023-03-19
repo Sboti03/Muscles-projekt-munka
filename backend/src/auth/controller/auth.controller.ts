@@ -62,7 +62,7 @@ export class AuthController {
         await this.userDeleteService.deleteRefreshTokenById(userId, refreshToken);
         const newToken = await this.authTokenService.getNewRefreshToken(userId, refreshToken);
         this.authTokenService.storeRfToken(newToken, res)
-        const pushRes = await this.userUpdateService.pushNewRefreshToken(newToken, userId)
+        await this.userUpdateService.pushNewRefreshToken(newToken, userId)
             .catch(reason => {
                 throw new ConflictException('Error while pushing new token')
             });

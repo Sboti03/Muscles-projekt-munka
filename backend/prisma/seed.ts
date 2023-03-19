@@ -6,6 +6,7 @@ import {encryptData} from "../src/Common/utils/bcrypt";
 import {Units} from "../src/Common/units/units/units";
 import * as fs from "fs";
 import * as process from "process";
+
 const prisma = new PrismaClient()
 async function main() {
     const prisma: PrismaService = new PrismaService()
@@ -51,32 +52,29 @@ async function main() {
             }
         }
     })
-    const units = Units.map(async unit => {
-        const result = await prisma.units.upsert({
-            where: {unitId: unit.unitId},
+
+
+    for (const objOfUnit of Units) {
+        await prisma.units.upsert({
+            where: {unit: objOfUnit.unit},
             update: {},
             create: {
-                unitId: unit.unitId,
-                defaultValue: unit.defaultValue,
-                unit: unit.unit
-            },
+                unitId: objOfUnit.unitId,
+                unit: objOfUnit.unit,
+                defaultValue: objOfUnit.defaultValue,
+            }
         })
-        console.log(result)
-        return result
-    })
+    }
 
-    const periodNames = Object.values(PeriodNamesEnum).map(async periodName => {
-        const result = await prisma.mealPeriods.upsert({
+    Object.values(PeriodNamesEnum).map(async periodName => {
+        await prisma.mealPeriods.upsert({
             where: {periodName: periodName},
             update: {},
             create: {
                 periodName: periodName,
             }
         })
-        console.log(result)
-        return result
     })
-    console.log(periodNames)
 
     const foods = readFoods()
     for (const food of foods) {
@@ -89,7 +87,6 @@ async function main() {
         })
         console.log(result)
     }
-    console.log(admin, units)
 }
 main()
     .then(async () => {

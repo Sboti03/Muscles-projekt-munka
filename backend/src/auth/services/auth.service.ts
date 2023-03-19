@@ -1,4 +1,4 @@
-import {ForbiddenException, Injectable, NotFoundException} from '@nestjs/common';
+import {ForbiddenException, Injectable, Logger, LoggerService, NotFoundException} from '@nestjs/common';
 import { UserGetService } from '../../user/services/user-get/user-get.service';
 import { compareData } from '../../Common/utils/bcrypt';
 import LoginDto from '../dto/login.dto';
@@ -19,19 +19,26 @@ export class AuthService {
         private userCheckService: UserCheckService,
         private userCreateService: UserCreateService,
         private authTokenService: AuthTokenService,
-        private userDeleteService:UserDeleteService
+        private userDeleteService:UserDeleteService,
+
     ) {}
 
     async validateUser(loginDto: LoginDto) {
-        console.log('LOGIN', loginDto)
+        Logger.log(`LOGIN ${loginDto.email} *******`)
         const user = await this.userGetService.getUserByEmail(loginDto.email);
-        if (!user) throw new ForbiddenException('No user found');
+        if (!user) {
+            Logger.log(`No user found with the following email: ${loginDto.email}`)
+            throw new ForbiddenException('No user found');
+        }
 
         const passMatch: boolean = compareData(
             loginDto.password,
             user.password,
         );
-        if (!passMatch) throw new ForbiddenException('Access Denied');
+        if (!passMatch) {
+            Logger.log(`Password did not matched: ${loginDto.email}`)
+            throw new ForbiddenException('Access Denied');
+        }
 
         const { password, refreshTokens, ...rest } = user;
         const tokens = await this.authTokenService.getTokens(user.userId);
@@ -39,6 +46,7 @@ export class AuthService {
             tokens.refreshToken,
             user.userId,
         );
+        Logger.log(`User logged in ${rest.email} ${user.roles.roleName}`)
         return {
             user: rest,
             tokens,
@@ -49,9 +57,10 @@ export class AuthService {
     async logOut(userId: number, refreshToken: string) {
         const isTokenMatch = await this.userCheckService.checkRefreshToken(refreshToken, userId)
         if (!isTokenMatch) {
-            console.log(userId + 'No token found')
+            Logger.warn(`No token found ${userId}`)
             throw new NotFoundException('No token found')
         }
+        Logger.log(`User logged out ${userId}`)
         return this.userDeleteService.deleteRefreshTokenById(userId, refreshToken)
     }
 
