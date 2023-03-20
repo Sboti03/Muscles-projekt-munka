@@ -198,22 +198,18 @@ public class Foods {
 
     @Override
     public String toString() {
-        return "Foods{" +
-                "foodId=" + foodId +
-                ", name='" + name + '\'' +
-                ", kcal=" + kcal +
-                ", unitId=" + unitId +
-                ", perUnit=" + perUnit +
-                ", protein=" + protein +
-                ", fat=" + fat +
-                ", saturatedFat=" + saturatedFat +
-                ", polyunsaturatedFat=" + polyunsaturatedFat +
-                ", monounsaturatedFat=" + monounsaturatedFat +
-                ", carbohydrate=" + carbohydrate +
-                ", sugar=" + sugar +
-                ", fiber=" + fiber +
-                ", changedAt=" + changedAt +
-                ", unit=" + unit +
-                '}';
+        return "" +
+                this.name + "\n" +
+                this.fat + "\n" +
+                this.fiber + "\n" +
+                this.kcal + "\n" +
+                this.carbohydrate + "\n" +
+                this.perUnit + "\n" +
+                this.protein + "\n" +
+                this.sugar + "\n" +
+                this.monounsaturatedFat + "\n" +
+                this.polyunsaturatedFat + "\n" +
+                this.saturatedFat + "\n" +
+                this.unit.getUnit() + "\n";
     }
 }

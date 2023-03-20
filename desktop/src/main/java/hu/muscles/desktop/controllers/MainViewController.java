@@ -7,6 +7,8 @@ import hu.muscles.desktop.foodsData.Foods;
 import hu.muscles.desktop.models.LoginModel;
 import hu.muscles.desktop.urls.Urls;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -47,6 +49,7 @@ public class MainViewController implements Initializable {
     private TextArea informationOfSelectedItemTextArea;
 
 
+    private List<Foods> foods;
     private Alert confirmExit;
     private LoginModel loginModel;
     private final Urls url = new Urls();
@@ -88,7 +91,7 @@ public class MainViewController implements Initializable {
 
     @FXML
     public void foodsClick(ActionEvent actionEvent) {
-        List<Foods> foods = loadAllFood();
+        foods = loadAllFood();
         try {
             if (foods != null) {
                 loadFoodsToTable(foods);
@@ -142,5 +145,14 @@ public class MainViewController implements Initializable {
         confirmExit.setResizable(false);
         confirmExit.setTitle("Exit");
         confirmExit.setHeaderText("Are you sure you want to exit the app?");
+
+        mainListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String oldValue, String newValue) {
+                informationOfSelectedItemTextArea.setText(foods.get(mainListView.getSelectionModel().getSelectedIndex()).toString());
+            }
+        });
     }
+
+
 }
