@@ -98,6 +98,6 @@ public class LoginController {
 
 
     private boolean userIsAdmin(LoginResponse loginResponse) {
-        return loginResponse.getUser().getRoles().getRoleName().equals("admin");
+        return loginResponse.getUser().getRole().getRoleName().equals("admin");
     }
 }

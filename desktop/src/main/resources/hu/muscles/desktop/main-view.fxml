@@ -3,13 +3,11 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
 <VBox fx:id="mainVbox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.muscles.desktop.controllers.MainViewController">
    <children>
@@ -35,10 +33,12 @@
             <ListView fx:id="mainListView" prefHeight="300.0" prefWidth="627.0" GridPane.rowIndex="1" />
             <VBox alignment="TOP_CENTER" spacing="20.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                <children>
-                   <TextArea fx:id="informationOfSelectedItemTextArea" disable="true" editable="false" VBox.vgrow="ALWAYS">
-                     <font>
-                        <Font size="36.0" />
-                     </font></TextArea>
+                  <HBox alignment="TOP_CENTER" VBox.vgrow="ALWAYS">
+                     <children>
+                        <ListView fx:id="foodEditLabelText" disable="true" maxWidth="370.0" minWidth="230.0" HBox.hgrow="ALWAYS" />
+                        <ListView fx:id="foodEditText" HBox.hgrow="ALWAYS" />
+                     </children>
+                  </HBox>
                   <HBox alignment="CENTER" spacing="35.0" VBox.vgrow="NEVER">
                      <children>
                         <Button fx:id="createBtn" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#createClick" prefHeight="35.0" prefWidth="170.0" text="Create" />

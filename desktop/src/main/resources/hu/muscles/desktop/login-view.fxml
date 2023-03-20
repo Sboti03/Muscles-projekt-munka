@@ -16,7 +16,7 @@
         <TextField fx:id="emailTextField" prefHeight="30.0" prefWidth="623.0" promptText="email" />
         <PasswordField fx:id="passwordTextField" prefHeight="30.0" promptText="password" />
         <Button fx:id="loginButton" mnemonicParsing="false" onAction="#LoginButtonClick" prefHeight="16.0" prefWidth="135.0" text="Login" textAlignment="CENTER" />
-        <TextArea fx:id="textAreaTest" />
+        <TextArea fx:id="infoArea" />
       </children>
     </VBox>
   </children>
