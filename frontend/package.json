@@ -24,7 +24,8 @@
     "react-date-picker": "^9.2.0",
     "react-day-picker": "^8.6.0",
     "react-dom": "^18.2.0",
-    "react-switch-selector": "^2.2.1"
+    "react-switch-selector": "^2.2.1",
+    "use-long-press": "^2.0.3"
   },
   "devDependencies": {
     "@types/react": "^18.0.27",

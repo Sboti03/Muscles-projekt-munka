@@ -14,7 +14,7 @@ export interface DayPeriodContextValue {
     setDinner: (dayPeriodInfo: DayPeriodResponse[]) => void
     setOther: (dayPeriodInfo: DayPeriodResponse[]) => void,
     selectedPeriodInfo: DayPeriodName | undefined,
-    setSelectedPeriodInfo: (selectedDayInfo: DayPeriodName) => void,
+    setSelectedPeriodInfo: (selectedDayInfo: DayPeriodName | undefined) => void,
     deleteMealHistory: (mealHistoryId: number) => any,
     setMealCompleted: (completed: boolean, mealHistoryId: number) => any,
 }

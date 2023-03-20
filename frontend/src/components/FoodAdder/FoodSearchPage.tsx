@@ -3,6 +3,9 @@ import useFetch, {Methods} from "../utils/Fetch";
 import {Button, Input} from "@mui/joy";
 import styles from './FoodSearchPage.module.css'
 import FoodContext from "./FoodContext";
+import {Simulate} from "react-dom/test-utils";
+import NavigatorContext, {Page} from "../Navigator/NavigatorContext";
+import BackButton from "../Common/BackButton";
 
 export default function FoodSearchPage() {
 
@@ -13,32 +16,30 @@ export default function FoodSearchPage() {
         return response?.filter(food => food.name.includes(search))
     }, [search, response])
 
-
-    function addFood(food: Food) {
+    function showFood(food: Food) {
         setCurrentFood(food)
-        
     }
 
     return (
         <>
+            <BackButton />
             <Input type="search" value={search} onChange={(e) => setSearch(e.target.value)}/>
             <div className={styles.container}>
                 <div className={styles.foodResultBox}>
                     {result?.map(food => (
-                        <div key={food.foodId} >
+                        <div className={styles.food} key={food.foodId} >
                             <div>
                                 {food.name}
                             </div>
                             <div>
                                 {food.kcal}kcal
                             </div>
-                            <Button onClick={()=> addFood(food)}>
+                            <Button onClick={()=> showFood(food)}>
                                 Add
                             </Button>
                         </div>
                     ))}
                 </div>
-
             </div>
         </>
     )

@@ -1,15 +1,15 @@
-import {useContext} from "react";
+import React, {useContext} from "react";
 import NavigatorContext, {Page} from "./NavigatorContext";
 import LoginPage from "../Auth/Login/LoginPage";
 import DayPage from "../DayInfo/DayPage";
 import AdminPage from "../Admin/AdminPage";
 import RegisterPage from "../Auth/Register/Register Page";
-import FoodSearchPage from "../FoodAdder/FoodSearchPage";
 import ProfileCreatePage from "../Profile/ProfileCreatePage";
-import ProfileViewPage from "../Profile/ProfileViewPage";
 import ProfileDataView from "../Profile/ProfileDataView/ProfileDataView";
 import ProfileDataEditSelector from "../Profile/ProfileDataEditSelector";
 import GoalsDataView from "../Profile/GoalsDataView/GoalsDataView";
+import FoodAdderPage from "../FoodAdder/FoodAdderPage";
+import {CoachHomePage} from "../Coach home/CoachHomePage";
 
 export default function Pages() {
 
@@ -25,7 +25,7 @@ export default function Pages() {
         case Page.ADMIN:
             return <AdminPage />
         case Page.FOOD_SEARCH:
-            return <FoodSearchPage />
+            return <FoodAdderPage />
         case Page.PROFILE_CREATE:
             return <ProfileCreatePage />
         case Page.PROFILE_VIEW:
@@ -34,6 +34,8 @@ export default function Pages() {
             return <ProfileDataView />
         case Page.GOALS:
             return <GoalsDataView />
+        case Page.COACH_HOME:
+            return <CoachHomePage />
         default:
             return <div>UN</div>
     }

@@ -8,13 +8,15 @@ import {faCirclePlus} from "@fortawesome/free-solid-svg-icons";
 import NavigatorContext, {Page} from "../../Navigator/NavigatorContext";
 import FoodContext from "../../FoodAdder/FoodContext";
 import DayInfoContext from "../DayInfoContext";
+import BackButton from "../../Common/BackButton";
+import {Button} from "@mui/joy";
 
 export default function PeriodInfoPage(props: { dayPeriodName: DayPeriodName }) {
 
-    const {dinner, other, lunch, breakfast} = useContext(DayPeriodContext)
+    const {dinner, other, lunch, breakfast, setSelectedPeriodInfo} = useContext(DayPeriodContext)
     const {currentDate} = useContext(DayInfoContext)
     const {changePage} = useContext(NavigatorContext)
-    const {setCurrentDate} = useContext(FoodContext)
+    const {setCurrentDate, setPeriodName} = useContext(FoodContext)
     const periodData = useMemo(() => {
         switch (props.dayPeriodName) {
             case DayPeriodName.BREAKFAST:
@@ -31,11 +33,13 @@ export default function PeriodInfoPage(props: { dayPeriodName: DayPeriodName }) 
 
     function loadFoodPSearchPage() {
         setCurrentDate(currentDate)
+        setPeriodName(props.dayPeriodName)
         changePage(Page.FOOD_SEARCH)
     }
 
     return (
         <>
+            <Button onClick={()=> setSelectedPeriodInfo(undefined)}>Back</Button>
             <div className="food-container">
                 {periodData?.map((data, i) => <Food data={data} key={i}/>)}
             </div>

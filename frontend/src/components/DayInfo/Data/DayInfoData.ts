@@ -4,7 +4,7 @@ export interface DayInfoData {
     eatenCarbohydrate: number,
     eatenProtein: number,
     eatenFat: number,
-    weight: number,
+    weight: number | undefined,
     totalFat: number,
     totalCarbohydrate: number,
     totalProtein: number,

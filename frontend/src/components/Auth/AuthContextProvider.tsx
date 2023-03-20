@@ -29,15 +29,20 @@ function AuthContextProvider(props: PropsWithChildren) {
 
     useEffect(()=> {
         const user = loadObject<User>('user')
-        setUser(user)
         if (user) {
+            setUser(user)
             getRefreshTokenFromServer().then(result=> {
                 if (result) {
-                    changePage(Page.HOME)
-
+                    if (user.roles.roleName === 'user') {
+                        changePage(Page.HOME)
+                    } else if (user.roles.roleName === 'coach') {
+                        changePage(Page.COACH_HOME)
+                    }
                 } else {
-                    changePage(Page.HOME)
+                    console.error('Fasz ki van')
+                    changePage(Page.LOGIN)
                 }
+            }).catch(e=> {
             })
         }
         changePage(Page.LOGIN)
@@ -52,7 +57,8 @@ function AuthContextProvider(props: PropsWithChildren) {
 
     async function getRefreshTokenFromServer() {
         const result = await newAccessToken()
-        return !result?.error;
+        console.log(result)
+        return result?.response
     }
 
     function logout() {

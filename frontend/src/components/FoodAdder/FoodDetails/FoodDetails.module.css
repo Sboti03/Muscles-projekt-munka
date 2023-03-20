@@ -1,0 +1,33 @@
+.containerBasic {
+    display: flex;
+    justify-content: space-between;
+}
+
+.name {
+
+}
+
+.value {
+    font-size: 1.5em;
+}
+
+.containerBasic > div > div:nth-child(1) {
+    font-size: 1.5em;
+}
+
+.containerNutritional {
+    margin-bottom: 10px;
+}
+
+
+
+.containerNutritional > div {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.base {
+    font-weight: bold;
+}
+
+

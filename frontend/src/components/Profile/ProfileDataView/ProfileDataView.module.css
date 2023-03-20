@@ -1,9 +1,9 @@
-.container {
+.containerBasic {
     display: flex;
     justify-content: center;
     max-width: 300px;
 }
 
-.container > form > div {
+.containerBasic > form > div {
     margin: 10px;
 }

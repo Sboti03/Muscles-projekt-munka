@@ -8,6 +8,7 @@ export default async function newAccessToken() {
 
     const {error, response} = await singleFetch<any>('/api/auth/access', Methods.GET)
     if (error) {
+
         return {
             error: error,
             response: undefined

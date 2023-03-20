@@ -5,6 +5,7 @@ import {MealHistoryResponse} from "./Data/MealHistoryResponse";
 import {DayInfoData} from "./Data/DayInfoData";
 import {DayPeriodResponse} from "./Data/DayPeriodResponse";
 import {da} from "date-fns/locale";
+import {extendTheme} from "@mui/joy";
 
 export default function DayInfoContextProvider(props: PropsWithChildren) {
     const [dayInfo, setDayInfo] = useState<DayInfoData | undefined>()

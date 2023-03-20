@@ -20,6 +20,7 @@ export enum Page {
     RESULTS = "RESULTS",
     GOALS = "GOALS",
     PROFILE_DATA = "PROFILE_DATA",
+    COACH_HOME = 'COACH_HOME',
 }
 
 

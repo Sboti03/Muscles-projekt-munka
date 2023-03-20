@@ -1,0 +1,25 @@
+.container {
+    display: grid;
+    padding: 10px;
+    grid-template-columns: 1fr;
+    grid-template-rows: .5fr 2fr;
+    text-align: center;
+    border-radius: 20pt;
+    border: solid 1px #58008a;
+    align-items: center;
+    height: 100px;
+}
+
+.container > div:nth-child(2) {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+
+
+.wrapper {
+    width: 400px;
+    margin: 0 auto;
+}
