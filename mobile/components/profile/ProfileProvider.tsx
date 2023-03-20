@@ -6,6 +6,7 @@ export interface ProfileContextValue {
     deleteProfileOnLogout: () => void
 }
 
+
 export interface Profile {
     firstName?: string,
     lastName?: string,

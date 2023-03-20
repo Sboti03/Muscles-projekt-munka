@@ -1,13 +1,11 @@
 import {Button, Flex, Text, TextInput, VStack} from "@react-native-material/core";
-import {useContext, useRef, useState} from "react";
-import {Keyboard, Platform, StyleSheet, TouchableWithoutFeedback, View} from "react-native";
-import profileProvider, {Profile} from "./ProfileProvider";
+import {useContext, useState} from "react";
+import {Keyboard, StyleSheet, TouchableWithoutFeedback} from "react-native";
+import profileProvider from "./ProfileProvider";
 import NavigatorProvider, {Page} from "../navigator/NavigatorProvider";
 import {homePageStyle} from "../home/homePage";
 import {loginPageStyle} from "../loginPage";
-import {FormItem} from "react-native-form-component";
-import DateTimePicker, {AndroidMode, DateTimePickerAndroid} from '@react-native-community/datetimepicker';
-import RNDateTimePicker from "@react-native-community/datetimepicker";
+import {DateTimePickerAndroid} from '@react-native-community/datetimepicker';
 
 export interface ProfileProps {
     birthDay?: boolean
@@ -21,7 +19,7 @@ export default function ProfileFormPages (props: ProfileProps) {
     const [lNameWarning, setLNameWarning] = useState<string>('')
     const [heightWarning, setHeightWarning] = useState<string>('')
 
-    const submit = () => {
+    const submitFirstAndLastName = () => {
         Keyboard.dismiss()
         if (!profile?.firstName) {
             setFNameWarning('This field is required')
@@ -34,9 +32,19 @@ export default function ProfileFormPages (props: ProfileProps) {
             console.log(profile)
         }
     }
+    const submitBirthdayAndHeight = () => {
+        Keyboard.dismiss()
+        if (!profile?.height) {
+            setHeightWarning('This field is required')
+        } else if (profile.height) {
+            setHeightWarning('')
+            changePage(Page.HOME)
+        }
+    }
     const clearWarning = () => {
         if (profile?.firstName) setFNameWarning('')
         if (profile?.lastName) setLNameWarning('')
+        if (profile?.height) setHeightWarning('')
     }
 
     function showDatePicker() {
@@ -71,9 +79,7 @@ export default function ProfileFormPages (props: ProfileProps) {
                     />
                         <Button title={'Next'}
                                 style={profileFormStyles.buttons}
-                                onPress={() => {
-                                    changePage(Page.HOME)
-                                }}
+                                onPress={submitBirthdayAndHeight}
                         />
                 </VStack>
             </Flex>
@@ -112,7 +118,7 @@ export default function ProfileFormPages (props: ProfileProps) {
                     />
                     <Button title={'Next'}
                             style={profileFormStyles.buttons}
-                            onPress={submit}
+                            onPress={submitFirstAndLastName}
                     />
                 </VStack>
             </Flex>
