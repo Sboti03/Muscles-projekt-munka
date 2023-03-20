@@ -37,7 +37,7 @@ public class LoginController {
     @FXML
     private Button loginButton;
     @FXML
-    private TextArea textAreaTest;
+    private TextArea infoArea;
 
     private LoginModel loginModel;
 
@@ -54,15 +54,15 @@ public class LoginController {
             ObjectMapper om = new ObjectMapper();
             LoginResponse user = om.readValue(response, LoginResponse.class);
             if (!userIsAdmin(user)) {
-                textAreaTest.setText("Your profile does not have admin rights. ");
+                infoArea.setText("Your profile does not have admin rights. ");
                 url.LOGOUT();
                 return;
             }
             loginModel = new LoginModel(user);
             showMainWindow(loginModel);
         } catch (Exception e) {
-            textAreaTest.setText(e.getMessage());
-            textAreaTest.setStyle("-fx-text-fill: #de0e0e ;");
+            infoArea.setText(e.getMessage());
+            infoArea.setStyle("-fx-text-fill: #de0e0e ;");
             e.printStackTrace();
         }
     }
