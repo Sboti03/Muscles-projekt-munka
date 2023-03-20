@@ -14,13 +14,17 @@ import { ConnectionRequestModule } from './Connections/connection-request/connec
 import { ConnectionModule } from './Connections/connection/connection.module';
 import { AdminModule } from './admin/admin.module';
 import {MealHistoryModule} from "./meal-history/meal-history.module";
+import * as process from "process";
 
 @Module({
     imports: [
         UserModule,
         AuthModule,
         ProfileModule,
-        ConfigModule.forRoot({isGlobal: true}),
+        ConfigModule.forRoot({
+            isGlobal: true,
+            envFilePath: `.${process.env.NODE_ENV}.env`
+        }),
         DayHistoryModule,
         FoodsModule,
         InitModule,

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import {Injectable, Logger} from '@nestjs/common';
 import { PrismaService } from '../../../Common/utils/prirsma.service';
 import { compareData } from '../../../Common/utils/bcrypt';
 import { UserGetService } from '../user-get/user-get.service';
@@ -22,9 +22,12 @@ export class UserCheckService {
 
   async checkRefreshToken(refreshToken: string, userId: number) {
     const user = await this.getUserService.getUserById(userId);
-    for (const token of user.refreshTokens) {
-      if (compareData(refreshToken, token)) {
-        return true;
+    if (user.refreshTokens) {
+      for (const token of user.refreshTokens) {
+        if (compareData(refreshToken, token)) {
+          Logger.log('Token match')
+          return true;
+        }
       }
     }
     return false;

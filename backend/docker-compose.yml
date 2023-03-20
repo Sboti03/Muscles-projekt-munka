@@ -11,7 +11,7 @@ services:
     depends_on:
       - postgres
     env_file:
-      - .env
+      - .prod.env
   postgres:
     image: postgres:15.1
     container_name: postgres
@@ -19,7 +19,7 @@ services:
     ports:
       - "5432:5432"
     env_file:
-      - .env
+      - .prod.env
     volumes:
       - postgres:/var/lib/postgresq/data
 
