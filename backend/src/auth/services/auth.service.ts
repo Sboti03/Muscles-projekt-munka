@@ -46,7 +46,7 @@ export class AuthService {
             tokens.refreshToken,
             user.userId,
         );
-        Logger.log(`User logged in ${rest.email} ${user.roles.roleName}`)
+        Logger.log(`User logged in ${rest.email} ${user.role.roleName}`)
         return {
             user: rest,
             tokens,
