@@ -9,6 +9,7 @@ import hu.muscles.desktop.urls.Urls;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.client.RestTemplate;
@@ -19,6 +20,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class MainViewController {
@@ -34,6 +36,8 @@ public class MainViewController {
     private Button profilesBtn;
     @FXML
     private Button foodsBtn;
+    @FXML
+    private ListView<String> mainListView;
 
 
     @FXML
@@ -71,11 +75,9 @@ public class MainViewController {
         List<Foods> foods = loadAllFood();
         try {
             if (foods != null) {
-                System.out.println(loginModel.getLoginData().getUser().getEmail() + ", aki " + loginModel.getLoginData().getUser().getRoles().getRoleName() + "megkapta:\n\n" + loadAllFood());
-                testArea.setText(loginModel.getLoginData().getUser().getEmail() + ", aki " + loginModel.getLoginData().getUser().getRoles().getRoleName() + "megkapta:\n\n" + loadAllFood());
+                loadFoodsToTable(foods);
             } else {
                 testArea.setText("Couldn't read foods.");
-                return;
             }
         } catch (Exception e) {
             testArea.setText(e.getMessage());
@@ -115,8 +117,8 @@ public class MainViewController {
         }
     }
 
-    private void loadFootdsToTable() {
-        //TODO: load to table
+    private void loadFoodsToTable(List<Foods> foods) {
+        mainListView.getItems().addAll(foods.stream().map(Foods::getName).toList());
     }
 
 }
