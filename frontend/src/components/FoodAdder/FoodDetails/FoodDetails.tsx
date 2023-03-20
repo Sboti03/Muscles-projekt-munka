@@ -1,9 +1,10 @@
 import {Food} from "../FoodSearchPage";
 import {Button, Input, Table} from "@mui/joy";
-import React, {useMemo, useState} from "react";
+import React, {useContext, useMemo, useState} from "react";
 import styles from './FoodDetails.module.css'
 import {da} from "date-fns/locale";
 import BackButton from "../../Common/BackButton";
+import FoodContext from "../FoodContext";
 
 interface Props {
     food: Food
@@ -34,7 +35,7 @@ export function FoodDetails(props: Props) {
 
     return (
         <>
-            <BackButton />
+            <Button onClick={()=> props.cancel()}>Back</Button>
             <div>
                 <h1>{upperCaseFirstLetter(food.name)}</h1>
                 <div className={styles.containerBasic}>

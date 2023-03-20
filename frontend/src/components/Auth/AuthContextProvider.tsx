@@ -33,9 +33,9 @@ function AuthContextProvider(props: PropsWithChildren) {
             setUser(user)
             getRefreshTokenFromServer().then(result=> {
                 if (result) {
-                    if (user.roles.roleName === 'user') {
+                    if (user.role.roleName === 'user') {
                         changePage(Page.HOME)
-                    } else if (user.roles.roleName === 'coach') {
+                    } else if (user.role.roleName === 'coach') {
                         changePage(Page.COACH_HOME)
                     }
                 } else {

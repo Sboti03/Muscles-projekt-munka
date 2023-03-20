@@ -6,5 +6,5 @@ export interface User {
     roleId: number;
     changedAt: String;
     isBlocked: boolean;
-    roles: Roles;
+    role: Roles;
 }

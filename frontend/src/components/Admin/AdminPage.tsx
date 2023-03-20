@@ -35,7 +35,7 @@ export default function AdminPage() {
                                 <td>{data.userId}</td>
                                 <td>{data.email}</td>
                                 <td>{data.refreshTokens.length}</td>
-                                <td>{data.roles.roleName}</td>
+                                <td>{data.role.roleName}</td>
                             </tr>
                         )
                     }
