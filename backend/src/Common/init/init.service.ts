@@ -54,7 +54,7 @@ export class InitService {
                 userId
             },
             data: {
-                roles: {
+                role: {
                     connect: {
                         roleId: Roles.ADMIN.roleId
                     }

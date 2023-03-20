@@ -1,18 +1,17 @@
 import {Injectable} from '@nestjs/common';
-import ProfileUpdateDto from "../../dto/profile-update.dto";
-import {Prisma} from "@prisma/client";
 import {PrismaService} from "../../../Common/utils/prirsma.service";
-import ProfileCreateDto from "../../dto/profile-create.dto";
+import {RoleEnum} from "../../../Common/Role/utils/roles";
 
 @Injectable()
 export class ProfileGetService {
 
-    constructor(private prismaService: PrismaService) {}
+    constructor(private prismaService: PrismaService) {
+    }
 
     getProfileIdByUserId(userId: number) {
         return this.prismaService.profileData.findFirstOrThrow({
             select: {
-              profileId: true
+                profileId: true
             },
             where: {
                 userId
@@ -34,7 +33,7 @@ export class ProfileGetService {
 
     getAllProfile() {
         return this.prismaService.profileData.findMany({
-            select:{
+            select: {
                 profileId: true,
                 userId: true,
                 firstName: true,
@@ -58,5 +57,56 @@ export class ProfileGetService {
     }
 
 
+    getUserProfiles(name: string) {
+        return this.getProfileByName(name, RoleEnum.USER)
+    }
 
+    getCoachProfiles(name: string) {
+        return this.getProfileByName(name, RoleEnum.COACH)
+    }
+
+    getAdminProfiles(name: string) {
+        return this.getProfileByName(name, RoleEnum.ADMIN)
+    }
+
+    getProfileByName(name: string, role?: RoleEnum) {
+        return this.prismaService.profileData.findMany({
+            where: {
+                user: {
+                    role: {
+                        roleName: role
+                    }
+                },
+                OR: [
+                    {
+                        firstName: {
+                            contains: name,
+                            mode: 'insensitive'
+                        }
+                    },
+                    {
+                        lastName: {
+                            contains: name,
+                            mode: 'insensitive'
+                        }
+                    }
+                ]
+            },
+            select: {
+                firstName: true,
+                lastName: true,
+                userId: true,
+                user: {
+                    select: {
+                        email: true,
+                        role: {
+                            select: {
+                                roleName: true
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
 }
