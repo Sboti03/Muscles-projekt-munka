@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Date;
 
-public class Roles {
+public class Role {
     private int roleId;
     private String roleName;
     private Date changedAt;

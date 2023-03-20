@@ -10,7 +10,7 @@ public class User {
     private String email;
     private int roleId;
     private Date changedAt;
-    private Roles roles;
+    private Role role;
 
 
     @JsonProperty("userId")
@@ -62,12 +62,12 @@ public class User {
     boolean isBlocked;
 
 
-    @JsonProperty("roles")
-    public Roles getRoles() {
-        return this.roles;
+    @JsonProperty("role")
+    public Role getRole() {
+        return this.role;
     }
 
-    public void setRoles(Roles roles) {
-        this.roles = roles;
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

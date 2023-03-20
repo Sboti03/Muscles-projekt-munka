@@ -46,7 +46,10 @@ public class MainViewController implements Initializable {
     @FXML
     private Button exitButton;
     @FXML
-    private TextArea informationOfSelectedItemTextArea;
+    private ListView<String> foodEditLabelText;
+
+    @FXML
+    private ListView<String> foodEditText;
 
 
     private List<Foods> foods;
@@ -55,6 +58,9 @@ public class MainViewController implements Initializable {
     private final Urls url = new Urls();
     private final RestTemplate restTemplate = new RestTemplate();
     private final HttpHeaders headers = new HttpHeaders();
+
+    private final String[] updateFoodDataString = new String[]{"Name", "Fat", "Fiber", "kCal", "Carbohydrate", "Per Unit", "Protein", "Sugar", "Monounsaturated fat", "Polyunsaturated fat", "Saturated fat", "Unit"};
+
 
     public void setLoginModel(LoginModel loginModel) {
         this.loginModel = loginModel;
@@ -96,10 +102,11 @@ public class MainViewController implements Initializable {
             if (foods != null) {
                 loadFoodsToTable(foods);
             } else {
-                informationOfSelectedItemTextArea.setText("Couldn't read foods.");
+                foodEditLabelText.getItems().add("Couldn't read foods.");
             }
         } catch (Exception e) {
-            informationOfSelectedItemTextArea.setText(e.getMessage());
+            foodEditText.getItems().clear();
+            foodEditText.getItems().add(e.getMessage());
             e.printStackTrace();
         }
 
@@ -116,8 +123,8 @@ public class MainViewController implements Initializable {
             InputStream responseStream = connection.getInputStream();
             return foodConverterToPOJO((new String(responseStream.readAllBytes(), StandardCharsets.UTF_8)));
         } catch (IOException e) {
-            informationOfSelectedItemTextArea.setText(e.getMessage());
-            e.printStackTrace();
+            foodEditText.getItems().clear();
+            foodEditText.getItems().add(e.getMessage());
             e.printStackTrace();
             return null;
         }
@@ -129,7 +136,8 @@ public class MainViewController implements Initializable {
             return om.readValue(response, new TypeReference<>() {
             });
         } catch (JsonProcessingException e) {
-            informationOfSelectedItemTextArea.setText(e.getMessage());
+            foodEditText.getItems().clear();
+            foodEditText.getItems().add(e.getMessage());
             return null;
         }
     }
@@ -146,11 +154,12 @@ public class MainViewController implements Initializable {
         confirmExit.setTitle("Exit");
         confirmExit.setHeaderText("Are you sure you want to exit the app?");
 
-        mainListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observableValue, String oldValue, String newValue) {
-                informationOfSelectedItemTextArea.setText(foods.get(mainListView.getSelectionModel().getSelectedIndex()).toString());
-            }
+        mainListView.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
+            foodEditLabelText.getItems().clear();
+            foodEditLabelText.getItems().addAll(updateFoodDataString);
+
+            foodEditText.getItems().clear();
+            foodEditText.getItems().addAll(String.valueOf(foods.get(mainListView.getSelectionModel().getSelectedIndex())).split("\n"));
         });
     }
 
