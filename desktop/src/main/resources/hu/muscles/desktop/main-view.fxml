@@ -9,43 +9,63 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.muscles.desktop.controllers.MainViewController">
+<VBox fx:id="mainVbox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.muscles.desktop.controllers.MainViewController">
    <children>
-      <HBox alignment="CENTER" prefHeight="54.0" prefWidth="600.0" spacing="18.0" VBox.vgrow="NEVER">
-         <children>
-            <Button fx:id="profilesBtn" mnemonicParsing="false" onAction="#profilesClick" prefWidth="170.0" text="Profiles" />
-            <Button fx:id="foodsBtn" mnemonicParsing="false" onAction="#foodsClick" prefWidth="170.0" text="Foods" />
-         </children>
-      </HBox>
-      <GridPane hgap="3.0" VBox.vgrow="ALWAYS">
+      <GridPane alignment="TOP_CENTER" hgap="3.0" VBox.vgrow="ALWAYS">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="1586.400146484375" minWidth="10.0" prefWidth="1472.800048828125" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="419.199951171875" minWidth="10.0" prefWidth="419.199951171875" />
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="1586.400146484375" minWidth="502.0" prefWidth="502.4000488281249" />
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="1422.399920654297" minWidth="10.0" prefWidth="1390.399951171875" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints minHeight="21.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="1.7976931348623157E308" valignment="CENTER" />
+          <RowConstraints vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ListView fx:id="mainListView" prefHeight="200.0" prefWidth="200.0" />
-            <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" GridPane.columnIndex="1">
+            <HBox alignment="CENTER" prefWidth="483.0" spacing="25.0">
                <children>
-                  <Button fx:id="createBtn" mnemonicParsing="false" onAction="#createClick" prefWidth="2000.0" text="Create" />
-                  <Button fx:id="updateBtn" mnemonicParsing="false" onAction="#updateClick" prefWidth="2000.0" text="Update" />
-                  <Button fx:id="deleteBtn" mnemonicParsing="false" onAction="#deleteClick" prefWidth="2000.0" text="Delete" />
-                   <TextArea fx:id="testArea" />
+                  <Button fx:id="profilesBtn" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#profilesClick" prefHeight="35.0" prefWidth="170.0" text="Profiles" />
+                  <Button fx:id="foodsBtn" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#foodsClick" prefHeight="35.0" prefWidth="170.0" text="Foods" />
+               </children>
+               <GridPane.margin>
+                  <Insets bottom="24.0" />
+               </GridPane.margin>
+            </HBox>
+            <ListView fx:id="mainListView" prefHeight="300.0" prefWidth="627.0" GridPane.rowIndex="1" />
+            <VBox alignment="TOP_CENTER" spacing="20.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
+               <children>
+                   <TextArea fx:id="informationOfSelectedItemTextArea" disable="true" editable="false" VBox.vgrow="ALWAYS">
+                     <font>
+                        <Font size="36.0" />
+                     </font></TextArea>
+                  <HBox alignment="CENTER" spacing="35.0" VBox.vgrow="NEVER">
+                     <children>
+                        <Button fx:id="createBtn" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#createClick" prefHeight="35.0" prefWidth="170.0" text="Create" />
+                        <Button fx:id="updateBtn" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#updateClick" prefHeight="35.0" prefWidth="170.0" text="Update" />
+                        <Button fx:id="deleteBtn" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#deleteClick" prefHeight="35.0" prefWidth="170.0" text="Delete" />
+                     </children>
+                  </HBox>
                </children>
                <padding>
-                  <Insets left="12.0" />
+                  <Insets left="20.0" />
                </padding>
                <GridPane.margin>
-                  <Insets bottom="12.0" />
+                  <Insets />
                </GridPane.margin>
+            </VBox>
+            <VBox alignment="TOP_RIGHT" GridPane.columnIndex="1">
+               <children>
+                  <Button fx:id="exitButton" minWidth="25.0" mnemonicParsing="false" onAction="#exitClick" text="X" />
+               </children>
             </VBox>
          </children>
          <VBox.margin>
-            <Insets bottom="12.0" left="12.0" right="12.0" />
+            <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
          </VBox.margin>
       </GridPane>
    </children>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
 </VBox>
