@@ -60,7 +60,7 @@ export class AuthController {
         const isTokenMatch = await this.userCheckService.checkRefreshToken(refreshToken, userId);
         if (!isTokenMatch) { throw new ForbiddenException('Access denied') }
         await this.userDeleteService.deleteRefreshTokenById(userId, refreshToken);
-        const newToken = await this.authTokenService.getNewRefreshToken(userId, refreshToken);
+        const newToken = await this.authTokenService.getNewRefreshToken(userId);
         this.authTokenService.storeRfToken(newToken, res)
         await this.userUpdateService.pushNewRefreshToken(newToken, userId)
             .catch(reason => {
