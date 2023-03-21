@@ -1,9 +1,7 @@
-import {HttpCode, Injectable} from '@nestjs/common';
+import {Injectable} from '@nestjs/common';
 import {PrismaService} from "../utils/prirsma.service";
-import {RoleEnum, Roles} from "../Role/utils/roles";
-import {Units, UnitsEnum} from "../units/units/units";
-import {encryptData} from "../utils/bcrypt";
-import {AuthService} from "../../auth/services/auth.service";
+import {Roles} from "../Role/utils/roles";
+import {Units} from "../units/units/units";
 import {PeriodNamesEnum} from "../utils/PeriodNames";
 
 @Injectable()
@@ -54,7 +52,7 @@ export class InitService {
                 userId
             },
             data: {
-                roles: {
+                role: {
                     connect: {
                         roleId: Roles.ADMIN.roleId
                     }

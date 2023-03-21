@@ -76,7 +76,7 @@ model users {
   coachConnections       connections[]       @relation("connections_coachIdTousers")
   userConnections        connections[]       @relation("connections_userIdTousers")
   profileData            profileData?
-  roles                  roles               @relation(fields: [roleId], references: [roleId], onDelete: NoAction, onUpdate: NoAction, map: "roleIdFK")
+  role                   roles               @relation(fields: [roleId], references: [roleId], onDelete: NoAction, onUpdate: NoAction, map: "roleIdFK")
   userConnectionRequest  connectionRequest[] @relation("conn_req_userToUser")
   coachConnectionRequest connectionRequest[] @relation("conn_req_coachToUser")
   changedAt              DateTime            @default(now()) @updatedAt @db.Timestamp(6)

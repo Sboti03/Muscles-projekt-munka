@@ -19,7 +19,7 @@ export class AuthTokenService {
                 private profileGetService: ProfileGetService) {
     }
 
-    async getNewRefreshToken(userId: number, refreshToken: string) {
+    async getNewRefreshToken(userId: number) {
         return (await this.getTokens(userId)).refreshToken;
     }
 
@@ -43,7 +43,7 @@ export class AuthTokenService {
         const jwtPayload: JwtPayload = {
             sub: userId,
             email: user.email,
-            role: RoleEnum[user.roles.roleName.toUpperCase()],
+            role: RoleEnum[user.role.roleName.toUpperCase()],
             profileId: profileId
         };
 

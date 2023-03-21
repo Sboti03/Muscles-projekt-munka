@@ -14,12 +14,13 @@ import {WeightHistoryModule} from "../weight-history/weight-history.module";
 import {PrismaService} from "../Common/utils/prirsma.service";
 import {DayHistoryGetService} from "../day-history/services/day-history-get/day-history-get.service";
 import {DayHistoryCreateService} from "../day-history/services/day-history-create/day-history-create.service";
-import {MealCreateService} from "../meal/services/meal-create/meal-create.service";
 import {GoalsModule} from "../goals/goals.module";
 import {FoodsModule} from "../foods/foods.module";
+import {ConnectionModule} from "../Connections/connection/connection.module";
+import {ProfileModule} from "../profile/profile.module";
 
 @Module({
-    imports: [MealModule, DayHistoryModule, GoalsModule, WeightHistoryModule, FoodsModule],
+    imports: [MealModule, DayHistoryModule ,ProfileModule, GoalsModule, WeightHistoryModule, FoodsModule, ConnectionModule],
     controllers: [MealHistoryGetController, MealHistoryCreateController, MealHistoryUpdateController, MealHistoryDeleteController],
     providers: [
         MealHistoryCreateService,

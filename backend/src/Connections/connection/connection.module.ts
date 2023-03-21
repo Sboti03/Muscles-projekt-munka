@@ -8,12 +8,12 @@ import {ConnectionGetController} from './controllers/connection-get/connection-g
 import {ConnectionDeleteController} from './controllers/connection-delete/connection-delete.controller';
 import {ProfileModule} from "../../profile/profile.module";
 import {ConnectionRequestModule} from "../connection-request/connection-request.module";
-import { ConnectionDeleteService } from './services/connection-delete/connection-delete.service';
+import {ConnectionDeleteService} from './services/connection-delete/connection-delete.service';
 
 @Module({
     imports: [ProfileModule, ConnectionRequestModule],
     providers: [ConnectionGetService, ConnectionCheckService, PrismaService, ConnectionCreateService, ConnectionDeleteService],
-    exports: [ConnectionGetService, ConnectionCheckService],
+    exports: [ConnectionGetService, ConnectionCheckService, ConnectionCreateService, ConnectionDeleteService],
     controllers: [ConnectionCreateController, ConnectionGetController, ConnectionDeleteController]
 })
 export class ConnectionModule {
