@@ -6,7 +6,15 @@ import styles from './GoalsDataView.module.css'
 import {normalizeDate} from "../../DayInfo/DayInfoContextProvider";
 import NavigatorContext from "../../Navigator/NavigatorContext";
 import LoadingManager from "../../Loading/LoadingManager";
-export default function GoalsDataView() {
+
+
+interface Props {
+    backBtn: string | undefined,
+    saveBtn: string | undefined
+    saveBtnAction: Function | undefined
+}
+export default function GoalsDataView(props: Props) {
+    const {saveBtn, saveBtnAction, backBtn} = props
     const {setPrevPage} = useContext(NavigatorContext)
     const {response, error} = useFetch<GoalsResponse>('api/goals', Methods.GET)
     const [isLoading, setIsLoading] = useState(true)
@@ -26,18 +34,20 @@ export default function GoalsDataView() {
             console.log(error)
             console.log(goalsData)
         } else {
-            console.log(response)
+            if (props.saveBtnAction) {
+                props.saveBtnAction()
+            }
         }
-
         setIsLoading(false)
-
     }
 
 
     return (
         <LoadingManager isLoading={isLoading}>
             <div className={styles.formContainer}>
-                <Button onClick={setPrevPage}>Back</Button>
+                {
+                    backBtn && <Button onClick={setPrevPage}>{backBtn}</Button>
+                }
                 <form onSubmit={handleSubmit}>
                     <FormControl>
                         <FormLabel>Target weight (kg)</FormLabel>
@@ -64,7 +74,9 @@ export default function GoalsDataView() {
                         <Input type="number" value={goalsData?.proteinPerDay} placeholder="Protein Per Day"
                                onChange={changeProteinPerDay}/>
                     </FormControl>
-                    <Button type="submit">Save</Button>
+                    {
+                        saveBtn && <Button type="submit">{saveBtn}</Button>
+                    }
                 </form>
             </div>
         </LoadingManager>

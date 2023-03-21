@@ -31,9 +31,9 @@ export default function Pages() {
         case Page.PROFILE_VIEW:
             return <ProfileDataEditSelector />
         case Page.PROFILE_DATA:
-            return <ProfileDataView />
+            return <ProfileDataView backBtn={"Back"} saveBtn={"Save"} saveBtnAction={undefined} />
         case Page.GOALS:
-            return <GoalsDataView />
+            return <GoalsDataView backBtn={"Back"} saveBtn={"Save"} saveBtnAction={undefined}/>
         case Page.COACH_HOME:
             return <CoachHomePage />
         default:

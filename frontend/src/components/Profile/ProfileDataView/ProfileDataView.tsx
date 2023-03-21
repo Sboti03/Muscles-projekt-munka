@@ -9,7 +9,13 @@ import {normalizeDate} from "../../DayInfo/DayInfoContextProvider";
 import NavigatorContext from "../../Navigator/NavigatorContext";
 import LoadingManager from "../../Loading/LoadingManager";
 
-export default function ProfileDataView() {
+interface Props {
+    backBtn: string | undefined,
+    saveBtn: string | undefined
+    saveBtnAction: Function | undefined
+}
+
+export default function ProfileDataView(props: Props) {
     const {response, error} = useFetch<ProfileResponse>('api/profile', Methods.GET)
     const {setPrevPage} = useContext(NavigatorContext)
     const [profileData, setProfileData] = useState<ProfileData>()
@@ -39,14 +45,18 @@ export default function ProfileDataView() {
         } else {
             console.log(response)
         }
-
+        if (props.saveBtnAction) {
+            props.saveBtnAction()
+        }
         setIsLoading(false)
 
     }
 
     return (
         <LoadingManager isLoading={isLoading}>
-            <Button type="button" onClick={()=> setPrevPage()}>Back</Button>
+            {props.backBtn &&
+                <Button type="button" onClick={()=> setPrevPage()}>{props.backBtn}</Button>
+            }
             <div className={styles.container}>
                 <form onSubmit={handleSubmit} >
                     <div>
@@ -70,7 +80,9 @@ export default function ProfileDataView() {
                     <div>
                         <Input contentEditable={false} value={response?.registrationDate} />
                     </div>
-                    <Button type="submit">Save</Button>
+                    {props.saveBtn &&
+                        <Button type="submit">{props.saveBtn}</Button>
+                    }
                 </form>
             </div>
         </LoadingManager>
