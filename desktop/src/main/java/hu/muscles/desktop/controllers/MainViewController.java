@@ -7,8 +7,6 @@ import hu.muscles.desktop.foodsData.Foods;
 import hu.muscles.desktop.models.LoginModel;
 import hu.muscles.desktop.urls.Urls;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -28,7 +26,6 @@ import java.util.ResourceBundle;
 
 
 public class MainViewController implements Initializable {
-
     @FXML
     private VBox mainVbox;
     @FXML
@@ -58,8 +55,28 @@ public class MainViewController implements Initializable {
     private final Urls url = new Urls();
     private final RestTemplate restTemplate = new RestTemplate();
     private final HttpHeaders headers = new HttpHeaders();
-
     private final String[] updateFoodDataString = new String[]{"Name", "Fat", "Fiber", "kCal", "Carbohydrate", "Per Unit", "Protein", "Sugar", "Monounsaturated fat", "Polyunsaturated fat", "Saturated fat", "Unit"};
+
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        mainVbox.setDisable(false);
+        confirmExit = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmExit.setResizable(false);
+        confirmExit.setTitle("Exit");
+        confirmExit.setHeaderText("Are you sure you want to exit the app?");
+
+        mainListView.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
+            foodEditLabelText.getItems().clear();
+            foodEditLabelText.getItems().addAll(updateFoodDataString);
+            if (!mainListView.getSelectionModel().isEmpty()) {
+                foodEditText.getItems().clear();
+                foodEditText.getItems().addAll(String.valueOf(foods.get(mainListView.getSelectionModel().getSelectedIndex())).split("\n"));
+            }
+            foodEditText.setEditable(true);
+        });
+    }
 
 
     public void setLoginModel(LoginModel loginModel) {
@@ -97,10 +114,11 @@ public class MainViewController implements Initializable {
 
     @FXML
     public void foodsClick(ActionEvent actionEvent) {
+        mainListView.getSelectionModel().clearSelection();
         foods = loadAllFood();
         try {
             if (foods != null) {
-                loadFoodsToTable(foods);
+                loadFoodsToListView(foods);
             } else {
                 foodEditLabelText.getItems().add("Couldn't read foods.");
             }
@@ -113,6 +131,7 @@ public class MainViewController implements Initializable {
     }
 
 
+    // TODO: kiszervezés
     private List<Foods> loadAllFood() {
         try {
             URL url = new URL(this.url.GET_ALL_FOOD());
@@ -142,26 +161,13 @@ public class MainViewController implements Initializable {
         }
     }
 
-    private void loadFoodsToTable(List<Foods> foods) {
+    private void loadFoodsToListView(List<Foods> foods) {
+        foodEditLabelText.getItems().clear();
+        foodEditText.getItems().clear();
+        mainListView.getItems().clear();
         mainListView.getItems().addAll(foods.stream().map(Foods::getName).toList());
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        mainVbox.setDisable(false);
-        confirmExit = new Alert(Alert.AlertType.CONFIRMATION);
-        confirmExit.setResizable(false);
-        confirmExit.setTitle("Exit");
-        confirmExit.setHeaderText("Are you sure you want to exit the app?");
-
-        mainListView.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
-            foodEditLabelText.getItems().clear();
-            foodEditLabelText.getItems().addAll(updateFoodDataString);
-
-            foodEditText.getItems().clear();
-            foodEditText.getItems().addAll(String.valueOf(foods.get(mainListView.getSelectionModel().getSelectedIndex())).split("\n"));
-        });
-    }
 
 
 }
