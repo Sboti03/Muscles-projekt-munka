@@ -22,6 +22,44 @@ export class ConnectionGetService {
                     {userId: id},
                     {coachId: id}
                 ]
+            },
+            select: {
+                user: {
+                    select: {
+                        profileData: {
+                            select: {
+                                firstName: true,
+                                lastName: true,
+                                birthDay: true,
+                                height: true,
+                                registrationDate: true,
+                            }
+                        },
+                        userId: true,
+                        email: true
+                    }
+                }
+            }
+        })
+    }
+
+    getUser(id: number) {
+        return this.prismaService.users.findFirstOrThrow({
+            where: {
+                userId: id
+            },
+            select: {
+                userId: true,
+                email: true,
+                profileData: {
+                    select: {
+                        firstName: true,
+                        lastName: true,
+                        height: true,
+                        birthDay: true,
+                        registrationDate: true,
+                    }
+                }
             }
         })
     }

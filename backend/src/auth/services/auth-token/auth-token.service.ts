@@ -19,7 +19,7 @@ export class AuthTokenService {
                 private profileGetService: ProfileGetService) {
     }
 
-    async getNewRefreshToken(userId: number, refreshToken: string) {
+    async getNewRefreshToken(userId: number) {
         return (await this.getTokens(userId)).refreshToken;
     }
 

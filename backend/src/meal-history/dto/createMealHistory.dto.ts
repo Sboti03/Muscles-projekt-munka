@@ -11,7 +11,7 @@ export class CreateMealHistoryDto {
     periodName: PeriodNamesEnum;
     @IsDate()
     @IsNotEmpty()
-    @Type(() => Date)
+    @Transform(({value}) => new Date(value))
     @ApiProperty()
     date: Date;
 

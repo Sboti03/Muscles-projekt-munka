@@ -1,6 +1,6 @@
 import {IsDate, IsNotEmpty, IsNumber, IsString, ValidateIf} from "class-validator";
 import {IsNullable} from "../../Common/utils/IsNullable.validation";
-import {Type} from "class-transformer";
+import {Transform, Type} from "class-transformer";
 import {ApiProperty} from "@nestjs/swagger";
 
 export default class ProfileCreateDto {
@@ -15,8 +15,7 @@ export default class ProfileCreateDto {
     @ApiProperty()
     lastName?: string
 
-    @Type(() => Date)
-    @IsDate()
+    @Transform(({value}) => new Date(value))    @IsDate()
     @ApiProperty()
     birthDay: Date
 
