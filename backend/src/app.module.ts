@@ -7,7 +7,6 @@ import {ConfigModule} from '@nestjs/config'
 import {ProfileModule} from "./profile/profile.module";
 import {DayHistoryModule} from './day-history/day-history.module';
 import { FoodsModule } from './foods/foods.module';
-import { InitModule } from './Common/init/init.module';
 import {WeightHistoryModule} from "./weight-history/weight-history.module";
 import { GoalsModule } from './goals/goals.module';
 import { ConnectionRequestModule } from './Connections/connection-request/connection-request.module';
@@ -27,7 +26,6 @@ import * as process from "process";
         }),
         DayHistoryModule,
         FoodsModule,
-        InitModule,
         WeightHistoryModule,
         GoalsModule,
         ConnectionRequestModule,
