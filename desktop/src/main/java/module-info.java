@@ -17,4 +17,5 @@ module hu.muscles.desktop {
     exports hu.muscles.desktop.loginData;
     exports hu.muscles.desktop.foodsData;
     opens hu.muscles.desktop.foodsData to com.fasterxml.jackson.databind;
+    opens hu.muscles.desktop.profileData to com.fasterxml.jackson.databind;
 }

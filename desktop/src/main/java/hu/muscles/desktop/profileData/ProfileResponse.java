@@ -103,16 +103,13 @@ public class ProfileResponse {
 
     @Override
     public String toString() {
-        return "ProfileResponse{" +
-                "profileId=" + profileId +
-                ", userId=" + userId +
-                ", registrationDate=" + registrationDate +
-                ", firstName='" + firstName + '\'' +
-                ", birthDay=" + birthDay +
-                ", lastName='" + lastName + '\'' +
-                ", height=" + height +
-                ", changedAt=" + changedAt +
-                '}';
+        return "" +
+                this.firstName + "\n" +
+                this.lastName + "\n" +
+                this.birthDay + "\n" +
+                this.registrationDate + "\n" +
+                this.height + "\n" +
+                this.changedAt + "\n";
     }
 
 
