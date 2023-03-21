@@ -14,7 +14,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.client.RestTemplate;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -66,7 +65,6 @@ public class MainViewController implements Initializable {
         confirmExit.setResizable(false);
         confirmExit.setTitle("Exit");
         confirmExit.setHeaderText("Are you sure you want to exit the app?");
-
         mainListView.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
             foodEditLabelText.getItems().clear();
             foodEditLabelText.getItems().addAll(updateFoodDataString);
@@ -82,7 +80,6 @@ public class MainViewController implements Initializable {
     public void setLoginModel(LoginModel loginModel) {
         this.loginModel = loginModel;
     }
-
 
     @FXML
     public void createClick(ActionEvent actionEvent) {
@@ -132,6 +129,8 @@ public class MainViewController implements Initializable {
 
 
     // TODO: kiszervezés
+
+    // Food load
     private List<Foods> loadAllFood() {
         try {
             URL url = new URL(this.url.GET_ALL_FOOD());
@@ -167,6 +166,11 @@ public class MainViewController implements Initializable {
         mainListView.getItems().clear();
         mainListView.getItems().addAll(foods.stream().map(Foods::getName).toList());
     }
+
+
+    // Profile load
+
+
 
 
 
