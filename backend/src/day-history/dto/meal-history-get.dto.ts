@@ -5,8 +5,7 @@ import {ApiProperty} from "@nestjs/swagger";
 
 export default class MealHistoryGetDto {
 
-    @Type(()=> Date)
-    @IsDate()
+    @Transform(({value}) => new Date(value))    @IsDate()
     @ApiProperty({example: '2022-08-13'})
     @IsNotEmpty()
     date: Date

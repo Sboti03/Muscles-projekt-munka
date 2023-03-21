@@ -1,8 +1,8 @@
 import {IsDate, IsNotEmpty} from "class-validator";
-import {Type} from "class-transformer";
+import {Transform, Type} from "class-transformer";
 
 export class DateParam {
-    @Type(()=> Date)
+    @Transform(({value}) => new Date(value))
     @IsNotEmpty()
     @IsDate()
     date: Date
