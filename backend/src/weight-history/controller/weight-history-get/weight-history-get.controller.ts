@@ -1,8 +1,10 @@
-import {ConflictException, Controller, Get, Param} from '@nestjs/common';
+import {ConflictException, Controller, Get, Param, UseGuards} from '@nestjs/common';
 import {GetAndCheckProfileId} from "../../../auth/decorators/decorators";
 import {DateParam} from "../../../Common/params/date.param";
 import {DayHistoryGetService} from "../../../day-history/services/day-history-get/day-history-get.service";
+import {AccessTokenGuard} from "../../../auth/guards/access-token.guard";
 
+@UseGuards(AccessTokenGuard)
 @Controller('weight-history')
 export class WeightHistoryGetController {
 

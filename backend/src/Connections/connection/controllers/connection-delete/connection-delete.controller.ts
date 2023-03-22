@@ -14,7 +14,9 @@ import {GetCurrentUser, GetCurrentUserId} from "../../../../auth/decorators/deco
 import {RoleEnum} from "../../../../Common/Role/utils/roles";
 import {ConnectionCheckService} from "../../services/connection-check/connection-check.service";
 import {ConnectionDeleteService} from "../../services/connection-delete/connection-delete.service";
+import {AccessTokenGuard} from "../../../../auth/guards/access-token.guard";
 
+@UseGuards(AccessTokenGuard)
 @Controller('connection')
 export class ConnectionDeleteController {
 
@@ -24,7 +26,6 @@ export class ConnectionDeleteController {
         private deleteService:ConnectionDeleteService) {
     }
 
-    @UseGuards(ProfileGuard)
     @Delete(':id')
     async deleteConnectionRequest(@Param('id') idParam: IdParam,
                                   @GetCurrentUserId() requesterId: number,
