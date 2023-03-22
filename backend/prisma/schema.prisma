@@ -39,6 +39,7 @@ model foods {
   fiber              Float?
   unit               units    @relation(fields: [unitId], references: [unitId], map: "unitIdFK") // DELETE TEST
   meals              meals[]
+  isDeleted          Boolean  @default(false)
   changedAt          DateTime @default(now()) @updatedAt @db.Timestamp(6)
 }
 

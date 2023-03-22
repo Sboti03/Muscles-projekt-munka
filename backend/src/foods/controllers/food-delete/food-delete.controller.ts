@@ -15,15 +15,15 @@ export class FoodDeleteController {
                 private checkService:FoodCheckService) {
     }
 
-    @Delete('/:id')
-    async deleteFood(@Param() idParam: IdParam) {
-        const {id} = idParam
-        if (await this.checkService.checkValidFood(id)) {
-            return this.foodDeleteService.deleteFoodById(id)
-        } else {
-            throw new ImATeapotException('No food found')
-        }
-
-    }
+    // @Delete('/:id')
+    // async deleteFood(@Param() idParam: IdParam) {
+    //     const {id} = idParam
+    //     if (await this.checkService.checkValidFood(id)) {
+    //         return this.foodDeleteService.deleteFoodById(id)
+    //     } else {
+    //         throw new ImATeapotException('No food found')
+    //     }
+    //
+    // }
 
 }
