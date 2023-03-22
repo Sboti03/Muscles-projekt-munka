@@ -19,6 +19,9 @@ export class FoodGetService {
     }
     getAllFood() {
         return this.prismaService.foods.findMany({
+            where: {
+                isDeleted: false
+            },
             include: {
                 unit: true
             }

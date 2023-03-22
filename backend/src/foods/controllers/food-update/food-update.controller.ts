@@ -16,9 +16,9 @@ export class FoodUpdateController {
     constructor(private foodUpdateService:FoodUpdateService,
                 private foodConvertService: FoodConvertService) {}
 
-    @Patch('/:id')
-    async updateFoodById(@Param() idParam: IdParam,@Body() foodUpdateDto: FoodUpdateDto) {
-        const foodUpdateInput = this.foodConvertService.convertUpdateDtoToInput(foodUpdateDto)
-        return this.foodUpdateService.updateFoodById(idParam.id, foodUpdateInput)
-    }
+    // @Patch('/:id')
+    // async updateFoodById(@Param() idParam: IdParam,@Body() foodUpdateDto: FoodUpdateDto) {
+    //     const foodUpdateInput = this.foodConvertService.convertUpdateDtoToInput(foodUpdateDto)
+    //     return this.foodUpdateService.updateFoodById(idParam.id, foodUpdateInput)
+    // }
 }

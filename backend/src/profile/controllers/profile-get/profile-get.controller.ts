@@ -34,6 +34,8 @@ export class ProfileGetController {
         return this.profileGetService.getAllProfileDataByProfileId(profileId)
     }
 
+    @Roles(RoleEnum.ADMIN)
+    @UseGuards(RolesGuard)
     @Get('all')
     async getAllProfile() {
         return this.profileGetService.getAllProfileAllData();

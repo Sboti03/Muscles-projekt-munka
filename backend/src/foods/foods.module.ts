@@ -11,7 +11,7 @@ import {FoodGetService} from './services/food-get/food-get.service';
 import {PrismaService} from "../Common/utils/prirsma.service";
 import {AccessTokenGuard} from "../auth/guards/access-token.guard";
 import {RolesGuard} from "../auth/guards/role.guard";
-import { FoodConvertService } from './services/food-convert/food-convert.service';
+import {FoodConvertService} from './services/food-convert/food-convert.service';
 
 @Module({
     controllers: [FoodGetController, FoodUpdateController, FoodCreateController, FoodDeleteController],
@@ -26,7 +26,11 @@ import { FoodConvertService } from './services/food-convert/food-convert.service
         RolesGuard,
         FoodConvertService,
     ],
-    exports: [FoodCheckService]
+    exports: [FoodCheckService, FoodCreateService, FoodDeleteService,
+        FoodGetService,
+        FoodUpdateService,
+        FoodCheckService,
+        FoodCreateService, FoodConvertService]
 })
 export class FoodsModule {
 }

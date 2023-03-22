@@ -15,11 +15,11 @@ export class FoodCreateController {
     constructor(private foodCreateService:FoodCreateService,
                 private convertService:FoodConvertService) {}
 
-    @Post('/')
-     async createFood(@Body() foodCreateDto: FoodCreateDto) {
-        const foodCreateInput = this.convertService.convertCreateDtoToInput(foodCreateDto)
-        return this.foodCreateService.createFood(foodCreateInput)
-    }
+    // @Post('/')
+    // async createFood(@Body() foodCreateDto: FoodCreateDto) {
+    //     const foodCreateInput = this.convertService.convertCreateDtoToInput(foodCreateDto)
+    //     return this.foodCreateService.createFood(foodCreateInput)
+    // }
 
 
 

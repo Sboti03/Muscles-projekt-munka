@@ -14,10 +14,15 @@ import { ConnectionModule } from './Connections/connection/connection.module';
 import { AdminModule } from './admin/admin.module';
 import {MealHistoryModule} from "./meal-history/meal-history.module";
 import * as process from "process";
+import {DevtoolsModule} from "@nestjs/devtools-integration";
 
 @Module({
     imports: [
         UserModule,
+        DevtoolsModule.register({
+            http: process.env.NODE_ENV !== 'prod',
+            port: 8000
+        }),
         AuthModule,
         ProfileModule,
         ConfigModule.forRoot({
