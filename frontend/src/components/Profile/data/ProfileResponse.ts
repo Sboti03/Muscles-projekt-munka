@@ -1,5 +1,5 @@
 export interface ProfileResponse {
-    birthDay: Date | undefined
+    birthDay: string | undefined
     firstName: string
     lastName: string
     height: number | undefined

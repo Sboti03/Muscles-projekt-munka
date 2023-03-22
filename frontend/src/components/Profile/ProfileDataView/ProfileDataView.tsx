@@ -23,7 +23,7 @@ export default function ProfileDataView(props: Props) {
 
     useEffect(() => {
         if (response) {
-            setProfileData(response)
+            setProfileData({...response, birthDay: new Date(response.birthDay!)})
             setIsLoading(false)
         }
     }, [response])

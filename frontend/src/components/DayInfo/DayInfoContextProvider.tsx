@@ -16,7 +16,7 @@ export default function DayInfoContextProvider(props: PropsWithChildren) {
     }, [currentDate])
 
     async function fetchDay(date: Date) {
-        const result = await singleFetch<MealHistoryResponse>(`/api/meal-history/data/${normalizeDate(date)}`, Methods.GET)
+        const result = await singleFetch<MealHistoryResponse>(`/api/meal-history/data/?date=${normalizeDate(date)}`, Methods.GET)
         if (result.error) {
             // TODO Handle error
         } else if (result.response) {
@@ -57,15 +57,21 @@ function calculateDayInfoData(mealHistoryResponse: MealHistoryResponse): DayInfo
         eaten += perEach * food.kcal
     })
 
-    const totalProtein = totalCalorie * (goal.proteinPerDay / 100) / PROTEIN_PER_KCAL;
-    const totalCarbohydrate = totalCalorie * (goal.carbohydratesPerDay / 100) / CARBOHYDRATE_PER_KCAL;
-    const totalFat = totalCalorie * (goal.fatPerDay / 100) / FAT_PER_KCAL;
-    const targetCalorie = goal.targetCalories ? goal.targetCalories : 2000
+    eatenFat = Math.round(eatenFat)
+    eatenCarbohydrate = Math.round(eatenCarbohydrate)
+    eaten = Math.round(eaten)
+    totalCalorie = Math.round(totalCalorie)
+    eatenProtein = Math.round(eatenProtein)
 
-    const totalBreakfast = (targetCalorie * goal.breakfastPerDay) / 100
-    const totalDinner = (targetCalorie * goal.dinnerPerDay) / 100
-    const totalLunch = (targetCalorie * goal.lunchPerDay) / 100
-    const totalOther = totalCalorie - (totalBreakfast + totalDinner + totalLunch)
+    const totalProtein = Math.round(totalCalorie * (goal.proteinPerDay / 100) / PROTEIN_PER_KCAL);
+    const totalCarbohydrate = Math.round(totalCalorie * (goal.carbohydratesPerDay / 100) / CARBOHYDRATE_PER_KCAL);
+    const totalFat = Math.round(totalCalorie * (goal.fatPerDay / 100) / FAT_PER_KCAL);
+    const targetCalorie = Math.round(goal.targetCalories ? goal.targetCalories : 2000)
+
+    const totalBreakfast = Math.round((targetCalorie * goal.breakfastPerDay) / 100)
+    const totalDinner = Math.round((targetCalorie * goal.dinnerPerDay) / 100)
+    const totalLunch = Math.round((targetCalorie * goal.lunchPerDay) / 100)
+    const totalOther = Math.round(totalCalorie - (totalBreakfast + totalDinner + totalLunch))
 
     return {
         weight: mealHistoryResponse.weight.weight,
