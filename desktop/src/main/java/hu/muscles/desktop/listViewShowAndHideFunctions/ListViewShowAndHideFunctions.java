@@ -1,5 +1,6 @@
 package hu.muscles.desktop.listViewShowAndHideFunctions;
 
+import hu.muscles.desktop.editListViewCell.EditListViewCell;
 import hu.muscles.desktop.foodsData.Foods;
 import hu.muscles.desktop.profileData.ProfileResponse;
 import javafx.scene.control.ListView;
@@ -49,7 +50,7 @@ public class ListViewShowAndHideFunctions {
     }
 
 
-    public void listViewListerner(List<Foods> foods, List<ProfileResponse> profiles, String[] updateFoodDataString, String[] profileDataString, boolean isProfileShown, boolean isFoodShown) {
+    public void listViewListener(List<Foods> foods, List<ProfileResponse> profiles, String[] updateFoodDataString, String[] profileDataString, boolean isProfileShown, boolean isFoodShown, EditListViewCell editListViewCell) {
         labelForData.getItems().clear();
         if (!isProfileShown && isFoodShown) {
             labelForData.getItems().addAll(updateFoodDataString);
@@ -57,6 +58,7 @@ public class ListViewShowAndHideFunctions {
                 mainEditText.getItems().clear();
                 mainEditText.getItems().addAll(String.valueOf(foods.get(mainListView.getSelectionModel().getSelectedIndex())).split("\n"));
                 mainEditText.setEditable(true);
+                mainEditText.setCellFactory(editListViewCell.createEditableCellFactory());
             }
         }
         if (!isFoodShown && isProfileShown) {
