@@ -21,7 +21,7 @@
           <RowConstraints vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <HBox alignment="CENTER" prefWidth="483.0" spacing="25.0">
+            <HBox alignment="CENTER" prefWidth="483.0" spacing="40.0">
                <children>
                   <Button fx:id="profilesBtn" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#profilesClick" prefHeight="35.0" prefWidth="170.0" text="Profiles" />
                   <Button fx:id="foodsBtn" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#foodsClick" prefHeight="35.0" prefWidth="170.0" text="Foods" />
@@ -33,18 +33,40 @@
             <ListView fx:id="mainListView" prefHeight="300.0" prefWidth="627.0" GridPane.rowIndex="1" />
             <VBox alignment="TOP_CENTER" spacing="20.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                <children>
+                  <HBox alignment="CENTER_RIGHT" spacing="35.0" fx:id="updateButtonArea" visible="false">
+                     <children>
+                        <Button fx:id="updateBtn" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#updateClick" prefHeight="35.0" prefWidth="170.0" text="Update" />
+                        <Button fx:id="cancelUpdateBtn" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#cancelUpdateClick" prefHeight="35.0" prefWidth="170.0" text="Cancel" />
+                     </children>
+                     <padding>
+                        <Insets right="40.0" />
+                     </padding>
+                  </HBox>
                   <HBox alignment="TOP_CENTER" VBox.vgrow="ALWAYS">
                      <children>
-                        <ListView fx:id="labelForData" disable="true" maxWidth="370.0" minWidth="230.0" HBox.hgrow="ALWAYS" />
-                        <ListView fx:id="mainEditText" HBox.hgrow="ALWAYS" />
+                        <ListView fx:id="labelForData" disable="true" maxWidth="370.0" minHeight="200.0" minWidth="230.0" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </ListView>
+                        <ListView fx:id="mainEditText" minHeight="200.0" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </ListView>
                      </children>
+                     <VBox.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                     </VBox.margin>
                   </HBox>
-                  <HBox alignment="CENTER" spacing="35.0" VBox.vgrow="NEVER">
+                  <HBox alignment="CENTER_RIGHT" spacing="35.0" VBox.vgrow="NEVER">
                      <children>
                         <Button fx:id="createBtn" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#createClick" prefHeight="35.0" prefWidth="170.0" text="Create" />
-                        <Button fx:id="updateBtn" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#updateClick" prefHeight="35.0" prefWidth="170.0" text="Update" />
                         <Button fx:id="deleteBtn" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#deleteClick" prefHeight="35.0" prefWidth="170.0" text="Delete" />
                      </children>
+                     <padding>
+                        <Insets right="40.0" />
+                     </padding>
                   </HBox>
                </children>
                <padding>
