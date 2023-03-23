@@ -4,6 +4,7 @@ import hu.muscles.desktop.editListViewCell.EditListViewCell;
 import hu.muscles.desktop.foodsData.Foods;
 import hu.muscles.desktop.profileData.ProfileResponse;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.HBox;
 
 import java.util.List;
 
@@ -50,8 +51,9 @@ public class ListViewShowAndHideFunctions {
     }
 
 
-    public void listViewListener(List<Foods> foods, List<ProfileResponse> profiles, String[] updateFoodDataString, String[] profileDataString, boolean isProfileShown, boolean isFoodShown, EditListViewCell editListViewCell) {
+    public void listViewListener(List<Foods> foods, List<ProfileResponse> profiles, String[] updateFoodDataString, String[] profileDataString, boolean isProfileShown, boolean isFoodShown, EditListViewCell editListViewCell, HBox updateButtonArea) {
         labelForData.getItems().clear();
+        updateButtonArea.setVisible(false);
         if (!isProfileShown && isFoodShown) {
             labelForData.getItems().addAll(updateFoodDataString);
             if (!mainListView.getSelectionModel().isEmpty()) {
@@ -59,6 +61,7 @@ public class ListViewShowAndHideFunctions {
                 mainEditText.getItems().addAll(String.valueOf(foods.get(mainListView.getSelectionModel().getSelectedIndex())).split("\n"));
                 mainEditText.setEditable(true);
                 mainEditText.setCellFactory(editListViewCell.createEditableCellFactory());
+                updateButtonArea.setVisible(true);
             }
         }
         if (!isFoodShown && isProfileShown) {
@@ -66,6 +69,7 @@ public class ListViewShowAndHideFunctions {
             if (!mainListView.getSelectionModel().isEmpty()) {
                 mainEditText.getItems().clear();
                 mainEditText.getItems().addAll(String.valueOf(profiles.get(mainListView.getSelectionModel().getSelectedIndex())).split("\n"));
+                updateButtonArea.setVisible(true);
             }
         }
     }

@@ -12,6 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.client.RestTemplate;
@@ -47,6 +48,11 @@ public class MainViewController implements Initializable {
 
     @FXML
     private ListView<String> mainEditText;
+    @FXML
+    private Button cancelUpdateBtn;
+
+    @FXML
+    private HBox updateButtonArea;
 
 
     private List<Foods> foods;
@@ -75,7 +81,7 @@ public class MainViewController implements Initializable {
         loadFromServerToPOJO = new LoadFromServerToPojo(mainEditText);
         listViewShowAndHideFunctions = new ListViewShowAndHideFunctions(mainListView, labelForData, mainEditText);
         editListViewCell = new EditListViewCell();
-        mainListView.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> listViewShowAndHideFunctions.listViewListener(foods, profiles, updateFoodDataString, profileDataString, isProfileShown, isFoodShown, editListViewCell));
+        mainListView.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> listViewShowAndHideFunctions.listViewListener(foods, profiles, updateFoodDataString, profileDataString, isProfileShown, isFoodShown, editListViewCell, updateButtonArea));
     }
 
 
@@ -89,6 +95,10 @@ public class MainViewController implements Initializable {
 
     @FXML
     public void updateClick(ActionEvent actionEvent) {
+    }
+
+    @FXML
+    public void cancelUpdateClick(ActionEvent actionEvent) {
     }
 
     @FXML

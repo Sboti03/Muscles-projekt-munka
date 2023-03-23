@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="00e91fc0-96b8-4172-906f-ab5075727363" name="Changes" comment="refactoring code and little changes">
-      <change afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/editListViewCell/EditListViewCell.java" afterDir="false" />
+    <list default="true" id="00e91fc0-96b8-4172-906f-ab5075727363" name="Changes" comment="Creating editable cell factory">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/MainViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/MainViewController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/listViewShowAndHideFunctions/ListViewShowAndHideFunctions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/listViewShowAndHideFunctions/ListViewShowAndHideFunctions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/main-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/main-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -219,7 +219,14 @@
       <option name="project" value="LOCAL" />
       <updated>1679569281455</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Creating editable cell factory">
+      <created>1679570312596</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1679570312596</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -256,7 +263,8 @@
     <MESSAGE value="fixing selection in case of error" />
     <MESSAGE value="refactoring code" />
     <MESSAGE value="refactoring code and little changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactoring code and little changes" />
+    <MESSAGE value="Creating editable cell factory" />
+    <option name="LAST_COMMIT_MESSAGE" value="Creating editable cell factory" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
