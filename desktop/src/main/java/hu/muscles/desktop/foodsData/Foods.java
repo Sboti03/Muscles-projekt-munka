@@ -20,10 +20,11 @@ public class Foods {
     private double carbohydrate;
     private double sugar;
     private double fiber;
+    private boolean isDeleted;
     private Date changedAt;
     private Unit unit;
 
-    public Foods(int foodId, String name, int kcal, int unitId, int perUnit, double protein, double fat, double saturatedFat, double polyunsaturatedFat, double monounsaturatedFat, double carbohydrate, double sugar, double fiber, Date changedAt, Unit unit) {
+    public Foods(int foodId, String name, int kcal, int unitId, int perUnit, double protein, double fat, double saturatedFat, double polyunsaturatedFat, double monounsaturatedFat, double carbohydrate, double sugar, double fiber, boolean isDeleted, Date changedAt, Unit unit) {
         this.foodId = foodId;
         this.name = name;
         this.kcal = kcal;
@@ -37,26 +38,11 @@ public class Foods {
         this.carbohydrate = carbohydrate;
         this.sugar = sugar;
         this.fiber = fiber;
+        this.isDeleted = isDeleted;
         this.changedAt = changedAt;
         this.unit = unit;
     }
 
-    public Foods(String name, int kcal, int unitId, int perUnit, double protein, double fat, double saturatedFat, double polyunsaturatedFat, double monounsaturatedFat, double carbohydrate, double sugar, double fiber, Date changedAt, Unit unit) {
-        this.name = name;
-        this.kcal = kcal;
-        this.unitId = unitId;
-        this.perUnit = perUnit;
-        this.protein = protein;
-        this.fat = fat;
-        this.saturatedFat = saturatedFat;
-        this.polyunsaturatedFat = polyunsaturatedFat;
-        this.monounsaturatedFat = monounsaturatedFat;
-        this.carbohydrate = carbohydrate;
-        this.sugar = sugar;
-        this.fiber = fiber;
-        this.changedAt = changedAt;
-        this.unit = unit;
-    }
 
     public Foods() {
     }
@@ -167,6 +153,15 @@ public class Foods {
 
     public void setFiber(double fiber) {
         this.fiber = fiber;
+    }
+
+    @JsonProperty("isDeleted")
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
     }
 
     @JsonProperty("changedAt")
