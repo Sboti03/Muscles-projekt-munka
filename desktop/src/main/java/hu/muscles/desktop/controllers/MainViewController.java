@@ -1,5 +1,6 @@
 package hu.muscles.desktop.controllers;
 
+import hu.muscles.desktop.editListViewCell.EditListViewCell;
 import hu.muscles.desktop.foodsData.Foods;
 import hu.muscles.desktop.listViewShowAndHideFunctions.ListViewShowAndHideFunctions;
 import hu.muscles.desktop.loadFromServerToPOJO.LoadFromServerToPojo;
@@ -61,6 +62,7 @@ public class MainViewController implements Initializable {
     private boolean isFoodShown = false;
     private LoadFromServerToPojo loadFromServerToPOJO;
     private ListViewShowAndHideFunctions listViewShowAndHideFunctions;
+    private EditListViewCell editListViewCell;
 
 
     @Override
@@ -72,9 +74,8 @@ public class MainViewController implements Initializable {
         confirmExit.setHeaderText("Are you sure you want to exit the app?");
         loadFromServerToPOJO = new LoadFromServerToPojo(mainEditText);
         listViewShowAndHideFunctions = new ListViewShowAndHideFunctions(mainListView, labelForData, mainEditText);
-        mainListView.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
-        listViewShowAndHideFunctions.listViewListerner(foods, profiles, updateFoodDataString, profileDataString, isProfileShown, isFoodShown);
-        });
+        editListViewCell = new EditListViewCell();
+        mainListView.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> listViewShowAndHideFunctions.listViewListener(foods, profiles, updateFoodDataString, profileDataString, isProfileShown, isFoodShown, editListViewCell));
     }
 
 
