@@ -1,6 +1,7 @@
 package hu.muscles.desktop.controllers;
 
 import hu.muscles.desktop.foodsData.Foods;
+import hu.muscles.desktop.listViewShowAndHideFunctions.ListViewShowAndHideFunctions;
 import hu.muscles.desktop.loadFromServerToPOJO.LoadFromServerToPojo;
 import hu.muscles.desktop.models.LoginModel;
 import hu.muscles.desktop.profileData.ProfileResponse;
@@ -56,10 +57,10 @@ public class MainViewController implements Initializable {
     private final HttpHeaders headers = new HttpHeaders();
     private final String[] updateFoodDataString = new String[]{"Name", "Fat", "Fiber", "kCal", "Carbohydrate", "Per Unit", "Protein", "Sugar", "Monounsaturated fat", "Polyunsaturated fat", "Saturated fat", "Unit"};
     private final String[] profileDataString = new String[]{"First name", "Last name", "Birthdate", "Registration date", "Height", "Last changed"};
-
     private boolean isProfileShown = false;
     private boolean isFoodShown = false;
     private LoadFromServerToPojo loadFromServerToPOJO;
+    private ListViewShowAndHideFunctions listViewShowAndHideFunctions;
 
 
     @Override
@@ -70,23 +71,9 @@ public class MainViewController implements Initializable {
         confirmExit.setTitle("Exit");
         confirmExit.setHeaderText("Are you sure you want to exit the app?");
         loadFromServerToPOJO = new LoadFromServerToPojo(mainEditText);
+        listViewShowAndHideFunctions = new ListViewShowAndHideFunctions(mainListView, labelForData, mainEditText);
         mainListView.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
-            labelForData.getItems().clear();
-            if (!isProfileShown && isFoodShown) {
-                labelForData.getItems().addAll(updateFoodDataString);
-                if (!mainListView.getSelectionModel().isEmpty()) {
-                    mainEditText.getItems().clear();
-                    mainEditText.getItems().addAll(String.valueOf(foods.get(mainListView.getSelectionModel().getSelectedIndex())).split("\n"));
-                    mainEditText.setEditable(true);
-                }
-            }
-            if (!isFoodShown && isProfileShown) {
-                labelForData.getItems().addAll(profileDataString);
-                if (!mainListView.getSelectionModel().isEmpty()) {
-                    mainEditText.getItems().clear();
-                    mainEditText.getItems().addAll(String.valueOf(profiles.get(mainListView.getSelectionModel().getSelectedIndex())).split("\n"));
-                }
-            }
+        listViewShowAndHideFunctions.listViewListerner(foods, profiles, updateFoodDataString, profileDataString, isProfileShown, isFoodShown);
         });
     }
 
@@ -112,19 +99,19 @@ public class MainViewController implements Initializable {
     public void profilesClick(ActionEvent actionEvent) {
         isFoodShown = false;
         mainListView.getSelectionModel().clearSelection();
-        emptyAllListView();
+        listViewShowAndHideFunctions.emptyAllListView();
         try {
             profiles = loadFromServerToPOJO.loadAllProfile(getResponseString(this.url.GET_ALL_PROFILE()));
         } catch (IOException e) {
-            CouldNotLoadFoodOrProfiles(true, e);
+            listViewShowAndHideFunctions.CouldNotLoadFoodOrProfiles(true, e);
         }
         try {
             if (profiles != null) {
-                loadProfilesToListView(profiles);
+                listViewShowAndHideFunctions.loadProfilesToListView(profiles);
                 isProfileShown = true;
             }
         } catch (Exception e) {
-            CouldNotLoadFoodOrProfiles(true, e);
+            listViewShowAndHideFunctions.CouldNotLoadFoodOrProfiles(true, e);
         }
     }
 
@@ -135,19 +122,19 @@ public class MainViewController implements Initializable {
     public void foodsClick(ActionEvent actionEvent) {
         isProfileShown = false;
         mainListView.getSelectionModel().clearSelection();
-        emptyAllListView();
+        listViewShowAndHideFunctions.emptyAllListView();
         try {
             foods = loadFromServerToPOJO.loadAllFood(getResponseString(this.url.GET_ALL_FOOD()));
         } catch (IOException e) {
-            CouldNotLoadFoodOrProfiles(false, e);
+            listViewShowAndHideFunctions.CouldNotLoadFoodOrProfiles(false, e);
         }
         try {
             if (foods != null) {
-                loadFoodsToListView(foods);
+                listViewShowAndHideFunctions.loadFoodsToListView(foods);
                 isFoodShown = true;
             }
         } catch (Exception e) {
-            CouldNotLoadFoodOrProfiles(false, e);
+            listViewShowAndHideFunctions.CouldNotLoadFoodOrProfiles(false, e);
         }
     }
 
@@ -171,36 +158,4 @@ public class MainViewController implements Initializable {
         connection.connect();
         return connection.getInputStream();
     }
-
-    private void CouldNotLoadFoodOrProfiles(boolean isProfile, Exception e) {
-        if (isProfile) {
-            mainEditText.getItems().clear();
-            mainEditText.getItems().add(e.getMessage());
-            labelForData.getItems().add("Couldn't read profiles.");
-            e.printStackTrace();
-        } else {
-            mainEditText.getItems().clear();
-            mainEditText.getItems().add(e.getMessage());
-            labelForData.getItems().add("Couldn't read foods.");
-            e.printStackTrace();
-        }
-    }
-
-    private void emptyAllListView() {
-        labelForData.getItems().clear();
-        mainEditText.getItems().clear();
-        mainListView.getItems().clear();
-    }
-
-    private void loadProfilesToListView(List<ProfileResponse> profiles) {
-        emptyAllListView();
-        mainListView.getItems().addAll(profiles.stream().map(profile -> profile.getFirstName() + " " + (profile.getLastName() != null ? profile.getLastName() : "")).toList());
-    }
-
-    private void loadFoodsToListView(List<Foods> foods) {
-        emptyAllListView();
-        mainListView.getItems().addAll(foods.stream().map(Foods::getName).toList());
-    }
-
-
 }
