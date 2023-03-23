@@ -35,8 +35,8 @@
                <children>
                   <HBox alignment="TOP_CENTER" VBox.vgrow="ALWAYS">
                      <children>
-                        <ListView fx:id="foodEditLabelText" disable="true" maxWidth="370.0" minWidth="230.0" HBox.hgrow="ALWAYS" />
-                        <ListView fx:id="foodEditText" HBox.hgrow="ALWAYS" />
+                        <ListView fx:id="labelForData" disable="true" maxWidth="370.0" minWidth="230.0" HBox.hgrow="ALWAYS" />
+                        <ListView fx:id="mainEditText" HBox.hgrow="ALWAYS" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" spacing="35.0" VBox.vgrow="NEVER">
