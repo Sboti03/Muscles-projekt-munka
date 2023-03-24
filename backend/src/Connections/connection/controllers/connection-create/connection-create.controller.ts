@@ -1,4 +1,11 @@
-import {Body, ConflictException, Controller, NotFoundException, Post, UseGuards} from '@nestjs/common';
+import {
+    BadRequestException,
+    Controller,
+    ForbiddenException,
+    NotFoundException, Param,
+    Post,
+    UseGuards
+} from "@nestjs/common";
 import {IdParam} from "../../../../Common/params/id.param";
 import {GetCurrentUser, GetCurrentUserId} from "../../../../auth/decorators/decorators";
 import {
@@ -9,11 +16,11 @@ import {RoleEnum} from "../../../../Common/Role/utils/roles";
 import {ConnectionCreateService} from "../../services/connection-create/connection-create.service";
 import {AccessTokenGuard} from "../../../../auth/guards/access-token.guard";
 import {ProfileGuard} from "../../../../auth/guards/profile.guard";
-import {ProfileCheckService} from "../../../../profile/services/profile-check/profile-check.service";
 import {ConnectionCheckService} from "../../services/connection-check/connection-check.service";
 import {
     ConnectionRequestCheckService
 } from "../../../connection-request/services/connection-request-check/connection-request-check.service";
+import { UserCheckService } from "../../../../user/services/user-check/user-check.service";
 
 
 @UseGuards(AccessTokenGuard)
@@ -23,42 +30,46 @@ export class ConnectionCreateController {
     constructor(private connReqGetService: ConnectionRequestGetService,
                 private connGetService: ConnectionGetService,
                 private connCreateService: ConnectionCreateService,
-                private profileCheckService: ProfileCheckService,
                 private connCheckService:ConnectionCheckService,
-                private connReqCheckService:ConnectionRequestCheckService) {
+                private connReqCheckService:ConnectionRequestCheckService,
+                private userCheckService: UserCheckService) {
     }
 
 
     @UseGuards(ProfileGuard)
-    @Post('/accept')
-    async acceptConnection(@Body() idParam: IdParam,
+    @Post('/accept/:id')
+    async acceptConnection(@Param() idParam: IdParam,
                            @GetCurrentUserId() requesterId: number,
                            @GetCurrentUser('role') requesterRole: RoleEnum) {
         if (idParam.id === requesterId) {
-            throw new ConflictException('Own id')
+            throw new BadRequestException('Cannot accept own connection request')
         }
         const {userId, coachId} = this.connReqGetService.getUserAndCoachId(idParam.id, requesterId, requesterRole)
-        const otherId = requesterId === userId ? coachId : userId
-        const otherProfileExist = await this.profileCheckService.checkExistingProfileByUserId(otherId)
-        if (!otherProfileExist) {
-            throw new ConflictException('Other profile do not exists')
-        }
         const isConnectionRequestExist = await this.connReqCheckService.checkExistingConnectionRequest(userId, coachId)
         if (!isConnectionRequestExist) {
             throw new NotFoundException('No connection request found')
         }
         const isConnectionExist = await this.connCheckService.checkExistingConnection(userId, coachId)
         if (isConnectionExist) {
-            throw new ConflictException('Connection is already exists')
+            throw new BadRequestException('Connection is already exists')
         }
-        const {connectionRequestId, requestBy} = await this.connReqGetService.getConnectionRequestIdByIds(userId, coachId)
-        if (requestBy === requesterId) {
-            throw new ConflictException('Cannot accept own connection request')
+        const isUserBlocked = await this.userCheckService.isUserBlocked(idParam.id)
+        if (isUserBlocked) {
+            throw new ForbiddenException("Other user is banned")
         }
+
+        const {connectionRequestId, accessAll} = await this.connReqGetService.getConnectionRequestIdByIds(userId, coachId)
+        if (accessAll) {
+            const isAccessAllConnectionExist = await this.connCheckService.checkExistingAccessAllConnection(userId)
+            if (isAccessAllConnectionExist) {
+                throw new ForbiddenException("User already has a main coach")
+            }
+        }
+
         try {
             return await this.connCreateService.createConnection(connectionRequestId)
         } catch (e) {
-            throw new ConflictException('Unknown error :(')
+            throw new BadRequestException('Unknown error :(')
         }
     }
 }

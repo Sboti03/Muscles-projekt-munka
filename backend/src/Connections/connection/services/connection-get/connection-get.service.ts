@@ -15,6 +15,15 @@ export class ConnectionGetService {
         })
     }
 
+    getAccessAllConnection(userId: number) {
+        return this.prismaService.connections.findFirstOrThrow({
+            where: {
+                userId,
+                accessAll: true
+            }
+        })
+    }
+
     getAllConnection(id: number) {
         return this.prismaService.connections.findMany({
             where: {

@@ -6,12 +6,12 @@ import {ConnectionCreateController} from './controllers/connection-create/connec
 import {ConnectionCreateService} from './services/connection-create/connection-create.service';
 import {ConnectionGetController} from './controllers/connection-get/connection-get.controller';
 import {ConnectionDeleteController} from './controllers/connection-delete/connection-delete.controller';
-import {ProfileModule} from "../../profile/profile.module";
 import {ConnectionRequestModule} from "../connection-request/connection-request.module";
 import {ConnectionDeleteService} from './services/connection-delete/connection-delete.service';
+import { UserModule } from "../../user/user.module";
 
 @Module({
-    imports: [ProfileModule, ConnectionRequestModule],
+    imports: [UserModule, ConnectionRequestModule],
     providers: [ConnectionGetService, ConnectionCheckService, PrismaService, ConnectionCreateService, ConnectionDeleteService],
     exports: [ConnectionGetService, ConnectionCheckService, ConnectionCreateService, ConnectionDeleteService],
     controllers: [ConnectionCreateController, ConnectionGetController, ConnectionDeleteController]

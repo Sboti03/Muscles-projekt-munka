@@ -1,15 +1,18 @@
-import {BadRequestException, Injectable, NotFoundException} from '@nestjs/common';
-import {PrismaService} from "../../../Common/utils/prirsma.service";
-import {PeriodNamesEnum} from "../../../Common/utils/PeriodNames";
-import {DayHistoryCheckService} from "../../../day-history/services/day-history-check/day-history-check.service";
-import {DayHistoryGetService} from "../../../day-history/services/day-history-get/day-history-get.service";
-import {GoalsGetService} from "../../../goals/services/goals-get/goals-get.service";
-import {WeightHistoryGetService} from "../../../weight-history/services/weight-history-get/weight-history-get.service";
-import {RoleEnum} from "../../../Common/Role/utils/roles";
+import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
+import { PrismaService } from "../../../Common/utils/prirsma.service";
+import { PeriodNamesEnum } from "../../../Common/utils/PeriodNames";
+import { DayHistoryCheckService } from "../../../day-history/services/day-history-check/day-history-check.service";
+import { DayHistoryGetService } from "../../../day-history/services/day-history-get/day-history-get.service";
+import { GoalsGetService } from "../../../goals/services/goals-get/goals-get.service";
+import {
+    WeightHistoryGetService
+} from "../../../weight-history/services/weight-history-get/weight-history-get.service";
+import { RoleEnum } from "../../../Common/Role/utils/roles";
 import {
     ConnectionCheckService
 } from "../../../Connections/connection/services/connection-check/connection-check.service";
-import {ProfileGetService} from "../../../profile/services/profile-get/profile-get.service";
+import { ProfileGetService } from "../../../profile/services/profile-get/profile-get.service";
+import MealHistoryGetDto from "../../../day-history/dto/meal-history-get.dto";
 
 @Injectable()
 export class MealHistoryGetService {
@@ -42,7 +45,7 @@ export class MealHistoryGetService {
             where: {
                 mealHistoryId
             }
-        })
+        });
     }
 
     getProfileIdByMealHistoryId(mealHistoryId: number) {
@@ -56,9 +59,9 @@ export class MealHistoryGetService {
                         profileId: true
                     }
                 }
-            },
+            }
 
-        })
+        });
     }
 
     getMealIdByMealHistoryId(mealHistoryId: number) {
@@ -69,7 +72,7 @@ export class MealHistoryGetService {
             select: {
                 mealId: true
             }
-        })
+        });
     }
 
     getAllMealHistory(dayId: number, periodName: PeriodNamesEnum) {
@@ -85,11 +88,11 @@ export class MealHistoryGetService {
                             include: {
                                 unit: true
                             }
-                        },
+                        }
                     }
-                },
-            },
-        })
+                }
+            }
+        });
     }
 
     getAllMealDataByDayId(dayId: number) {
@@ -115,7 +118,7 @@ export class MealHistoryGetService {
                     }
                 }
             }
-        })
+        });
     }
 
     getAllMealId(dayId: number, periodName: string) {
@@ -141,50 +144,73 @@ export class MealHistoryGetService {
                     include: {
                         food: {
                             include: {
-                                unit: true,
+                                unit: true
                             }
                         }
                     }
-                },
+                }
             }
-        })
+        });
     }
 
     async getDayHistoryData(currentUserId: number, date: Date, id: number, currentProfileId: number, role: RoleEnum) {
-        let profileId = currentProfileId
+        let profileId = currentProfileId;
         if (id) {
             if (id === currentProfileId) {
-                throw new BadRequestException('Own id')
+                throw new BadRequestException("Own id");
             }
-            const userId = role === RoleEnum.USER ? currentUserId : id
-            const coachId = role === RoleEnum.COACH ? currentUserId : id
+            const userId = role === RoleEnum.USER ? currentUserId : id;
+            const coachId = role === RoleEnum.COACH ? currentUserId : id;
             if (userId === currentUserId) {
-                throw new BadRequestException('Access denied')
+                throw new BadRequestException("Access denied");
             }
-            const isConnectionExist = await this.connectionCheckService.checkExistingConnection(userId, coachId)
+            const isConnectionExist = await this.connectionCheckService.checkExistingConnection(userId, coachId);
             if (!isConnectionExist) {
-                throw new NotFoundException('No connection found')
+                throw new NotFoundException("No connection found");
             }
-            profileId = (await this.profileGetService.getProfileIdByUserId(userId)).profileId
+            profileId = (await this.profileGetService.getProfileIdByUserId(userId)).profileId;
         }
 
         let dayHistory;
-        const isDayHistoryExist = await this.dayHistoryCheckService.checkExistingDayHistory(profileId, date)
+        const isDayHistoryExist = await this.dayHistoryCheckService.checkExistingDayHistory(profileId, date);
         if (!isDayHistoryExist) {
-            dayHistory = []
+            dayHistory = [];
         } else {
-            const {dayId} = await this.dayHistoryGetService.getDayIdByDate(date, profileId)
-            dayHistory = await this.getAllMealDataByDayId(dayId)
+            const { dayId } = await this.dayHistoryGetService.getDayIdByDate(date, profileId);
+            dayHistory = await this.getAllMealDataByDayId(dayId);
         }
         const goal = await this.goalsGetService.getGoalByProfileIdAndDate(profileId, date);
         const {
             weight,
-            day: {date: weightDate}
-        } = await this.weightHistoryGetService.getWeightFromDate(date, profileId)
+            day: { date: weightDate }
+        } = await this.weightHistoryGetService.getWeightFromDate(date, profileId);
         return {
             dayHistory: dayHistory,
             goal,
-            weight: {weight, weightDate}
+            weight: { weight, weightDate }
+        };
+    }
+
+    async getMealHistory(dayHistoryGetDto: MealHistoryGetDto, currentProfileId: number) {
+        if (dayHistoryGetDto.userId && dayHistoryGetDto.userId === currentProfileId) {
+            throw new BadRequestException("Own id")
         }
+
+        if (dayHistoryGetDto.userId) {
+            const isConnectionExist = await this.connectionCheckService.checkExistingAccessAllConnection(dayHistoryGetDto.userId)
+            if (!isConnectionExist) {
+                throw new NotFoundException("No connection found")
+            }
+            // const connection = this.connectionGetService.getAccessAllConnection(dayHistoryGetDto.userId)
+
+        }
+
+        const { date, periodName } = dayHistoryGetDto;
+        const isDayHistoryExist = await this.dayHistoryCheckService.checkExistingDayHistory(currentProfileId, date);
+        if (!isDayHistoryExist) {
+            return [];
+        }
+        const { dayId } = await this.dayHistoryGetService.getDayIdByDate(date, currentProfileId);
+        return this.dayHistoryGetService.getAllMealHistoryByIds(dayId, periodName);
     }
 }

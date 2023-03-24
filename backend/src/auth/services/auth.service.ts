@@ -31,6 +31,11 @@ export class AuthService {
             throw new ForbiddenException('No user found');
         }
 
+        if (user.isBlocked) {
+            Logger.log(`User is blocked userId: ${user.userId} email: ${user.email}`)
+            throw new ForbiddenException('You are blocked :(')
+        }
+
         const passMatch: boolean = compareData(
             loginDto.password,
             user.password,

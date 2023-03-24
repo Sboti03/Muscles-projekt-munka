@@ -17,17 +17,27 @@ export class ConnectionCreateService {
     }
 
     async createConnection(connectionRequestId: number) {
-        const {userId, coachId} = await this.connectionRequestGetService.getConnectionRequestById(connectionRequestId)
+        const {userId, coachId, accessAll} = await this.connectionRequestGetService.getConnectionRequestById(connectionRequestId)
         await this.connectionRequestDeleteService.deleteConnection(userId, coachId)
+        if (accessAll) {
+            await this.prismaService.connectionRequest.deleteMany({
+                where: {
+                    userId,
+                    accessAll: true
+                }
+            })
+        }
+
         return  this.prismaService.connections.create({
-            data: this.createConnectionInput(userId, coachId)
+            data: this.createConnectionInput(userId, coachId, accessAll)
         })
     }
 
-    createConnectionInput(userId: number, coachId: number): Prisma.connectionsCreateInput {
+    createConnectionInput(userId: number, coachId: number, accessAll: boolean): Prisma.connectionsCreateInput {
         return {
             coach: {connect: {userId: coachId}},
-            user: {connect: {userId}}
+            user: {connect: {userId}},
+            accessAll: accessAll
         }
     }
 }

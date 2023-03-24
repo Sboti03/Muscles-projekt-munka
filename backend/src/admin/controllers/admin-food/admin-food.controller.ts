@@ -1,14 +1,14 @@
 import {
     Body,
     Controller,
-    Delete,
-    ImATeapotException,
+    Delete, Get,
+    ImATeapotException, Logger,
     NotFoundException,
     Param,
     Patch,
     Post,
     UseGuards
-} from '@nestjs/common';
+} from "@nestjs/common";
 import {AccessTokenGuard} from "../../../auth/guards/access-token.guard";
 import {Roles} from "../../../Common/Role/decorators/ roles.decorator";
 import {RoleEnum} from "../../../Common/Role/utils/roles";
@@ -23,9 +23,8 @@ import {FoodUpdateDto} from "../../../foods/dto/food-update.dto";
 import {FoodUpdateService} from "../../../foods/services/food-update/food-update.service";
 
 
-@UseGuards(AccessTokenGuard)
 @Roles(RoleEnum.ADMIN)
-@UseGuards(RolesGuard)
+@UseGuards(AccessTokenGuard, RolesGuard)
 @Controller('admin/food')
 export class AdminFoodController {
     constructor(
@@ -65,11 +64,32 @@ export class AdminFoodController {
 
     @Patch('/:id')
     async updateFoodById(@Param() idParam: IdParam, @Body() foodUpdateDto: FoodUpdateDto) {
+        Logger.debug(`Updating food - foodId: ${idParam.id}`)
         const isFoodExist = this.foodService.checkValidFood(idParam.id)
+        Logger.debug(`Food is ${isFoodExist ? '' : 'not'} exit with ${idParam.id} id`)
         if (!isFoodExist) throw new NotFoundException('No food found')
         const foodUpdateInput = this.convertService.convertUpdateDtoToInput(foodUpdateDto)
+        Logger.debug(`New values is `)
+        const keys = Object.keys(foodUpdateInput)
+        const values = Object.values(foodUpdateInput)
+        for (let i = 0; i < keys.length; i++) {
+            if (values[i]) {
+                Logger.debug(`${keys[i]}: ${values[i]}`)
+            }
+        }
+
+
         return this.foodUpdateService.updateFoodById(idParam.id, foodUpdateInput)
     }
 
+    @Get()
+    async getAllFood() {
+        return this.adminFoodService.getAllFood();
+    }
+
+    @Get(':id')
+    async getFoodById(@Param() idParam: IdParam) {
+        return this.adminFoodService.getFoodById(idParam.id)
+    }
 
 }

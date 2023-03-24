@@ -50,6 +50,7 @@ model connections {
   user         users       @relation("connections_coachIdTousers", fields: [userId], references: [userId], onDelete: Cascade, onUpdate: NoAction, map: "userIdFK")
   coach        users       @relation("connections_userIdTousers", fields: [coachId], references: [userId], onDelete: Cascade, onUpdate: NoAction, map: "coachIdFK")
   changedAt    DateTime    @default(now()) @updatedAt @db.Timestamp(6)
+  accessAll    Boolean     @default(false)
   schedules    schedules[]
 
   @@unique([userId, coachId])
@@ -63,6 +64,7 @@ model connectionRequest {
   coach               users    @relation("conn_req_coachToUser", fields: [coachId], references: [userId], onDelete: Cascade)
   requestDate         DateTime @default(now())
   requestBy           Int
+  accessAll           Boolean  @default(false)
   changedAt           DateTime @default(now()) @updatedAt @db.Timestamp(6)
 
   @@unique([userId, coachId])
@@ -148,7 +150,7 @@ model mealPeriods {
 model profileData {
   profileId        Int          @id(map: "profileIdPK") @default(autoincrement())
   userId           Int          @unique
-  registrationDate DateTime     @default(now()) @db.Date
+  registrationDate DateTime     @default(now()) @db.Timestamp(6)
   firstName        String       @default("") @db.VarChar(100)
   birthDay         DateTime?    @db.Date
   lastName         String?      @db.VarChar(200)

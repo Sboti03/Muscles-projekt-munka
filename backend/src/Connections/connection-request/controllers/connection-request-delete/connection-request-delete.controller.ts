@@ -1,15 +1,17 @@
-import {Body, ConflictException, Controller, Delete, Param, Post, UseGuards} from '@nestjs/common';
+import {
+    BadRequestException,
+    ConflictException,
+    Controller,
+    Delete,
+    Param,
+    UseGuards
+} from "@nestjs/common";
 import {AccessTokenGuard} from "../../../../auth/guards/access-token.guard";
 import {IdParam} from "../../../../Common/params/id.param";
 import {GetCurrentUser, GetCurrentUserId} from "../../../../auth/decorators/decorators";
-import {ProfileGuard} from "../../../../auth/guards/profile.guard";
 import {RoleEnum} from "../../../../Common/Role/utils/roles";
-import {UserGetService} from "../../../../user/services/user-get/user-get.service";
 import {ConnectionRequestGetService} from "../../services/connection-request-get/connection-request-get.service";
 import {ConnectionRequestCheckService} from "../../services/connection-request-check/connection-request-check.service";
-import {
-    ConnectionRequestCreateService
-} from "../../services/connection-request-create/connection-request-create.service";
 import {
     ConnectionRequestDeleteService
 } from "../../services/connection-request-delete/connection-request-delete.service";
@@ -24,11 +26,13 @@ export class ConnectionRequestDeleteController {
                 private deleteService:ConnectionRequestDeleteService) {
     }
 
-    @UseGuards(ProfileGuard)
     @Delete(':id')
-    async deleteConnectionRequest(@Param('id') idParam: IdParam,
+    async deleteConnectionRequest(@Param() idParam: IdParam,
                                   @GetCurrentUserId() requesterId: number,
                                   @GetCurrentUser('role') requesterRole: RoleEnum) {
+        if (idParam.id === requesterId) {
+            throw new BadRequestException("Own id")
+        }
         const {userId, coachId} = this.getService.getUserAndCoachId(idParam.id, requesterId, requesterRole)
         const isConnectionRequestExist = await this.checkService.checkExistingConnectionRequest(userId, coachId)
         if (!isConnectionRequestExist) {
