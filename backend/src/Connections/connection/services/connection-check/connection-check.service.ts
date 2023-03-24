@@ -10,11 +10,28 @@ export class ConnectionCheckService {
 
     async checkExistingConnection(userId: number, coachId: number) {
         try {
-            const res = await this.getService.getConnectionByIds(userId, coachId)
+            await this.getService.getConnectionByIds(userId, coachId);
         } catch (e) {
             return false
         }
 
         return true
+    }
+
+    async checkExistingAccessAllConnection(userId: number) {
+        try {
+            await this.getService.getAccessAllConnection(userId)
+            return true
+        } catch (e) {
+            return false
+        }
+    }
+
+    async checkAccessCoachToUser(userId: number, coachId: number) {
+        try {
+            await this.getService.getConnectionByIds(userId, coachId)
+        } catch (e) {
+
+        }
     }
 }

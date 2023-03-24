@@ -6,13 +6,13 @@ import {
     Get,
     Header,
     HttpCode,
-    HttpStatus,
+    HttpStatus, Logger, NotFoundException,
     Post,
     Req,
     Res,
-    UseGuards,
-} from '@nestjs/common';
-import {GetCurrentUser, GetCurrentUserId, GetCurrentUserRefreshToken, Public,} from '../decorators/decorators';
+    UseGuards
+} from "@nestjs/common";
+import {GetCurrentUserId, GetCurrentUserRefreshToken, } from '../decorators/decorators';
 import {RefreshTokenGuard} from '../guards/refresh-token.guard';
 import {LocalAuthGuard} from '../guards/local-auth.guard';
 import {AuthService} from '../services/auth.service';
@@ -63,7 +63,7 @@ export class AuthController {
         const newToken = await this.authTokenService.getNewRefreshToken(userId);
         this.authTokenService.storeRfToken(newToken, res)
         await this.userUpdateService.pushNewRefreshToken(newToken, userId)
-            .catch(reason => {
+            .catch(() => {
                 throw new ConflictException('Error while pushing new token')
             });
         return {newToken}
@@ -73,6 +73,11 @@ export class AuthController {
     @Header('Content-Type', 'application/json')
     @Get('access')
     async getAccessToken(@Res({passthrough: true}) res: Response, @GetCurrentUserRefreshToken() refreshToken: string, @GetCurrentUserId() userId: number) {
+        const isUserExist = await this.userCheckService.checkUserById(userId)
+        Logger.log(`Trying to get new access token userId: ${userId} user exists: ${isUserExist}`)
+        if (!isUserExist) {
+            throw new NotFoundException("No user found")
+        }
         const acToken = await this.authTokenService.getNewAccessToken(userId, refreshToken);
         this.authTokenService.storeACToken(acToken, res)
         return acToken

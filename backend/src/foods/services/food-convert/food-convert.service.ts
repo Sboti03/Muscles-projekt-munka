@@ -23,6 +23,10 @@ export class FoodConvertService {
         }
     }
     convertUpdateDtoToInput(foodUpdateDto:FoodUpdateDto): Prisma.foodsUpdateInput {
+        let unit = undefined
+        if (foodUpdateDto.unit) {
+            unit = {connect: {unit: foodUpdateDto.unit}}
+        }
         return {
             name: foodUpdateDto.name,
             fat: foodUpdateDto.fat,
@@ -34,9 +38,10 @@ export class FoodConvertService {
             sugar: foodUpdateDto.sugar,
             monounsaturatedFat: foodUpdateDto.monounsaturatedFat,
             polyunsaturatedFat: foodUpdateDto.polyunsaturatedFat,
-            saturatedFat: foodUpdateDto.polyunsaturatedFat,
-            unit: {connect: {unit: foodUpdateDto.unit.valueOf()}}
+            saturatedFat: foodUpdateDto.saturatedFat,
+            unit
         }
+
     }
 
 }
