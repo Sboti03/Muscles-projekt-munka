@@ -1,15 +1,18 @@
 import 'react-day-picker/dist/style.css';
 import './DayPickerBar.css'
 import {DayPicker} from "react-day-picker";
-import {useContext, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import DayInfoContext from "../DayInfoContext";
-import {da, fi} from "date-fns/locale";
-import {normalizeDate} from "../DayInfoContextProvider";
 
 export default function DayPickerBar() {
 
     const {setCurrentDate, currentDate} = useContext(DayInfoContext)
     const [isDaySelectorEnabled, setIsDaySelectorEnabled] = useState(false)
+    function close() {
+        if (isDaySelectorEnabled) {
+            setIsDaySelectorEnabled(false)
+        }
+    }
 
     function setPrevDay() {
         setCurrentDate(subtractDays(new Date(currentDate), 1))
@@ -29,7 +32,7 @@ export default function DayPickerBar() {
     return (
         <>
             {isDaySelectorEnabled &&
-                <div className="day-picker-component">
+                <div onBlur={()=> setIsDaySelectorEnabled(false)} className="day-picker-component">
                     <DayPicker
                         mode="single"
                         selected={currentDate}

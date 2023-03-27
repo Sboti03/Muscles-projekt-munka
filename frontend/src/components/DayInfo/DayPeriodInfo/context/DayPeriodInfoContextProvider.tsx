@@ -1,10 +1,11 @@
 import {PropsWithChildren, useContext, useEffect, useState} from "react";
 import DayPeriodContext from "./DayPeriodContext";
-import dayPeriodInfoFetch, {DayPeriodName} from "./DayPeriodInfoFetch";
-import {DayPeriodResponse} from "../Data/DayPeriodResponse";
-import {Methods, singleFetch} from "../../utils/Fetch";
-import {MealHistoryResponse} from "../Data/MealHistoryResponse";
-import DayInfoContext from "../DayInfoContext";
+import dayPeriodInfoFetch, {DayPeriodName} from "../DayPeriodInfoFetch";
+import {DayPeriodResponse} from "../../Data/DayPeriodResponse";
+import {Methods, singleFetch} from "../../../utils/Fetch";
+import {MealHistoryResponse} from "../../Data/MealHistoryResponse";
+import DayInfoContext from "../../DayInfoContext";
+import DayInfoNavigatorContext from "../../Navigator/Context/DayInfoNavigatorContext";
 
 export default function DayPeriodInfoContextProvider(props: PropsWithChildren) {
 
@@ -14,13 +15,11 @@ export default function DayPeriodInfoContextProvider(props: PropsWithChildren) {
     const [other, setOther] = useState<DayPeriodResponse[]>()
     const [selectedPeriodInfo, setSelectedPeriodInfo] = useState<DayPeriodName | undefined>(undefined)
     const {currentDate} = useContext(DayInfoContext)
-
     async function setMealCompleted(completed: boolean, mealHistoryId: number) {
         const {error, response} = await singleFetch('api/meal-history/update', Methods.PATCH,
             {mealHistoryId: mealHistoryId, isCompleted: completed}
         )
         if (error) {
-            // TODO handle error
             console.log(mealHistoryId)
         } else {
             setDayPeriods()
@@ -63,6 +62,7 @@ export default function DayPeriodInfoContextProvider(props: PropsWithChildren) {
         <DayPeriodContext.Provider
             value={{
                 setBreakfast,
+                setDayPeriods,
                 breakfast,
                 deleteMealHistory,
                 setMealCompleted,

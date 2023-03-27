@@ -4,22 +4,26 @@ import React, {useContext, useMemo, useState} from "react";
 import styles from './FoodDetails.module.css'
 import {da} from "date-fns/locale";
 import BackButton from "../../Common/BackButton";
-import FoodContext from "../FoodContext";
+import FoodContext from "../context/FoodContext";
+import LoadingManager from "../../Loading/LoadingManager";
 
 interface Props {
     food: Food
     action: (amount: number) => void,
     btnText: string,
     cancel: () => void
+    initValue?: number
+    isLoading?: boolean
 }
 
 
 
 export function FoodDetails(props: Props) {
-    const {cancel, action, btnText, food} = props
+    const {cancel, action, btnText, food,initValue, isLoading} = props
 
-    const [value, setValue] = useState<number | undefined>(food.unit.defaultValue)
+    const [value, setValue] = useState<number | undefined>(initValue ? initValue : food.unit.defaultValue)
     const calculatedDetails: FoodDetails = useMemo(()=> calculateFoodDetails(food, value), [value])
+
 
     function handleValueChange(e: React.ChangeEvent<HTMLInputElement>) {
         if (e.target.value) {
@@ -34,8 +38,8 @@ export function FoodDetails(props: Props) {
     }
 
     return (
-        <>
-            <Button onClick={()=> props.cancel()}>Back</Button>
+        <div className={styles.container}>
+            <Button className={styles.cancelBtn} onClick={cancel}>Back</Button>
             <div>
                 <h1>{upperCaseFirstLetter(food.name)}</h1>
                 <div className={styles.containerBasic}>
@@ -105,14 +109,12 @@ export function FoodDetails(props: Props) {
                         </div>
                     </div>
                 </div>
-
-
-                <div>
-                    <Input type="number" value={value} onChange={handleValueChange} />
-                    <Button onClick={()=> action(value!)}>{btnText}</Button>
-                </div>
             </div>
-        </>
+            <LoadingManager isLoading={isLoading ? isLoading : false}>
+                <Input type="number" value={value} onChange={handleValueChange} />
+                <Button onClick={()=> action(value!)}>{btnText}</Button>
+            </LoadingManager>
+        </div>
     )
 }
 

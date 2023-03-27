@@ -12,7 +12,7 @@ import NavigatorContext, {Page} from "../../Navigator/NavigatorContext";
 
 export default function RegisterPage() {
 
-    const {register} = useContext(AuthContext)
+    const {register, setUser} = useContext(AuthContext)
     const {changePage} = useContext(NavigatorContext)
     const [alert, setAlert] = useState<string | undefined>(undefined)
     const [isLoading, setIsLoading] = useState(false)
@@ -62,6 +62,7 @@ export default function RegisterPage() {
     async function handleRegisterResponse(registerData: RegisterData) {
         const result = await register(registerData)
         if (result.response) {
+            setUser(result.response.user)
             changePage(Page.PROFILE_CREATE)
         } else {
             setIsLoading(false)

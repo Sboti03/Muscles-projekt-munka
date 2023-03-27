@@ -1,7 +1,6 @@
 import {createContext} from "react";
-import {DayContextValue} from "../DayInfoContext";
-import {DayPeriodInfoFetchResponse, DayPeriodName} from "./DayPeriodInfoFetch";
-import {DayPeriodResponse} from "../Data/DayPeriodResponse";
+import {DayPeriodName} from "../DayPeriodInfoFetch";
+import {DayPeriodResponse} from "../../Data/DayPeriodResponse";
 
 
 export interface DayPeriodContextValue {
@@ -17,6 +16,7 @@ export interface DayPeriodContextValue {
     setSelectedPeriodInfo: (selectedDayInfo: DayPeriodName | undefined) => void,
     deleteMealHistory: (mealHistoryId: number) => any,
     setMealCompleted: (completed: boolean, mealHistoryId: number) => any,
+    setDayPeriods: () => Promise<void>
 }
 
 

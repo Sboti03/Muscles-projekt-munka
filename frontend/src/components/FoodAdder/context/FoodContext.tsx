@@ -1,5 +1,5 @@
 import {createContext} from "react";
-import {Food} from "./FoodSearchPage";
+import {Food} from "../FoodSearchPage";
 
 
 interface FoodContextValue {
@@ -9,6 +9,8 @@ interface FoodContextValue {
     setPeriodName: (periodName: string) => void,
     currentFood: Food | undefined,
     setCurrentFood: (currentFood: Food | undefined) => void,
+    addFood: (amount: number, foodId?: number) => Promise<void>
+    loadingFoodAdd: boolean
 }
 
 const FoodContext = createContext<FoodContextValue>(null as any)

@@ -1,19 +1,5 @@
-export interface Food {
-    foodId: number;
-    name: string;
-    kcal: number;
-    unitId: number;
-    perUnit: number;
-    protein: number;
-    fat: number;
-    saturatedFat: number;
-    polyunsaturatedFat: number;
-    monounsaturatedFat: number;
-    carbohydrate: number;
-    sugar: number;
-    fiber: number;
-    changedAt: Date;
-}
+import {Food} from "../../FoodAdder/FoodSearchPage";
+
 
 export interface Meal {
     amount: number;

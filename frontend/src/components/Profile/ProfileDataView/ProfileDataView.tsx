@@ -1,5 +1,5 @@
 import useFetch, {Methods, singleFetch} from "../../utils/Fetch";
-import {Button, CircularProgress, Input} from "@mui/joy";
+import {Button, FormControl, FormLabel, Input} from "@mui/joy";
 import {ProfileResponse} from "../data/ProfileResponse";
 import React, {useContext, useEffect, useState} from "react";
 import {ProfileData} from "../data/ProfileData";
@@ -23,7 +23,12 @@ export default function ProfileDataView(props: Props) {
 
     useEffect(() => {
         if (response) {
-            setProfileData({...response, birthDay: new Date(response.birthDay!)})
+            if (response.birthDay) {
+                setProfileData({...response, birthDay: new Date(response.birthDay)})
+            } else {
+                setProfileData({...response, birthDay: new Date()})
+
+            }
             setIsLoading(false)
         }
     }, [response])
@@ -53,35 +58,55 @@ export default function ProfileDataView(props: Props) {
     }
 
     return (
-        <LoadingManager isLoading={isLoading}>
+        <LoadingManager isLoading={isLoading} fullCenter={true}>
             {props.backBtn &&
-                <Button type="button" onClick={()=> setPrevPage()}>{props.backBtn}</Button>
+                <div className={styles.btn}>
+                    <Button type="button" onClick={() => setPrevPage()}>{props.backBtn}</Button>
+                </div>
             }
-            <div className={styles.container}>
-                <form onSubmit={handleSubmit} >
+            <div>
+                <form onSubmit={handleSubmit} className={styles.form}>
                     <div>
-                        <Input type="text" name="firstName" value={profileData?.firstName}
-                               onChange={changeFirstName}
-                               placeholder="First name"/>
+                        <FormControl>
+                            <FormLabel>First name</FormLabel>
+                            <Input type="text" name="firstName" value={profileData?.firstName}
+                                   onChange={changeFirstName}
+                                   placeholder="First name"/>
+                        </FormControl>
                     </div>
                     <div>
-                        <Input type="text" name="lastName" value={profileData?.lastName}
-                               onChange={changeLastName}
-                               placeholder="Last name"/>
+                        <FormControl>
+                            <FormLabel>Last name</FormLabel>
+                            <Input type="text" name="lastName" value={profileData?.lastName}
+                                   onChange={changeLastName}
+                                   placeholder="Last name"/>
+                        </FormControl>
+                    </div>
+                    <div className={styles.miniInput}>
+                        <FormControl>
+                            <FormLabel>Height</FormLabel>
+                            <Input type="number" name="height" value={profileData?.height}
+                                  onChange={changeHeight}
+                                  placeholder="Height in cm"/>
+                        </FormControl>
                     </div>
                     <div>
-                        <Input type="number" name="height" value={profileData?.height}
-                               onChange={changeHeight}
-                               placeholder="Height in cm"/>
+                       <FormControl>
+                           <FormLabel>Date of birth</FormLabel>
+                           <DatePicker value={profileData?.birthDay}
+                                       onChange={(value: Date) => setProfileData({...profileData, birthDay: value})}/>
+                       </FormControl>
                     </div>
                     <div>
-                        <DatePicker value={profileData?.birthDay} onChange={(value: Date)=> setProfileData({...profileData, birthDay: value})}/>
-                    </div>
-                    <div>
-                        <Input contentEditable={false} value={response?.registrationDate} />
+                        <FormControl>
+                            <FormLabel>Registration date</FormLabel>
+                            <Input contentEditable={false} value={response?.registrationDate.split('T')[0]}/>
+                        </FormControl>
                     </div>
                     {props.saveBtn &&
-                        <Button type="submit">{props.saveBtn}</Button>
+                        <div className={styles.btn}>
+                            <Button type="submit">{props.saveBtn}</Button>
+                        </div>
                     }
                 </form>
             </div>

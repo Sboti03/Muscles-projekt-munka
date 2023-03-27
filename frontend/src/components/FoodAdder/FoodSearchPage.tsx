@@ -1,47 +1,108 @@
-import {useContext, useMemo, useState} from "react";
+import React, {ChangeEvent, useContext, useEffect, useMemo, useRef, useState} from "react";
 import useFetch, {Methods} from "../utils/Fetch";
 import {Button, Input} from "@mui/joy";
 import styles from './FoodSearchPage.module.css'
-import FoodContext from "./FoodContext";
-import {Simulate} from "react-dom/test-utils";
-import NavigatorContext, {Page} from "../Navigator/NavigatorContext";
+import FoodContext from "./context/FoodContext";
 import BackButton from "../Common/BackButton";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faFilter, faInfo, faSearch} from "@fortawesome/free-solid-svg-icons";
+import {BetweenValue, FoodFilter} from "./data/FoodFilter";
+import Filter, {TotalMax} from "./Filter";
+import LoadingManager from "../Loading/LoadingManager";
+import {capitalize} from "@mui/material";
+
 
 export default function FoodSearchPage() {
 
     const {response, isLoading, error} = useFetch<Food[]>('api/food', Methods.GET)
+    const totalMax = useMemo(() => calculateTotalMax(response), [response])
     const [search, setSearch] = useState('')
-    const {setCurrentFood} = useContext(FoodContext)
+    const [filter, setFilter] = useState<FoodFilter>()
+    const [filterOpened, setFilterOpened] = useState(false)
+    const {setCurrentFood, addFood, loadingFoodAdd} = useContext(FoodContext)
+    const [loadingIds, setLoadingIds] = useState<number[]>([])
+    useEffect(() => {
+        if (response && totalMax) {
+            setFilter(getInitFilterValues(totalMax))
+        }
+    }, [response, totalMax])
+
     const result = useMemo(() => {
-        return response?.filter(food => food.name.includes(search))
-    }, [search, response])
+        if (response && filter) {
+            const {fat, carbohydrate, sugar, fiber, protein, kcal} = filter
+            return response.filter(food =>
+                food.name.includes(search) &&
+                between(food.kcal, kcal) &&
+                between(food.fat, fat) &&
+                between(food.protein, protein) &&
+                between(food.fiber, fiber) &&
+                between(food.sugar, sugar) &&
+                between(food.carbohydrate, carbohydrate))
+        }
+        return []
+    }, [search, response, filter])
+    const [addAmount, setAddAmount] = useState(100)
 
     function showFood(food: Food) {
         setCurrentFood(food)
     }
 
+    function handleAddFood(foodId: number) {
+        if (addAmount > 0) {
+             setLoadingIds([...loadingIds, foodId])
+            addFood(addAmount, foodId).then(()=> {
+                setLoadingIds(prevState => prevState.filter(id=> id !== foodId))
+            })
+        }
+    }
+
     return (
-        <>
-            <BackButton />
-            <Input type="search" value={search} onChange={(e) => setSearch(e.target.value)}/>
+        <LoadingManager fullCenter={true} isLoading={isLoading}>
+            <BackButton/>
+            <div className={styles.foodSearchContainer}>
+                <div className={styles.search}>
+                    <div className={styles.foodAddValue}>
+                        <Input value={addAmount} onChange={event => setAddAmount(event.target.valueAsNumber)} placeholder="default" type="number" />
+                    </div>
+
+                    <Input placeholder="Search..." type="search" value={search}
+                           onChange={(e) => setSearch(e.target.value)} endDecorator={
+                        <FontAwesomeIcon icon={faSearch}/>
+                    }/>
+
+                    <div>
+                        <Button className={styles.filterBtn}
+                                onClick={() => setFilterOpened(!filterOpened)}
+                        >Filter <FontAwesomeIcon icon={faFilter}/></Button>
+                    </div>
+                </div>
+                {totalMax && filter &&
+                    <Filter totalMax={totalMax} filter={filter} setFilter={setFilter} opened={filterOpened}/>}
+
+            </div>
             <div className={styles.container}>
                 <div className={styles.foodResultBox}>
                     {result?.map(food => (
-                        <div className={styles.food} key={food.foodId} >
+                        <div className={styles.food} key={food.foodId}>
                             <div>
-                                {food.name}
+                                {capitalize(food.name)}
                             </div>
                             <div>
-                                {food.kcal}kcal
+                                {addAmount ? Math.round(food.kcal / food.perUnit * addAmount) : food.kcal}kcal
                             </div>
-                            <Button onClick={()=> showFood(food)}>
-                                Add
+                            <Button disabled={loadingIds.includes(food.foodId) ? loadingFoodAdd : false} onClick={() => handleAddFood(food.foodId)}>
+                                <LoadingManager size={'sm'} isLoading={loadingIds.includes(food.foodId) ? loadingFoodAdd : false}>
+                                    Add
+                                </LoadingManager>
                             </Button>
+
+                            <button className={styles.info} onClick={()=> showFood(food)}><FontAwesomeIcon icon={faInfo}/></button>
+
                         </div>
                     ))}
                 </div>
             </div>
-        </>
+        </LoadingManager>
     )
 }
 
@@ -69,4 +130,37 @@ export interface Food {
     fiber: number;
     changedAt: Date;
     unit: Unit;
+}
+
+
+function calculateTotalMax(response: Food[] | undefined): TotalMax | undefined {
+
+    if (response) {
+        return {
+            kcal: Math.ceil(Math.max.apply(Math, response.map((food) => food.kcal))),
+            fat: Math.ceil(Math.max.apply(Math, response.map((food) => food.fat))),
+            protein: Math.ceil(Math.max.apply(Math, response.map((food) => food.protein))),
+            carbohydrate: Math.ceil(Math.max.apply(Math, response.map((food) => food.carbohydrate))),
+            sugar: Math.ceil(Math.max.apply(Math, response.map((food) => food.sugar))),
+            fiber: Math.ceil(Math.max.apply(Math, response.map((food) => food.fiber)))
+        }
+    }
+
+}
+
+function getInitFilterValues(totalMax: TotalMax): FoodFilter {
+    return {
+        kcal: {min: 0, max: totalMax.kcal},
+        protein: {min: 0, max: totalMax.protein},
+        fat: {min: 0, max: totalMax.fat},
+        sugar: {min: 0, max: totalMax.sugar},
+        fiber: {min: 0, max: totalMax.fiber},
+        carbohydrate: {min: 0, max: totalMax.carbohydrate},
+
+    }
+}
+
+
+function between(num: number, value: BetweenValue): boolean {
+    return num >= value.min && num <= value.max
 }

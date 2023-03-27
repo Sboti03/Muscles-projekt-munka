@@ -6,6 +6,7 @@ import newAccessToken from "./Refresh/RefreshTokens";
 import {Methods, singleFetch} from "../utils/Fetch";
 import './Auth.css'
 import {RegisterData} from "./Register/RegisterData";
+import {LoginResponse} from "./Login/LoginFetch";
 
 
 const newAccessTokenTime = 1000 * 60 * 30
@@ -17,7 +18,7 @@ function AuthContextProvider(props: PropsWithChildren) {
 
     useEffect(()=> {
         const newTokenTimer = setInterval(async () => {
-            const result = getRefreshTokenFromServer()
+            const result = handleAccessToken()
             if (!result) {
                 login()
             }
@@ -28,37 +29,43 @@ function AuthContextProvider(props: PropsWithChildren) {
     }, [])
 
     useEffect(()=> {
-        const user = loadObject<User>('user')
-        if (user) {
-            setUser(user)
-            getRefreshTokenFromServer().then(result=> {
+        const isUserExist = loadUser()
+        if (isUserExist) {
+            handleAccessToken().then(result=> {
                 if (result) {
-                    if (user.role.roleName === 'user') {
-                        changePage(Page.HOME)
-                    } else if (user.role.roleName === 'coach') {
-                        changePage(Page.COACH_HOME)
-                    }
+                    changePage(Page.HOME)
                 } else {
-                    console.error('Fasz ki van')
                     changePage(Page.LOGIN)
                 }
-            }).catch(e=> {
             })
+        } else {
+            changePage(Page.LOGIN)
         }
-        changePage(Page.LOGIN)
     }, [])
 
 
-    async function getGoals() {
-        const {response, error} = await singleFetch('/api/goals', Methods.GET)
-        // TODO
+    function loadUser() {
+        const user = loadObject<User>('user')
+        if (user) {
+            setUser(user)
+            return true
+        }
+        return false
     }
 
 
-    async function getRefreshTokenFromServer() {
+
+    async function handleAccessToken() {
         const result = await newAccessToken()
-        console.log(result)
-        return result?.response
+        if (result) {
+            if (result.response) {
+                return true
+            } else {
+                console.error(result.error)
+                return false
+            }
+        }
+        return false
     }
 
     function logout() {
@@ -73,7 +80,7 @@ function AuthContextProvider(props: PropsWithChildren) {
     }
 
     async function register(registerData:RegisterData) {
-        const {response, error} = await singleFetch('api/auth/register', Methods.POST, registerData)
+        const {response, error} = await singleFetch<LoginResponse>('api/auth/register', Methods.POST, registerData)
         if (error) {
             return {error, response: undefined}
         }

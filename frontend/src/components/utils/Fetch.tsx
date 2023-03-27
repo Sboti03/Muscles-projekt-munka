@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import axios, {Axios} from "axios";
 import {AxiosResponse} from 'axios'
 
-function useFetch<T>(path: string, method: Methods, body?: Object) {
+function useFetch<T>(path: string, method: Methods, body?: Object, then?: Function) {
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState<any>(undefined)
     const [response, setResponse] = useState<T | undefined>(undefined)

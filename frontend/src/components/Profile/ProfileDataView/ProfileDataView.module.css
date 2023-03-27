@@ -7,3 +7,20 @@
 .containerBasic > form > div {
     margin: 10px;
 }
+
+.container {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.btn {
+    display: grid;
+}
+.form > div {
+    margin: 10px;
+    text-align: center;
+}
+
+.miniInput {
+    width: 150px;
+}

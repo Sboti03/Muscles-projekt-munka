@@ -14,19 +14,21 @@ import {
     shouldSkipGeneratingVar as joyShouldSkipGeneratingVar,
 } from '@mui/joy/styles';
 
-import FoodContextProvider from "./components/FoodAdder/FoodContextProvider";
+import FoodContextProvider from "./components/FoodAdder/context/FoodContextProvider";
+import {getTheme} from "./static/JoyUi/JoyUiCSS";
 
 function App() {
     return (
-        <CssVarsProvider theme={extendMuiTheme(joyTheme)}>
-            <NavigatorContextProvider>
-                <AuthContextProvider>
-                    <FoodContextProvider>
-                        <NavBar/>
-                        <Pages/>
-                    </FoodContextProvider>
-                </AuthContextProvider>
-            </NavigatorContextProvider>
+        <CssVarsProvider theme={getTheme()}>
+            <div className="background">
+                <NavigatorContextProvider>
+                    <AuthContextProvider>
+                        <FoodContextProvider>
+                            <Pages/>
+                        </FoodContextProvider>
+                    </AuthContextProvider>
+                </NavigatorContextProvider>
+            </div>
         </CssVarsProvider>
 
     )
@@ -35,46 +37,6 @@ function App() {
 
 export default App
 
-
-const {unstable_sxConfig: muiSxConfig, ...muiTheme} = extendMuiTheme();
-
-const {unstable_sxConfig: joySxConfig, ...joyTheme} = extendJoyTheme({
-    cssVarPrefix: 'mui',
-    components: {
-        JoyFormLabel: {
-            styleOverrides: {
-                root: props => ({
-                    fontSize: '16px'
-                })
-            }
-        },
-        JoyButton: {
-            styleOverrides: {
-                root: ({ownerState}) => ({
-                    backgroundColor: '#6F00B3',
-                    '&:hover': {
-                        backgroundColor: '#58008a'
-                    },
-                    ...ownerState.color === 'danger' && {
-                        backgroundColor: '#8c0606',
-                        '&:hover': {
-                            backgroundColor: '#790808'
-                        },
-                    }
-                }),
-            }
-        },
-        JoyLinearProgress: {
-            styleOverrides: {
-                root: ({ownerState}) => ({
-                    width: 'initial',
-                    color: "white",
-                    backgroundColor: 'rgba(255, 255, 255, 0.54)',
-                })
-            }
-        }
-    }
-})
 
 
 

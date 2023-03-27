@@ -5,12 +5,19 @@
 
 .formContainer {
     max-width: 200px;
+    margin: 0 auto;
 }
 
 .formContainer > form > div {
     margin: 10px;
 }
 
-.formContainer > form > div > div  {
-    max-width: 100px !important;
+
+.container {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.btn {
+    display: grid;
 }

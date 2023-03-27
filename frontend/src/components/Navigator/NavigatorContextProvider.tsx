@@ -18,9 +18,7 @@ export default function NavigatorContextProvider(props:PropsWithChildren) {
     function setPrevPage() {
         setPageHistory(prevState => {
             let newPages = prevState
-            console.log(newPages)
             newPages.pop()
-            console.log(newPages)
             setPage(newPages[newPages.length -1])
             return newPages
         })

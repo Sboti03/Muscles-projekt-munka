@@ -1,6 +1,7 @@
 import React from "react";
 import {User} from "../Types/User";
 import {RegisterData} from "./Register/RegisterData";
+import {LoginResponse} from "./Login/LoginFetch";
 
 
 interface AuthContextValue {
@@ -8,7 +9,7 @@ interface AuthContextValue {
     setUser: (user: User | undefined) => void,
     login: () => void,
     logout: () => void,
-    register: (registerData: RegisterData) =>  Promise<{error: any, response: undefined} | {response: unknown, error: undefined}>
+    register: (registerData: RegisterData) =>  Promise<{error: any, response: undefined} | {response: LoginResponse | undefined, error: undefined}>
 }
 
 

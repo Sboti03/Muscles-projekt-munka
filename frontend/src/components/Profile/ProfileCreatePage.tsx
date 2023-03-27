@@ -2,6 +2,7 @@ import {useContext, useState} from "react";
 import ProfileDataView from "./ProfileDataView/ProfileDataView";
 import GoalsDataView from "./GoalsDataView/GoalsDataView";
 import NavigatorContext, {Page} from "../Navigator/NavigatorContext";
+import {signal} from "@preact/signals-react";
 
 
 export default function ProfileCreatePage() {
@@ -10,15 +11,15 @@ export default function ProfileCreatePage() {
     const goals = <GoalsDataView saveBtnAction={next} saveBtn={"Next"} backBtn={undefined} />
     const {changePage} = useContext(NavigatorContext)
     const [render, setRender] = useState(profile)
-    const [lastRender, setLastRender] = useState(false)
+    const renderState = signal(0)
+    const renderList = [profile, goals]
 
     function next() {
-        if (!lastRender) {
-            setLastRender(true)
-            setRender(goals)
-        } else {
-            console.log('asdasd')
+        renderState.value++
+        if (renderState.value === renderList.length) {
             changePage(Page.HOME)
+        } else {
+            setRender(renderList[renderState.value])
         }
     }
 

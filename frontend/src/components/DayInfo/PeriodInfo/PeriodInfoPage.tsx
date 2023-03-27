@@ -1,15 +1,15 @@
 import {DayPeriodName} from "../DayPeriodInfo/DayPeriodInfoFetch";
 import {useContext, useMemo} from "react";
-import DayPeriodContext from "../DayPeriodInfo/DayPeriodContext";
+import DayPeriodContext from "../DayPeriodInfo/context/DayPeriodContext";
 import Food from "./Food";
 import './PeriodInfoPage.css'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCirclePlus} from "@fortawesome/free-solid-svg-icons";
 import NavigatorContext, {Page} from "../../Navigator/NavigatorContext";
-import FoodContext from "../../FoodAdder/FoodContext";
+import FoodContext from "../../FoodAdder/context/FoodContext";
 import DayInfoContext from "../DayInfoContext";
-import BackButton from "../../Common/BackButton";
 import {Button} from "@mui/joy";
+import DayInfoNavigatorContext, {DayInfoPages} from "../Navigator/Context/DayInfoNavigatorContext";
 
 export default function PeriodInfoPage(props: { dayPeriodName: DayPeriodName }) {
 
@@ -17,6 +17,7 @@ export default function PeriodInfoPage(props: { dayPeriodName: DayPeriodName }) 
     const {currentDate} = useContext(DayInfoContext)
     const {changePage} = useContext(NavigatorContext)
     const {setCurrentDate, setPeriodName} = useContext(FoodContext)
+    const {changeDayInfoPage} = useContext(DayInfoNavigatorContext)
     const periodData = useMemo(() => {
         switch (props.dayPeriodName) {
             case DayPeriodName.BREAKFAST:
@@ -37,9 +38,18 @@ export default function PeriodInfoPage(props: { dayPeriodName: DayPeriodName }) 
         changePage(Page.FOOD_SEARCH)
     }
 
+    function loadPeriodInfo() {
+
+    }
+
+    function back() {
+        setSelectedPeriodInfo(undefined)
+        changeDayInfoPage(DayInfoPages.MINIMAL_DATA)
+    }
+
     return (
         <>
-            <Button onClick={()=> setSelectedPeriodInfo(undefined)}>Back</Button>
+            <Button onClick={back}>Back</Button>
             <div className="food-container">
                 {periodData?.map((data, i) => <Food data={data} key={i}/>)}
             </div>

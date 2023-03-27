@@ -4,13 +4,13 @@ import {Methods, singleFetch} from "../utils/Fetch";
 import {MealHistoryResponse} from "./Data/MealHistoryResponse";
 import {DayInfoData} from "./Data/DayInfoData";
 import {DayPeriodResponse} from "./Data/DayPeriodResponse";
-import {da} from "date-fns/locale";
-import {extendTheme} from "@mui/joy";
+import {calculateDayInfoData} from "./CalculateDayInfoData";
 
 export default function DayInfoContextProvider(props: PropsWithChildren) {
     const [dayInfo, setDayInfo] = useState<DayInfoData | undefined>()
     const [currentDate, setCurrentDate] = useState(new Date())
     const [dayPeriodInfo, setDayPeriodInfo] = useState<DayPeriodResponse>()
+
     useEffect(() => {
         fetchDay(currentDate)
     }, [currentDate])
@@ -35,68 +35,9 @@ export default function DayInfoContextProvider(props: PropsWithChildren) {
 }
 
 
-function calculateDayInfoData(mealHistoryResponse: MealHistoryResponse): DayInfoData {
-    const PROTEIN_PER_KCAL = 4;
-    const FAT_PER_KCAL = 9;
-    const CARBOHYDRATE_PER_KCAL = 4;
-
-    const {goal} = mealHistoryResponse
-
-    let eatenFat = 0;
-    let eatenCarbohydrate = 0;
-    let eaten = 0;
-    let totalCalorie = goal.targetCalories ? goal.targetCalories : 0;
-    let eatenProtein = 0;
-
-    mealHistoryResponse.dayHistory.forEach(day => {
-        const perEach = (day.meal.amount) / day.meal.food.perUnit
-        const {food} = day.meal
-        eatenFat += food.fat * perEach;
-        eatenCarbohydrate += food.carbohydrate * perEach;
-        eatenProtein += food.protein * perEach;
-        eaten += perEach * food.kcal
-    })
-
-    eatenFat = Math.round(eatenFat)
-    eatenCarbohydrate = Math.round(eatenCarbohydrate)
-    eaten = Math.round(eaten)
-    totalCalorie = Math.round(totalCalorie)
-    eatenProtein = Math.round(eatenProtein)
-
-    const totalProtein = Math.round(totalCalorie * (goal.proteinPerDay / 100) / PROTEIN_PER_KCAL);
-    const totalCarbohydrate = Math.round(totalCalorie * (goal.carbohydratesPerDay / 100) / CARBOHYDRATE_PER_KCAL);
-    const totalFat = Math.round(totalCalorie * (goal.fatPerDay / 100) / FAT_PER_KCAL);
-    const targetCalorie = Math.round(goal.targetCalories ? goal.targetCalories : 2000)
-
-    const totalBreakfast = Math.round((targetCalorie * goal.breakfastPerDay) / 100)
-    const totalDinner = Math.round((targetCalorie * goal.dinnerPerDay) / 100)
-    const totalLunch = Math.round((targetCalorie * goal.lunchPerDay) / 100)
-    const totalOther = Math.round(totalCalorie - (totalBreakfast + totalDinner + totalLunch))
-
-    return {
-        weight: mealHistoryResponse.weight.weight,
-        eatenFat,
-        eatenCarbohydrate,
-        eaten,
-        left: totalCalorie - eaten,
-        eatenProtein,
-        totalProtein,
-        totalCarbohydrate,
-        totalFat,
-        progressCarbohydrate: clamp(Math.round(eatenCarbohydrate / totalCarbohydrate * 100)),
-        progressProtein: clamp(Math.round(eatenCarbohydrate / totalCarbohydrate * 100)),
-        progressFat: clamp(Math.round(eatenCarbohydrate / totalCarbohydrate * 100)),
-        totalBreakfast,
-        totalDinner,
-        totalLunch,
-        totalOther,
-    }
-}
-
 export function normalizeDate(date?: Date) {
     if (date) {
         return date.toISOString().split('T')[0]
     }
 }
 
-const clamp = (num: number) => Math.min(Math.max(num, 0), 100);

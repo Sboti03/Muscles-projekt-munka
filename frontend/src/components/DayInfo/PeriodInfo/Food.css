@@ -1,19 +1,22 @@
 .food {
     display: grid;
-    grid-template-columns: 4fr 1fr 1fr;
+    grid-template-columns: 5fr 1fr 0.5fr;
     text-align: center;
     height: 40px;
     align-items: center;
     border-radius: 20pt;
     transition: background-color 100ms ease-in-out;
-    border: none;
     background: none;
     font-size: 16px;
     width: 100%;
 }
+
+
+
 .food-btn {
-    width: 100%;
+    margin: 0 10px 0 10px;
     border: none;
+    font-size: 16px;
     background: none;
     display: grid;
     height: 40px;

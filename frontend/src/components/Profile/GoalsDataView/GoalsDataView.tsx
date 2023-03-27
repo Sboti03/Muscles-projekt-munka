@@ -33,12 +33,12 @@ export default function GoalsDataView(props: Props) {
             //TODO handle error
             console.log(error)
             console.log(goalsData)
-        } else {
-            if (props.saveBtnAction) {
-                props.saveBtnAction()
-            }
         }
         setIsLoading(false)
+        if (props.saveBtnAction) {
+            props.saveBtnAction()
+        }
+
     }
 
 
@@ -46,36 +46,51 @@ export default function GoalsDataView(props: Props) {
         <LoadingManager isLoading={isLoading}>
             <div className={styles.formContainer}>
                 {
-                    backBtn && <Button onClick={setPrevPage}>{backBtn}</Button>
+                    backBtn && <div className={styles.btn}>
+                        <Button onClick={setPrevPage}>{backBtn}</Button>
+                    </div>
                 }
-                <form onSubmit={handleSubmit}>
-                    <FormControl>
-                        <FormLabel>Target weight (kg)</FormLabel>
-                        <Input type="number" value={goalsData?.targetWeight} placeholder="Target weight"
-                               onChange={changeTargetWeight}/>
-                    </FormControl>
-                    <FormControl>
-                        <FormLabel>Target calories</FormLabel>
-                        <Input type="number" value={goalsData?.targetCalories} placeholder="Target calories"
-                               onChange={changeTargetCalories}/>
-                    </FormControl>
-                    <FormControl>
-                        <FormLabel>Carbohydrates Per Day</FormLabel>
-                        <Input type="number" value={goalsData?.carbohydratesPerDay} placeholder="Carbohydrates Per Day"
-                               onChange={changeCarboPerDay}/>
-                    </FormControl>
-                    <FormControl>
-                        <FormLabel>Fat Per Day</FormLabel>
-                        <Input type="number" value={goalsData?.fatPerDay} placeholder="Fat Per Day"
-                               onChange={changeFatPerDay}/>
-                    </FormControl>
-                    <FormControl>
-                        <FormLabel>Protein Per Day</FormLabel>
-                        <Input type="number" value={goalsData?.proteinPerDay} placeholder="Protein Per Day"
-                               onChange={changeProteinPerDay}/>
-                    </FormControl>
+                <form onSubmit={handleSubmit} className={styles.form}>
+                    <div>
+                        <FormControl>
+                            <FormLabel>Target weight (kg)</FormLabel>
+                            <Input type="number" value={goalsData?.targetWeight} placeholder="Target weight"
+                                   onChange={changeTargetWeight}/>
+                        </FormControl>
+                    </div>
+                    <div>
+                        <FormControl>
+                            <FormLabel>Target calories</FormLabel>
+                            <Input type="number" value={goalsData?.targetCalories} placeholder="Target calories"
+                                   onChange={changeTargetCalories}/>
+                        </FormControl>
+                    </div>
+                    <div>
+                        <FormControl>
+                            <FormLabel>Carbohydrates Per Day</FormLabel>
+                            <Input type="number" value={goalsData?.carbohydratesPerDay} placeholder="Carbohydrates Per Day"
+                                   onChange={changeCarboPerDay}/>
+                        </FormControl>
+                    </div>
+                    <div>
+                        <FormControl>
+                            <FormLabel>Fat Per Day</FormLabel>
+                            <Input type="number" value={goalsData?.fatPerDay} placeholder="Fat Per Day"
+                                   onChange={changeFatPerDay}/>
+                        </FormControl>
+                    </div>
+                    <div>
+                        <FormControl>
+                            <FormLabel>Protein Per Day</FormLabel>
+                            <Input type="number" value={goalsData?.proteinPerDay} placeholder="Protein Per Day"
+                                   onChange={changeProteinPerDay}/>
+                        </FormControl>
+                    </div>
                     {
-                        saveBtn && <Button type="submit">{saveBtn}</Button>
+                        saveBtn &&
+                        <div className={styles.btn}>
+                            <Button type="submit">{saveBtn}</Button>
+                        </div>
                     }
                 </form>
             </div>

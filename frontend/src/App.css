@@ -16,6 +16,10 @@
   align-items: center;
 }
 
+.full-height {
+  height: 100vh;
+}
+
 .align-right {
   text-align: right;
 }
@@ -27,3 +31,4 @@
 .align-center {
   text-align: center;
 }
+

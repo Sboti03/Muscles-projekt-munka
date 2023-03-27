@@ -10,6 +10,9 @@ import ProfileDataEditSelector from "../Profile/ProfileDataEditSelector";
 import GoalsDataView from "../Profile/GoalsDataView/GoalsDataView";
 import FoodAdderPage from "../FoodAdder/FoodAdderPage";
 import {CoachHomePage} from "../Coach home/CoachHomePage";
+import LoadingManager from "../Loading/LoadingManager";
+import ResultsPage from "../Results/ResultsPage";
+import ProfileViewPage from "../Profile/ProfileDataViewPage/ProfileViewPage";
 
 export default function Pages() {
 
@@ -31,12 +34,18 @@ export default function Pages() {
         case Page.PROFILE_VIEW:
             return <ProfileDataEditSelector />
         case Page.PROFILE_DATA:
-            return <ProfileDataView backBtn={"Back"} saveBtn={"Save"} saveBtnAction={undefined} />
+            return <ProfileViewPage />
         case Page.GOALS:
             return <GoalsDataView backBtn={"Back"} saveBtn={"Save"} saveBtnAction={undefined}/>
         case Page.COACH_HOME:
             return <CoachHomePage />
+        case Page.RESULTS:
+            return <ResultsPage />
         default:
-            return <div>UN</div>
+            return (
+                <div className="full-height full-center">
+                    <LoadingManager isLoading={true} />
+                </div>
+            )
     }
 }
