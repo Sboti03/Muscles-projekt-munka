@@ -71,10 +71,15 @@ export class DayHistoryGetService {
             select: {
                 meal: {
                     select: {
+                        mealId: true,
                         amount: true,
                         addedBy: true,
                         completed: true,
-                        food: true,
+                        food: {
+                            include: {
+                                unit: true
+                            }
+                        }
                     },
                 },
                 mealHistoryId: true

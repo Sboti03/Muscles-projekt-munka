@@ -27,4 +27,14 @@ export class FoodGetService {
             }
         })
     }
+
+    foodSearch(take: number, skip: number) {
+        return this.prismaService.foods.findMany({
+            take,
+            skip,
+            include: {
+                unit: true
+            }
+        })
+    }
 }
