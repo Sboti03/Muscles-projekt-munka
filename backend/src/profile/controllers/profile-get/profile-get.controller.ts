@@ -1,5 +1,5 @@
 import {Controller, Get, Logger, NotFoundException, Param, UseGuards} from '@nestjs/common';
-import {GetCurrentUser, GetCurrentUserProfileId} from "../../../auth/decorators/decorators";
+import { GetCurrentUser, GetCurrentUserId, GetCurrentUserProfileId } from "../../../auth/decorators/decorators";
 import {AccessTokenGuard} from "../../../auth/guards/access-token.guard";
 import {RolesGuard} from "../../../auth/guards/role.guard";
 import {Roles} from "../../../Common/Role/decorators/ roles.decorator";
@@ -42,14 +42,15 @@ export class ProfileGetController {
     }
 
     @Get('search/name/:name')
-    async getProfileByName(@Param('name') name: string, @GetCurrentUser('role') role: string) {
-        Logger.log(`Searching for ${name} [${role}]`)
+    async getProfileByName(@Param('name') name: string, @GetCurrentUser('role') role: string,
+                           @GetCurrentUserProfileId() profileId: number) {
+        Logger.log(`Searching for ${name} profileId: ${profileId} [${role}]`)
         if (role === RoleEnum.USER) {
-            return this.profileGetService.getCoachProfiles(name)
+            return this.profileGetService.getProfiles(name, RoleEnum.COACH, profileId)
         } else if (role === RoleEnum.COACH) {
-            return this.profileGetService.getUserProfiles(name)
+            return this.profileGetService.getProfiles(name, RoleEnum.USER, profileId)
         } else {
-            return this.profileGetService.getProfileByName(name)
+            return this.profileGetService.getAllProfilesByName(name)
         }
     }
 
