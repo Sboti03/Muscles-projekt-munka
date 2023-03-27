@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
+import { BadRequestException, ForbiddenException, Injectable, Logger, NotFoundException } from "@nestjs/common";
 import { PrismaService } from "../../../Common/utils/prirsma.service";
 import { PeriodNamesEnum } from "../../../Common/utils/PeriodNames";
 import { DayHistoryCheckService } from "../../../day-history/services/day-history-check/day-history-check.service";
@@ -7,12 +7,12 @@ import { GoalsGetService } from "../../../goals/services/goals-get/goals-get.ser
 import {
     WeightHistoryGetService
 } from "../../../weight-history/services/weight-history-get/weight-history-get.service";
-import { RoleEnum } from "../../../Common/Role/utils/roles";
 import {
     ConnectionCheckService
 } from "../../../Connections/connection/services/connection-check/connection-check.service";
 import { ProfileGetService } from "../../../profile/services/profile-get/profile-get.service";
 import MealHistoryGetDto from "../../../day-history/dto/meal-history-get.dto";
+import { ConnectionGetService } from "../../../Connections/connection/services/connection-get/connection-get.service";
 
 @Injectable()
 export class MealHistoryGetService {
@@ -22,7 +22,8 @@ export class MealHistoryGetService {
                 private goalsGetService: GoalsGetService,
                 private weightHistoryGetService: WeightHistoryGetService,
                 private connectionCheckService: ConnectionCheckService,
-                private profileGetService: ProfileGetService) {
+                private profileGetService: ProfileGetService,
+                private connectionGetService: ConnectionGetService) {
     }
 
     getMealHistoryMealId(dayId: number, periodName: string, foodId: number) {
@@ -112,8 +113,9 @@ export class MealHistoryGetService {
                                 protein: true,
                                 sugar: true,
                                 carbohydrate: true,
-                                kcal: true
-                            }
+                                kcal: true,
+                                unit: true
+                            },
                         }
                     }
                 }
@@ -153,21 +155,10 @@ export class MealHistoryGetService {
         });
     }
 
-    async getDayHistoryData(currentUserId: number, date: Date, id: number, currentProfileId: number, role: RoleEnum) {
+    async getMealHistoryData(requesterId: number, date: Date, userId: number | undefined, currentProfileId: number) {
         let profileId = currentProfileId;
-        if (id) {
-            if (id === currentProfileId) {
-                throw new BadRequestException("Own id");
-            }
-            const userId = role === RoleEnum.USER ? currentUserId : id;
-            const coachId = role === RoleEnum.COACH ? currentUserId : id;
-            if (userId === currentUserId) {
-                throw new BadRequestException("Access denied");
-            }
-            const isConnectionExist = await this.connectionCheckService.checkExistingConnection(userId, coachId);
-            if (!isConnectionExist) {
-                throw new NotFoundException("No connection found");
-            }
+        if (userId) {
+            await this.validateRequest(userId, requesterId);
             profileId = (await this.profileGetService.getProfileIdByUserId(userId)).profileId;
         }
 
@@ -191,26 +182,90 @@ export class MealHistoryGetService {
         };
     }
 
-    async getMealHistory(dayHistoryGetDto: MealHistoryGetDto, currentProfileId: number) {
-        if (dayHistoryGetDto.userId && dayHistoryGetDto.userId === currentProfileId) {
-            throw new BadRequestException("Own id")
-        }
-
+    async getMealHistory(dayHistoryGetDto: MealHistoryGetDto, currentProfileId: number, currentUserId: number) {
+        let profileId = currentProfileId;
         if (dayHistoryGetDto.userId) {
-            const isConnectionExist = await this.connectionCheckService.checkExistingAccessAllConnection(dayHistoryGetDto.userId)
-            if (!isConnectionExist) {
-                throw new NotFoundException("No connection found")
-            }
-            // const connection = this.connectionGetService.getAccessAllConnection(dayHistoryGetDto.userId)
-
+            await this.validateRequest(dayHistoryGetDto.userId, currentUserId);
+            profileId = (await this.profileGetService.getProfileIdByUserId(dayHistoryGetDto.userId)).profileId;
         }
-
         const { date, periodName } = dayHistoryGetDto;
-        const isDayHistoryExist = await this.dayHistoryCheckService.checkExistingDayHistory(currentProfileId, date);
+        const isDayHistoryExist = await this.dayHistoryCheckService.checkExistingDayHistory(profileId, date);
         if (!isDayHistoryExist) {
             return [];
         }
-        const { dayId } = await this.dayHistoryGetService.getDayIdByDate(date, currentProfileId);
+        const { dayId } = await this.dayHistoryGetService.getDayIdByDate(date, profileId);
         return this.dayHistoryGetService.getAllMealHistoryByIds(dayId, periodName);
+    }
+
+    private async validateRequest(userId: number, requesterId: number) {
+        if (userId === requesterId) {
+            throw new BadRequestException("Own id");
+        }
+        const isConnectionExist = await this.connectionCheckService.checkAccessCoachToUser(userId, requesterId);
+        if (!isConnectionExist) {
+            throw new NotFoundException("No connection found");
+        }
+        const connection = await this.connectionGetService.getConnectionByIds(userId, requesterId);
+        if (connection.userId !== userId) {
+            throw new ForbiddenException("Access denied");
+        }
+        return true;
+    }
+
+    async getMealHistoryBetween(requesterUserId: number, requesterProfileId: number, from: Date, to: Date, userId: number | undefined) {
+        let profileId: number = requesterProfileId;
+        if (userId) {
+            await this.validateRequest(userId, requesterUserId);
+            profileId = (await this.profileGetService.getProfileIdByUserId(userId)).profileId;
+        }
+        return this.prismaService.dayHistory.findMany({
+            where: {
+                profileId,
+                date: {
+                    lte: to,
+                    gte: from
+                }
+            },
+            select: {
+                date: true,
+                weightHistory: {
+                    select: {
+                        weight: true
+                    }
+                },
+                mealHistory: {
+                    select: {
+                        periodName: true,
+                        meal: {
+                            select: {
+                                addedBy: true,
+                                completed: true,
+                                amount: true,
+                                food: {
+                                    select: {
+                                        unit: {
+                                            select: {
+                                                unit: true,
+                                                defaultValue: true
+                                            }
+                                        },
+                                        kcal: true,
+                                        fat: true,
+                                        fiber: true,
+                                        sugar: true,
+                                        foodId: true,
+                                        protein: true,
+                                        carbohydrate: true,
+                                        name: true,
+                                        perUnit: true,
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+            }
+        });
+
     }
 }

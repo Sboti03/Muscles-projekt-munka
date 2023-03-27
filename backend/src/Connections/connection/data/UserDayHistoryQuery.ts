@@ -17,4 +17,6 @@ export class UserDayHistoryQuery {
     @IsNotEmpty()
     date: Date;
 
+
+
 }

@@ -4,10 +4,6 @@ import {Type} from "class-transformer";
 import {ApiProperty} from "@nestjs/swagger";
 
 export class UpdateMealHistoryDto {
-   @IsNumber()
-   @ApiProperty()
-   @Type(()=> Number)
-   mealHistoryId: number;
 
 
    @IsNullable()

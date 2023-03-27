@@ -1,13 +1,13 @@
 import {
     Body,
-    Controller,
+    Controller, Logger,
     NotAcceptableException,
     NotFoundException,
     Param,
     Patch,
     Post,
     UseGuards
-} from '@nestjs/common';
+} from "@nestjs/common";
 import {UpdateMealHistoryDto} from "../../dto/updateMealHistory.dto";
 import {GetCurrentUserProfileId} from "../../../auth/decorators/decorators";
 import {MealHistoryConvertService} from "../../services/meal-history-convert/meal-history-convert.service";
@@ -17,6 +17,7 @@ import {MealUpdateService} from "../../../meal/services/meal-update/meal-update.
 import {MealHistoryCheckService} from "../../services/meal-history-check/meal-history-check.service";
 import {AccessTokenGuard} from "../../../auth/guards/access-token.guard";
 import {ProfileGuard} from "../../../auth/guards/profile.guard";
+import { IdParam } from "../../../Common/params/id.param";
 
 @UseGuards(AccessTokenGuard, ProfileGuard)
 @Controller('meal-history')
@@ -30,24 +31,28 @@ export class MealHistoryUpdateController {
     }
 
 
-    @Patch('/update')
-    async updateMealHistory(@Body() updateMealHistoryDTO: UpdateMealHistoryDto, @GetCurrentUserProfileId() currentProfileId: number){
+    @Patch('/update/:id')
+    async updateMealHistory(@Param() idParam: IdParam, @Body() updateMealHistoryDTO: UpdateMealHistoryDto, @GetCurrentUserProfileId() currentProfileId: number){
+        const {id: mealHistoryId} = idParam
+        Logger.log(`/meal-history/update/${mealHistoryId} (PATCH) Updating meal-history dto: 
+        amount: ${updateMealHistoryDTO.amount}
+        completed: ${updateMealHistoryDTO.isCompleted}
+        `)
 
-        const isMealHistoryExisting = await this.mealHistoryCheckService.checkExistingMealHistoryById(updateMealHistoryDTO.mealHistoryId)
+        const isMealHistoryExisting = await this.mealHistoryCheckService.checkExistingMealHistoryById(mealHistoryId)
         if (!isMealHistoryExisting) {
             throw new NotFoundException('No Meal history found');
         }
 
-        const {day: {profileId}} = await this.mealHistoryGetService.getProfileIdByMealHistoryId(updateMealHistoryDTO.mealHistoryId)
+        const {day: {profileId}} = await this.mealHistoryGetService.getProfileIdByMealHistoryId(mealHistoryId)
         if (currentProfileId !== profileId) {
             throw new NotAcceptableException('Different user')
         }
 
-        const {mealId} = await this.mealHistoryGetService.getMealIdByMealHistoryId(updateMealHistoryDTO.mealHistoryId)
+        const {mealId} = await this.mealHistoryGetService.getMealIdByMealHistoryId(mealHistoryId)
         const mealsUpdateInput = await this.mealHistoryConvertService.convertMealHistoryUpdateDtoToMealUpdateInput(updateMealHistoryDTO)
 
         return this.mealUpdateService.updateMealByMealId(mealsUpdateInput, mealId)
     }
 
 }
-0
