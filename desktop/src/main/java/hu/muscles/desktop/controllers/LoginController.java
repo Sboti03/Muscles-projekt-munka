@@ -9,11 +9,13 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -27,8 +29,10 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class LoginController {
+public class LoginController  implements Initializable {
 
     @FXML
     private TextField emailTextField;
@@ -99,5 +103,20 @@ public class LoginController {
 
     private boolean userIsAdmin(LoginResponse loginResponse) {
         return loginResponse.getUser().getRole().getRoleName().equals("admin");
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        emailTextField.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                LoginButtonClick(new ActionEvent());
+            }
+        });
+
+        passwordTextField.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                LoginButtonClick(new ActionEvent());
+            }
+        });
     }
 }
