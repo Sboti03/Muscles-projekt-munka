@@ -61,7 +61,7 @@
                   </HBox>
                   <HBox alignment="CENTER_RIGHT" spacing="35.0" VBox.vgrow="NEVER">
                      <children>
-                        <Button fx:id="createBtn" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#createClick" prefHeight="35.0" prefWidth="170.0" text="Create" />
+                        <Button fx:id="loadCreateBtn" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#loadCreateClick" prefHeight="35.0" prefWidth="170.0" text="Create" />
                         <Button fx:id="deleteBtn" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#deleteClick" prefHeight="35.0" prefWidth="170.0" text="Delete" />
                      </children>
                      <padding>

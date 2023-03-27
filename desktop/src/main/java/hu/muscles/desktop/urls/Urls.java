@@ -13,10 +13,20 @@ public class Urls {
     public final String GET_ALL_FOOD() {
         return "http://34.22.242.178:3000/api/food";
     }
+
     public final String GET_ALL_PROFILE() {
         return "http://34.22.242.178:3000/api/profile/admin/all";
     }
+
     public final String GET_PROFILE_BY_ID() {
         return "http://34.22.242.178:3000/api/profile/admin/id/:id";
     }
+
+    public final String UPDATE_FOOD(int id) {
+        return String.format("http://34.22.242.178:3000/api/food/%d", id);
+    }
+    public final String DELETE_FOOD(int id) {
+        return String.format("http://34.22.242.178:3000/api/food/%d", id);
+    }
+
 }

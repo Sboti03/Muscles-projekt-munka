@@ -4,10 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="00e91fc0-96b8-4172-906f-ab5075727363" name="Changes" comment="Creating editable cell factory">
+    <list default="true" id="00e91fc0-96b8-4172-906f-ab5075727363" name="Changes" comment="adding update and cancel update buttons">
+      <change afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/CreateFoodController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/foodsData/FoodsUpdate.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/foodsData/UnitsEnum.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/create-food-view.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/LoginController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/MainViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/MainViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/editListViewCell/EditListViewCell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/editListViewCell/EditListViewCell.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/listViewShowAndHideFunctions/ListViewShowAndHideFunctions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/listViewShowAndHideFunctions/ListViewShowAndHideFunctions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/urls/Urls.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/urls/Urls.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/main-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/main-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -18,6 +25,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Enum" />
         <option value="FxmlFile" />
         <option value="Class" />
       </list>
@@ -226,7 +234,14 @@
       <option name="project" value="LOCAL" />
       <updated>1679570312596</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="adding update and cancel update buttons">
+      <created>1679573590679</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1679573590679</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -264,7 +279,8 @@
     <MESSAGE value="refactoring code" />
     <MESSAGE value="refactoring code and little changes" />
     <MESSAGE value="Creating editable cell factory" />
-    <option name="LAST_COMMIT_MESSAGE" value="Creating editable cell factory" />
+    <MESSAGE value="adding update and cancel update buttons" />
+    <option name="LAST_COMMIT_MESSAGE" value="adding update and cancel update buttons" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

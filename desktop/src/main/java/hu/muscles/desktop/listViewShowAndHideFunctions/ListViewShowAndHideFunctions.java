@@ -60,7 +60,7 @@ public class ListViewShowAndHideFunctions {
                 mainEditText.getItems().clear();
                 mainEditText.getItems().addAll(String.valueOf(foods.get(mainListView.getSelectionModel().getSelectedIndex())).split("\n"));
                 mainEditText.setEditable(true);
-                mainEditText.setCellFactory(editListViewCell.createEditableCellFactory());
+                editListViewCell.SetEditbaleList();
                 updateButtonArea.setVisible(true);
             }
         }

@@ -73,7 +73,7 @@ public class LoginController {
         MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
         map.add("email", email.trim());
         map.add("password", password.trim());
-        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(map, headers);
+        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map, headers);
         ResponseEntity<String> response = restTemplate.postForEntity(url.LOGIN(), request, String.class);
         return response.getBody();
     }
@@ -82,7 +82,7 @@ public class LoginController {
         FXMLLoader fxmlLoader = new FXMLLoader(app.class.getResource("main-view.fxml"));
         Stage stage = (Stage) loginButton.getScene().getWindow();
         stage.getScene().setRoot(fxmlLoader.load());
-        ((MainViewController) fxmlLoader.getController()).setLoginModel(loginModel);
+        ((MainViewController) fxmlLoader.getController()).setLoginModelForMain(loginModel);
     }
 
     public static void setNewWindow(Scene scene, Stage stage) {
