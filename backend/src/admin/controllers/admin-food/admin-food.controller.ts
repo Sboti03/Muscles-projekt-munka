@@ -36,28 +36,28 @@ export class AdminFoodController {
     }
 
     @Delete(':id')
-    deleteFood(@Param() idParam: IdParam) {
-        const isFoodExist = this.foodService.checkValidFood(idParam.id)
+    async deleteFood(@Param() idParam: IdParam) {
+        const isFoodExist = await this.foodService.checkValidFood(idParam.id)
         if (!isFoodExist) throw new NotFoundException('No food found')
-        const isFoodDeleted = this.foodService.isFoodDeleted(idParam.id)
+        const isFoodDeleted = await this.foodService.isFoodDeleted(idParam.id)
         if (isFoodDeleted) throw new ImATeapotException('Food is deleted already')
         return this.adminFoodService.deleteFood(idParam.id)
     }
 
     @Patch('undelete/:id')
-    unDeleteFood(@Param() idParam: IdParam) {
-        const isFoodExist = this.foodService.checkValidFood(idParam.id)
+    async unDeleteFood(@Param() idParam: IdParam) {
+        const isFoodExist = await this.foodService.checkValidFood(idParam.id)
         if (!isFoodExist) throw new NotFoundException('No food found')
-        const isFoodDeleted = this.foodService.isFoodDeleted(idParam.id)
+        const isFoodDeleted = await this.foodService.isFoodDeleted(idParam.id)
         if (!isFoodDeleted) throw new ImATeapotException('Food is not deleted')
         return this.adminFoodService.unDeleteFood(idParam.id)
     }
 
     @Post('/')
     async createFood(@Body() foodCreateDto: FoodCreateDto) {
-        const isFoodExist = this.foodService.isFoodExistByName(foodCreateDto.name)
+        const isFoodExist = await this.foodService.isFoodExistByName(foodCreateDto.name)
         if (isFoodExist) throw new NotFoundException(`Food already exist with this name ${foodCreateDto.name}`)
-        const foodCreateInput = this.convertService.convertCreateDtoToInput(foodCreateDto)
+        const foodCreateInput = await this.convertService.convertCreateDtoToInput(foodCreateDto)
         return this.foodCreateService.createFood(foodCreateInput)
     }
 
@@ -65,7 +65,7 @@ export class AdminFoodController {
     @Patch('/:id')
     async updateFoodById(@Param() idParam: IdParam, @Body() foodUpdateDto: FoodUpdateDto) {
         Logger.debug(`Updating food - foodId: ${idParam.id}`)
-        const isFoodExist = this.foodService.checkValidFood(idParam.id)
+        const isFoodExist = await this.foodService.checkValidFood(idParam.id)
         Logger.debug(`Food is ${isFoodExist ? '' : 'not'} exit with ${idParam.id} id`)
         if (!isFoodExist) throw new NotFoundException('No food found')
         const foodUpdateInput = this.convertService.convertUpdateDtoToInput(foodUpdateDto)

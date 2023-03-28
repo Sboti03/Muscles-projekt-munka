@@ -20,7 +20,9 @@ export class FoodGetController {
 
     @Get('search/')
     async searchFood(@Query() searchFoodQuery: SearchFoodQuery) {
-
+        const take = searchFoodQuery.max
+        const skip = searchFoodQuery.page * take
+        return this.foodGetService.foodSearch(take, skip)
     }
 
     @Get(':id')

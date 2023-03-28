@@ -56,22 +56,20 @@ export class ProfileGetService {
         })
     }
 
-
-    getUserProfiles(name: string) {
-        return this.getProfileByName(name, RoleEnum.USER)
+    getAllProfilesByName(name: string) {
+        return this.getProfilesByName(name)
     }
 
-    getCoachProfiles(name: string) {
-        return this.getProfileByName(name, RoleEnum.COACH)
+    getProfiles(name: string, role: RoleEnum, profileId: number) {
+        return this.getProfilesByName(name, role, profileId)
     }
 
-    getAdminProfiles(name: string) {
-        return this.getProfileByName(name, RoleEnum.ADMIN)
-    }
-
-    getProfileByName(name: string, role?: RoleEnum) {
+    getProfilesByName(name: string, role?: RoleEnum, profileId?: number) {
         return this.prismaService.profileData.findMany({
             where: {
+                NOT: {
+                    profileId
+                },
                 user: {
                     role: {
                         roleName: role
@@ -93,6 +91,7 @@ export class ProfileGetService {
                 ]
             },
             select: {
+                profileId: true,
                 firstName: true,
                 lastName: true,
                 userId: true,

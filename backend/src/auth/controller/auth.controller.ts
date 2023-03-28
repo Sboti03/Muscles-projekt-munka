@@ -46,6 +46,7 @@ export class AuthController {
 
     @Post('register')
     async register(@Body() createUserDto: CreateUserDto, @Res({passthrough: true}) res: Response) {
+        Logger.log(`/auth/register (POST) email: ${createUserDto.email} isCoach: ${createUserDto.isCoach} password: ${(!!createUserDto.password)}`)
         const userData = await this.authService.register(createUserDto);
         const tokens = userData.tokens
         this.authTokenService.storeTokens(tokens, res)
@@ -57,6 +58,7 @@ export class AuthController {
     @HttpCode(HttpStatus.OK)
     @Header('Content-Type', 'application/json')
     async getRefreshToken(@Res({passthrough: true}) res: Response, @GetCurrentUserId() userId: number, @GetCurrentUserRefreshToken() refreshToken: string) {
+        Logger.log(`/auth/refresh (GET)`)
         const isTokenMatch = await this.userCheckService.checkRefreshToken(refreshToken, userId);
         if (!isTokenMatch) { throw new ForbiddenException('Access denied') }
         await this.userDeleteService.deleteRefreshTokenById(userId, refreshToken);
@@ -73,6 +75,7 @@ export class AuthController {
     @Header('Content-Type', 'application/json')
     @Get('access')
     async getAccessToken(@Res({passthrough: true}) res: Response, @GetCurrentUserRefreshToken() refreshToken: string, @GetCurrentUserId() userId: number) {
+        Logger.log(`/auth/access (GET)`)
         const isUserExist = await this.userCheckService.checkUserById(userId)
         Logger.log(`Trying to get new access token userId: ${userId} user exists: ${isUserExist}`)
         if (!isUserExist) {

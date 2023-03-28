@@ -29,9 +29,10 @@ export class ConnectionCheckService {
 
     async checkAccessCoachToUser(userId: number, coachId: number) {
         try {
-            await this.getService.getConnectionByIds(userId, coachId)
+            const res = await this.getService.getConnectionByIds(userId, coachId)
+            return res.accessAll
         } catch (e) {
-
+            return false
         }
     }
 }
