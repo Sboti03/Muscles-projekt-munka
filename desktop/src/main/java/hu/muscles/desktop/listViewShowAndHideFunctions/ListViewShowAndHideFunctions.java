@@ -3,10 +3,13 @@ package hu.muscles.desktop.listViewShowAndHideFunctions;
 import hu.muscles.desktop.editListViewCell.EditListViewCell;
 import hu.muscles.desktop.foodsData.Foods;
 import hu.muscles.desktop.profileData.ProfileResponse;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ListViewShowAndHideFunctions {
     private final ListView<String> mainListView;
@@ -72,6 +75,23 @@ public class ListViewShowAndHideFunctions {
                 updateButtonArea.setVisible(true);
             }
         }
-    }
 
+        mainListView.setCellFactory(listView -> new ListCell<String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item);
+                    Foods food = foods.get(getIndex());
+                    if (food.isDeleted()) {
+                        setTextFill(Color.RED);
+                    } else {
+                        setTextFill(Color.BLACK);
+                    }
+                }
+            }
+        });
+    }
 }

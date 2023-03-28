@@ -4,6 +4,7 @@ import hu.muscles.desktop.app;
 import hu.muscles.desktop.foodsData.UnitsEnum;
 import hu.muscles.desktop.models.LoginModel;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,6 +18,8 @@ import javafx.util.converter.DoubleStringConverter;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.DecimalFormat;
+import java.text.ParsePosition;
 import java.util.OptionalDouble;
 import java.util.ResourceBundle;
 
@@ -60,21 +63,28 @@ public class CreateFoodController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        // can't be null
         setTextFieldToDoubleOrNull(kcalField);
         setTextFieldToDoubleOrNull(perUnitField);
         setTextFieldToDoubleOrNull(proteinField);
         setTextFieldToDoubleOrNull(fatField);
+        setTextFieldToDoubleOrNull(carbohydrateField);
+        //can't be null
+
         setTextFieldToDoubleOrNull(saturatedFatField);
         setTextFieldToDoubleOrNull(polyunsaturatedFatField);
         setTextFieldToDoubleOrNull(monounsaturatedFatField);
-        setTextFieldToDoubleOrNull(carbohydrateField);
         setTextFieldToDoubleOrNull(sugarField);
         setTextFieldToDoubleOrNull(fiberField);
+        unitField.setItems(FXCollections.observableArrayList(UnitsEnum.values()));
+        unitField.setValue(UnitsEnum.GRAM);
     }
 
 
     @FXML
     public void createFoodClick(ActionEvent actionEvent) {
+
     }
 
     @FXML
@@ -96,12 +106,10 @@ public class CreateFoodController implements Initializable {
             if (newText.isEmpty()) {
                 return change;
             }
-            if (newText.contains("f")) {
-                newText.replace("f", "");
+            if (newText.toLowerCase().contains("f")) {
                 return null;
             }
-            if (newText.contains("d")) {
-                newText.replace("d", "");
+            if (newText.toLowerCase().contains("d")) {
                 return null;
             }
             try {
@@ -113,6 +121,7 @@ public class CreateFoodController implements Initializable {
         }));
     }
 }
+
 
 
 

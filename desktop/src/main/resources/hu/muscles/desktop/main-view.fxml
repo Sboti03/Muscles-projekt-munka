@@ -33,7 +33,7 @@
             <ListView fx:id="mainListView" prefHeight="300.0" prefWidth="627.0" GridPane.rowIndex="1" />
             <VBox alignment="TOP_CENTER" spacing="20.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                <children>
-                  <HBox alignment="CENTER_RIGHT" spacing="35.0" fx:id="updateButtonArea" visible="false">
+                  <HBox fx:id="updateButtonArea" alignment="CENTER_RIGHT" spacing="35.0" visible="false">
                      <children>
                         <Button fx:id="updateBtn" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#updateClick" prefHeight="35.0" prefWidth="170.0" text="Update" />
                         <Button fx:id="cancelUpdateBtn" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#cancelUpdateClick" prefHeight="35.0" prefWidth="170.0" text="Cancel" />
@@ -63,6 +63,7 @@
                      <children>
                         <Button fx:id="loadCreateBtn" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#loadCreateClick" prefHeight="35.0" prefWidth="170.0" text="Create" />
                         <Button fx:id="deleteBtn" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#deleteClick" prefHeight="35.0" prefWidth="170.0" text="Delete" />
+                        <Button fx:id="undeleteBtn" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#undeleteClick" prefHeight="35.0" prefWidth="170.0" text="Undelete" />
                      </children>
                      <padding>
                         <Insets right="40.0" />
