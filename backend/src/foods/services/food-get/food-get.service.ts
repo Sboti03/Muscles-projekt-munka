@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import {Injectable} from '@nestjs/common';
 import {PrismaService} from "../../../Common/utils/prirsma.service";
 
 @Injectable()
@@ -17,11 +17,20 @@ export class FoodGetService {
             }
         })
     }
+
     getAllFood() {
         return this.prismaService.foods.findMany({
             where: {
                 isDeleted: false
             },
+            include: {
+                unit: true
+            }
+        })
+    }
+
+    getAllFoodIncludingDeletedOnes() {
+        return this.prismaService.foods.findMany({
             include: {
                 unit: true
             }

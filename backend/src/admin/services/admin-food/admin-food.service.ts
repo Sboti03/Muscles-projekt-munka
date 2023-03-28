@@ -29,7 +29,7 @@ export class AdminFoodService {
     }
 
     getAllFood() {
-        return this.foodGetService.getAllFood();
+        return this.foodGetService.getAllFoodIncludingDeletedOnes();
     }
 
 
