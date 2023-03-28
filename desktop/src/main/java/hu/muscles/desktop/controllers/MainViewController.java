@@ -19,10 +19,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.lang.Nullable;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -62,6 +59,8 @@ public class MainViewController implements Initializable {
     private ListView<String> mainEditText;
     @FXML
     private Button cancelUpdateBtn;
+    @FXML
+    private Button undeleteBtn;
 
     @FXML
     private HBox updateButtonArea;
@@ -143,11 +142,39 @@ public class MainViewController implements Initializable {
 
     @FXML
     public void deleteClick(ActionEvent actionEvent) {
+        int index = mainListView.getSelectionModel().getSelectedIndex() + 1;
         try {
-            getResponseString(url.DELETE_FOOD(mainListView.getEditingIndex()));
-        } catch (IOException e) {
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            headers.setBearerAuth(loginModel.getLoginData().getTokens().getAccessToken());
+            HttpEntity<String> requestEntity = new HttpEntity<>(null, headers);
+            ResponseEntity<String> responseEntity = restTemplate.exchange(url.DELETE_FOOD(index), HttpMethod.DELETE, requestEntity, String.class);
+            System.out.println(responseEntity.getBody());
             listViewShowAndHideFunctions.emptyAllListView();
-            mainEditText.getItems().add("ERROR: Couldn't delete food.");
+            mainEditText.getItems().add(responseEntity.getBody());
+        } catch (Exception e) {
+            listViewShowAndHideFunctions.emptyAllListView();
+            mainEditText.getItems().add("ERROR: Couldn't delete food. -> "+e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void undeleteClick(ActionEvent actionEvent) {
+        int index = mainListView.getSelectionModel().getSelectedIndex() + 1;
+        try {
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            headers.setBearerAuth(loginModel.getLoginData().getTokens().getAccessToken());
+            HttpEntity<String> requestEntity = new HttpEntity<>(null, headers);
+            ResponseEntity<String> responseEntity = restTemplate.exchange(url.UNDELETE_FOOD(index), HttpMethod.PATCH, requestEntity, String.class);
+            System.out.println(responseEntity.getBody());
+            listViewShowAndHideFunctions.emptyAllListView();
+            mainEditText.getItems().add(responseEntity.getBody());
+        } catch (Exception e) {
+            listViewShowAndHideFunctions.emptyAllListView();
+            mainEditText.getItems().add("ERROR: Couldn't undelete food. -> "+e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -210,6 +237,7 @@ public class MainViewController implements Initializable {
         URLConnection connection = url.openConnection();
         String authToken = loginModel.getLoginData().getTokens().getAccessToken();
         connection.setRequestProperty("Authorization", "Bearer " + authToken);
+        connection.setConnectTimeout(50000);
         connection.connect();
         return connection.getInputStream();
     }
