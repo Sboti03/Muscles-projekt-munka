@@ -1,10 +1,10 @@
 package hu.muscles.desktop.foodsData;
 
 public enum UnitsEnum {
-    GRAM("gram"),
-    LITER("liter"),
-    DECILITER("deciliter"),
-    MILLILITERS("milliliters");
+    gram("gram"),
+    liter("liter"),
+    deciliter("deciliter"),
+    milliliters("milliliters");
 
     private String value;
 

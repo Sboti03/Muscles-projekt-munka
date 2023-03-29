@@ -1,6 +1,8 @@
 package hu.muscles.desktop.urls;
 
 public class Urls {
+    public Urls() {
+    }
 
     public final String LOGIN() {
         return "http://34.22.242.178:3000/api/auth/login";
@@ -32,5 +34,9 @@ public class Urls {
     public final String UNDELETE_FOOD(int id) {
         return String.format("http://34.22.242.178:3000/api/admin/food/undelete/%d", id);
     }
+    public final String CREATE_FOOD() {
+        return "http://34.22.242.178:3000/api/admin/food/";
+    }
+
 
 }
