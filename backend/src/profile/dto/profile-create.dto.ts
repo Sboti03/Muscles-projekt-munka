@@ -1,4 +1,4 @@
-import {IsDate, IsNotEmpty, IsNumber, IsString, ValidateIf} from "class-validator";
+import { IsBoolean, IsDate, IsNotEmpty, IsNumber, IsString, ValidateIf } from "class-validator";
 import {IsNullable} from "../../Common/utils/IsNullable.validation";
 import {Transform, Type} from "class-transformer";
 import {ApiProperty} from "@nestjs/swagger";
@@ -24,5 +24,11 @@ export default class ProfileCreateDto {
     @IsNumber()
     @ApiProperty()
     height?: number
+
+
+    @Type(()=> Boolean)
+    @IsBoolean()
+    @IsNullable()
+    male?: boolean
 
 }

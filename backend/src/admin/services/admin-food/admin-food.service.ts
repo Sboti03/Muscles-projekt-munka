@@ -28,9 +28,15 @@ export class AdminFoodService {
         })
     }
 
-    getAllFood() {
-        return this.foodGetService.getAllFood();
+    getAllActiveFood() {
+        return this.foodGetService.getAllActiveFood();
     }
+
+
+    getAllFood() {
+        return this.foodGetService.getAllFood()
+    }
+
 
 
     async getFoodById(foodId: number) {

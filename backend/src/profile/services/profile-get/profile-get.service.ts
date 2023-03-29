@@ -37,7 +37,8 @@ export class ProfileGetService {
                 profileId: true,
                 userId: true,
                 firstName: true,
-                lastName: true
+                lastName: true,
+                male: true
             }
         })
     }
@@ -51,7 +52,8 @@ export class ProfileGetService {
                 birthDay: true,
                 height: true,
                 registrationDate: true,
-                userId: true
+                userId: true,
+                male: true
             }
         })
     }
@@ -95,6 +97,7 @@ export class ProfileGetService {
                 firstName: true,
                 lastName: true,
                 userId: true,
+                male: true,
                 user: {
                     select: {
                         email: true,

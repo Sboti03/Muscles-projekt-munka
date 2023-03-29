@@ -1,19 +1,19 @@
 import {IsNotEmpty, IsNumber, IsString} from "class-validator";
 import {Exclude, Transform, Type} from "class-transformer";
 import {UnitsEnum} from "../../Common/units/units/units";
-import {IsNullable} from "../../decorators/class-validator.decorator";
+import {IsUndefinable} from "../../decorators/class-validator.decorator";
 import {ApiProperty} from "@nestjs/swagger";
 import {PeriodNamesEnum} from "../../Common/utils/PeriodNames";
 
 export class FoodUpdateDto {
 
-    @IsNullable()
+    @IsUndefinable()
     @Type(() => String)
     @IsString()
     @ApiProperty({example: 20})
     name?: string
 
-    @IsNullable()
+    @IsUndefinable()
     @Type(() => Number)
     @IsNumber()
     @ApiProperty({example: 20})
@@ -21,41 +21,41 @@ export class FoodUpdateDto {
 
 
     @Transform(({value}) => Object.values(UnitsEnum).find(unit => unit === value))
-    @IsNullable()
+    @IsUndefinable()
     @ApiProperty({example: 20})
     unit?: UnitsEnum
 
     @Type(() => Number)
-    @IsNullable()
+    @IsUndefinable()
     @IsNumber()
     @ApiProperty({example: 20})
     perUnit?: number
 
     @Type(() => Number)
-    @IsNullable()
+    @IsUndefinable()
     @IsNumber()
     @ApiProperty({example: 20})
     protein?: number
 
     @Type(() => Number)
-    @IsNullable()
+    @IsUndefinable()
     @IsNumber()
     @ApiProperty({example: 20})
     fat?: number
 
-    @IsNullable()
+    @IsUndefinable()
     @Type(() => Number)
     @IsNumber()
     @ApiProperty({example: 20})
     saturatedFat?: number
 
-    @IsNullable()
+    @IsUndefinable()
     @Type(() => Number)
     @IsNumber()
     @ApiProperty({example: 20})
     polyunsaturatedFat?: number
 
-    @IsNullable()
+    @IsUndefinable()
     @Type(() => Number)
     @IsNumber()
     @ApiProperty({example: 20})
@@ -63,18 +63,18 @@ export class FoodUpdateDto {
 
 
     @Type(() => Number)
-    @IsNullable()
+    @IsUndefinable()
     @IsNumber()
     @ApiProperty({example: 20})
     carbohydrate?: number
 
-    @IsNullable()
+    @IsUndefinable()
     @Type(() => Number)
     @IsNumber()
     @ApiProperty({example: 20})
     sugar?: number
 
-    @IsNullable()
+    @IsUndefinable()
     @Type(() => Number)
     @IsNumber()
     @ApiProperty({example: 20})

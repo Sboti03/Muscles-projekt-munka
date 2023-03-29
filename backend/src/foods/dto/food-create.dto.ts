@@ -1,7 +1,7 @@
 import {IsNotEmpty, IsNumber, IsString} from "class-validator";
 import {Exclude, Transform, Type} from "class-transformer";
 import {UnitsEnum} from "../../Common/units/units/units";
-import {IsNullable} from "../../decorators/class-validator.decorator";
+import { IsNullable, IsUndefinable } from "../../decorators/class-validator.decorator";
 import {ApiProperty} from "@nestjs/swagger";
 
 export class FoodCreateDto {
