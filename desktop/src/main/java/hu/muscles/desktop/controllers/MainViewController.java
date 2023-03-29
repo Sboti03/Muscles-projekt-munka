@@ -3,7 +3,7 @@ package hu.muscles.desktop.controllers;
 import hu.muscles.desktop.app;
 import hu.muscles.desktop.editListViewCell.EditListViewCell;
 import hu.muscles.desktop.foodsData.Foods;
-import hu.muscles.desktop.foodsData.FoodsUpdate;
+import hu.muscles.desktop.foodsData.FoodsCreateOrUpdate;
 import hu.muscles.desktop.foodsData.UnitsEnum;
 import hu.muscles.desktop.listViewShowAndHideFunctions.ListViewShowAndHideFunctions;
 import hu.muscles.desktop.loadFromServerToPOJO.LoadFromServerToPojo;
@@ -20,7 +20,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.springframework.http.*;
-import org.springframework.lang.Nullable;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
@@ -29,7 +28,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -114,7 +112,7 @@ public class MainViewController implements Initializable {
 
     @FXML
     public void updateClick(ActionEvent actionEvent) {
-        FoodsUpdate food = foodsUpdateFromListview(mainEditText);
+        FoodsCreateOrUpdate food = foodsUpdateFromListview(mainEditText);
         int foodId = mainListView.getSelectionModel().getSelectedIndex() + 1;
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -237,12 +235,12 @@ public class MainViewController implements Initializable {
         URLConnection connection = url.openConnection();
         String authToken = loginModel.getLoginData().getTokens().getAccessToken();
         connection.setRequestProperty("Authorization", "Bearer " + authToken);
-        connection.setConnectTimeout(50000);
+        connection.setConnectTimeout(20000);
         connection.connect();
         return connection.getInputStream();
     }
 
-    private FoodsUpdate foodsUpdateFromListview(ListView<String> editText) {
+    private FoodsCreateOrUpdate foodsUpdateFromListview(ListView<String> editText) {
         String name = editText.getItems().get(0).trim();
         Double fat = Double.parseDouble(editText.getItems().get(1));
         Double fiber = Double.parseDouble(editText.getItems().get(2));
@@ -254,7 +252,7 @@ public class MainViewController implements Initializable {
         Double monounsaturatedFat = Double.parseDouble(editText.getItems().get(8));
         Double polyunsaturatedFat = Double.parseDouble(editText.getItems().get(9));
         Double saturatedFat = Double.parseDouble(editText.getItems().get(10));
-        UnitsEnum unit = UnitsEnum.GRAM;
-        return new FoodsUpdate(name, kcal, unit, perUnit, protein, fat, saturatedFat, polyunsaturatedFat, monounsaturatedFat, carbohydrate, sugar, fiber);
+        UnitsEnum unit = UnitsEnum.gram;
+        return new FoodsCreateOrUpdate(name, kcal, unit, perUnit, protein, fat, saturatedFat, polyunsaturatedFat, monounsaturatedFat, carbohydrate, sugar, fiber);
     }
 }
