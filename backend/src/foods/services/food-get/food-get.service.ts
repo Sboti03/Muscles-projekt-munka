@@ -17,7 +17,7 @@ export class FoodGetService {
             }
         })
     }
-    getAllFood() {
+    getAllActiveFood() {
         return this.prismaService.foods.findMany({
             where: {
                 isDeleted: false
@@ -32,6 +32,14 @@ export class FoodGetService {
         return this.prismaService.foods.findMany({
             take,
             skip,
+            include: {
+                unit: true
+            }
+        })
+    }
+
+    getAllFood() {
+        return this.prismaService.foods.findMany({
             include: {
                 unit: true
             }

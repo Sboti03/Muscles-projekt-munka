@@ -22,15 +22,4 @@ export class ProfileCreateController {
                 private authTokenService:AuthTokenService) {
     }
 
-    @Post('create')
-    async createProfile(@GetCurrentUserId() userId: number, @Body() profileCreateDto: ProfileCreateDto) {
-        const profileCreateInput = this.profileConvertService.convertProfileCreateDtoToInput(profileCreateDto, userId)
-        const profile = await this.profileCreateService.createProfile(profileCreateInput)
-        const newTokens = await this.authTokenService.getTokens(userId);
-        return {
-            profile,
-            tokens: newTokens
-        };
-    }
-
 }

@@ -1,19 +1,19 @@
 import {IsBoolean, IsNumber} from "class-validator";
-import {IsNullable} from "../../decorators/class-validator.decorator";
+import {IsUndefinable} from "../../decorators/class-validator.decorator";
 import {Type} from "class-transformer";
 import {ApiProperty} from "@nestjs/swagger";
 
 export class UpdateMealHistoryDto {
 
 
-   @IsNullable()
+   @IsUndefinable()
    @Type(()=> Number)
    @IsNumber()
    @ApiProperty()
    amount?: number;
 
 
-   @IsNullable()
+   @IsUndefinable()
    @Type(()=> Boolean)
    @IsBoolean()
    @ApiProperty()

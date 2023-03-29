@@ -15,7 +15,7 @@ export class FoodGetController {
 
     @Get()
     async getAllFood() {
-        return this.foodGetService.getAllFood();
+        return this.foodGetService.getAllActiveFood();
     }
 
     @Get('search/')
@@ -23,13 +23,6 @@ export class FoodGetController {
         const take = searchFoodQuery.max
         const skip = searchFoodQuery.page * take
         return this.foodGetService.foodSearch(take, skip)
-    }
-
-    @Get(':id')
-    @Roles(RoleEnum.ADMIN)
-    @UseGuards(RolesGuard)
-    async getFoodById(@Param() idParam: IdParam) {
-        return this.foodGetService.getFoodById(idParam.id);
     }
 
 }

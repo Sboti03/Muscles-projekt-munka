@@ -84,7 +84,7 @@ export class AdminFoodController {
 
     @Get()
     async getAllFood() {
-        return this.adminFoodService.getAllFood();
+        return this.adminFoodService.getAllActiveFood();
     }
 
     @Get(':id')
