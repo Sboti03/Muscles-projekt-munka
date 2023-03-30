@@ -1,5 +1,5 @@
-import { IsBoolean, IsDate, IsNotEmpty, IsNumber, IsString, ValidateIf } from "class-validator";
-import {IsNullable} from "../../Common/utils/IsNullable.validation";
+import { IsBoolean, IsDate, IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { IsUndefinable } from "../../Common/utils/IsNullable.validation";
 import {Transform, Type} from "class-transformer";
 import {ApiProperty} from "@nestjs/swagger";
 
@@ -10,7 +10,7 @@ export default class ProfileCreateDto {
     @ApiProperty()
     firstName: string
 
-    @IsNullable()
+    @IsUndefinable()
     @IsString()
     @ApiProperty()
     lastName?: string
@@ -19,7 +19,7 @@ export default class ProfileCreateDto {
     @ApiProperty()
     birthDay: Date
 
-    @IsNullable()
+    @IsUndefinable()
     @Type(() => Number)
     @IsNumber()
     @ApiProperty()
@@ -28,7 +28,7 @@ export default class ProfileCreateDto {
 
     @Type(()=> Boolean)
     @IsBoolean()
-    @IsNullable()
+    @IsUndefinable()
     male?: boolean
 
 }

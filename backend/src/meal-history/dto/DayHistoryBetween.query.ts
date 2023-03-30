@@ -1,12 +1,12 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsNullable } from "../../Common/utils/IsNullable.validation";
+import { IsUndefinable } from "../../Common/utils/IsNullable.validation";
 import { Transform, Type } from "class-transformer";
 import { IsDate, IsNumber } from "class-validator";
 
 export default class DayHistoryBetweenQuery {
 
     @ApiProperty({example: 12})
-    @IsNullable()
+    @IsUndefinable()
     @Type(()=> Number)
     @IsNumber()
     userId?: number

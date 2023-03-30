@@ -1,4 +1,4 @@
-import {ConflictException, Injectable} from '@nestjs/common';
+import { BadRequestException, ConflictException, Injectable, NotFoundException } from "@nestjs/common";
 import {encryptData} from '../../../Common/utils/bcrypt';
 import {PrismaService} from '../../../Common/utils/prirsma.service';
 import {UserCheckService} from '../user-check/user-check.service';
@@ -13,13 +13,18 @@ export class UserUpdateService {
     ) {
     }
 
-    async updatePassword(password: string, userId: number) {
-        if (await this.checkUserService.checkPassword(password, userId)) {
-            throw new ConflictException('Cannot be the same password');
+    async updatePassword(oldPassword: string, newPassword: string, userId: number) {
+        const isOldPasswordMatch = await this.checkUserService.checkPassword(oldPassword, userId)
+        if (!isOldPasswordMatch) {
+            throw new NotFoundException('Password is not the same');
         }
-        password = encryptData(password);
+        const isNewPasswordNotTheSame = await this.checkUserService.checkPassword(newPassword, userId)
+        if (isNewPasswordNotTheSame) {
+            throw new BadRequestException('Cannot be the same password');
+        }
+        newPassword = encryptData(newPassword);
         return this.prismaService.users.update({
-            data: {password},
+            data: {password: newPassword},
             where: {userId},
         });
     }

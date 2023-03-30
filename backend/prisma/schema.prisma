@@ -158,7 +158,7 @@ model profileData {
   dayHistory       dayHistory[]
   user             users        @relation(fields: [userId], references: [userId], onDelete: NoAction, onUpdate: NoAction, map: "userIdFK")
   goal             goals[]
-  male             Boolean      @default(false)
+  male             Boolean      @default(true)
   profilePicPath   String       @default("")
   changedAt        DateTime     @default(now()) @updatedAt @db.Timestamp(6)
 }

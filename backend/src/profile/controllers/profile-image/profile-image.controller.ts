@@ -12,7 +12,7 @@ import {
 import { FileInterceptor } from "@nestjs/platform-express";
 import { saveImageToStorage } from "../../../Image/image-store";
 import { GetCurrentUserProfileId } from "../../../auth/decorators/decorators";
-import { Express, response, Response } from "express";
+import { Express, Response } from "express";
 import { IdParam } from "../../../Common/params/id.param";
 import { ProfileImageService } from "../../services/profile-image/profile-image.service";
 import { AccessTokenGuard } from "../../../auth/guards/access-token.guard";

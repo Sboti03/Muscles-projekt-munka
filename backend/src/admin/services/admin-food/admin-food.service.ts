@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from "@nestjs/common";
 import {PrismaService} from "../../../Common/utils/prirsma.service";
 import { FoodGetService } from "../../../foods/services/food-get/food-get.service";
 import { FoodCheckService } from "../../../foods/services/food-check/food-check.service";
+import SearchFoodQuery from "../../../foods/dto/SearchFood.query";
 
 @Injectable()
 export class AdminFoodService {
@@ -33,8 +34,8 @@ export class AdminFoodService {
     }
 
 
-    getAllFood() {
-        return this.foodGetService.getAllFood()
+    getAllFood(searchFoodQuery:SearchFoodQuery) {
+        return this.foodGetService.getAllFood(searchFoodQuery)
     }
 
 
