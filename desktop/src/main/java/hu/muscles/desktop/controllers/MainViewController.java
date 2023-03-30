@@ -5,7 +5,7 @@ import hu.muscles.desktop.editListViewCell.EditListViewCell;
 import hu.muscles.desktop.foodsData.Foods;
 import hu.muscles.desktop.foodsData.FoodsCreateOrUpdate;
 import hu.muscles.desktop.foodsData.UnitsEnum;
-import hu.muscles.desktop.listViewShowAndHideFunctions.ListViewShowAndHideFunctions;
+import hu.muscles.desktop.listViewShowAndHideFunctions.ListViewFunctionsForMain;
 import hu.muscles.desktop.loadFromServerToPOJO.LoadFromServerToPojo;
 import hu.muscles.desktop.models.LoginModel;
 import hu.muscles.desktop.profileData.ProfileResponse;
@@ -74,7 +74,7 @@ public class MainViewController implements Initializable {
     private boolean isProfileShown = false;
     private boolean isFoodShown = false;
     private LoadFromServerToPojo loadFromServerToPOJO;
-    private ListViewShowAndHideFunctions listViewShowAndHideFunctions;
+    private ListViewFunctionsForMain listViewFunctionsForMain;
     private EditListViewCell editListViewCell;
 
 
@@ -86,9 +86,9 @@ public class MainViewController implements Initializable {
         confirmExit.setTitle("Exit");
         confirmExit.setHeaderText("Are you sure you want to exit the app?");
         loadFromServerToPOJO = new LoadFromServerToPojo(mainEditText);
-        listViewShowAndHideFunctions = new ListViewShowAndHideFunctions(mainListView, labelForData, mainEditText);
+        listViewFunctionsForMain = new ListViewFunctionsForMain(mainListView, labelForData, mainEditText);
         editListViewCell = new EditListViewCell(mainEditText);
-        mainListView.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> listViewShowAndHideFunctions.listViewListener(foods, profiles, updateFoodDataString, profileDataString, isProfileShown, isFoodShown, editListViewCell, updateButtonArea));
+        mainListView.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> listViewFunctionsForMain.listViewListener(foods, profiles, updateFoodDataString, profileDataString, isProfileShown, isFoodShown, editListViewCell, updateButtonArea));
     }
 
 
@@ -138,7 +138,8 @@ public class MainViewController implements Initializable {
 
     @FXML
     public void deleteClick(ActionEvent actionEvent) {
-        int index = mainListView.getSelectionModel().getSelectedIndex() + 1;
+        int index = listViewFunctionsForMain.getCurrentItemIndex(mainListView);
+        System.out.println(index);
         try {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
@@ -146,10 +147,10 @@ public class MainViewController implements Initializable {
             HttpEntity<String> requestEntity = new HttpEntity<>(null, headers);
             ResponseEntity<String> responseEntity = restTemplate.exchange(url.DELETE_FOOD(index), HttpMethod.DELETE, requestEntity, String.class);
             System.out.println(responseEntity.getBody());
-            listViewShowAndHideFunctions.emptyAllListView();
+            listViewFunctionsForMain.emptyAllListView();
             mainEditText.getItems().add(responseEntity.getBody());
         } catch (Exception e) {
-            listViewShowAndHideFunctions.emptyAllListView();
+            listViewFunctionsForMain.emptyAllListView();
             mainEditText.getItems().add("ERROR: Couldn't delete food. -> " + e.getMessage());
             e.printStackTrace();
         }
@@ -157,18 +158,19 @@ public class MainViewController implements Initializable {
 
     @FXML
     public void undeleteClick(ActionEvent actionEvent) {
-        int index = mainListView.getSelectionModel().getSelectedIndex() + 1;
+        int index = listViewFunctionsForMain.getCurrentItemIndex(mainListView);
+        System.out.println(index);
         try {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             headers.setBearerAuth(loginModel.getLoginData().getTokens().getAccessToken());
             HttpEntity<String> requestEntity = new HttpEntity<>(null, headers);
-            ResponseEntity<String> responseEntity = restTemplate.exchange(url.UNDELETE_FOOD(index), HttpMethod.PATCH, requestEntity, String.class);
+            ResponseEntity<String> responseEntity = restTemplate.exchange(url.UNDELETE_FOOD(index), HttpMethod.DELETE, requestEntity, String.class);
             System.out.println(responseEntity.getBody());
-            listViewShowAndHideFunctions.emptyAllListView();
+            listViewFunctionsForMain.emptyAllListView();
             mainEditText.getItems().add(responseEntity.getBody());
         } catch (Exception e) {
-            listViewShowAndHideFunctions.emptyAllListView();
+            listViewFunctionsForMain.emptyAllListView();
             mainEditText.getItems().add("ERROR: Couldn't undelete food. -> " + e.getMessage());
             e.printStackTrace();
         }
@@ -180,19 +182,19 @@ public class MainViewController implements Initializable {
         isFoodShown = false;
         changeButtonsBetweenProfileAndFood(true);
         mainListView.getSelectionModel().clearSelection();
-        listViewShowAndHideFunctions.emptyAllListView();
+        listViewFunctionsForMain.emptyAllListView();
         try {
             profiles = loadFromServerToPOJO.loadAllProfile(getResponseString(this.url.GET_ALL_PROFILE()));
         } catch (IOException e) {
-            listViewShowAndHideFunctions.CouldNotLoadFoodOrProfiles(true, e);
+            listViewFunctionsForMain.CouldNotLoadFoodOrProfiles(true, e);
         }
         try {
             if (profiles != null) {
-                listViewShowAndHideFunctions.loadProfilesToListView(profiles);
+                listViewFunctionsForMain.loadProfilesToListView(profiles);
                 isProfileShown = true;
             }
         } catch (Exception e) {
-            listViewShowAndHideFunctions.CouldNotLoadFoodOrProfiles(true, e);
+            listViewFunctionsForMain.CouldNotLoadFoodOrProfiles(true, e);
         }
     }
 
@@ -202,19 +204,19 @@ public class MainViewController implements Initializable {
         isProfileShown = false;
         changeButtonsBetweenProfileAndFood(false);
         mainListView.getSelectionModel().clearSelection();
-        listViewShowAndHideFunctions.emptyAllListView();
+        listViewFunctionsForMain.emptyAllListView();
         try {
             foods = loadFromServerToPOJO.loadAllFood(getResponseString(this.url.GET_ALL_FOOD()));
         } catch (IOException e) {
-            listViewShowAndHideFunctions.CouldNotLoadFoodOrProfiles(false, e);
+            listViewFunctionsForMain.CouldNotLoadFoodOrProfiles(false, e);
         }
         try {
             if (foods != null) {
-                listViewShowAndHideFunctions.loadFoodsToListView(foods);
+                listViewFunctionsForMain.loadFoodsToListView(foods);
                 isFoodShown = true;
             }
         } catch (Exception e) {
-            listViewShowAndHideFunctions.CouldNotLoadFoodOrProfiles(false, e);
+            listViewFunctionsForMain.CouldNotLoadFoodOrProfiles(false, e);
         }
     }
 
