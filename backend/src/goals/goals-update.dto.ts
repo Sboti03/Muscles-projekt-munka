@@ -1,7 +1,7 @@
-import {IsUndefinable} from "../decorators/class-validator.decorator";
 import {Type} from "class-transformer";
 import {IsNumber, Min} from "class-validator";
 import {ApiProperty} from "@nestjs/swagger";
+import { IsUndefinable } from "../Common/utils/IsNullable.validation";
 
 export class GoalsUpdateDto {
 

@@ -48,10 +48,11 @@ async function main() {
             email: 'admin@muscles.com',
             password: encryptData('admin'),
             profileData: {
-                create: {birthDay: new Date(),goal: {create: [{}]}, height: 200, firstName: 'admin'}
+                create: {birthDay: new Date(),goal: {create: [{}]}, height: 200, firstName: 'admin', male: true, registrationDate: new Date(1969, 2, 2  )}
             }
         }
     })
+    console.log(admin)
 
 
     for (const objOfUnit of Units) {

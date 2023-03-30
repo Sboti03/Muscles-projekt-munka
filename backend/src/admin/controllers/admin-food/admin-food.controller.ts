@@ -6,7 +6,7 @@ import {
     NotFoundException,
     Param,
     Patch,
-    Post,
+    Post, Query,
     UseGuards
 } from "@nestjs/common";
 import {AccessTokenGuard} from "../../../auth/guards/access-token.guard";
@@ -21,6 +21,7 @@ import {FoodConvertService} from "../../../foods/services/food-convert/food-conv
 import {FoodCreateService} from "../../../foods/services/food-create/food-create.service";
 import {FoodUpdateDto} from "../../../foods/dto/food-update.dto";
 import {FoodUpdateService} from "../../../foods/services/food-update/food-update.service";
+import SearchFoodQuery from "../../../foods/dto/SearchFood.query";
 
 
 @Roles(RoleEnum.ADMIN)
@@ -83,13 +84,15 @@ export class AdminFoodController {
     }
 
     @Get()
-    async getAllFood() {
-        return this.adminFoodService.getAllActiveFood();
+    async getAllFood(@Query() searchFoodQuery:SearchFoodQuery) {
+        return this.adminFoodService.getAllFood(searchFoodQuery);
     }
 
     @Get(':id')
     async getFoodById(@Param() idParam: IdParam) {
         return this.adminFoodService.getFoodById(idParam.id)
     }
+
+
 
 }

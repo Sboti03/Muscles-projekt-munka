@@ -1,7 +1,7 @@
 import {IsNumber} from "class-validator";
 import {RoleEnum} from "../../Common/Role/utils/roles";
-import {IsUndefinable} from "../../decorators/class-validator.decorator";
 import {ApiProperty} from "@nestjs/swagger";
+import { IsUndefinable } from "../../Common/utils/IsNullable.validation";
 
 export class UpdateMealDto {
    @IsUndefinable()

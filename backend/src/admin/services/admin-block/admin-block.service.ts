@@ -16,4 +16,11 @@ export class AdminBlockService {
             },
         });
     }
+
+    unblockUserById(userId  : number) {
+        return this.prismaService.users.update({
+            where: { userId },
+            data: { isBlocked: false }
+        });
+    }
 }

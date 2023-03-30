@@ -6,7 +6,7 @@ import {
     Get,
     Header,
     HttpCode,
-    HttpStatus, Logger, NotFoundException,
+    HttpStatus, Logger, NotFoundException, Patch,
     Post,
     Req,
     Res,
@@ -27,6 +27,7 @@ import {Response} from "express";
 import {UserCheckService} from "../../user/services/user-check/user-check.service";
 import {UserDeleteService} from "../../user/services/user-delete/user-delete.service";
 import {UserUpdateService} from "../../user/services/user-update/user-update.service";
+import { PasswordChangeDto } from "../dto/password-change.dto";
 
 
 @Controller('auth')
@@ -87,7 +88,7 @@ export class AuthController {
     }
 
 
-    @Roles(RoleEnum.COACH)
+    @Roles(RoleEnum.ADMIN)
     @UseGuards(AccessTokenGuard, RolesGuard)
     @Get('admin')
     admin() {
@@ -100,6 +101,12 @@ export class AuthController {
         res.clearCookie('accessToken')
         res.clearCookie('refreshToken')
         return this.authService.logOut(userId, refreshToken)
+    }
+
+    @UseGuards(AccessTokenGuard)
+    @Patch('password')
+    changePassword(@Body() passwordChangeDto: PasswordChangeDto, @GetCurrentUserId() userId: number) {
+        return this.userUpdateService.updatePassword(passwordChangeDto.oldPassword, passwordChangeDto.newPassword, userId)
     }
 
 }

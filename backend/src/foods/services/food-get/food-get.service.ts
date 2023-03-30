@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import {PrismaService} from "../../../Common/utils/prirsma.service";
+import SearchFoodQuery from "../../dto/SearchFood.query";
 
 @Injectable()
 export class FoodGetService {
@@ -38,11 +39,22 @@ export class FoodGetService {
         })
     }
 
-    getAllFood() {
+    getAllFood(searchFoodQuery: SearchFoodQuery) {
+        let skip = undefined
+        let take = searchFoodQuery.max
+        if (searchFoodQuery.page) {
+            if (searchFoodQuery.max){
+                skip = searchFoodQuery.max * searchFoodQuery.page
+            } else {
+                skip = 10 * searchFoodQuery.page
+            }
+        }
         return this.prismaService.foods.findMany({
             include: {
                 unit: true
-            }
+            },
+            take,
+            skip
         })
     }
 }
