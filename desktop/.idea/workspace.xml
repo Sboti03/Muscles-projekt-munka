@@ -6,9 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="00e91fc0-96b8-4172-906f-ab5075727363" name="Changes" comment="adding gender to profile and designing login form">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/MainViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/MainViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/listViewShowAndHideFunctions/ListViewShowAndHideFunctions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/listViewShowAndHideFunctions/ListViewShowAndHideFunctions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/profileData/ProfileResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/profileData/ProfileResponse.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/login-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/login-view.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/style/loginFormStyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/style/loginFormStyle.css" afterDir="false" />
     </list>
@@ -88,7 +85,7 @@
       <option name="presentableId" value="Default" />
       <updated>1678361741933</updated>
       <workItem from="1678361743381" duration="16631000" />
-      <workItem from="1680006862680" duration="30614000" />
+      <workItem from="1680006862680" duration="31525000" />
     </task>
     <task id="LOCAL-00001" summary="refactoring (renaming)">
       <created>1678362647589</created>
@@ -265,7 +262,14 @@
       <option name="project" value="LOCAL" />
       <updated>1680097147021</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="adding gender to profile and designing login form">
+      <created>1680169000604</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1680169000604</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

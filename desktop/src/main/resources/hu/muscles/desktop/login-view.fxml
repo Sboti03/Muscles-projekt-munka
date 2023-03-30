@@ -13,11 +13,14 @@
     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
   </padding>
   <children>
-    <VBox alignment="TOP_CENTER" maxWidth="754.0" minWidth="300.0" prefHeight="502.0" prefWidth="754.0" spacing="15.0">
+    <VBox alignment="TOP_CENTER" maxWidth="754.0" minWidth="300.0" prefHeight="502.0" prefWidth="754.0" spacing="20.0">
       <children>
         <TextField fx:id="emailTextField" prefHeight="30.0" prefWidth="623.0" promptText="email" styleClass="login-field" stylesheets="@style/loginFormStyle.css" />
         <PasswordField fx:id="passwordTextField" prefHeight="30.0" promptText="password" styleClass="login-field" stylesheets="@style/loginFormStyle.css" />
-        <Button fx:id="loginButton" mnemonicParsing="false" onAction="#LoginButtonClick" prefHeight="16.0" prefWidth="135.0" styleClass="login-button" stylesheets="@style/loginFormStyle.css" text="Login" textAlignment="CENTER" />
+        <Button fx:id="loginButton" mnemonicParsing="false" onAction="#LoginButtonClick" prefHeight="30.0" prefWidth="140.0" styleClass="login-button" stylesheets="@style/loginFormStyle.css" text="Login" textAlignment="CENTER">
+               <VBox.margin>
+                  <Insets top="15.0" />
+               </VBox.margin></Button>
         <TextArea fx:id="infoArea" disable="true" editable="false" focusTraversable="false" mouseTransparent="true" styleClass="messageArea" stylesheets="@style/loginFormStyle.css">
                <cursor>
                   <Cursor fx:constant="DEFAULT" />
