@@ -1,3 +1,70 @@
-#main_login_app {
-    -fx-background-color: purple;
+.main-root-login-form {
+    -fx-background-color: #600d60;
+}
+
+
+/* login fields */
+.login-field {
+    -fx-background-color: #490949;
+    -fx-border-color: #961896;
+    -fx-text-fill: white;
+}
+
+.login-field:focused {
+    -fx-background-color: #490949;
+    -fx-border-color: #cc19cc;
+    -fx-text-fill: white;
+}
+
+
+/* message area */
+.messageArea:disabled {
+    -fx-background-color: rgba(255, 255, 255, 0);
+    -fx-border-color: #600d60;
+    -fx-progress-color: #600d60;
+    -fx-color-label-visible: #600d60;
+}
+.messageArea . content {
+    -fx-background-color: #600d60;
+    -fx-border-color: #600d60;
+    -fx-progress-color: #600d60;
+    -fx-color-label-visible: #600d60;
+    -fx-text-fill: #ce2929;
+}
+
+.messageArea:selected {
+    -fx-background-color: rgba(255, 255, 255, 0);
+    -fx-border-color: #600d60;
+    -fx-progress-color: #600d60;
+    -fx-color-label-visible: #600d60;
+}
+
+
+/* login button */
+.login-button {
+    -fx-border-radius: 120em;
+    -fx-background-color: #490949;
+    -fx-border-color: #961896;
+    -fx-text-fill: white;
+}
+
+.login-button:focused {
+        -fx-background-color: #490949;
+        -fx-border-radius: 120px;
+        -fx-border-color: #cc19cc;
+        -fx-text-fill: white;
+}
+
+.login-button:hover {
+    -fx-background-color: #620662;
+    -fx-border-radius: 120px;
+    -fx-border-color: #cc19cc;
+    -fx-text-fill: white;
+}
+
+.login-button:pressed {
+    -fx-background-color: #4d054d;
+    -fx-border-radius: 120px;
+    -fx-border-color: #d518d5;
+    -fx-text-fill: white;
 }

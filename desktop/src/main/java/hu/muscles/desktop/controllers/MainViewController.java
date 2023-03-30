@@ -52,14 +52,12 @@ public class MainViewController implements Initializable {
     private Button exitButton;
     @FXML
     private ListView<String> labelForData;
-
     @FXML
     private ListView<String> mainEditText;
     @FXML
     private Button cancelUpdateBtn;
     @FXML
     private Button undeleteBtn;
-
     @FXML
     private HBox updateButtonArea;
 
@@ -72,7 +70,7 @@ public class MainViewController implements Initializable {
     private final RestTemplate restTemplate = new RestTemplate();
     private final HttpHeaders headers = new HttpHeaders();
     private final String[] updateFoodDataString = new String[]{"Name", "Fat", "Fiber", "kCal", "Carbohydrate", "Per Unit", "Protein", "Sugar", "Monounsaturated fat", "Polyunsaturated fat", "Saturated fat", "Unit"};
-    private final String[] profileDataString = new String[]{"First name", "Last name", "Birthdate", "Registration date", "Height", "Last changed"};
+    private final String[] profileDataString = new String[]{"First name", "Last name", "Birthdate", "Registration date", "Height", "Gender", "Last changed"};
     private boolean isProfileShown = false;
     private boolean isFoodShown = false;
     private LoadFromServerToPojo loadFromServerToPOJO;
@@ -152,7 +150,7 @@ public class MainViewController implements Initializable {
             mainEditText.getItems().add(responseEntity.getBody());
         } catch (Exception e) {
             listViewShowAndHideFunctions.emptyAllListView();
-            mainEditText.getItems().add("ERROR: Couldn't delete food. -> "+e.getMessage());
+            mainEditText.getItems().add("ERROR: Couldn't delete food. -> " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -171,7 +169,7 @@ public class MainViewController implements Initializable {
             mainEditText.getItems().add(responseEntity.getBody());
         } catch (Exception e) {
             listViewShowAndHideFunctions.emptyAllListView();
-            mainEditText.getItems().add("ERROR: Couldn't undelete food. -> "+e.getMessage());
+            mainEditText.getItems().add("ERROR: Couldn't undelete food. -> " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -180,6 +178,7 @@ public class MainViewController implements Initializable {
     @FXML
     public void profilesClick(ActionEvent actionEvent) {
         isFoodShown = false;
+        changeButtonsBetweenProfileAndFood(true);
         mainListView.getSelectionModel().clearSelection();
         listViewShowAndHideFunctions.emptyAllListView();
         try {
@@ -201,6 +200,7 @@ public class MainViewController implements Initializable {
     @FXML
     public void foodsClick(ActionEvent actionEvent) {
         isProfileShown = false;
+        changeButtonsBetweenProfileAndFood(false);
         mainListView.getSelectionModel().clearSelection();
         listViewShowAndHideFunctions.emptyAllListView();
         try {
@@ -254,5 +254,19 @@ public class MainViewController implements Initializable {
         Double saturatedFat = Double.parseDouble(editText.getItems().get(10));
         UnitsEnum unit = UnitsEnum.gram;
         return new FoodsCreateOrUpdate(name, kcal, unit, perUnit, protein, fat, saturatedFat, polyunsaturatedFat, monounsaturatedFat, carbohydrate, sugar, fiber);
+    }
+
+    public void changeButtonsBetweenProfileAndFood(boolean isProfile) {
+        if (isProfile) {
+            undeleteBtn.setVisible(false);
+            loadCreateBtn.setVisible(false);
+            undeleteBtn.setManaged(false);
+            loadCreateBtn.setManaged(false);
+        } else {
+            undeleteBtn.setVisible(true);
+            loadCreateBtn.setVisible(true);
+            undeleteBtn.setManaged(true);
+            loadCreateBtn.setManaged(true);
+        }
     }
 }

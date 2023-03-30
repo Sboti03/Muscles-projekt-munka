@@ -1,22 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.PasswordField?>
-<VBox alignment="CENTER" id="main_login_app" minHeight="1080.0" minWidth="1920.0" prefWidth="0.0" spacing="20.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.muscles.desktop.controllers.LoginController">
+
+<VBox alignment="CENTER" minHeight="1080.0" minWidth="1920.0" prefWidth="0.0" spacing="20.0" styleClass="main-root-login-form" stylesheets="@style/loginFormStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.muscles.desktop.controllers.LoginController">
   <padding>
     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
   </padding>
   <children>
     <VBox alignment="TOP_CENTER" maxWidth="754.0" minWidth="300.0" prefHeight="502.0" prefWidth="754.0" spacing="15.0">
       <children>
-        <TextField fx:id="emailTextField" prefHeight="30.0" prefWidth="623.0" promptText="email" />
-        <PasswordField fx:id="passwordTextField" prefHeight="30.0" promptText="password" />
-        <Button fx:id="loginButton" mnemonicParsing="false" onAction="#LoginButtonClick" prefHeight="16.0" prefWidth="135.0" text="Login" textAlignment="CENTER" />
-        <TextArea fx:id="infoArea" editable="false"/>
+        <TextField fx:id="emailTextField" prefHeight="30.0" prefWidth="623.0" promptText="email" styleClass="login-field" stylesheets="@style/loginFormStyle.css" />
+        <PasswordField fx:id="passwordTextField" prefHeight="30.0" promptText="password" styleClass="login-field" stylesheets="@style/loginFormStyle.css" />
+        <Button fx:id="loginButton" mnemonicParsing="false" onAction="#LoginButtonClick" prefHeight="16.0" prefWidth="135.0" styleClass="login-button" stylesheets="@style/loginFormStyle.css" text="Login" textAlignment="CENTER" />
+        <TextArea fx:id="infoArea" disable="true" editable="false" focusTraversable="false" mouseTransparent="true" styleClass="messageArea" stylesheets="@style/loginFormStyle.css">
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor></TextArea>
       </children>
     </VBox>
   </children>
