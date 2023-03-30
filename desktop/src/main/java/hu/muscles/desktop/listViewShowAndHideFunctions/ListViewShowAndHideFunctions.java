@@ -9,7 +9,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ListViewShowAndHideFunctions {
     private final ListView<String> mainListView;
@@ -65,6 +64,23 @@ public class ListViewShowAndHideFunctions {
                 mainEditText.setEditable(true);
                 editListViewCell.SetEditbaleList();
                 updateButtonArea.setVisible(true);
+                mainListView.setCellFactory(listView -> new ListCell<String>() {
+                    @Override
+                    protected void updateItem(String item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty || item == null) {
+                            setText(null);
+                        } else {
+                            setText(item);
+                            Foods food = foods.get(getIndex());
+                            if (food.isDeleted()) {
+                                setTextFill(Color.RED);
+                            } else {
+                                setTextFill(Color.BLACK);
+                            }
+                        }
+                    }
+                });
             }
         }
         if (!isFoodShown && isProfileShown) {
@@ -75,23 +91,5 @@ public class ListViewShowAndHideFunctions {
                 updateButtonArea.setVisible(true);
             }
         }
-
-        mainListView.setCellFactory(listView -> new ListCell<String>() {
-            @Override
-            protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText(null);
-                } else {
-                    setText(item);
-                    Foods food = foods.get(getIndex());
-                    if (food.isDeleted()) {
-                        setTextFill(Color.RED);
-                    } else {
-                        setTextFill(Color.BLACK);
-                    }
-                }
-            }
-        });
     }
 }

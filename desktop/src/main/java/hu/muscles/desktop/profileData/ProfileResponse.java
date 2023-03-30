@@ -12,9 +12,11 @@ public class ProfileResponse {
     private Date birthDay;
     private String lastName;
     private int height;
+    private boolean male;
+    private String profilePicPath;
     private Date changedAt;
 
-    public ProfileResponse(int profileId, int userId, Date registrationDate, String firstName, Date birthDay, String lastName, int height, Date changedAt) {
+    public ProfileResponse(int profileId, int userId, Date registrationDate, String firstName, Date birthDay, String lastName, int height, boolean male, String profilePicPath, Date changedAt) {
         this.profileId = profileId;
         this.userId = userId;
         this.registrationDate = registrationDate;
@@ -23,6 +25,8 @@ public class ProfileResponse {
         this.lastName = lastName;
         this.height = height;
         this.changedAt = changedAt;
+        this.male = male;
+        this.profilePicPath = profilePicPath;
     }
 
     public ProfileResponse() {
@@ -38,13 +42,30 @@ public class ProfileResponse {
     }
 
     @JsonProperty("userId")
-
     public int getUserId() {
         return userId;
     }
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    @JsonProperty("male")
+    public boolean isMale() {
+        return male;
+    }
+
+    public void setMale(boolean male) {
+        this.male = male;
+    }
+
+    @JsonProperty("profilePicPath")
+    public String getProfilePicPath() {
+        return profilePicPath;
+    }
+
+    public void setProfilePicPath(String profilePicPath) {
+        this.profilePicPath = profilePicPath;
     }
 
     @JsonProperty("registrationDate")
@@ -109,6 +130,7 @@ public class ProfileResponse {
                 this.birthDay + "\n" +
                 this.registrationDate + "\n" +
                 this.height + "\n" +
+                (this.male ? "Male" : "Female") + "\n" +
                 this.changedAt + "\n";
     }
 

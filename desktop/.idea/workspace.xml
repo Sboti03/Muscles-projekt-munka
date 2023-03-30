@@ -4,10 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="00e91fc0-96b8-4172-906f-ab5075727363" name="Changes" comment="Create food">
-      <change afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/createfoodmainmethods/CreateFoodMainMethods.java" afterDir="false" />
+    <list default="true" id="00e91fc0-96b8-4172-906f-ab5075727363" name="Changes" comment="adding gender to profile and designing login form">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/CreateFoodController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/CreateFoodController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/MainViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/MainViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/listViewShowAndHideFunctions/ListViewShowAndHideFunctions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/listViewShowAndHideFunctions/ListViewShowAndHideFunctions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/profileData/ProfileResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/profileData/ProfileResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/login-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/login-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/style/loginFormStyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/style/loginFormStyle.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,7 +88,7 @@
       <option name="presentableId" value="Default" />
       <updated>1678361741933</updated>
       <workItem from="1678361743381" duration="16631000" />
-      <workItem from="1680006862680" duration="18670000" />
+      <workItem from="1680006862680" duration="30614000" />
     </task>
     <task id="LOCAL-00001" summary="refactoring (renaming)">
       <created>1678362647589</created>
@@ -255,7 +258,14 @@
       <option name="project" value="LOCAL" />
       <updated>1680093976590</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Refactoring create food">
+      <created>1680097147021</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1680097147021</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -273,7 +283,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="refactoring (renaming)" />
     <MESSAGE value="creating login-view" />
     <MESSAGE value="adding spring and jackson dependencies" />
     <MESSAGE value="creating login" />
@@ -297,7 +306,9 @@
     <MESSAGE value="ListView update element (currently working with enter) and create food view" />
     <MESSAGE value="Initialize text fields in create-food-view" />
     <MESSAGE value="Create food" />
-    <option name="LAST_COMMIT_MESSAGE" value="Create food" />
+    <MESSAGE value="Refactoring create food" />
+    <MESSAGE value="adding gender to profile and designing login form" />
+    <option name="LAST_COMMIT_MESSAGE" value="adding gender to profile and designing login form" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
