@@ -11,7 +11,7 @@ export class ConnectionGetService {
         return this.prismaService.connections.findUniqueOrThrow({
             where: {
                 userId_coachId: {userId, coachId}
-            }
+            },
         })
     }
 

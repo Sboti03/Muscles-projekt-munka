@@ -25,7 +25,7 @@ export class ConnectionGetController {
         if (await this.connectionCheckService.checkExistingConnection(userId, coachId)) {
             throw new NotFoundException('No connection found')
         }
-        return this.conGetService.getUser(idParam.id)
+        return this.conGetService.getConnectionByIds(userId, coachId)
     }
 
 }
