@@ -20,12 +20,10 @@ jobs:
         key: ${{ secrets.GCLOUD_VM_PRIVATE_KEY }}
         port: ${{ secrets.GCLOUD_VM_SSH_PORT }}
         script: |
-          cd Muscles-projekt-munka/backend/
+          cd /data/Muscles-projekt-munka/backend/
           git fetch
           git reset --hard origin/main
           sudo chmod +x startup.sh
           sudo docker compose down
-          docker system prune -a
-          docker rm -vf $(docker ps -aq)
           sudo docker compose up --build -d
 
