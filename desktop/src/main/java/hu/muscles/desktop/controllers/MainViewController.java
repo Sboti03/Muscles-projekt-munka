@@ -165,7 +165,7 @@ public class MainViewController implements Initializable {
             headers.setContentType(MediaType.APPLICATION_JSON);
             headers.setBearerAuth(loginModel.getLoginData().getTokens().getAccessToken());
             HttpEntity<String> requestEntity = new HttpEntity<>(null, headers);
-            ResponseEntity<String> responseEntity = restTemplate.exchange(url.UNDELETE_FOOD(index), HttpMethod.DELETE, requestEntity, String.class);
+            ResponseEntity<String> responseEntity = restTemplate.exchange(url.UNDELETE_FOOD(index), HttpMethod.PATCH, requestEntity, String.class);
             System.out.println(responseEntity.getBody());
             listViewFunctionsForMain.emptyAllListView();
             mainEditText.getItems().add(responseEntity.getBody());
@@ -175,7 +175,6 @@ public class MainViewController implements Initializable {
             e.printStackTrace();
         }
     }
-
 
     @FXML
     public void profilesClick(ActionEvent actionEvent) {
