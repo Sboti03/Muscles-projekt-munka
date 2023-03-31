@@ -19,7 +19,7 @@ export class AdminUserController {
 
 
     @Delete(':id')
-    async deleteUserByUserId(@Param('id') idParam: IdParam) {
+    async deleteUserByUserId(@Param() idParam: IdParam) {
         return this.adminDeleteService.deleteUserByUserId(idParam.id);
     }
 
