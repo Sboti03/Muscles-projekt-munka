@@ -18,7 +18,6 @@ public class LoadFromServerToPojo {
     private final ListView<String> edit;
 
     public LoadFromServerToPojo(ListView<String> edit) {
-
         this.edit = edit;
     }
 
