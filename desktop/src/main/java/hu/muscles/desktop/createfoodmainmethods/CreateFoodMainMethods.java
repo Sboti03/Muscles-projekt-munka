@@ -13,7 +13,10 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.util.StringConverter;
+import org.apache.hc.client5.http.classic.HttpClient;
+import org.apache.hc.client5.http.impl.classic.HttpClientBuilder;
 import org.springframework.http.*;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Objects;
@@ -164,6 +167,11 @@ public class CreateFoodMainMethods {
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setBearerAuth(loginModel.getLoginData().getTokens().getAccessToken());
         HttpEntity<String> requestEntity = new HttpEntity<>(json, headers);
+        if (httpMethod == HttpMethod.PATCH) {
+            HttpClient httpClient = HttpClientBuilder.create().build();
+            HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory(httpClient);
+             restTemplate = new RestTemplate(factory);
+        }
         ResponseEntity<String> responseEntity = restTemplate.exchange(url, httpMethod, requestEntity, String.class);
         System.out.println(responseEntity.getBody());
         messageTextArea.clear();
