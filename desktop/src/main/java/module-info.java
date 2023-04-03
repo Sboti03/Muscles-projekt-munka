@@ -4,6 +4,7 @@ module hu.muscles.desktop {
     requires spring.web;
     requires spring.core;
     requires com.fasterxml.jackson.databind;
+    requires org.controlsfx.controls;
 
 
     opens hu.muscles.desktop to javafx.fxml;

@@ -1,119 +1,80 @@
 package hu.muscles.desktop.listViewShowAndHideFunctions;
 
-import hu.muscles.desktop.editListViewCell.EditListViewCell;
 import hu.muscles.desktop.foodsData.Foods;
 import hu.muscles.desktop.profileData.ProfileResponse;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ListViewFunctionsForMain {
     private final ListView<String> mainListView;
-    private final ListView<String> mainEditText;
-    private final ListView<String> labelForData;
+    private final TextArea messageTextArea;
 
 
-    public ListViewFunctionsForMain(ListView<String> mainListView, ListView<String> labelForData, ListView<String> mainEditText) {
+    public ListViewFunctionsForMain(ListView<String> mainListView, TextArea messageTextArea) {
         this.mainListView = mainListView;
-        this.labelForData = labelForData;
-        this.mainEditText = mainEditText;
+        this.messageTextArea = messageTextArea;
     }
 
     public void CouldNotLoadFoodOrProfiles(boolean isProfile, Exception e) {
         if (isProfile) {
-            mainEditText.getItems().clear();
-            mainEditText.getItems().add(e.getMessage());
-            labelForData.getItems().add("Couldn't read profiles.");
+            messageTextArea.clear();
+            messageTextArea.setText("Couldn't read profiles. -> " + e.getMessage());
             e.printStackTrace();
         } else {
-            mainEditText.getItems().clear();
-            mainEditText.getItems().add(e.getMessage());
-            labelForData.getItems().add("Couldn't read foods.");
+            messageTextArea.clear();
+            messageTextArea.setText("Couldn't read foods. -> " + e.getMessage());
             e.printStackTrace();
         }
     }
 
-    public void emptyAllListView() {
-        labelForData.getItems().clear();
-        mainEditText.getItems().clear();
+    public void emptyAllText() {
+        messageTextArea.clear();
         mainListView.getItems().clear();
     }
 
     public void loadProfilesToListView(List<ProfileResponse> profiles) {
-        emptyAllListView();
+        emptyAllText();
         mainListView.getItems().addAll(profiles.stream().map(profile -> profile.getFirstName() + " " + (profile.getLastName() != null ? profile.getLastName() : "")).toList());
     }
 
     public void loadFoodsToListView(List<Foods> foods) {
-        emptyAllListView();
-        mainListView.getItems().addAll(foods.stream().map(food -> food.getFoodId() + "\t" + food.getName()).toList());
+        emptyAllText();
+        //  mainListView.getItems().addAll(foods.stream().map(food -> food.getFoodId() + "\t" + food.getName()).toList());
 
-        mainListView.setCellFactory(listView -> new ListCell<String>() {
+        List<Foods> sortedFoods = foods.stream().sorted(Comparator.comparingInt(Foods::getFoodId)).collect(Collectors.toList());
+        List<Foods> deletedFoods = sortedFoods.stream().filter(Foods::isDeleted).toList();
+        deletedFoods.forEach(food -> food.setName("#DELETED#\t" + food.getName()));
+        sortedFoods.removeAll(deletedFoods);
+        sortedFoods.addAll(deletedFoods);
+        mainListView.getItems().addAll(sortedFoods.stream().map(food -> food.getFoodId() + "\t" + food.getName()).toList());
+
+        mainListView.setCellFactory(listView -> new ListCell<>() {
             @Override
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
 
                 if (empty || item == null) {
                     setText(null);
-                    setStyle("");
                 } else {
                     setText(item);
 
                     int index = getIndex();
-                    if (index >= 0 && index < foods.size() && foods.get(index).isDeleted()) {
-                        setStyle("-fx-text-fill: #d20e0e;");
+                    if (index >= 0 && index < foods.size() && item.contains("#DELETED#")) {
+                        setTextFill(Color.RED);
                     } else {
-                        setStyle("");
+                        setTextFill(Color.BLACK);
                     }
                 }
             }
         });
     }
-
-
-    public void listViewListener(List<Foods> foods, List<ProfileResponse> profiles, String[] updateFoodDataString, String[] profileDataString, boolean isProfileShown, boolean isFoodShown, EditListViewCell editListViewCell, HBox updateButtonArea) {
-        labelForData.getItems().clear();
-        updateButtonArea.setVisible(false);
-        if (!isProfileShown && isFoodShown) {
-            labelForData.getItems().addAll(updateFoodDataString);
-            if (!mainListView.getSelectionModel().isEmpty()) {
-                mainEditText.getItems().clear();
-                mainEditText.getItems().addAll(String.valueOf(foods.get(mainListView.getSelectionModel().getSelectedIndex())).split("\n"));
-                mainEditText.setEditable(true);
-                editListViewCell.SetEditbaleList();
-                updateButtonArea.setVisible(true);
-                mainListView.setCellFactory(listView -> new ListCell<>() {
-                    @Override
-                    protected void updateItem(String item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (empty || item == null) {
-                            setText(null);
-                        } else {
-                            setText(item);
-                            Foods food = foods.get(getIndex());
-                            if (food.isDeleted()) {
-                                setTextFill(Color.RED);
-                            } else {
-                                setTextFill(Color.BLACK);
-                            }
-                        }
-                    }
-                });
-            }
-        }
-        if (!isFoodShown && isProfileShown) {
-            labelForData.getItems().addAll(profileDataString);
-            if (!mainListView.getSelectionModel().isEmpty()) {
-                mainEditText.getItems().clear();
-                mainEditText.getItems().addAll(String.valueOf(profiles.get(mainListView.getSelectionModel().getSelectedIndex())).split("\n"));
-                updateButtonArea.setVisible(true);
-            }
-        }
-    }
-
     public int getCurrentItemIndex(ListView<String> mainListView) {
         String selected = mainListView.getSelectionModel().getSelectedItem();
         if (selected != null && !selected.isEmpty()) {

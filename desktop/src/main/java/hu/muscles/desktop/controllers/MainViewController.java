@@ -1,12 +1,10 @@
 package hu.muscles.desktop.controllers;
 
 import hu.muscles.desktop.app;
-import hu.muscles.desktop.editListViewCell.EditListViewCell;
 import hu.muscles.desktop.foodsData.Foods;
-import hu.muscles.desktop.foodsData.FoodsCreateOrUpdate;
-import hu.muscles.desktop.foodsData.UnitsEnum;
 import hu.muscles.desktop.listViewShowAndHideFunctions.ListViewFunctionsForMain;
 import hu.muscles.desktop.loadFromServerToPOJO.LoadFromServerToPojo;
+import hu.muscles.desktop.models.FoodModel;
 import hu.muscles.desktop.models.LoginModel;
 import hu.muscles.desktop.profileData.ProfileResponse;
 import hu.muscles.desktop.urls.Urls;
@@ -15,13 +13,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.springframework.http.*;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
@@ -39,8 +35,6 @@ public class MainViewController implements Initializable {
     @FXML
     private Button loadCreateBtn;
     @FXML
-    private Button updateBtn;
-    @FXML
     private Button deleteBtn;
     @FXML
     private Button profilesBtn;
@@ -51,31 +45,27 @@ public class MainViewController implements Initializable {
     @FXML
     private Button exitButton;
     @FXML
-    private ListView<String> labelForData;
-    @FXML
-    private ListView<String> mainEditText;
-    @FXML
-    private Button cancelUpdateBtn;
-    @FXML
     private Button undeleteBtn;
     @FXML
-    private HBox updateButtonArea;
+    private VBox editVbox;
+    @FXML
+    private TextArea messageTextArea;
 
 
     private List<Foods> foods;
     private List<ProfileResponse> profiles;
     private Alert confirmExit;
     private LoginModel loginModel;
+    private FoodModel foodmodel;
     private final Urls url = new Urls();
     private final RestTemplate restTemplate = new RestTemplate();
     private final HttpHeaders headers = new HttpHeaders();
-    private final String[] updateFoodDataString = new String[]{"Name", "Fat", "Fiber", "kCal", "Carbohydrate", "Per Unit", "Protein", "Sugar", "Monounsaturated fat", "Polyunsaturated fat", "Saturated fat", "Unit"};
     private final String[] profileDataString = new String[]{"First name", "Last name", "Birthdate", "Registration date", "Height", "Gender", "Last changed"};
     private boolean isProfileShown = false;
     private boolean isFoodShown = false;
     private LoadFromServerToPojo loadFromServerToPOJO;
     private ListViewFunctionsForMain listViewFunctionsForMain;
-    private EditListViewCell editListViewCell;
+    private final FXMLLoader fxmlLoader = new FXMLLoader(app.class.getResource("update-food-view.fxml"));
 
 
     @Override
@@ -85,16 +75,49 @@ public class MainViewController implements Initializable {
         confirmExit.setResizable(false);
         confirmExit.setTitle("Exit");
         confirmExit.setHeaderText("Are you sure you want to exit the app?");
-        loadFromServerToPOJO = new LoadFromServerToPojo(mainEditText);
-        listViewFunctionsForMain = new ListViewFunctionsForMain(mainListView, labelForData, mainEditText);
-        editListViewCell = new EditListViewCell(mainEditText);
-        mainListView.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> listViewFunctionsForMain.listViewListener(foods, profiles, updateFoodDataString, profileDataString, isProfileShown, isFoodShown, editListViewCell, updateButtonArea));
+        loadFromServerToPOJO = new LoadFromServerToPojo(mainListView);
+        listViewFunctionsForMain = new ListViewFunctionsForMain(mainListView, messageTextArea);
+        mainListView.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
+            if (isFoodShown && !isProfileShown) {
+                if (mainListView.getSelectionModel().getSelectedItems() != null && (listViewFunctionsForMain.getCurrentItemIndex(mainListView) - 1) != -1) {
+                    int index = listViewFunctionsForMain.getCurrentItemIndex(mainListView);
+                    Foods food = foods.stream().filter(x -> x.getFoodId() == index).findFirst().orElse(null);
+                    if (food != null) {
+                        if (food.getName().startsWith("#DELETED#"))
+                            food.setName(food.getName().replaceAll(food.getName().substring(0, 10), ""));
+                        foodmodel = new FoodModel(food);
+                        ((UpdateFoodController) fxmlLoader.getController()).setUpdateModelForUpdate(foodmodel);
+                        editVbox.setVisible(true);
+                    }
+                }
+                if (mainListView.getSelectionModel().isEmpty()) {
+                    editVbox.setVisible(false);
+                }
+            }
+            if (isProfileShown && !isFoodShown) {
+             /*   labelForData.getItems().addAll(profileDataString);
+                if (!mainListView.getSelectionModel().isEmpty()) {
+                    mainEditText.getItems().clear();
+                    mainEditText.getItems().addAll(String.valueOf(profiles.get(mainListView.getSelectionModel().getSelectedIndex())).split("\n"));
+                    updateButtonArea.setVisible(true);
+                }*/
+            }
+        });
+        mainListView.setOnMouseClicked(event -> {
+            if (mainListView.getSelectionModel().getSelectedItem() != null) {
+                if (event.getClickCount() == 2) {
+                    mainListView.getSelectionModel().clearSelection();
+                }
+            }
+        });
     }
 
 
     public void setLoginModelForMain(LoginModel loginModel) {
         this.loginModel = loginModel;
+        loadEditVboxContent();
     }
+
 
     @FXML
     public void loadCreateClick(ActionEvent actionEvent) {
@@ -108,33 +131,6 @@ public class MainViewController implements Initializable {
         }
     }
 
-    @FXML
-    public void updateClick(ActionEvent actionEvent) {
-        FoodsCreateOrUpdate food = foodsUpdateFromListview(mainEditText);
-        int foodId = mainListView.getSelectionModel().getSelectedIndex() + 1;
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
-        map.add("name", food.getName());
-        map.add("kcal", food.getKcal().toString());
-        map.add("unit", food.getUnit().toString());
-        map.add("perUnit", food.getPerUnit().toString());
-        map.add("protein", food.getProtein().toString());
-        map.add("fat", food.getFat().toString());
-        map.add("saturatedFat", food.getSaturatedFat().toString());
-        map.add("polyunsaturatedFat", food.getPolyunsaturatedFat().toString());
-        map.add("monounsaturatedFat", food.getMonounsaturatedFat().toString());
-        map.add("carbohydrate", food.getCarbohydrate().toString());
-        map.add("sugar", food.getSugar().toString());
-        map.add("fiber", food.getFiber().toString());
-        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map, headers);
-        String response = restTemplate.patchForObject(url.UPDATE_FOOD(foodId), request, String.class);
-        System.out.println(response);
-    }
-
-    @FXML
-    public void cancelUpdateClick(ActionEvent actionEvent) {
-    }
 
     @FXML
     public void deleteClick(ActionEvent actionEvent) {
@@ -147,11 +143,11 @@ public class MainViewController implements Initializable {
             HttpEntity<String> requestEntity = new HttpEntity<>(null, headers);
             ResponseEntity<String> responseEntity = restTemplate.exchange(url.DELETE_FOOD(index), HttpMethod.DELETE, requestEntity, String.class);
             System.out.println(responseEntity.getBody());
-            listViewFunctionsForMain.emptyAllListView();
-            mainEditText.getItems().add(responseEntity.getBody());
+            listViewFunctionsForMain.emptyAllText();
+            messageTextArea.setText(requestEntity.getBody());
         } catch (Exception e) {
-            listViewFunctionsForMain.emptyAllListView();
-            mainEditText.getItems().add("ERROR: Couldn't delete food. -> " + e.getMessage());
+            listViewFunctionsForMain.emptyAllText();
+            messageTextArea.setText("ERROR: Couldn't delete food. -> " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -167,11 +163,11 @@ public class MainViewController implements Initializable {
             HttpEntity<String> requestEntity = new HttpEntity<>(null, headers);
             ResponseEntity<String> responseEntity = restTemplate.exchange(url.UNDELETE_FOOD(index), HttpMethod.PATCH, requestEntity, String.class);
             System.out.println(responseEntity.getBody());
-            listViewFunctionsForMain.emptyAllListView();
-            mainEditText.getItems().add(responseEntity.getBody());
+            listViewFunctionsForMain.emptyAllText();
+            messageTextArea.setText(responseEntity.getBody());
         } catch (Exception e) {
-            listViewFunctionsForMain.emptyAllListView();
-            mainEditText.getItems().add("ERROR: Couldn't undelete food. -> " + e.getMessage());
+            listViewFunctionsForMain.emptyAllText();
+            messageTextArea.setText("ERROR: Couldn't undelete food. -> " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -181,7 +177,7 @@ public class MainViewController implements Initializable {
         isFoodShown = false;
         changeButtonsBetweenProfileAndFood(true);
         mainListView.getSelectionModel().clearSelection();
-        listViewFunctionsForMain.emptyAllListView();
+        listViewFunctionsForMain.emptyAllText();
         try {
             profiles = loadFromServerToPOJO.loadAllProfile(getResponseString(this.url.GET_ALL_PROFILE()));
         } catch (IOException e) {
@@ -203,7 +199,7 @@ public class MainViewController implements Initializable {
         isProfileShown = false;
         changeButtonsBetweenProfileAndFood(false);
         mainListView.getSelectionModel().clearSelection();
-        listViewFunctionsForMain.emptyAllListView();
+        listViewFunctionsForMain.emptyAllText();
         try {
             foods = loadFromServerToPOJO.loadAllFood(getResponseString(this.url.GET_ALL_FOOD()));
         } catch (IOException e) {
@@ -241,22 +237,6 @@ public class MainViewController implements Initializable {
         return connection.getInputStream();
     }
 
-    private FoodsCreateOrUpdate foodsUpdateFromListview(ListView<String> editText) {
-        String name = editText.getItems().get(0).trim();
-        Double fat = Double.parseDouble(editText.getItems().get(1));
-        Double fiber = Double.parseDouble(editText.getItems().get(2));
-        Double kcal = Double.parseDouble(editText.getItems().get(3));
-        Double carbohydrate = Double.parseDouble(editText.getItems().get(4));
-        Double perUnit = Double.parseDouble(editText.getItems().get(5));
-        Double protein = Double.parseDouble(editText.getItems().get(6));
-        Double sugar = Double.parseDouble(editText.getItems().get(7));
-        Double monounsaturatedFat = Double.parseDouble(editText.getItems().get(8));
-        Double polyunsaturatedFat = Double.parseDouble(editText.getItems().get(9));
-        Double saturatedFat = Double.parseDouble(editText.getItems().get(10));
-        UnitsEnum unit = UnitsEnum.gram;
-        return new FoodsCreateOrUpdate(name, kcal, unit, perUnit, protein, fat, saturatedFat, polyunsaturatedFat, monounsaturatedFat, carbohydrate, sugar, fiber);
-    }
-
     public void changeButtonsBetweenProfileAndFood(boolean isProfile) {
         if (isProfile) {
             undeleteBtn.setVisible(false);
@@ -268,6 +248,18 @@ public class MainViewController implements Initializable {
             loadCreateBtn.setVisible(true);
             undeleteBtn.setManaged(true);
             loadCreateBtn.setManaged(true);
+        }
+    }
+
+    private void loadEditVboxContent() {
+        try {
+            Parent view = fxmlLoader.load();
+            // Optional: ScrollPane scrollPane = new ScrollPane(view);
+            ((UpdateFoodController) fxmlLoader.getController()).setLoginModelForUpdate(loginModel);
+            editVbox.getChildren().add(view);
+        } catch (IOException e) {
+            messageTextArea.setText(e.getMessage());
+            throw new RuntimeException(e);
         }
     }
 }

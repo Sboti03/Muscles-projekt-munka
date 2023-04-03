@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -33,27 +34,9 @@
             <ListView fx:id="mainListView" prefHeight="300.0" prefWidth="627.0" GridPane.rowIndex="1" />
             <VBox alignment="TOP_CENTER" spacing="20.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                <children>
-                  <HBox fx:id="updateButtonArea" alignment="CENTER_RIGHT" spacing="35.0" visible="false">
-                     <children>
-                        <Button fx:id="updateBtn" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#updateClick" prefHeight="35.0" prefWidth="170.0" text="Update" />
-                        <Button fx:id="cancelUpdateBtn" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#cancelUpdateClick" prefHeight="35.0" prefWidth="170.0" text="Cancel" />
-                     </children>
-                     <padding>
-                        <Insets right="40.0" />
-                     </padding>
-                  </HBox>
                   <HBox alignment="TOP_CENTER" VBox.vgrow="ALWAYS">
                      <children>
-                        <ListView fx:id="labelForData" disable="true" maxWidth="370.0" minHeight="200.0" minWidth="230.0" HBox.hgrow="ALWAYS">
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                        </ListView>
-                        <ListView fx:id="mainEditText" minHeight="200.0" HBox.hgrow="ALWAYS">
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                        </ListView>
+                        <VBox fx:id="editVbox" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS" visible="false"/>
                      </children>
                      <VBox.margin>
                         <Insets bottom="10.0" top="10.0" />
@@ -80,6 +63,11 @@
             <VBox alignment="TOP_RIGHT" GridPane.columnIndex="1">
                <children>
                   <Button fx:id="exitButton" minWidth="25.0" mnemonicParsing="false" onAction="#exitClick" text="X" />
+                  <TextArea fx:id="messageTextArea" disable="true" editable="false" maxWidth="-Infinity" prefHeight="42.0" prefWidth="705.0" VBox.vgrow="ALWAYS">
+                     <VBox.margin>
+                        <Insets right="380.0" />
+                     </VBox.margin>
+                  </TextArea>
                </children>
             </VBox>
          </children>

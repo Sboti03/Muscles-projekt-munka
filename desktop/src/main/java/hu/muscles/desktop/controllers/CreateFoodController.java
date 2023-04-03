@@ -85,41 +85,7 @@ public class CreateFoodController implements Initializable {
 
     @FXML
     public void createFoodClick(ActionEvent actionEvent) {
-        try {
-            FoodsCreateOrUpdate food = createFoodMainMethods.foodCreate(nameField, kcalField, unitField, perUnitField, proteinField, fatField, saturatedFatField, polyunsaturatedFatField, monounsaturatedFatField, carbohydrateField, sugarField, fiberField, messageTextArea);
-            if (food != null && !Objects.equals(food.getName(), "")) {
-                ObjectMapper mapper = new ObjectMapper();
-                mapper.registerModule(new SimpleModule().addSerializer(Double.class, new CustomDoubleSerializer()));
-                String json = "";
-                try {
-                    json = mapper.writeValueAsString(food);
-                } catch (JsonProcessingException e) {
-                    e.printStackTrace();
-                    messageTextArea.setText(e.getMessage());
-                }
-                if (!json.isEmpty()) {
-                    HttpHeaders headers = new HttpHeaders();
-                    headers.setContentType(MediaType.APPLICATION_JSON);
-                    headers.setBearerAuth(loginModel.getLoginData().getTokens().getAccessToken());
-                    HttpEntity<String> requestEntity = new HttpEntity<>(json, headers);
-                    ResponseEntity<String> responseEntity = restTemplate.exchange(url.CREATE_FOOD(), HttpMethod.POST, requestEntity, String.class);
-                    System.out.println(responseEntity.getBody());
-                    messageTextArea.clear();
-                    if (createFoodMainMethods.isValidJSON(requestEntity.getBody())) {
-                        messageTextArea.setText("Food is added successfully!");
-                    } else {
-                        messageTextArea.setText(responseEntity.getBody());
-                    }
-                }
-            } else {
-                messageTextArea.clear();
-                messageTextArea.setText("Not all argument are valid.");
-            }
-        } catch (Exception e) {
-            messageTextArea.clear();
-            messageTextArea.setText(e.getMessage());
-            System.out.println(e.getMessage());
-        }
+        createFoodMainMethods.CreateFood(nameField, kcalField, unitField, perUnitField, proteinField, fatField, saturatedFatField, polyunsaturatedFatField, monounsaturatedFatField, carbohydrateField, sugarField, fiberField, messageTextArea, loginModel, restTemplate, url, false, -1);
     }
 
     @FXML
