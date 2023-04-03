@@ -4,22 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="00e91fc0-96b8-4172-906f-ab5075727363" name="Changes" comment="install controlsfx dependency">
-      <change afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/UpdateFoodController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/models/FoodModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/update-food-view.fxml" afterDir="false" />
+    <list default="true" id="00e91fc0-96b8-4172-906f-ab5075727363" name="Changes" comment="rewriting food load and update">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/CreateFoodController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/CreateFoodController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/LoginController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/MainViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/MainViewController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/createfoodmainmethods/CreateFoodMainMethods.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/createfoodmainmethods/CreateFoodMainMethods.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/editListViewCell/EditListViewCell.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/listViewShowAndHideFunctions/ListViewFunctionsForMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/listViewShowAndHideFunctions/ListViewFunctionsForMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/loadFromServerToPOJO/LoadFromServerToPojo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/loadFromServerToPOJO/LoadFromServerToPojo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/main-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/main-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/style/loginFormStyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/style/loginFormStyle.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,7 +99,7 @@
       <option name="presentableId" value="Default" />
       <updated>1678361741933</updated>
       <workItem from="1678361743381" duration="16631000" />
-      <workItem from="1680006862680" duration="72510000" />
+      <workItem from="1680006862680" duration="75514000" />
     </task>
     <task id="LOCAL-00001" summary="refactoring (renaming)">
       <created>1678362647589</created>
@@ -314,7 +304,14 @@
       <option name="project" value="LOCAL" />
       <updated>1680247873244</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="rewriting food load and update">
+      <created>1680516288162</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1680516288162</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -332,7 +329,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="creating login" />
     <MESSAGE value="Change Scene between login and main" />
     <MESSAGE value="main site basic design" />
     <MESSAGE value="successful food getting" />
@@ -357,7 +353,8 @@
     <MESSAGE value="adding gender to profile and designing login form" />
     <MESSAGE value="adding radius to background" />
     <MESSAGE value="install controlsfx dependency" />
-    <option name="LAST_COMMIT_MESSAGE" value="install controlsfx dependency" />
+    <MESSAGE value="rewriting food load and update" />
+    <option name="LAST_COMMIT_MESSAGE" value="rewriting food load and update" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

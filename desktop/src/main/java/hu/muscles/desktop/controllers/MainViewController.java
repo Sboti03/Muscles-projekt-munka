@@ -17,7 +17,10 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.apache.hc.client5.http.classic.HttpClient;
+import org.apache.hc.client5.http.impl.classic.HttpClientBuilder;
 import org.springframework.http.*;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
@@ -135,7 +138,6 @@ public class MainViewController implements Initializable {
     @FXML
     public void deleteClick(ActionEvent actionEvent) {
         int index = listViewFunctionsForMain.getCurrentItemIndex(mainListView);
-        System.out.println(index);
         try {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
@@ -155,13 +157,15 @@ public class MainViewController implements Initializable {
     @FXML
     public void undeleteClick(ActionEvent actionEvent) {
         int index = listViewFunctionsForMain.getCurrentItemIndex(mainListView);
-        System.out.println(index);
         try {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             headers.setBearerAuth(loginModel.getLoginData().getTokens().getAccessToken());
             HttpEntity<String> requestEntity = new HttpEntity<>(null, headers);
-            ResponseEntity<String> responseEntity = restTemplate.exchange(url.UNDELETE_FOOD(index), HttpMethod.PATCH, requestEntity, String.class);
+            HttpClient httpClient = HttpClientBuilder.create().build();
+            HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory(httpClient);
+            RestTemplate restTemplate2 = new RestTemplate(factory);
+            ResponseEntity<String> responseEntity = restTemplate2.exchange(url.UNDELETE_FOOD(index), HttpMethod.PATCH, requestEntity, String.class);
             System.out.println(responseEntity.getBody());
             listViewFunctionsForMain.emptyAllText();
             messageTextArea.setText(responseEntity.getBody());
