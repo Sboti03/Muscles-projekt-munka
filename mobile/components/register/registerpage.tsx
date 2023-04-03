@@ -1,5 +1,5 @@
-import {Button, IconButton, Text, TextInput, VStack} from "@react-native-material/core";
-import {View} from "react-native";
+import {Button, Divider, Flex, HStack, IconButton, Text, TextInput, VStack} from "@react-native-material/core";
+import {StyleSheet, View} from "react-native";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import React, {useContext, useState} from "react";
 import NavigatorContext, {Page} from "../navigator/NavigatorProvider";
@@ -9,7 +9,7 @@ import axios from "axios";
 import {BASE_URL} from "@env";
 // @ts-ignore
 import SwitchSelector from "react-native-switch-selector";
-
+import { LinearGradient } from 'expo-linear-gradient';
 
 
 const registerAPI = BASE_URL + 'api/auth/register'
@@ -21,6 +21,7 @@ export default function RegisterPage() {
     const [firstPassword, setFirstPassword] = useState<string>('')
     const [secondPassword, setSecondPassword] = useState<string>('')
     const [warning, setWarning] = useState<string>('')
+    const [visible, setVisible] = useState<boolean>(true)
 
 
     const isPasswordEqual = () => {
@@ -34,7 +35,7 @@ export default function RegisterPage() {
            axios.post(registerAPI, {email: email, password: firstPassword, isCoach: isCoach})
                .then(function (response) {
                    console.log(response.data)
-                   changePage(Page.NAME)
+                   changePage(Page.NAMEFORM)
                })
                .catch(function (error) {
                    console.log(error)
@@ -44,11 +45,14 @@ export default function RegisterPage() {
     }
 
    return(
-       <View style={loginPageStyle.loginForm}>
-          <VStack style={loginPageStyle.vStack}>
-              <Text style={loginPageStyle.text}>
-                Register Page
-              </Text>
+       <LinearGradient  colors={['#efe8fd', '#865eff']}
+                        style={{width: '100%', flex: 1, alignItems: "center"}}>
+       <Flex fill >
+
+           <Text style={registerStyles.title}>
+               Register Page
+           </Text>
+          <VStack style={registerStyles.container} spacing={15}>
               <SwitchSelector
                   initial={1}
                   style={{width: 300}}
@@ -68,54 +72,128 @@ export default function RegisterPage() {
                   ]}
               />
 
-              <TextInput style={loginPageStyle.input}
-                        onChangeText={(text) => { setEmail(text) } }
-                        trailing={<MaterialCommunityIcons name="email" size={24} color="#684dd1" />}
-                        placeholder={"email"}
+              <TextInput style={registerStyles.inputBox}
+                         onChangeText={(text) => { setEmail(text) } }
+                         trailing={<MaterialCommunityIcons name="email" size={24} color="#684dd1" />}
+                         placeholder={"email"}
+                         inputStyle={registerStyles.input}
+                         inputContainerStyle={registerStyles.inputContainer}
+                         placeholderTextColor={'#ebd8fc'}
+                         leadingContainerStyle={{alignSelf: 'center'}}
+                         trailingContainerStyle={{alignSelf: 'center'}}
               />
-              <TextInput style={loginPageStyle.input}
-                        onChangeText={(text) => { setFirstPassword(text) } }
-                        leading={<MaterialCommunityIcons name="key" size={24} color="#684dd1" />}
-                        trailing={
-                           <IconButton
-                               icon={<MaterialCommunityIcons name="eye" size={24} color="#684dd1" />}
-                           />
-                        }
-                        placeholder={"password"}
+              <TextInput style={registerStyles.inputBox}
+                         onChangeText={(text) => { setFirstPassword(text) } }
+                         leading={<MaterialCommunityIcons name="key" size={24} color="#684dd1" />}
+                         secureTextEntry={visible}
+                         inputStyle={registerStyles.input}
+                         inputContainerStyle={registerStyles.inputContainer}
+                         placeholderTextColor={'#ebd8fc'}
+                         trailing={
+                             <IconButton
+                                 icon={visible?<MaterialCommunityIcons name="eye-off" size={24} color="#684dd1" />: <MaterialCommunityIcons name="eye" size={24} color="#684dd1" />}
+                                 onPress={() => setVisible(!visible)}
+                             />
+                         }
+                         leadingContainerStyle={{alignSelf: 'center'}}
+                         trailingContainerStyle={{alignSelf: 'center'}}
+                         placeholder={"password"}
               />
-              <TextInput style={loginPageStyle.input}
+              <TextInput style={registerStyles.inputBox}
                          onChangeText={(text) => { setSecondPassword(text) } }
                          leading={<MaterialCommunityIcons name="key" size={24} color="#684dd1" />}
+                         secureTextEntry={visible}
+                         inputStyle={registerStyles.input}
+                         inputContainerStyle={registerStyles.inputContainer}
+                         placeholderTextColor={'#ebd8fc'}
                          trailing={
-                           <IconButton
-                               icon={<MaterialCommunityIcons name="eye" size={24} color="#684dd1" />}
-                           />
-                        }
+                             <IconButton
+                                 icon={visible?<MaterialCommunityIcons name="eye-off" size={24} color="#684dd1" />: <MaterialCommunityIcons name="eye" size={24} color="#684dd1" />}
+                                 onPress={() => setVisible(!visible)}
+                             />
+                         }
+                         leadingContainerStyle={{alignSelf: 'center'}}
+                         trailingContainerStyle={{alignSelf: 'center'}}
                          placeholder={"password"}
                          helperText={warning}
               />
-              <Button title={'Register'}
-                    onPress={() => {register()} }
-                    style={loginPageStyle.button}
-              />
-              <Ripple onPress={ () => { changePage(Page.LOGIN) } }>
-                <Text style={loginPageStyle.text}>
-                   Login
-                </Text>
-              </Ripple>
-              <Ripple onPress={ () => { changePage(Page.HOME) } }>
-                  <Text style={loginPageStyle.text}>
-                      HomePage
-                  </Text>
-              </Ripple>
-              <Text>
-                  {firstPassword}
-                  {' ' + secondPassword}
-                  {isCoach}
-              </Text>
+              <HStack style={{width: '100%' , justifyContent: 'space-between'}}>
+                  <Ripple onPress={ () => { changePage(Page.LOGIN) } }
+                          style={registerStyles.pressable}
+                  >
+                      <Text style={registerStyles.text}>
+                          Login
+                      </Text>
+                  </Ripple>
+                  <Button title={'Register'}
+                          onPress={() => {register()} }
+                          style={registerStyles.registerButton}
+                  />
+              </HStack>
           </VStack>
-      </View>
+      </Flex>
+       </LinearGradient>
    )
 }
+const registerStyles = StyleSheet.create({
+    page: {
+
+
+    },
+    container: {
+        flex: 1,
+        alignSelf: "center",
+        width: 300,
+        justifyContent: "center",
+        marginBottom: 70,
+    },
+    input: {
+        color: '#e6daff',
+        paddingLeft: 14,
+    },
+    inputBox: {
+        width: 300,
+        height: 70,
+        borderRadius: 10,
+        overflow: "hidden",
+        borderWidth: 0,
+        borderColor: '#FFF',
+    },
+    inputContainer: {
+        backgroundColor: '#aa8dff',
+        borderRadius: 30,
+        flexGrow: 1
+    },
+    title: {
+        textAlign: "center",
+        fontFamily: 'serif',
+        marginTop: 80,
+        fontSize: 50,
+        color: '#FFF'
+    },
+    text: {
+        color: '#FFF',
+        fontSize: 18,
+        fontWeight: 'bold',
+        textShadowColor: '#FFF',
+        textShadowRadius: 2,
+        textShadowOffset: {width: 2, height: 20}
+
+    },
+
+    pressable: {
+        justifyContent: 'center',
+        marginLeft: 20,
+        // borderColor: '#FFF',
+        // borderWidth: 1,
+        // borderRadius: 10,
+        // borderBottomWidth: 2,
+        // borderRightWidth: 2,
+
+    },
+    registerButton: {
+        backgroundColor: '#7a44cf'
+    }
+})
 
 

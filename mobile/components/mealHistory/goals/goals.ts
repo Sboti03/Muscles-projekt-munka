@@ -1,5 +1,5 @@
-import GoalsPerDay from "../types/goalsPerDay";
+import GoalInterface from "../types/goalInterface";
 
 export default interface Goals {
-    goals: GoalsPerDay[] | null,
+    goals: GoalInterface[] | null,
 }

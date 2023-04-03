@@ -1,6 +1,6 @@
-import Food, {UnitsEnum} from "./food";
+import FoodInterface, {UnitsEnum} from "./foodInterface";
 
-export default function createFood(): Food {
+export default function createFood(): FoodInterface {
     return {
         name: 'Chicken breast',
         kcal: 165,

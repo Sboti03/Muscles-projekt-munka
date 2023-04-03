@@ -1,4 +1,4 @@
-import {Button, IconButton, Text, TextInput, VStack} from "@react-native-material/core";
+import {Button, Flex, HStack, IconButton, Text, TextInput, VStack} from "@react-native-material/core";
 import React, {useContext, useState} from "react";
 import NavigatorContext, {Page} from "./navigator/NavigatorProvider";
 import {StyleSheet, View} from "react-native";
@@ -6,65 +6,68 @@ import {BASE_URL} from "@env";
 import {MaterialCommunityIcons} from '@expo/vector-icons';
 import Ripple from "react-native-material-ripple";
 import AuthContext from "./auth/AuthContext";
+import { LinearGradient } from "expo-linear-gradient";
 
 const loginAPI: string = BASE_URL + 'api/auth/login'
 export default function LoginPage() {
     const {changePage} = useContext(NavigatorContext)
     const {login, setUser} = useContext(AuthContext)
-    const [email, setEmail] = useState<string>('email')
-    const [password, setPassword] = useState<string>('password')
+    const [email, setEmail] = useState<string>('')
+    const [password, setPassword] = useState<string>('')
+    const [visible, setVisible] = useState<boolean>(true)
 
 
 
     return (
-        <View style={loginPageStyle.loginForm}>
+        <LinearGradient  colors={['#efe8fd', '#865eff']}
+                         style={{width: '100%', flex: 1, alignItems: "center"}}>
+        <Flex fill>
+            <Text style={loginPageStyle.title}>
+                Login Page
+            </Text>
             <VStack style={loginPageStyle.vStack}>
-                <Text style={loginPageStyle.text}>
-                    Login Page
-                </Text>
-                <TextInput style={loginPageStyle.input}
+                <TextInput style={loginPageStyle.inputBox}
                            onChangeText={ (text) => { setEmail(text) } }
                            trailing={<MaterialCommunityIcons name="email" size={24} color="#684dd1" />}
                            placeholder={"email"}
                 />
-                <TextInput style={loginPageStyle.input}
+                <TextInput style={loginPageStyle.inputBox}
                            onChangeText={ (text) => { setPassword(text) } }
                            leading={<MaterialCommunityIcons name="key" size={24} color="#684dd1" />}
+                           secureTextEntry={visible}
                            trailing={
                                 <IconButton
-                                    icon={<MaterialCommunityIcons name="eye" size={24} color="#684dd1" />}
+                                    icon={visible?<MaterialCommunityIcons name="eye-off" size={24} color="#684dd1" />: <MaterialCommunityIcons name="eye" size={24} color="#684dd1" />}
+                                    onPress={() => setVisible(!visible)}
                                 />
                             }
                            placeholder={"password"}
                 />
-
-                <Button title={'Login'}
-                        onPress={() => {
-                            login(email, password)
-                        } }
-                        style={loginPageStyle.button}
-                />
-                <Ripple onPress={()=>changePage(Page.REGISTER)} >
-                    <Text style={loginPageStyle.text}>
-                        Register
-                    </Text>
-                </Ripple>
-                <Ripple onPress={ () => { changePage(Page.HOME) } }>
-                    <Text style={loginPageStyle.text}>
-                        HomePage
-                    </Text>
-                </Ripple>
-                <Ripple onPress={ () => { changePage(Page.NAME) } }>
-                    <Text style={loginPageStyle.text}>
-                        Profile Form
-                    </Text>
-                </Ripple>
+                <HStack style={{width: '100%' , justifyContent: 'space-between'}}>
+                    <Ripple onPress={()=>changePage(Page.REGISTER)} >
+                        <Text style={loginPageStyle.text}>
+                            Register
+                        </Text>
+                    </Ripple>
+                    <Button title={'Login'}
+                            onPress={() => {
+                                login(email, password)
+                            } }
+                            style={loginPageStyle.button}
+                    />
+                </HStack>
             </VStack>
-        </View>)
+        </Flex>
+        </LinearGradient>
+            )
 
 }
 
 export const loginPageStyle = StyleSheet.create({
+    page: {
+        backgroundColor: '#cbb9ff',
+
+    },
     loginForm: {
         backgroundColor: '#cbb9ff',
         flex: 1,
@@ -72,18 +75,28 @@ export const loginPageStyle = StyleSheet.create({
         justifyContent: 'center',
         textAlign: "center"
     },
-    input: {
+    inputBox: {
         width: 300,
         height: 70,
-        margin: 20,
     },
     vStack: {
-        alignItems: "center",
+        flex: 1,
+        alignSelf: "center",
+        width: 300,
+        justifyContent: "center",
+        marginBottom: 70,
+    },
+    title: {
+        textAlign: "center",
+        fontFamily: 'serif',
+        marginTop: 80,
+        fontSize: 50,
+        color: '#FFF'
     },
     text: {
       textTransform: "capitalize"
     },
     button: {
-        margin: 20,
+
     }
 })

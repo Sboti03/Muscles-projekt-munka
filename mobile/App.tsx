@@ -3,13 +3,17 @@ import NavigatorContextProvider from './components/navigator/NavigatorContextPro
 import Pages from "./components/navigator/pages";
 import AuthContextProvider from "./components/auth/AuthContextProvider";
 import ProfileContextProvider from "./components/profile/ProfileContextProvider";
+import MealHistoryContextProvider from './components/mealHistory/mealHistoryContextProvider';
+import { LinearGradient } from 'expo-linear-gradient';
 
 export default function App() {
   return (
     <NavigatorContextProvider>
       <AuthContextProvider>
         <ProfileContextProvider>
-          <Pages />
+          <MealHistoryContextProvider>
+              <Pages />
+          </MealHistoryContextProvider>
         </ProfileContextProvider>
       </AuthContextProvider>
     </NavigatorContextProvider>

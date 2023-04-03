@@ -3,7 +3,7 @@ import ProfileContext, {Profile, ProfileContextValue} from "./ProfileProvider";
 import profileProvider from "./ProfileProvider";
 
 export default function ProfileContextProvider({children}: PropsWithChildren) {
-    const [profile, setProfile] = useState<Profile>({birthDay:new Date()})
+    const [profile, setProfile] = useState<Profile | undefined>({birthDay: new Date()})
     const profileContextValue: ProfileContextValue = {
         profile: profile,
         updateProfile: (profile:Profile) => {

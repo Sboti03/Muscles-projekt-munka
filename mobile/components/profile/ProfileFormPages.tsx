@@ -6,6 +6,10 @@ import NavigatorProvider, {Page} from "../navigator/NavigatorProvider";
 import {homePageStyle} from "../home/homePage";
 import {loginPageStyle} from "../loginPage";
 import {DateTimePickerAndroid} from '@react-native-community/datetimepicker';
+import {BASE_URL} from "@env";
+import axios from "axios";
+
+const updateProfileAPI = BASE_URL + 'api/profile/update'
 
 export interface ProfileProps {
     birthDay?: boolean
@@ -37,8 +41,18 @@ export default function ProfileFormPages (props: ProfileProps) {
         if (!profile?.height) {
             setHeightWarning('This field is required')
         } else if (profile.height) {
+            const currentProfile = {firstName: profile.firstName, lastName: profile.lastName, birthDay: profile.birthDay, height: profile.height}
             setHeightWarning('')
-            changePage(Page.HOME)
+            axios.patch(updateProfileAPI, currentProfile)
+                .then(function (response) {
+                    console.log(response.data)
+                    changePage(Page.HOME)
+                })
+                .catch(function (error) {
+                    console.log(error)
+                    console.log(profile)
+                    console.log(updateProfileAPI)
+                })
         }
     }
     const clearWarning = () => {
@@ -60,12 +74,12 @@ export default function ProfileFormPages (props: ProfileProps) {
 
     if (props.birthDay){
         return (
-            <Flex fill style={homePageStyle.page}>
+            <Flex fill>
                 <VStack style={profileFormStyles.container}>
                     <Text>{profile?.birthDay?.toLocaleDateString()}</Text>
                     <Text onPress={showDatePicker}>change birthday</Text>
                     <TextInput placeholder={'height'}
-                               style={Object.assign({}, profileFormStyles.inputOnTheMiddle ,loginPageStyle.input)}
+                               style={Object.assign({}, profileFormStyles.inputOnTheMiddle ,loginPageStyle.inputBox)}
                                inputStyle={{backgroundColor: '#aa8dff'}}
                                placeholderTextColor={'#d2bdfc'}
                                keyboardType={"numeric"}
@@ -87,13 +101,13 @@ export default function ProfileFormPages (props: ProfileProps) {
     }
     else return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <Flex fill style={homePageStyle.page}>
+            <Flex fill >
                 <VStack  style={profileFormStyles.container}>
                     <Text style={profileFormStyles.texts}>
                         First name
                     </Text>
                     <TextInput placeholder={'Firstname'}
-                               style={Object.assign({}, profileFormStyles.inputOnTheMiddle ,loginPageStyle.input)}
+                               style={Object.assign({}, profileFormStyles.inputOnTheMiddle ,loginPageStyle.inputBox)}
                                inputStyle={{backgroundColor: '#aa8dff'}}
                                placeholderTextColor={'#d2bdfc'}
                                onChangeText={firstName =>{
@@ -107,7 +121,7 @@ export default function ProfileFormPages (props: ProfileProps) {
                         Last name
                     </Text>
                     <TextInput placeholder={'Lastname'}
-                               style={Object.assign({}, profileFormStyles.inputOnTheMiddle ,loginPageStyle.input)}
+                               style={Object.assign({}, profileFormStyles.inputOnTheMiddle ,loginPageStyle.inputBox)}
                                inputStyle={{backgroundColor: '#aa8dff'}}
                                placeholderTextColor={'#d2bdfc'}
                                onChangeText={lastName =>{
@@ -145,6 +159,7 @@ const profileFormStyles = StyleSheet.create({
     texts: {
         alignSelf: "flex-start",
         color: '#7a44cf'
-    }
+    },
+
 
 })

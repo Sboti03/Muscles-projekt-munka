@@ -1,6 +1,6 @@
-import MealHistory, {PeriodNamesEnum} from "./types/mealHistory";
+import DayHistoryInterface, {PeriodNamesEnum} from "./types/dayHistoryInterface";
 
-export default function CreateMealHistory(): MealHistory {
+export default function CreateMealHistory(): DayHistoryInterface {
     return {
         amount: 250,
         date: new Date(),

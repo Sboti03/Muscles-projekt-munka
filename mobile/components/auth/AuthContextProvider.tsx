@@ -5,9 +5,12 @@ import newRefreshToken from "./refresh/refreshToken";
 import axios from "axios";
 import {BASE_URL} from "@env";
 import User from "./types/user";
+import {ProfileResponse} from "../profile/ProfileProvider";
 
 const logoutAPI = BASE_URL + 'api/auth/logout'
 const loginAPI: string = BASE_URL + 'api/auth/login'
+const getProfileAPI = BASE_URL + 'api/profile'
+
 
 
 function AuthContextProvider(props:PropsWithChildren) {
@@ -38,7 +41,17 @@ function AuthContextProvider(props:PropsWithChildren) {
                 .then(function (response) {
                     console.log(response.data)
                     setUser(response.data as User)
-                    changePage(Page.HOME)
+                    axios.get(getProfileAPI)
+                        .then(function (response) {
+                            if (!(response.data as ProfileResponse).firstName) {
+                                changePage(Page.NAMEFORM)
+                            } else {
+                                changePage(Page.HOME)
+                            }
+                        })
+                        .catch(function (error) {
+                            console.log(error)
+                        })
                 },).catch(function (error) {
                 console.log(error.request)
             })

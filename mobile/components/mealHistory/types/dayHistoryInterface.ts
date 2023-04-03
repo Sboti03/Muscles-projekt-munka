@@ -1,4 +1,4 @@
-export default interface MealHistory {
+export default interface DayHistoryInterface {
     periodName: PeriodNamesEnum,
     date: Date,
     foodId: number,
