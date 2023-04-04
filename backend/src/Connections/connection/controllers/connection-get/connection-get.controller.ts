@@ -1,4 +1,4 @@
-import {Controller, Get, NotFoundException, Param, UseGuards} from '@nestjs/common';
+import {Controller, Get, Logger, NotFoundException, Param, UseGuards} from '@nestjs/common';
 import {ConnectionGetService} from "../../services/connection-get/connection-get.service";
 import {GetCurrentUser, GetCurrentUserId} from "../../../../auth/decorators/decorators";
 import {AccessTokenGuard} from "../../../../auth/guards/access-token.guard";
@@ -25,7 +25,7 @@ export class ConnectionGetController {
         if (await this.connectionCheckService.checkExistingConnection(userId, coachId)) {
             throw new NotFoundException('No connection found')
         }
-        return this.conGetService.getUser(idParam.id)
+        return this.conGetService.getConnectionByIds(userId, coachId)
     }
 
 }

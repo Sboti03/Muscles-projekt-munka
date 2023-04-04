@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import {PrismaService} from "../../../../Common/utils/prirsma.service";
+import runAllTicks = jest.runAllTicks;
 
 @Injectable()
 export class ConnectionGetService {
@@ -11,7 +12,7 @@ export class ConnectionGetService {
         return this.prismaService.connections.findUniqueOrThrow({
             where: {
                 userId_coachId: {userId, coachId}
-            }
+            },
         })
     }
 
@@ -33,21 +34,10 @@ export class ConnectionGetService {
                 ]
             },
             select: {
-                user: {
-                    select: {
-                        profileData: {
-                            select: {
-                                firstName: true,
-                                lastName: true,
-                                birthDay: true,
-                                height: true,
-                                registrationDate: true,
-                            }
-                        },
-                        userId: true,
-                        email: true
-                    }
-                }
+                userId: true,
+                accessAll: true,
+                coachId: true,
+                connectionId: true,
             }
         })
     }

@@ -8,9 +8,8 @@ import {RolesGuard} from "../../../auth/guards/role.guard";
 import {IdParam} from "../../../Common/params/id.param";
 import { UserGetService } from "../../../user/services/user-get/user-get.service";
 
-@UseGuards(AccessTokenGuard)
 @Roles(RoleEnum.ADMIN)
-@UseGuards(RolesGuard)
+@UseGuards(AccessTokenGuard, RolesGuard)
 @Controller('admin/user')
 export class AdminUserController {
     constructor(private adminBlockService: AdminBlockService, private adminDeleteService: AdminDeleteService,
