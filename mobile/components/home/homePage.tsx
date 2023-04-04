@@ -4,7 +4,14 @@ import {Box, Button, Chip, Flex, HStack, IconButton, Text, VStack} from "@react-
 import NavigatorContext, {Page} from "../navigator/NavigatorProvider";
 import {BASE_URL} from "@env"
 import axios from "axios";
-import {DrawerLayoutAndroid, Keyboard, KeyboardAvoidingView, StyleSheet, TouchableWithoutFeedback} from "react-native";
+import {
+    BackHandler,
+    DrawerLayoutAndroid,
+    Keyboard,
+    KeyboardAvoidingView,
+    StyleSheet,
+    TouchableWithoutFeedback
+} from "react-native";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import * as Progress from 'react-native-progress';
 import AuthContext from "../auth/AuthContext";
@@ -20,6 +27,7 @@ import Weight from "./Weight";
 import ScrollPicker from "react-native-wheel-scrollview-picker";
 import WeightInterface from "../mealHistory/types/weightInterface";
 import mealHistoryContext from "../mealHistory/mealHistoryContext";
+import PageHistoryContext from "../PageHistory/PageHistoryProvider";
 
 const getAllProfileInfo = BASE_URL + 'api/user/all'
 const getAllGoalData = BASE_URL + 'api/goals'
@@ -32,10 +40,13 @@ const createMealHistoryApi = BASE_URL + 'api/meal-history/create'
 
 
 function HomePage(){
+
     const {changePage} = useContext(NavigatorContext)
     const {profile, updateProfile} = useContext(ProfileContext)
     const {logout} = useContext(AuthContext)
     const {date, setDate, setMealHistory, mealHistory} = useContext(MealHistoryContext)
+    const {deleteLastPage,addPage, pageHistory} = useContext(PageHistoryContext)
+
     const drawer = useRef<DrawerLayoutAndroid>(null);
     const [foodCalculations, setFoodCalculations] = useState<DayInfoData>()
     const oneDay = 24*60*60*1000; //one day in milliseconds in order to get the day and setDate()
@@ -73,9 +84,9 @@ function HomePage(){
                     console.log(error)
                 })
         }
-        console.log('PROFILE: ')
-        console.log(profile)
-        console.log('PROGRESS_FAT:')
+        console.log('Page History Main page')
+        console.log(pageHistory)
+
     }, [])
     useEffect(() => {
         console.log('Változott a date')
@@ -130,7 +141,10 @@ function HomePage(){
                   </HStack>
                   <IconButton icon={<MaterialCommunityIcons name="calendar-search" size={40} color="#7a44cf"/>}
                               style={{marginRight:5}}
-                              onPress={() => changePage(Page.CALENDAR)}
+                              onPress={() => {
+                                  changePage(Page.CALENDAR)
+                                  addPage(Page.CALENDAR)
+                              }}
                   />
               </HStack>
 

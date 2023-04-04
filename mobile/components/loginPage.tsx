@@ -1,5 +1,5 @@
 import {Button, Flex, HStack, IconButton, Text, TextInput, VStack} from "@react-native-material/core";
-import React, {useContext, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import NavigatorContext, {Page} from "./navigator/NavigatorProvider";
 import {StyleSheet, View} from "react-native";
 import {BASE_URL} from "@env";
@@ -7,16 +7,22 @@ import {MaterialCommunityIcons} from '@expo/vector-icons';
 import Ripple from "react-native-material-ripple";
 import AuthContext from "./auth/AuthContext";
 import { LinearGradient } from "expo-linear-gradient";
+import PageHistoryContext from "./PageHistory/PageHistoryProvider";
 
 const loginAPI: string = BASE_URL + 'api/auth/login'
 export default function LoginPage() {
     const {changePage} = useContext(NavigatorContext)
     const {login, setUser} = useContext(AuthContext)
+    const {addPage, deleteLastPage, pageHistory} = useContext(PageHistoryContext)
+
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const [visible, setVisible] = useState<boolean>(true)
 
-
+    useEffect(() => {
+        console.log('Page History LoginPage')
+        console.log(pageHistory)
+    }, [])
 
     return (
         <LinearGradient  colors={['#efe8fd', '#865eff']}
@@ -44,7 +50,12 @@ export default function LoginPage() {
                            placeholder={"password"}
                 />
                 <HStack style={{width: '100%' , justifyContent: 'space-between'}}>
-                    <Ripple onPress={()=>changePage(Page.REGISTER)} >
+                    <Ripple onPress={()=> {
+                        changePage(Page.REGISTER)
+                        deleteLastPage()
+                        addPage(Page.REGISTER)
+
+                    }} >
                         <Text style={loginPageStyle.text}>
                             Register
                         </Text>

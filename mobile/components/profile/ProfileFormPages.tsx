@@ -8,6 +8,7 @@ import {loginPageStyle} from "../loginPage";
 import {DateTimePickerAndroid} from '@react-native-community/datetimepicker';
 import {BASE_URL} from "@env";
 import axios from "axios";
+import PageHistoryContext from "../PageHistory/PageHistoryProvider";
 
 const updateProfileAPI = BASE_URL + 'api/profile/update'
 
@@ -18,6 +19,7 @@ export default function ProfileFormPages (props: ProfileProps) {
 
     const {profile, updateProfile} = useContext(profileProvider)
     const {changePage} = useContext(NavigatorProvider)
+    const {deleteLastPage,addPage} = useContext(PageHistoryContext)
 
     const [fNameWarning, setFNameWarning] = useState<string>('')
     const [lNameWarning, setLNameWarning] = useState<string>('')
@@ -33,6 +35,7 @@ export default function ProfileFormPages (props: ProfileProps) {
         }else if (profile.lastName) setLNameWarning('')
         if (profile!.firstName && profile!.lastName) {
             changePage(Page.BIRTHDAYANDWEIGHT)
+            addPage(Page.BIRTHDAYANDWEIGHT)
             console.log(profile)
         }
     }
@@ -47,6 +50,9 @@ export default function ProfileFormPages (props: ProfileProps) {
                 .then(function (response) {
                     console.log(response.data)
                     changePage(Page.HOME)
+                    deleteLastPage()
+                    deleteLastPage()
+                    addPage(Page.HOME)
                 })
                 .catch(function (error) {
                     console.log(error)

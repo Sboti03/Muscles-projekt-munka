@@ -7,6 +7,7 @@ import axios from "axios";
 import FoodInterface from "../../food/foodInterface";
 import NavigatorContext, {Page} from "../../navigator/NavigatorProvider";
 import {StyleSheet} from "react-native";
+import PageHistoryContext from "../../PageHistory/PageHistoryProvider";
 
 const getAllFoodApi = BASE_URL + 'api/food'
 const createMealHistoryAPI = BASE_URL + 'api/meal-history/create'
@@ -17,6 +18,7 @@ export function NormalizeDate(newDate: Date) {
 function CreateMealHistory() {
     const {mealPeriod, dayHistories, date} = useContext(MealHistoryContext)
     const {changePage} = useContext(NavigatorContext)
+    const {deleteLastPage} = useContext(PageHistoryContext)
 
     const [data, setData] = useState([])
     const [selected, setSelected] = useState('');
@@ -49,6 +51,7 @@ function CreateMealHistory() {
                 .then((response) => {
                     console.log(response.data)
                     changePage(Page.HOME)
+                    deleteLastPage()
                 })
                 .catch((error) => {
                     console.log(error)
@@ -89,6 +92,7 @@ function CreateMealHistory() {
                     <Button title={'Cancel'}
                             onPress={() => {
                                 changePage(Page.HOME)
+                                deleteLastPage()
                             }}
                             style={createMealHistoryStyle.cancelButton}
                     />

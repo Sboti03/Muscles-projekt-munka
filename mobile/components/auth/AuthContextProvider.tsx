@@ -6,6 +6,7 @@ import axios from "axios";
 import {BASE_URL} from "@env";
 import User from "./types/user";
 import {ProfileResponse} from "../profile/ProfileProvider";
+import PageHistoryContext from "../PageHistory/PageHistoryProvider";
 
 const logoutAPI = BASE_URL + 'api/auth/logout'
 const loginAPI: string = BASE_URL + 'api/auth/login'
@@ -17,6 +18,7 @@ function AuthContextProvider(props:PropsWithChildren) {
     const [user, setUser] = useState<User | undefined>(undefined)
     const [isAccessTokenExpired, setIsAccessTokenExpired] = useState(false)
     const {changePage} = useContext(NavigatorContext)
+    const {addPage, onLogout} = useContext(PageHistoryContext)
 
 
     useEffect(()=> {
@@ -45,8 +47,10 @@ function AuthContextProvider(props:PropsWithChildren) {
                         .then(function (response) {
                             if (!(response.data as ProfileResponse).firstName) {
                                 changePage(Page.NAMEFORM)
+                                addPage(Page.NAMEFORM)
                             } else {
                                 changePage(Page.HOME)
+                                addPage(Page.HOME)
                             }
                         })
                         .catch(function (error) {
@@ -60,11 +64,13 @@ function AuthContextProvider(props:PropsWithChildren) {
             axios.get(logoutAPI)
                 .then(function (response) {
                     console.log(response.data)
+                    setUser(undefined)
+                    changePage(Page.LOGIN)
+                    onLogout()
                 }).catch(function (error) {
                 console.log(error)
             })
-            setUser(undefined)
-            changePage(Page.LOGIN)
+
         }
     }
 

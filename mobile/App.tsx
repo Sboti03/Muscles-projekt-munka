@@ -5,17 +5,20 @@ import AuthContextProvider from "./components/auth/AuthContextProvider";
 import ProfileContextProvider from "./components/profile/ProfileContextProvider";
 import MealHistoryContextProvider from './components/mealHistory/mealHistoryContextProvider';
 import { LinearGradient } from 'expo-linear-gradient';
+import PageHistoryContextProvider from "./components/PageHistory/PageHistoryContextProvider";
 
 export default function App() {
   return (
     <NavigatorContextProvider>
-      <AuthContextProvider>
-        <ProfileContextProvider>
-          <MealHistoryContextProvider>
-              <Pages />
-          </MealHistoryContextProvider>
-        </ProfileContextProvider>
-      </AuthContextProvider>
+      <PageHistoryContextProvider>
+        <AuthContextProvider>
+          <ProfileContextProvider>
+            <MealHistoryContextProvider>
+                <Pages />
+            </MealHistoryContextProvider>
+          </ProfileContextProvider>
+        </AuthContextProvider>
+      </PageHistoryContextProvider>
     </NavigatorContextProvider>
   );
 }

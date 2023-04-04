@@ -6,11 +6,13 @@ import NavigatorContext, {Page} from "../navigator/NavigatorProvider";
 import AuthContext from "../auth/AuthContext";
 import {StyleSheet} from "react-native";
 import ProfileContext from "../profile/ProfileProvider";
+import PageHistoryContext from "../PageHistory/PageHistoryProvider";
 
 export default function SideBarContent() {
     const {changePage} = useContext(NavigatorContext)
     const {profile} = useContext(ProfileContext)
-    const {logout,} = useContext(AuthContext)
+    const {logout} = useContext(AuthContext)
+    const {addPage} = useContext(PageHistoryContext)
     return(
         <Flex fill style={sidebarStyle.page}>
             <VStack style={sidebarStyle.mainVStack}>
@@ -26,6 +28,7 @@ export default function SideBarContent() {
                 </HStack>
                 <Pressable onPress={() => {
                     changePage(Page.PROFILE)
+                    addPage(Page.PROFILE)
                 }}>
                     <Text>Change profile</Text>
                 </Pressable>

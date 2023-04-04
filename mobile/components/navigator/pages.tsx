@@ -1,4 +1,4 @@
-import {useContext} from "react";
+import {useContext, useEffect} from "react";
 import NavigatorProvider, {Page} from "./NavigatorProvider";
 import LoginPage from "../loginPage";
 import HomePage from "../home/homePage";
@@ -11,11 +11,43 @@ import ShowMealHistory from "../mealHistory/pages/ShowMealHistory";
 import ShowOneFood from "../food/ShowOneFood";
 import MealHistoryContext from "../mealHistory/mealHistoryContext";
 import CalendarPage from "../Calendar/CalendarPage";
+import PageHistoryContext from "../PageHistory/PageHistoryProvider";
+import {Alert, BackHandler} from "react-native";
 
 export default function Pages() {
 
    const {dayHistories, currentPlaceOfDayPeriodResponse} = useContext(MealHistoryContext)
-   const {page} = useContext(NavigatorProvider)
+   const {page, changePage} = useContext(NavigatorProvider)
+   const {pageHistory, deleteLastPage} = useContext(PageHistoryContext)
+
+   useEffect(() => {
+      const backAction = () => {
+         Alert.alert('Hold on!', 'Are you sure you want to exit?', [
+            {
+               text: 'Cancel',
+               onPress: () => null,
+               style: 'cancel',
+            },
+            {text: 'YES', onPress: () => {
+                  console.log(pageHistory)
+                  BackHandler.exitApp()
+               }},
+         ]);
+         return true;
+      };
+
+      const backHandler = BackHandler.addEventListener('hardwareBackPress', function () {
+         if (pageHistory[pageHistory.length - 1] === Page.HOME || pageHistory[pageHistory.length - 1] === Page.LOGIN || pageHistory[pageHistory.length - 1] === Page.REGISTER|| pageHistory[pageHistory.length - 1] === Page.NAMEFORM|| pageHistory[pageHistory.length - 1] === Page.BIRTHDAYANDWEIGHT) {
+            console.log(pageHistory)
+            backAction()
+         } else {
+            console.log(pageHistory)
+            changePage(pageHistory[pageHistory.length - 2])
+            deleteLastPage()
+            return true
+         }
+          });
+   }, [])
 
    switch (page) {
       case Page.LOGIN:

@@ -10,6 +10,7 @@ import {MaterialCommunityIcons} from "@expo/vector-icons";
 import {DayPeriodResponse} from "../types/Meal";
 import {NormalizeDate} from "./CreateMealHistory";
 import {getOneFoodCalorie} from "../../food/foodCalculations";
+import PageHistoryContext from "../../PageHistory/PageHistoryProvider";
 
 const getDayHistoriesByMealPeriodAndDate= BASE_URL + 'api/meal-history?date='
 const getFoodByFoodIdAPI = BASE_URL + 'api/food/?id='
@@ -21,6 +22,7 @@ const getMealHistoryData = BASE_URL + 'api/meal-history/data/?date='
 function ShowMealHistory() {
     const {mealHistory, mealPeriod, setFoods, foods, dayHistories, date, setDayHistories, setCurrentPlaceOfDayPeriodResponse, setMealHistory, deleteDayHistory} = useContext(MealHistoryContext)
     const {changePage} = useContext(NavigatorContext)
+    const {deleteLastPage, addPage, pageHistory} = useContext(PageHistoryContext)
 
     const [currentMealHistories, setCurrentMealHistories] = useState<DayPeriodResponse[]>([])
 
@@ -54,6 +56,8 @@ function ShowMealHistory() {
             .catch(function (error) {
                 console.log(error)
             })
+        console.log('PAge History CreateMealHistory')
+        console.log(pageHistory)
 
     }, [])
     useEffect(() => {
@@ -97,8 +101,10 @@ function ShowMealHistory() {
     return(
         <Flex>
             <Text style={{marginTop: 30}}>{mealPeriod?.toUpperCase()}</Text>
-            <IconButton onPress={() =>changePage(Page.HOME)
-            }
+            <IconButton onPress={() => {
+                changePage(Page.HOME)
+                deleteLastPage()
+            }}
                         icon={<MaterialCommunityIcons name={'arrow-left-bold-outline'} size={30} color={'#7a44cf'} />} style={{marginLeft:5}}/>
             {dayHistories.length === 0?
                 <Text>There are no foods</Text>:
@@ -107,7 +113,8 @@ function ShowMealHistory() {
                                  title={currentDayPeriodResponse.meal.food.name + '     ' + getOneFoodCalorie(currentDayPeriodResponse.meal.food.perUnit, currentDayPeriodResponse.meal.food.kcal, currentDayPeriodResponse.meal.amount).toFixed(2).toString() + ' kcal'}
                                  onPress={() => {
                                      setCurrentPlaceOfDayPeriodResponse(index)
-                                    changePage(Page.SHOWFODDETAILS)
+                                     changePage(Page.SHOWFODDETAILS)
+                                     addPage(Page.SHOWFODDETAILS)
                                  }}
                                  trailing={<IconButton icon={<MaterialCommunityIcons name={'delete-forever'} size={30} color={'#7a44cf'}/>}
                                                        style={{marginRight: 20}}

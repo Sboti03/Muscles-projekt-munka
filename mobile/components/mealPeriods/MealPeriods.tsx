@@ -1,16 +1,19 @@
-import {Box, HStack, IconButton, ListItem, Pressable, Spacer, Text, VStack} from "@react-native-material/core";
-import {homePageStyle} from "../home/homePage";
+import {Box, HStack, IconButton, Pressable, Spacer, Text, VStack} from "@react-native-material/core";
 import MyIcon from "../icons/myIcon";
-import {useContext, useEffect, useMemo, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import MealHistoryContext from "../mealHistory/mealHistoryContext";
 import {PeriodNamesEnum} from "../mealHistory/types/dayHistoryInterface";
 import NavigatorContext, {Page} from "../navigator/NavigatorProvider";
 import {getConsumedCaloriesByMealPeriod} from "../food/foodCalculations";
 import {StyleSheet} from "react-native";
+import PageHistoryContext from "../PageHistory/PageHistoryProvider";
 
 function MealPeriods() {
+
     const {setMealPeriod, getMealPeriodCaloriesBySumCalories, mealHistory,setDayHistories, date} = useContext(MealHistoryContext)
     const {changePage} = useContext(NavigatorContext)
+    const {addPage, deleteLastPage} = useContext(PageHistoryContext)
+
     const [breakfastConsumed, setBreakfastConsumed] = useState<number>()
     const [lunchConsumed, setLunchConsumed] = useState<number>()
     const [dinnerConsumed, setDinnerConsumed] = useState<number>()
@@ -30,6 +33,7 @@ function MealPeriods() {
                                onPress={() => {
                                    setMealPeriod(PeriodNamesEnum.BREAKFAST)
                                    changePage(Page.SHOWMEALHISTORY)
+                                   addPage(Page.SHOWMEALHISTORY)
                                }}
                     >
                         <HStack>
@@ -46,6 +50,7 @@ function MealPeriods() {
                                         onPress={() => {
                                             setMealPeriod(PeriodNamesEnum.BREAKFAST)
                                             changePage(Page.CREATEMEALHISTORY)
+                                            addPage(Page.CREATEMEALHISTORY)
                                         }}
                             />
                         </HStack>
@@ -57,6 +62,7 @@ function MealPeriods() {
                                onPress={() => {
                                    setMealPeriod(PeriodNamesEnum.LUNCH)
                                    changePage(Page.SHOWMEALHISTORY)
+                                   addPage(Page.SHOWMEALHISTORY)
                                }}
                     >
                         <HStack>
@@ -73,6 +79,7 @@ function MealPeriods() {
                                         onPress={() => {
                                             setMealPeriod(PeriodNamesEnum.LUNCH)
                                             changePage(Page.CREATEMEALHISTORY)
+                                            addPage(Page.CREATEMEALHISTORY)
                                         }}
                             />
                         </HStack>
@@ -84,6 +91,7 @@ function MealPeriods() {
                                onPress={() => {
                                    setMealPeriod(PeriodNamesEnum.DINNER)
                                    changePage(Page.SHOWMEALHISTORY)
+                                   addPage(Page.SHOWMEALHISTORY)
                                }}
                     >
                         <HStack>
@@ -100,6 +108,7 @@ function MealPeriods() {
                                         onPress={() => {
                                             setMealPeriod(PeriodNamesEnum.DINNER)
                                             changePage(Page.CREATEMEALHISTORY)
+                                            addPage(Page.CREATEMEALHISTORY)
                                         }}
                             />
                         </HStack>
@@ -111,6 +120,7 @@ function MealPeriods() {
                                onPress={() => {
                                    setMealPeriod(PeriodNamesEnum.OTHER)
                                    changePage(Page.SHOWMEALHISTORY)
+                                   addPage(Page.SHOWMEALHISTORY)
                                }}
                     >
                         <HStack>
@@ -127,6 +137,7 @@ function MealPeriods() {
                                         onPress={() => {
                                             setMealPeriod(PeriodNamesEnum.OTHER)
                                             changePage(Page.CREATEMEALHISTORY)
+                                            addPage(Page.CREATEMEALHISTORY)
                                         }}
                             />
                         </HStack>

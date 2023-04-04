@@ -10,11 +10,15 @@ import {getOneFoodInfo} from "./foodCalculations";
 import FoodInterface from "./foodInterface";
 import {BASE_URL} from "@env";
 import axios from "axios";
+import PageHistoryContext from "../PageHistory/PageHistoryProvider";
 
 const submitFoodAPI = BASE_URL + 'api/meal-history/update/'
 
 export default function ShowOneFood(props: { DayPeriodResponse: DayPeriodResponse }) {
+
     const {changePage} = useContext(NavigatorContext)
+    const {deleteLastPage} = useContext(PageHistoryContext)
+
     const [currentAmount, setCurrentAmount] = useState<string>()
     const [oneFoodData, setOneFoodData] = useState<FoodInterface>()
 
@@ -23,6 +27,7 @@ export default function ShowOneFood(props: { DayPeriodResponse: DayPeriodRespons
             .then(function (response) {
                 console.log(response.data)
                 changePage(Page.SHOWMEALHISTORY)
+                deleteLastPage()
             })
             .catch(function (error) {
                 console.log(error)
@@ -38,7 +43,10 @@ export default function ShowOneFood(props: { DayPeriodResponse: DayPeriodRespons
         <LinearGradient  colors={['#efe8fd', '#865eff']}
                          style={{width: '100%', flex: 1, alignItems: "center"}}>
         <Flex fill style={{ width: '100%'}}>
-            <IconButton onPress={() =>changePage(Page.SHOWMEALHISTORY)}
+            <IconButton onPress={() => {
+                changePage(Page.SHOWMEALHISTORY)
+                deleteLastPage()
+            }}
                         icon={<MaterialCommunityIcons name={'arrow-left-bold-outline'} size={30} color={'#7a44cf'} />}
                         style={{marginLeft:5, marginTop: 30}}/>
             <Text style={{marginTop: 10, textTransform: 'capitalize'}}>{props.DayPeriodResponse.meal.food.name}</Text>

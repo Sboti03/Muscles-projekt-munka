@@ -10,6 +10,8 @@ import NavigatorContext, {Page} from "../navigator/NavigatorProvider";
 import {loginPageStyle} from "../loginPage";
 import {StyleSheet} from "react-native";
 import {createMealHistoryStyle} from "../mealHistory/pages/CreateMealHistory";
+import PageHistoryProvider from "../PageHistory/PageHistoryProvider";
+import PageHistoryContext from "../PageHistory/PageHistoryProvider";
 
 const patchProfileURL = BASE_URL + 'api/profile/update'
 const getProfileAPI = BASE_URL + 'api/profile'
@@ -18,6 +20,7 @@ export default function ProfileInformation() {
 
     const {profile, updateProfile} = useContext(ProfileContext)
     const {changePage} = useContext(NavigatorContext)
+    const {deleteLastPage} = useContext(PageHistoryContext)
 
     function showDatePicker() {
         DateTimePickerAndroid.open({
@@ -39,6 +42,7 @@ export default function ProfileInformation() {
             .then(function (response) {
                 console.log(response.data)
                 changePage(Page.HOME)
+                deleteLastPage()
             })
             .catch(function (error) {
                 console.log(error)
@@ -101,6 +105,7 @@ export default function ProfileInformation() {
                                         console.log(error)
                                     })
                                 changePage(Page.HOME)
+                                deleteLastPage()
                             }}
                             style={profInfoStyle.cancelButton}
                     />

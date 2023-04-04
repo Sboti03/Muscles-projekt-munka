@@ -1,21 +1,23 @@
-import {Button, Divider, Flex, HStack, IconButton, Text, TextInput, VStack} from "@react-native-material/core";
-import {StyleSheet, View} from "react-native";
+import {Button, Flex, HStack, IconButton, Text, TextInput, VStack} from "@react-native-material/core";
+import {StyleSheet} from "react-native";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
-import React, {useContext, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import NavigatorContext, {Page} from "../navigator/NavigatorProvider";
-import {loginPageStyle} from "../loginPage";
 import Ripple from 'react-native-material-ripple';
 import axios from "axios";
 import {BASE_URL} from "@env";
 // @ts-ignore
 import SwitchSelector from "react-native-switch-selector";
-import { LinearGradient } from 'expo-linear-gradient';
+import {LinearGradient} from 'expo-linear-gradient';
+import PageHistoryContext from "../PageHistory/PageHistoryProvider";
 
 
 const registerAPI = BASE_URL + 'api/auth/register'
 
 export default function RegisterPage() {
     const {changePage} = useContext(NavigatorContext)
+    const {addPage, deleteLastPage, pageHistory} = useContext(PageHistoryContext)
+
     const [isCoach, setIsCoach] = useState<boolean>(false)
     const [email, setEmail] = useState<string>('')
     const [firstPassword, setFirstPassword] = useState<string>('')
@@ -23,7 +25,10 @@ export default function RegisterPage() {
     const [warning, setWarning] = useState<string>('')
     const [visible, setVisible] = useState<boolean>(true)
 
-
+    useEffect(() => {
+        console.log('Page History RegisterPage')
+        console.log(pageHistory)
+    }, [])
     const isPasswordEqual = () => {
         return firstPassword === secondPassword
     }
@@ -36,6 +41,7 @@ export default function RegisterPage() {
                .then(function (response) {
                    console.log(response.data)
                    changePage(Page.NAMEFORM)
+                   addPage(Page.NAMEFORM)
                })
                .catch(function (error) {
                    console.log(error)
@@ -118,7 +124,11 @@ export default function RegisterPage() {
                          helperText={warning}
               />
               <HStack style={{width: '100%' , justifyContent: 'space-between'}}>
-                  <Ripple onPress={ () => { changePage(Page.LOGIN) } }
+                  <Ripple onPress={ () => {
+                      changePage(Page.LOGIN)
+                      deleteLastPage()
+                      addPage(Page.LOGIN)
+                  }}
                           style={registerStyles.pressable}
                   >
                       <Text style={registerStyles.text}>
