@@ -23,12 +23,20 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Objects;
 
 public class UpdateFoodController {
+
+    private LoginModel loginModel;
+    private FoodModel foodModel;
+    private FoodsCreateOrUpdate foodOriginalValue;
+
+    private final Urls url = new Urls();
+    private final RestTemplate restTemplate = new RestTemplate();
+    private final CreateFoodMainMethods createFoodMainMethods = new CreateFoodMainMethods();
     @FXML
     private TextField nameField;
     @FXML
     private TextField kcalField;
     @FXML
-    private ComboBox<UnitsEnum> unitField;
+    private ComboBox unitField;
     @FXML
     private TextField perUnitField;
     @FXML
@@ -55,16 +63,6 @@ public class UpdateFoodController {
     private Button resetFoodBtn;
     @FXML
     private TextArea messageTextArea;
-    @FXML
-    private VBox editVboxInclude;
-
-    private LoginModel loginModel;
-    private FoodModel foodModel;
-    private FoodsCreateOrUpdate foodOriginalValue;
-
-    private final Urls url = new Urls();
-    private final RestTemplate restTemplate = new RestTemplate();
-    private final CreateFoodMainMethods createFoodMainMethods = new CreateFoodMainMethods();
 
     @FXML
     public void updateFoodClick(ActionEvent actionEvent) {
@@ -118,5 +116,9 @@ public class UpdateFoodController {
         carbohydrateField.setText(String.valueOf(foodOriginalValue.getCarbohydrate()));
         sugarField.setText(String.valueOf(foodOriginalValue.getSugar()));
         fiberField.setText(String.valueOf(foodOriginalValue.getFiber()));
+    }
+
+    @Deprecated
+    public void loadUserDataClick(ActionEvent actionEvent) {
     }
 }

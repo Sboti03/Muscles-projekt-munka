@@ -4,12 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="00e91fc0-96b8-4172-906f-ab5075727363" name="Changes" comment="rewriting food load and update">
+    <list default="true" id="00e91fc0-96b8-4172-906f-ab5075727363" name="Changes" comment="Food CRUD">
+      <change afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/ProfileInfoController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/models/ProfileModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/requestsender/RequestSender.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/profile-info-view.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/MainViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/MainViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/UpdateFoodController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/UpdateFoodController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/createfoodmainmethods/CreateFoodMainMethods.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/createfoodmainmethods/CreateFoodMainMethods.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/listViewShowAndHideFunctions/ListViewFunctionsForMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/listViewShowAndHideFunctions/ListViewFunctionsForMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/loadFromServerToPOJO/LoadFromServerToPojo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/loadFromServerToPOJO/LoadFromServerToPojo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/profileData/ProfileResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/profileData/Profiles.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/urls/Urls.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/urls/Urls.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/main-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/main-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,6 +64,7 @@
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "debugger.hotswap",
     "vue.rearranger.settings.migration": "true"
   }
@@ -99,7 +109,7 @@
       <option name="presentableId" value="Default" />
       <updated>1678361741933</updated>
       <workItem from="1678361743381" duration="16631000" />
-      <workItem from="1680006862680" duration="75514000" />
+      <workItem from="1680006862680" duration="95110000" />
     </task>
     <task id="LOCAL-00001" summary="refactoring (renaming)">
       <created>1678362647589</created>
@@ -311,7 +321,14 @@
       <option name="project" value="LOCAL" />
       <updated>1680516288162</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="Food CRUD">
+      <created>1680521357508</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1680521357508</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -329,7 +346,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Change Scene between login and main" />
     <MESSAGE value="main site basic design" />
     <MESSAGE value="successful food getting" />
     <MESSAGE value="successful food convert to Pojo" />
@@ -354,7 +370,8 @@
     <MESSAGE value="adding radius to background" />
     <MESSAGE value="install controlsfx dependency" />
     <MESSAGE value="rewriting food load and update" />
-    <option name="LAST_COMMIT_MESSAGE" value="rewriting food load and update" />
+    <MESSAGE value="Food CRUD" />
+    <option name="LAST_COMMIT_MESSAGE" value="Food CRUD" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -4,7 +4,7 @@ import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class ProfileResponse {
+public class Profiles {
     private int profileId;
     private int userId;
     private Date registrationDate;
@@ -16,7 +16,7 @@ public class ProfileResponse {
     private String profilePicPath;
     private Date changedAt;
 
-    public ProfileResponse(int profileId, int userId, Date registrationDate, String firstName, Date birthDay, String lastName, int height, boolean male, String profilePicPath, Date changedAt) {
+    public Profiles(int profileId, int userId, Date registrationDate, String firstName, Date birthDay, String lastName, int height, boolean male, String profilePicPath, Date changedAt) {
         this.profileId = profileId;
         this.userId = userId;
         this.registrationDate = registrationDate;
@@ -29,7 +29,7 @@ public class ProfileResponse {
         this.profilePicPath = profilePicPath;
     }
 
-    public ProfileResponse() {
+    public Profiles() {
     }
 
     @JsonProperty("profileId")

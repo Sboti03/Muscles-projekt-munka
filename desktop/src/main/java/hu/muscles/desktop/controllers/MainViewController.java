@@ -1,12 +1,15 @@
 package hu.muscles.desktop.controllers;
 
 import hu.muscles.desktop.app;
+import hu.muscles.desktop.createfoodmainmethods.CreateFoodMainMethods;
 import hu.muscles.desktop.foodsData.Foods;
 import hu.muscles.desktop.listViewShowAndHideFunctions.ListViewFunctionsForMain;
 import hu.muscles.desktop.loadFromServerToPOJO.LoadFromServerToPojo;
 import hu.muscles.desktop.models.FoodModel;
 import hu.muscles.desktop.models.LoginModel;
-import hu.muscles.desktop.profileData.ProfileResponse;
+import hu.muscles.desktop.models.ProfileModel;
+import hu.muscles.desktop.profileData.Profiles;
+import hu.muscles.desktop.requestsender.RequestSender;
 import hu.muscles.desktop.urls.Urls;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -53,22 +56,30 @@ public class MainViewController implements Initializable {
     private VBox editVbox;
     @FXML
     private TextArea messageTextArea;
+    @FXML
+    private VBox showDataVbox;
 
 
     private List<Foods> foods;
-    private List<ProfileResponse> profiles;
+    private List<Profiles> profiles;
     private Alert confirmExit;
     private LoginModel loginModel;
-    private FoodModel foodmodel;
+    private FoodModel foodModel;
+    private ProfileModel profileModel;
     private final Urls url = new Urls();
-    private final RestTemplate restTemplate = new RestTemplate();
+    private RestTemplate restTemplate = new RestTemplate();
     private final HttpHeaders headers = new HttpHeaders();
-    private final String[] profileDataString = new String[]{"First name", "Last name", "Birthdate", "Registration date", "Height", "Gender", "Last changed"};
     private boolean isProfileShown = false;
     private boolean isFoodShown = false;
     private LoadFromServerToPojo loadFromServerToPOJO;
     private ListViewFunctionsForMain listViewFunctionsForMain;
-    private final FXMLLoader fxmlLoader = new FXMLLoader(app.class.getResource("update-food-view.fxml"));
+    private final FXMLLoader updateFoodLoader = new FXMLLoader(app.class.getResource("update-food-view.fxml"));
+    private final FXMLLoader profileInfoLoader = new FXMLLoader(app.class.getResource("profile-info-view.fxml"));
+    private final CreateFoodMainMethods createFoodMainMethods = new CreateFoodMainMethods();
+    @FXML
+    private Button blockButton;
+    @FXML
+    private Button unblockButton;
 
 
     @Override
@@ -82,28 +93,43 @@ public class MainViewController implements Initializable {
         listViewFunctionsForMain = new ListViewFunctionsForMain(mainListView, messageTextArea);
         mainListView.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
             if (isFoodShown && !isProfileShown) {
-                if (mainListView.getSelectionModel().getSelectedItems() != null && (listViewFunctionsForMain.getCurrentItemIndex(mainListView) - 1) != -1) {
+                if (mainListView.getSelectionModel().getSelectedItems() != null && (listViewFunctionsForMain.getCurrentItemIndex(mainListView)) != -1) {
                     int index = listViewFunctionsForMain.getCurrentItemIndex(mainListView);
                     Foods food = foods.stream().filter(x -> x.getFoodId() == index).findFirst().orElse(null);
                     if (food != null) {
                         if (food.getName().startsWith("#DELETED#"))
                             food.setName(food.getName().replaceAll(food.getName().substring(0, 10), ""));
-                        foodmodel = new FoodModel(food);
-                        ((UpdateFoodController) fxmlLoader.getController()).setUpdateModelForUpdate(foodmodel);
+                        foodModel = new FoodModel(food);
+                        ((UpdateFoodController) updateFoodLoader.getController()).setUpdateModelForUpdate(foodModel);
                         editVbox.setVisible(true);
+                        editVbox.setManaged(true);
                     }
                 }
                 if (mainListView.getSelectionModel().isEmpty()) {
                     editVbox.setVisible(false);
+                    editVbox.setManaged(false);
                 }
             }
             if (isProfileShown && !isFoodShown) {
-             /*   labelForData.getItems().addAll(profileDataString);
-                if (!mainListView.getSelectionModel().isEmpty()) {
-                    mainEditText.getItems().clear();
-                    mainEditText.getItems().addAll(String.valueOf(profiles.get(mainListView.getSelectionModel().getSelectedIndex())).split("\n"));
-                    updateButtonArea.setVisible(true);
-                }*/
+                if (mainListView.getSelectionModel().getSelectedItems() != null) {
+                    if (mainListView.getSelectionModel().getSelectedItems() != null && (listViewFunctionsForMain.getCurrentItemIndex(mainListView)) != -1) {
+                        int index = listViewFunctionsForMain.getCurrentItemIndex(mainListView);
+                        Profiles profile = profiles.stream().filter(x -> x.getProfileId() == index).findFirst().orElse(null);
+                        if (profile != null) {
+                            if (profile.getFirstName().startsWith("#BLOCKED#"))
+                                profile.setFirstName(profile.getFirstName().replaceAll(profile.getFirstName().substring(0, 10), ""));
+                            profileModel = new ProfileModel(profile);
+                            ((ProfileInfoController) profileInfoLoader.getController()).setProfileForProfileInfo(profileModel);
+                            showDataVbox.setVisible(true);
+                            showDataVbox.setManaged(true);
+                        }
+                    }
+                    if (mainListView.getSelectionModel().isEmpty()) {
+                        showDataVbox.setVisible(false);
+                        showDataVbox.setManaged(false);
+                    }
+
+                }
             }
         });
         mainListView.setOnMouseClicked(event -> {
@@ -137,43 +163,20 @@ public class MainViewController implements Initializable {
 
     @FXML
     public void deleteClick(ActionEvent actionEvent) {
-        int index = listViewFunctionsForMain.getCurrentItemIndex(mainListView);
-        try {
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.APPLICATION_JSON);
-            headers.setBearerAuth(loginModel.getLoginData().getTokens().getAccessToken());
-            HttpEntity<String> requestEntity = new HttpEntity<>(null, headers);
-            ResponseEntity<String> responseEntity = restTemplate.exchange(url.DELETE_FOOD(index), HttpMethod.DELETE, requestEntity, String.class);
-            System.out.println(responseEntity.getBody());
-            listViewFunctionsForMain.emptyAllText();
-            messageTextArea.setText(requestEntity.getBody());
-        } catch (Exception e) {
-            listViewFunctionsForMain.emptyAllText();
-            messageTextArea.setText("ERROR: Couldn't delete food. -> " + e.getMessage());
-            e.printStackTrace();
+        if (!isProfileShown && isFoodShown) {
+            int index = listViewFunctionsForMain.getCurrentItemIndex(mainListView);
+            sendRequest(HttpMethod.DELETE, url.DELETE_FOOD(index), actionEvent, "Food deleted successfully!", "An error has occurred.", "ERROR: Couldn't delete profile.", true);
+        }
+        if (isProfileShown && !isFoodShown) {
+            int index = listViewFunctionsForMain.getCurrentItemIndex(mainListView);
+            sendRequest(HttpMethod.DELETE, url.DELETE_USER(index), actionEvent, "User deleted successfully!", "An error has occurred.", "ERROR: Couldn't delete user.", false);
         }
     }
 
     @FXML
     public void undeleteClick(ActionEvent actionEvent) {
         int index = listViewFunctionsForMain.getCurrentItemIndex(mainListView);
-        try {
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.APPLICATION_JSON);
-            headers.setBearerAuth(loginModel.getLoginData().getTokens().getAccessToken());
-            HttpEntity<String> requestEntity = new HttpEntity<>(null, headers);
-            HttpClient httpClient = HttpClientBuilder.create().build();
-            HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory(httpClient);
-            RestTemplate restTemplate2 = new RestTemplate(factory);
-            ResponseEntity<String> responseEntity = restTemplate2.exchange(url.UNDELETE_FOOD(index), HttpMethod.PATCH, requestEntity, String.class);
-            System.out.println(responseEntity.getBody());
-            listViewFunctionsForMain.emptyAllText();
-            messageTextArea.setText(responseEntity.getBody());
-        } catch (Exception e) {
-            listViewFunctionsForMain.emptyAllText();
-            messageTextArea.setText("ERROR: Couldn't undelete food. -> " + e.getMessage());
-            e.printStackTrace();
-        }
+        sendRequest(HttpMethod.PATCH, url.UNDELETE_FOOD(index), actionEvent, "Food undeleted successfully!", "An error has occurred.", "ERROR: Couldn't undelete food.", true);
     }
 
     @FXML
@@ -182,6 +185,7 @@ public class MainViewController implements Initializable {
         changeButtonsBetweenProfileAndFood(true);
         mainListView.getSelectionModel().clearSelection();
         listViewFunctionsForMain.emptyAllText();
+        editVbox.setVisible(false);
         try {
             profiles = loadFromServerToPOJO.loadAllProfile(getResponseString(this.url.GET_ALL_PROFILE()));
         } catch (IOException e) {
@@ -220,6 +224,12 @@ public class MainViewController implements Initializable {
     }
 
     @FXML
+    public void blockClick(ActionEvent actionEvent) {
+        int index = listViewFunctionsForMain.getCurrentItemIndex(mainListView);
+        sendRequest(HttpMethod.DELETE, url.BLOCK_USER(index), actionEvent, "Profile blocked successfully!", "An error has occurred.", "ERROR: Couldn't block profile.", false);
+    }
+
+    @FXML
     public void exitClick(ActionEvent actionEvent) {
         mainVbox.setDisable(true);
         Optional<ButtonType> optionalButtonType = confirmExit.showAndWait();
@@ -247,23 +257,84 @@ public class MainViewController implements Initializable {
             loadCreateBtn.setVisible(false);
             undeleteBtn.setManaged(false);
             loadCreateBtn.setManaged(false);
+            blockButton.setVisible(true);
+            unblockButton.setVisible(true);
+            editVbox.setVisible(false);
+            editVbox.setManaged(false);
+            showDataVbox.setVisible(false);
+            showDataVbox.setManaged(true);
         } else {
             undeleteBtn.setVisible(true);
             loadCreateBtn.setVisible(true);
             undeleteBtn.setManaged(true);
             loadCreateBtn.setManaged(true);
+            blockButton.setVisible(false);
+            blockButton.setManaged(true);
+            unblockButton.setVisible(false);
+            unblockButton.setManaged(true);
+            editVbox.setVisible(false);
+            editVbox.setManaged(true);
+            showDataVbox.setVisible(false);
+            showDataVbox.setManaged(false);
         }
     }
 
     private void loadEditVboxContent() {
         try {
-            Parent view = fxmlLoader.load();
+            Parent view = updateFoodLoader.load();
+            Parent view2 = profileInfoLoader.load();
             // Optional: ScrollPane scrollPane = new ScrollPane(view);
-            ((UpdateFoodController) fxmlLoader.getController()).setLoginModelForUpdate(loginModel);
+            ((UpdateFoodController) updateFoodLoader.getController()).setLoginModelForUpdate(loginModel);
+            ((ProfileInfoController) profileInfoLoader.getController()).setLoginModelForProfileInfo(loginModel);
             editVbox.getChildren().add(view);
+            showDataVbox.getChildren().add(view2);
+            editVbox.setVisible(false);
+            editVbox.setManaged(false);
+            showDataVbox.setVisible(false);
+            showDataVbox.setManaged(false);
         } catch (IOException e) {
             messageTextArea.setText(e.getMessage());
             throw new RuntimeException(e);
         }
     }
+
+
+    @FXML
+    public void unblockClick(ActionEvent actionEvent) {
+        int index = listViewFunctionsForMain.getCurrentItemIndex(mainListView);
+        sendRequest(HttpMethod.PATCH, url.UNBLOCK_USER(index), actionEvent, "Profile unblocked successfully!", "An error has occurred.", "ERROR: Couldn't unblock profile.", false);
+    }
+
+    public void sendRequest(HttpMethod httpMethod, String url, ActionEvent actionEvent, String successMessage, String JsonError, String errorMessage, boolean changeInFoodList) {
+//        if (mainListView.getSelectionModel() == null) {
+//            messageTextArea.clear();
+//            messageTextArea.setText("Please select an item from the list!");
+//            return;
+//        }
+        try {
+            RequestSender requestSender = new RequestSender();
+            String request = requestSender.sendrequest(restTemplate, loginModel, httpMethod, url);
+            listViewFunctionsForMain.emptyAllText();
+            if (createFoodMainMethods.isValidJSON(request)) {
+                if (changeInFoodList) {
+                    foodsClick(actionEvent);
+                } else {
+                    profilesClick(actionEvent);
+                }
+                messageTextArea.setText(successMessage);
+            } else {
+                messageTextArea.setText(JsonError);
+            }
+        } catch (Exception e) {
+            listViewFunctionsForMain.emptyAllText();
+            messageTextArea.setText(errorMessage + " -> " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
 }
+
+/* TODO: Internal server error:
+ * GET USERS http://34.22.242.178:3000/api/admin/user/all
+ * BLOCK USER http://34.22.242.178:3000/api/admin/user/block/:id
+ * DELETE USER http://34.22.242.178:3000/api/admin/user/:d
+ * */
