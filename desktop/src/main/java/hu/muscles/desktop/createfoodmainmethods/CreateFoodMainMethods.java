@@ -7,16 +7,14 @@ import hu.muscles.desktop.customdoubleserializer.CustomDoubleSerializer;
 import hu.muscles.desktop.foodsData.FoodsCreateOrUpdate;
 import hu.muscles.desktop.foodsData.UnitsEnum;
 import hu.muscles.desktop.models.LoginModel;
+import hu.muscles.desktop.requestsender.RequestSender;
 import hu.muscles.desktop.urls.Urls;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.util.StringConverter;
-import org.apache.hc.client5.http.classic.HttpClient;
-import org.apache.hc.client5.http.impl.classic.HttpClientBuilder;
 import org.springframework.http.*;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Objects;
@@ -142,11 +140,11 @@ public class CreateFoodMainMethods {
                 }
                 if (!isUpdate) {
                     if (!json.isEmpty()) {
-                        sendRequest(loginModel, restTemplate, url.CREATE_FOOD(), json, messageTextArea, "Food is created successfully!", HttpMethod.POST);
+                        sendRequest(loginModel, url.CREATE_FOOD(), json, messageTextArea, "Food is created successfully!", HttpMethod.POST);
                     }
                 } else {
                     if (!json.isEmpty()) {
-                        sendRequest(loginModel, restTemplate, url.UPDATE_FOOD(foodId), json, messageTextArea, "Food is updated successfully!", HttpMethod.PATCH);
+                        sendRequest(loginModel, url.UPDATE_FOOD(foodId), json, messageTextArea, "Food is updated successfully!", HttpMethod.PATCH);
                     }
                 }
             } else {
@@ -162,16 +160,14 @@ public class CreateFoodMainMethods {
     }
 
 
-    private void sendRequest(LoginModel loginModel, RestTemplate restTemplate, String url, String json, TextArea messageTextArea, String textareaMessage, HttpMethod httpMethod) {
+    private void sendRequest(LoginModel loginModel, String url, String json, TextArea messageTextArea, String textareaMessage, HttpMethod httpMethod) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setBearerAuth(loginModel.getLoginData().getTokens().getAccessToken());
         HttpEntity<String> requestEntity = new HttpEntity<>(json, headers);
-        if (httpMethod == HttpMethod.PATCH) {
-            HttpClient httpClient = HttpClientBuilder.create().build();
-            HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory(httpClient);
-             restTemplate = new RestTemplate(factory);
-        }
+        RestTemplate restTemplate = new RestTemplate();
+        RequestSender rq = new RequestSender();
+        restTemplate = rq.getPATCHRestTemplate(restTemplate, httpMethod);
         ResponseEntity<String> responseEntity = restTemplate.exchange(url, httpMethod, requestEntity, String.class);
         System.out.println(responseEntity.getBody());
         messageTextArea.clear();

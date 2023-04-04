@@ -1,11 +1,10 @@
 package hu.muscles.desktop.listViewShowAndHideFunctions;
 
 import hu.muscles.desktop.foodsData.Foods;
-import hu.muscles.desktop.profileData.ProfileResponse;
+import hu.muscles.desktop.profileData.Profiles;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
-import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
 import java.util.Comparator;
@@ -39,15 +38,13 @@ public class ListViewFunctionsForMain {
         mainListView.getItems().clear();
     }
 
-    public void loadProfilesToListView(List<ProfileResponse> profiles) {
+    public void loadProfilesToListView(List<Profiles> profiles) {
         emptyAllText();
-        mainListView.getItems().addAll(profiles.stream().map(profile -> profile.getFirstName() + " " + (profile.getLastName() != null ? profile.getLastName() : "")).toList());
+        mainListView.getItems().addAll(profiles.stream().map(profile -> profile.getUserId() +"\t"+ profile.getFirstName() + " " + (profile.getLastName() != null ? profile.getLastName() : "")).toList());
     }
 
     public void loadFoodsToListView(List<Foods> foods) {
         emptyAllText();
-        //  mainListView.getItems().addAll(foods.stream().map(food -> food.getFoodId() + "\t" + food.getName()).toList());
-
         List<Foods> sortedFoods = foods.stream().sorted(Comparator.comparingInt(Foods::getFoodId)).collect(Collectors.toList());
         List<Foods> deletedFoods = sortedFoods.stream().filter(Foods::isDeleted).toList();
         deletedFoods.forEach(food -> food.setName("#DELETED#\t" + food.getName()));

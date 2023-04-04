@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hu.muscles.desktop.foodsData.Foods;
-import hu.muscles.desktop.profileData.ProfileResponse;
+import hu.muscles.desktop.profileData.Profiles;
 import javafx.scene.control.ListView;
 
 import java.io.IOException;
@@ -34,7 +34,7 @@ public class LoadFromServerToPojo {
         }
     }
 
-    public List<ProfileResponse> loadAllProfile(InputStream responseStream) {
+    public List<Profiles> loadAllProfile(InputStream responseStream) {
         try {
             return profileConverterToPOJO((new String(responseStream.readAllBytes(), StandardCharsets.UTF_8)));
         } catch (IOException e) {
@@ -59,7 +59,7 @@ public class LoadFromServerToPojo {
         }
     }
 
-    private List<ProfileResponse> profileConverterToPOJO(String response) {
+    private List<Profiles> profileConverterToPOJO(String response) {
         try {
             ObjectMapper om = new ObjectMapper();
             return om.readValue(response, new TypeReference<>() {
