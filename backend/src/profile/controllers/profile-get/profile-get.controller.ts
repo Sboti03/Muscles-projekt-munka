@@ -24,8 +24,11 @@ export class ProfileGetController {
                            @GetCurrentUserProfileId() profileId: number) {
         Logger.log(`Searching for ${name} profileId: ${profileId} [${role}]`)
         if (role === RoleEnum.USER) {
+            Logger.log(`Search for Coach`)
+
             return this.profileGetService.getProfiles(name, RoleEnum.COACH, profileId)
         } else if (role === RoleEnum.COACH) {
+            Logger.log(`Search for user`)
             return this.profileGetService.getProfiles(name, RoleEnum.USER, profileId)
         } else {
             return this.profileGetService.getAllProfilesByName(name)

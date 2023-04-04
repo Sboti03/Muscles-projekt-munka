@@ -1,6 +1,7 @@
-import {Injectable} from '@nestjs/common';
+import {Injectable, Logger} from '@nestjs/common';
 import {PrismaService} from "../../../Common/utils/prirsma.service";
 import {RoleEnum} from "../../../Common/Role/utils/roles";
+import loader from "ts-loader";
 
 @Injectable()
 export class ProfileGetService {
@@ -62,11 +63,15 @@ export class ProfileGetService {
         return this.getProfilesByName(name)
     }
 
-    getProfiles(name: string, role: RoleEnum, profileId: number) {
-        return this.getProfilesByName(name, role, profileId)
+    async getProfiles(name: string, role: RoleEnum, profileId: number) {
+        const result = await this.getProfilesByName(name, role, profileId)
+        Logger.log(result)
+        return result
     }
 
     getProfilesByName(name: string, role?: RoleEnum, profileId?: number) {
+        Logger.log(name)
+        Logger.log(role)
         return this.prismaService.profileData.findMany({
             where: {
                 NOT: {
