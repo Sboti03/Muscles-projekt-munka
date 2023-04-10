@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="mainVbox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.muscles.desktop.controllers.MainViewController">
+<VBox id="main-bg" fx:id="mainVbox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@style/mainFormStlye.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.muscles.desktop.controllers.MainViewController">
    <children>
-      <GridPane alignment="TOP_CENTER" hgap="3.0" VBox.vgrow="ALWAYS">
+      <GridPane alignment="TOP_CENTER" hgap="3.0" stylesheets="@style/mainFormStlye.css" VBox.vgrow="ALWAYS">
         <columnConstraints>
           <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="1586.400146484375" minWidth="502.0" prefWidth="502.4000488281249" />
           <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="1422.399920654297" minWidth="10.0" prefWidth="1390.399951171875" />
@@ -22,34 +22,34 @@
           <RowConstraints vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <HBox alignment="CENTER" prefWidth="483.0" spacing="40.0">
+            <HBox alignment="CENTER" prefWidth="483.0" spacing="40.0" stylesheets="@style/mainFormStlye.css">
                <children>
-                  <Button fx:id="profilesBtn" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#profilesClick" prefHeight="35.0" prefWidth="170.0" text="Profiles" />
-                  <Button fx:id="foodsBtn" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#foodsClick" prefHeight="35.0" prefWidth="170.0" text="Foods" />
+                  <Button fx:id="profilesBtn" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#profilesClick" prefHeight="35.0" prefWidth="170.0" stylesheets="@style/mainFormStlye.css" text="Profiles" />
+                  <Button fx:id="foodsBtn" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#foodsClick" prefHeight="35.0" prefWidth="170.0" stylesheets="@style/mainFormStlye.css" text="Foods" />
                </children>
                <GridPane.margin>
                   <Insets bottom="24.0" />
                </GridPane.margin>
             </HBox>
-            <ListView fx:id="mainListView" prefHeight="300.0" prefWidth="627.0" GridPane.rowIndex="1" />
-            <VBox alignment="TOP_CENTER" spacing="20.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
+            <ListView id="foodAndProfileMainListview" fx:id="mainListView" prefHeight="300.0" prefWidth="627.0" stylesheets="@style/mainFormStlye.css" GridPane.rowIndex="1" />
+            <VBox alignment="TOP_CENTER" spacing="20.0" stylesheets="@style/mainFormStlye.css" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                <children>
-                  <HBox alignment="TOP_CENTER" VBox.vgrow="ALWAYS">
+                  <HBox alignment="TOP_CENTER" stylesheets="@style/mainFormStlye.css" VBox.vgrow="ALWAYS">
                      <children>
-                        <VBox fx:id="editVbox" alignment="TOP_CENTER" visible="false" />
-                        <VBox fx:id="showDataVbox" alignment="CENTER" HBox.hgrow="ALWAYS" />
+                        <VBox fx:id="editVbox" alignment="TOP_CENTER" stylesheets="@style/mainFormStlye.css" visible="false" />
+                        <VBox fx:id="showDataVbox" alignment="CENTER" stylesheets="@style/mainFormStlye.css" HBox.hgrow="ALWAYS" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="10.0" top="10.0" />
                      </VBox.margin>
                   </HBox>
-                  <HBox alignment="CENTER_RIGHT" spacing="35.0" VBox.vgrow="NEVER">
+                  <HBox alignment="CENTER_RIGHT" spacing="35.0" stylesheets="@style/mainFormStlye.css" VBox.vgrow="NEVER">
                      <children>
-                        <Button fx:id="blockButton" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#blockClick" prefHeight="35.0" prefWidth="170.0" text="Block" visible="false" />
-                        <Button fx:id="unblockButton" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#unblockClick" prefHeight="35.0" prefWidth="170.0" text="Unblock" visible="false" />
-                        <Button fx:id="loadCreateBtn" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#loadCreateClick" prefHeight="35.0" prefWidth="170.0" text="Create" />
-                        <Button fx:id="deleteBtn" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#deleteClick" prefHeight="35.0" prefWidth="170.0" text="Delete" />
-                        <Button fx:id="undeleteBtn" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#undeleteClick" prefHeight="35.0" prefWidth="170.0" text="Undelete" />
+                        <Button fx:id="blockButton" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#blockClick" prefHeight="35.0" prefWidth="170.0" stylesheets="@style/mainFormStlye.css" text="Block" visible="false" />
+                        <Button fx:id="unblockButton" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#unblockClick" prefHeight="35.0" prefWidth="170.0" stylesheets="@style/mainFormStlye.css" text="Unblock" visible="false" />
+                        <Button fx:id="loadCreateBtn" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#loadCreateClick" prefHeight="35.0" prefWidth="170.0" stylesheets="@style/mainFormStlye.css" text="Create" />
+                        <Button fx:id="deleteBtn" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#deleteClick" prefHeight="35.0" prefWidth="170.0" stylesheets="@style/mainFormStlye.css" text="Delete" />
+                        <Button fx:id="undeleteBtn" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#undeleteClick" prefHeight="35.0" prefWidth="170.0" stylesheets="@style/mainFormStlye.css" text="Undelete" />
                      </children>
                      <padding>
                         <Insets right="40.0" />
@@ -63,10 +63,10 @@
                   <Insets />
                </GridPane.margin>
             </VBox>
-            <VBox alignment="TOP_RIGHT" GridPane.columnIndex="1">
+            <VBox alignment="TOP_RIGHT" stylesheets="@style/mainFormStlye.css" GridPane.columnIndex="1">
                <children>
-                  <Button fx:id="exitButton" minWidth="25.0" mnemonicParsing="false" onAction="#exitClick" text="X" />
-                  <TextArea fx:id="messageTextArea" disable="true" editable="false" maxWidth="-Infinity" prefHeight="42.0" prefWidth="705.0" VBox.vgrow="ALWAYS">
+                  <Button fx:id="exitButton" minWidth="25.0" mnemonicParsing="false" onAction="#exitClick" stylesheets="@style/mainFormStlye.css" text="X" />
+                  <TextArea id="messageBox" fx:id="messageTextArea" editable="false" focusTraversable="false" maxWidth="-Infinity" mouseTransparent="true" prefHeight="42.0" prefWidth="705.0" stylesheets="@style/mainFormStlye.css" VBox.vgrow="ALWAYS">
                      <VBox.margin>
                         <Insets right="380.0" />
                      </VBox.margin>

@@ -7,12 +7,17 @@ import org.springframework.http.*;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
+
 public class RequestSender {
 
     public RequestSender() {
     }
 
-    public String sendrequest(RestTemplate restTemplate, LoginModel loginModel, HttpMethod httpMethod, String url) {
+    public String sendRequest(RestTemplate restTemplate, LoginModel loginModel, HttpMethod httpMethod, String url) {
         try {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
@@ -35,5 +40,15 @@ public class RequestSender {
             restTemplate = new RestTemplate(factory);
         }
         return restTemplate;
+    }
+
+    public InputStream sendGet(String urlString, LoginModel loginModel) throws IOException {
+        URL url = new URL(urlString);
+        URLConnection connection = url.openConnection();
+        String authToken = loginModel.getLoginData().getTokens().getAccessToken();
+        connection.setRequestProperty("Authorization", "Bearer " + authToken);
+        connection.setConnectTimeout(20000);
+        connection.connect();
+        return connection.getInputStream();
     }
 }

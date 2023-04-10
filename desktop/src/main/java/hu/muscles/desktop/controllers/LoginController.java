@@ -66,7 +66,6 @@ public class LoginController implements Initializable {
             showMainWindow(loginModel);
         } catch (Exception e) {
             infoArea.setText(e.getMessage());
-            infoArea.setStyle("-fx-text-fill: #de0e0e ;");
             e.printStackTrace();
         }
     }

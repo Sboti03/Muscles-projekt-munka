@@ -1,5 +1,7 @@
 package hu.muscles.desktop.controllers;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import hu.muscles.desktop.app;
 import hu.muscles.desktop.createfoodmainmethods.CreateFoodMainMethods;
 import hu.muscles.desktop.foodsData.Foods;
@@ -8,9 +10,11 @@ import hu.muscles.desktop.loadFromServerToPOJO.LoadFromServerToPojo;
 import hu.muscles.desktop.models.FoodModel;
 import hu.muscles.desktop.models.LoginModel;
 import hu.muscles.desktop.models.ProfileModel;
+import hu.muscles.desktop.models.UserModel;
 import hu.muscles.desktop.profileData.Profiles;
 import hu.muscles.desktop.requestsender.RequestSender;
 import hu.muscles.desktop.urls.Urls;
+import hu.muscles.desktop.userData.User;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,16 +24,14 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import org.apache.hc.client5.http.classic.HttpClient;
-import org.apache.hc.client5.http.impl.classic.HttpClientBuilder;
 import org.springframework.http.*;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.net.URLConnection;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -64,6 +66,7 @@ public class MainViewController implements Initializable {
     private List<Profiles> profiles;
     private Alert confirmExit;
     private LoginModel loginModel;
+    private UserModel userModel;
     private FoodModel foodModel;
     private ProfileModel profileModel;
     private final Urls url = new Urls();
@@ -76,6 +79,8 @@ public class MainViewController implements Initializable {
     private final FXMLLoader updateFoodLoader = new FXMLLoader(app.class.getResource("update-food-view.fxml"));
     private final FXMLLoader profileInfoLoader = new FXMLLoader(app.class.getResource("profile-info-view.fxml"));
     private final CreateFoodMainMethods createFoodMainMethods = new CreateFoodMainMethods();
+    private final RequestSender rqs = new RequestSender();
+    private List<User> users = new ArrayList<>();
     @FXML
     private Button blockButton;
     @FXML
@@ -116,10 +121,12 @@ public class MainViewController implements Initializable {
                         int index = listViewFunctionsForMain.getCurrentItemIndex(mainListView);
                         Profiles profile = profiles.stream().filter(x -> x.getProfileId() == index).findFirst().orElse(null);
                         if (profile != null) {
+                            Optional<User> user = users.stream().filter(x->x.userId == profile.getUserId()).findFirst();
                             if (profile.getFirstName().startsWith("#BLOCKED#"))
                                 profile.setFirstName(profile.getFirstName().replaceAll(profile.getFirstName().substring(0, 10), ""));
+                            userModel = new UserModel(user.get());
                             profileModel = new ProfileModel(profile);
-                            ((ProfileInfoController) profileInfoLoader.getController()).setProfileForProfileInfo(profileModel);
+                            ((ProfileInfoController) profileInfoLoader.getController()).setProfileForProfileInfo(profileModel, userModel);
                             showDataVbox.setVisible(true);
                             showDataVbox.setManaged(true);
                         }
@@ -187,13 +194,14 @@ public class MainViewController implements Initializable {
         listViewFunctionsForMain.emptyAllText();
         editVbox.setVisible(false);
         try {
-            profiles = loadFromServerToPOJO.loadAllProfile(getResponseString(this.url.GET_ALL_PROFILE()));
+            profiles = loadFromServerToPOJO.loadAllProfile(rqs.sendGet(this.url.GET_ALL_PROFILE(), loginModel));
         } catch (IOException e) {
             listViewFunctionsForMain.CouldNotLoadFoodOrProfiles(true, e);
         }
         try {
-            if (profiles != null) {
-                listViewFunctionsForMain.loadProfilesToListView(profiles);
+            users = getUsersList();
+            if (profiles != null && users != null) {
+                listViewFunctionsForMain.loadProfilesToListView(profiles, users);
                 isProfileShown = true;
             }
         } catch (Exception e) {
@@ -209,7 +217,7 @@ public class MainViewController implements Initializable {
         mainListView.getSelectionModel().clearSelection();
         listViewFunctionsForMain.emptyAllText();
         try {
-            foods = loadFromServerToPOJO.loadAllFood(getResponseString(this.url.GET_ALL_FOOD()));
+            foods = loadFromServerToPOJO.loadAllFood(rqs.sendGet(this.url.GET_ALL_FOOD(), loginModel));
         } catch (IOException e) {
             listViewFunctionsForMain.CouldNotLoadFoodOrProfiles(false, e);
         }
@@ -217,6 +225,9 @@ public class MainViewController implements Initializable {
             if (foods != null) {
                 listViewFunctionsForMain.loadFoodsToListView(foods);
                 isFoodShown = true;
+            } else {
+                messageTextArea.clear();
+                messageTextArea.setText("An error has occurred");
             }
         } catch (Exception e) {
             listViewFunctionsForMain.CouldNotLoadFoodOrProfiles(false, e);
@@ -239,16 +250,6 @@ public class MainViewController implements Initializable {
             mainVbox.setDisable(false);
             confirmExit.close();
         }
-    }
-
-    private InputStream getResponseString(String urlString) throws IOException {
-        URL url = new URL(urlString);
-        URLConnection connection = url.openConnection();
-        String authToken = loginModel.getLoginData().getTokens().getAccessToken();
-        connection.setRequestProperty("Authorization", "Bearer " + authToken);
-        connection.setConnectTimeout(20000);
-        connection.connect();
-        return connection.getInputStream();
     }
 
     public void changeButtonsBetweenProfileAndFood(boolean isProfile) {
@@ -306,22 +307,23 @@ public class MainViewController implements Initializable {
     }
 
     public void sendRequest(HttpMethod httpMethod, String url, ActionEvent actionEvent, String successMessage, String JsonError, String errorMessage, boolean changeInFoodList) {
-//        if (mainListView.getSelectionModel() == null) {
-//            messageTextArea.clear();
-//            messageTextArea.setText("Please select an item from the list!");
-//            return;
-//        }
+        if (mainListView.getSelectionModel().isEmpty()) {
+            messageTextArea.clear();
+            messageTextArea.setText("Please select an item from the list!");
+            return;
+        }
         try {
             RequestSender requestSender = new RequestSender();
-            String request = requestSender.sendrequest(restTemplate, loginModel, httpMethod, url);
+            String request = requestSender.sendRequest(restTemplate, loginModel, httpMethod, url);
             listViewFunctionsForMain.emptyAllText();
             if (createFoodMainMethods.isValidJSON(request)) {
                 if (changeInFoodList) {
                     foodsClick(actionEvent);
+                    messageTextArea.setText(successMessage);
                 } else {
                     profilesClick(actionEvent);
+                    messageTextArea.setText(successMessage);
                 }
-                messageTextArea.setText(successMessage);
             } else {
                 messageTextArea.setText(JsonError);
             }
@@ -331,10 +333,20 @@ public class MainViewController implements Initializable {
             e.printStackTrace();
         }
     }
-}
 
-/* TODO: Internal server error:
- * GET USERS http://34.22.242.178:3000/api/admin/user/all
- * BLOCK USER http://34.22.242.178:3000/api/admin/user/block/:id
- * DELETE USER http://34.22.242.178:3000/api/admin/user/:d
- * */
+
+
+    private List<User> getUsersList() {
+        RequestSender rqs = new RequestSender();
+        try {
+            InputStream ipr = rqs.sendGet(url.GET_ALL_USER(), loginModel);
+            String content = new String(ipr.readAllBytes(), StandardCharsets.UTF_8);
+            ObjectMapper mapper = new ObjectMapper();
+            return mapper.readValue(content, new TypeReference<>() {
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+}

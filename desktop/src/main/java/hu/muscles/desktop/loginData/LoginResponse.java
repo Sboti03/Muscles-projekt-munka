@@ -4,16 +4,16 @@ package hu.muscles.desktop.loginData;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class LoginResponse {
-    private User user;
+    private LoggedUser loggedUser;
     private Tokens tokens;
 
     @JsonProperty("user")
-    public User getUser() {
-        return this.user;
+    public LoggedUser getUser() {
+        return this.loggedUser;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(LoggedUser loggedUser) {
+        this.loggedUser = loggedUser;
     }
 
 

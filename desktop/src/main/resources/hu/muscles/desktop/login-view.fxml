@@ -7,6 +7,7 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <VBox alignment="CENTER" minHeight="1080.0" minWidth="1920.0" prefWidth="0.0" spacing="20.0" styleClass="main-root-login-form" stylesheets="@style/loginFormStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.muscles.desktop.controllers.LoginController">
   <padding>
@@ -24,7 +25,10 @@
         <TextArea fx:id="infoArea" disable="true" editable="false" focusTraversable="false" mouseTransparent="true" styleClass="messageArea" stylesheets="@style/loginFormStyle.css">
                <cursor>
                   <Cursor fx:constant="DEFAULT" />
-               </cursor></TextArea>
+               </cursor>
+               <font>
+                  <Font size="27.0" />
+               </font></TextArea>
       </children>
     </VBox>
   </children>

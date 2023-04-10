@@ -1,18 +1,22 @@
 .main-root-login-form {
-    -fx-background-color: #600d60;
+    -fx-background-color: #490c7a;
+    -fx-background-image: url('./backgrounds/test-bg.png');
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+    -fx-background-repeat: no-repeat;
 }
 
 
 /* login fields */
 .login-field {
-    -fx-background-color: #490949;
-    -fx-border-color: #961896;
+    -fx-background-color: #460965;
+    -fx-border-color: #8200cc;
     -fx-text-fill: white;
 }
 
 .login-field:focused {
-    -fx-background-color: #490949;
-    -fx-border-color: #cc19cc;
+    -fx-background-color: #40115e;
+    -fx-border-color: #ee00ff;
     -fx-text-fill: white;
 }
 
@@ -20,56 +24,61 @@
 /* message area */
 .messageArea:disabled {
     -fx-background-color: rgba(255, 255, 255, 0);
-    -fx-border-color: #600d60;
-    -fx-progress-color: #600d60;
-    -fx-color-label-visible: #600d60;
+    -fx-border-color: #490c7a;
+    -fx-progress-color: #490c7a;
+    -fx-color-label-visible: #490c7a;
+    -fx-text-fill: #ef1400;
+    -fx-text-alignment: center;
+    -fx-font-weight: bold;
 }
 
 .messageArea . content {
-    -fx-background-color: #600d60;
-    -fx-border-color: #600d60;
-    -fx-progress-color: #600d60;
-    -fx-color-label-visible: #600d60;
+    -fx-background-color: #490c7a;
+    -fx-border-color: #490c7a;
+    -fx-progress-color: #490c7a;
+    -fx-color-label-visible: #490c7a;
     -fx-text-fill: #ef1400;
+    -fx-text-alignment: center;
+    -fx-font-weight: bold;
 }
 
 .messageArea:selected {
     -fx-background-color: rgba(255, 255, 255, 0);
-    -fx-border-color: #600d60;
-    -fx-progress-color: #600d60;
-    -fx-color-label-visible: #600d60;
+    -fx-border-color: #490c7a;
+    -fx-progress-color: #490c7a;
+    -fx-color-label-visible: #490c7a;
 }
 
 
 /* login button */
 .login-button {
-    -fx-border-color: #961896;
+    -fx-border-color: #8200cc;
     -fx-border-radius: 120em;
-    -fx-background-color: #490949;
+    -fx-background-color: #460965;
+    -fx-text-fill: white;
+    -fx-background-radius: 120em;
+}
+.login-button:focused {
+    -fx-border-radius: 120px;
+    -fx-background-color: #40115e;
+    -fx-border-color: #ee00ff;
     -fx-text-fill: white;
     -fx-background-radius: 120em;
 }
 
-.login-button:focused {
-    -fx-background-color: #490949;
-    -fx-border-radius: 120px;
-    -fx-border-color: #cc19cc;
-    -fx-text-fill: white;
-    -fx-background-radius: 120em;
-}
 
 .login-button:hover {
-    -fx-background-color: #620662;
+    -fx-background-color: #40115e;
+    -fx-border-color: #ee00ff;
     -fx-border-radius: 120px;
-    -fx-border-color: #cc19cc;
     -fx-text-fill: white;
     -fx-background-radius: 120em;
 }
 
 .login-button:pressed {
-    -fx-background-color: #4d054d;
+    -fx-background-color: #40115e;
+    -fx-border-color: #ee00ff;
     -fx-border-radius: 120px;
-    -fx-border-color: #d518d5;
     -fx-text-fill: white;
     -fx-background-radius: 120em;
 }

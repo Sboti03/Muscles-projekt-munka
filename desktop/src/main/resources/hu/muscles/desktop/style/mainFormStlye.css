@@ -1,0 +1,76 @@
+#main-bg {
+    -fx-background-color: #490c7a;
+    -fx-background-image: url('./backgrounds/bg-main.png');
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+    -fx-background-repeat: no-repeat;
+}
+
+
+Button:focused {
+    -fx-border-radius: 120px;
+    -fx-background-color: #40115e;
+    -fx-border-color: #ee00ff;
+    -fx-text-fill: white;
+    -fx-background-radius: 120em;
+}
+Button {
+    -fx-border-color: #8200cc;
+    -fx-border-radius: 120em;
+    -fx-background-color: #460965;
+    -fx-text-fill: white;
+    -fx-background-radius: 120em;
+}
+Button:hover {
+    -fx-background-color: #40115e;
+    -fx-border-color: #ee00ff;
+    -fx-border-radius: 120px;
+    -fx-text-fill: white;
+    -fx-background-radius: 120em;
+}
+
+Button:pressed {
+    -fx-background-color: #40115e;
+    -fx-border-color: #ee00ff;
+    -fx-border-radius: 120px;
+    -fx-text-fill: white;
+    -fx-background-radius: 120em;
+}
+
+
+
+ListView {
+    -fx-background-color: #1f0449;
+    -fx-text-alignment: center;
+    -fx-text-fill: white;
+}
+
+ListView.content {
+    -fx-background-color: #1f0449;
+    -fx-text-alignment: center;
+    -fx-text-fill: white;
+}
+
+.list-view .list-cell {
+    -fx-background-color: #1f0449;
+    -fx-text-alignment: center;
+    -fx-text-fill: white;
+}
+
+
+#messageBox {
+    -fx-background-color: transparent;
+    -fx-border-color: #490c7a;
+    -fx-progress-color: #490c7a;
+    -fx-color-label-visible: #490c7a;
+    -fx-text-alignment: center;
+    -fx-font-weight: bold;
+}
+
+#messageBox.content {
+    -fx-text-alignment: center;
+    -fx-background-color: transparent;
+}
+#messageBox.root{
+    -fx-background-color: transparent;
+}
