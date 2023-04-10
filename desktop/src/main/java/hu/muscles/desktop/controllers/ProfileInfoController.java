@@ -1,15 +1,25 @@
 package hu.muscles.desktop.controllers;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import hu.muscles.desktop.models.LoginModel;
 import hu.muscles.desktop.models.ProfileModel;
-import hu.muscles.desktop.profileData.Profiles;
+import hu.muscles.desktop.models.UserModel;
+import hu.muscles.desktop.requestsender.RequestSender;
+import hu.muscles.desktop.urls.Urls;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import org.controlsfx.control.PopOver;
+import hu.muscles.desktop.userData.User;
 
+import java.io.InputStream;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class ProfileInfoController implements Initializable {
@@ -21,19 +31,23 @@ public class ProfileInfoController implements Initializable {
     private Button loadUserDataBtn;
 
     private LoginModel loginModel;
+    private UserModel userModel;
     private ProfileModel profileModel;
-    private final String[] profileDataString = new String[]{"First name", "Last name", "Birthdate", "Registration date", "Height", "Gender", "Last changed"};
-
+    private final String[] profileDataString = new String[]{"First name", "Last name", "Email", "Birthdate", "Registration date", "Height", "Role", "Gender", "User last changed", "Profile last Changed"};
+    private final Urls url = new Urls();
+    private List<User> users;
 
     @FXML
     public void loadUserDataClick(ActionEvent actionEvent) {
+        PopOver pop = new PopOver();
 
     }
 
-    public void setProfileForProfileInfo(ProfileModel profileModel) {
+    public void setProfileForProfileInfo(ProfileModel profileModel, UserModel userModel) {
         dataListView.getItems().clear();
         this.profileModel = profileModel;
-        String[] tempArray = new String[]{setStringToEmptyIfItsNull(profileModel.getProfile().getFirstName()), setStringToEmptyIfItsNull(profileModel.getProfile().getLastName()), setStringToEmptyIfItsNull(profileModel.getProfile().getBirthDay()), setStringToEmptyIfItsNull(profileModel.getProfile().getRegistrationDate()), setStringToEmptyIfItsNull(profileModel.getProfile().getHeight()), setStringToEmptyIfItsNull(profileModel.getProfile().getChangedAt())};
+        this.userModel = userModel;
+        String[] tempArray = new String[]{setStringToEmptyIfItsNull(profileModel.getProfile().getFirstName()), setStringToEmptyIfItsNull(profileModel.getProfile().getLastName()), setStringToEmptyIfItsNull(userModel.get().email), setStringToEmptyIfItsNull(profileModel.getProfile().getBirthDay()), setStringToEmptyIfItsNull(profileModel.getProfile().getRegistrationDate()), setStringToEmptyIfItsNull(profileModel.getProfile().getHeight()), setStringToEmptyIfItsNull(userModel.get().role.getRoleName()), (profileModel.getProfile().isMale() ? "Male" : "Female"), setStringToEmptyIfItsNull(userModel.get().changedAt), setStringToEmptyIfItsNull(profileModel.getProfile().getChangedAt())};
         dataListView.getItems().addAll(tempArray);
     }
 

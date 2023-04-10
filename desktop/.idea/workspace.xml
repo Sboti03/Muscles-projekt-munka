@@ -4,21 +4,29 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="00e91fc0-96b8-4172-906f-ab5075727363" name="Changes" comment="Food CRUD">
-      <change afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/ProfileInfoController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/models/ProfileModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/requestsender/RequestSender.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/profile-info-view.fxml" afterDir="false" />
+    <list default="true" id="00e91fc0-96b8-4172-906f-ab5075727363" name="Changes" comment="Profile data show and refactoring">
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/models/UserModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/userData/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/style/backgrounds/bg-main.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/style/backgrounds/test-bg.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/style/backgrounds/updateFormStyle.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/style/mainFormStlye.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mvnw.cmd" beforeDir="false" afterPath="$PROJECT_DIR$/mvnw.cmd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/LoginController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/MainViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/MainViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/UpdateFoodController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/UpdateFoodController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/createfoodmainmethods/CreateFoodMainMethods.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/createfoodmainmethods/CreateFoodMainMethods.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/ProfileInfoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/ProfileInfoController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/listViewShowAndHideFunctions/ListViewFunctionsForMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/listViewShowAndHideFunctions/ListViewFunctionsForMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/loadFromServerToPOJO/LoadFromServerToPojo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/loadFromServerToPOJO/LoadFromServerToPojo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/profileData/ProfileResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/profileData/Profiles.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/loginData/LoginResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/loginData/LoginResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/loginData/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/loginData/LoggedUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/requestsender/RequestSender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/requestsender/RequestSender.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/urls/Urls.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/urls/Urls.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/login-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/login-view.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/main-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/main-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/profile-info-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/profile-info-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/style/loginFormStyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/style/loginFormStyle.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,8 +37,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="FxmlFile" />
         <option value="Class" />
+        <option value="FxmlFile" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -57,9 +66,11 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "extract.method.default.visibility": "private",
-    "last_opened_file_path": "C:/Users/oktatas/Downloads/M_N/Muscles-Project-munka/desktop/src/main/resources/hu/muscles/desktop",
+    "last_opened_file_path": "C:/Users/oktatas/Downloads/M_N/Muscles-Project-munka/desktop/src/main/resources/hu/muscles/desktop/style/backgrounds",
+    "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -71,10 +82,15 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\oktatas\Downloads\M_N\Muscles-Project-munka\desktop\src\main\resources\hu\muscles\desktop\style\backgrounds" />
       <recent name="C:\Users\oktatas\Downloads\M_N\Muscles-Project-munka\desktop\src\main\resources\hu\muscles\desktop" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\oktatas\Downloads\M_N\Muscles-Project-munka\desktop\src\main\resources\hu\muscles\desktop\style\backgrounds" />
       <recent name="C:\Users\oktatas\Downloads\M_N\Muscles-Project-munka\desktop\src\main\resources\hu\muscles\desktop" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="hu.muscles.desktop" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="hu.muscles.desktop.models" />
@@ -109,7 +125,7 @@
       <option name="presentableId" value="Default" />
       <updated>1678361741933</updated>
       <workItem from="1678361743381" duration="16631000" />
-      <workItem from="1680006862680" duration="95110000" />
+      <workItem from="1680006862680" duration="120108000" />
     </task>
     <task id="LOCAL-00001" summary="refactoring (renaming)">
       <created>1678362647589</created>
@@ -328,7 +344,14 @@
       <option name="project" value="LOCAL" />
       <updated>1680521357508</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="Profile data show and refactoring">
+      <created>1680601227172</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1680601227172</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -346,7 +369,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="main site basic design" />
     <MESSAGE value="successful food getting" />
     <MESSAGE value="successful food convert to Pojo" />
     <MESSAGE value="Creating food table" />
@@ -371,7 +393,8 @@
     <MESSAGE value="install controlsfx dependency" />
     <MESSAGE value="rewriting food load and update" />
     <MESSAGE value="Food CRUD" />
-    <option name="LAST_COMMIT_MESSAGE" value="Food CRUD" />
+    <MESSAGE value="Profile data show and refactoring" />
+    <option name="LAST_COMMIT_MESSAGE" value="Profile data show and refactoring" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

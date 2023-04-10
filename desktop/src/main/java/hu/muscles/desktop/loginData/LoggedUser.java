@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Date;
 
-public class User {
+public class LoggedUser {
     private int userId;
     private String email;
     private int roleId;

@@ -2,6 +2,7 @@ package hu.muscles.desktop.listViewShowAndHideFunctions;
 
 import hu.muscles.desktop.foodsData.Foods;
 import hu.muscles.desktop.profileData.Profiles;
+import hu.muscles.desktop.userData.User;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
@@ -38,9 +39,40 @@ public class ListViewFunctionsForMain {
         mainListView.getItems().clear();
     }
 
-    public void loadProfilesToListView(List<Profiles> profiles) {
+    public void loadProfilesToListView(List<Profiles> profiles, List<User> users) {
         emptyAllText();
         mainListView.getItems().addAll(profiles.stream().map(profile -> profile.getUserId() +"\t"+ profile.getFirstName() + " " + (profile.getLastName() != null ? profile.getLastName() : "")).toList());
+
+        emptyAllText();
+        List<Profiles> sortedProfiles = profiles.stream().sorted(Comparator.comparingInt(Profiles::getUserId)).collect(Collectors.toList());
+
+        List<Profiles> deletedProfiles = profiles.stream().filter(profile -> users.stream().anyMatch(user -> user.getUserId() == profile.getUserId() && user.isBlocked())).toList();
+
+        deletedProfiles.forEach(profile -> profile.setFirstName("#BLOCKED#\t" + profile.getFirstName()));
+        sortedProfiles.removeAll(deletedProfiles);
+        sortedProfiles.addAll(deletedProfiles);
+        mainListView.getItems().addAll(sortedProfiles.stream().map(profile -> profile.getUserId() +"\t"+ profile.getFirstName() + " " + (profile.getLastName() != null ? profile.getLastName() : "")).toList());
+
+        mainListView.setCellFactory(listView -> new ListCell<>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item);
+
+                    int index = getIndex();
+                    if (index >= 0 && index < profiles.size() && item.contains("#BLOCKED#")) {
+                        setTextFill(Color.RED);
+                    } else {
+                        setTextFill(Color.WHITE);
+                    }
+                }
+            }
+        });
+
     }
 
     public void loadFoodsToListView(List<Foods> foods) {
@@ -66,7 +98,7 @@ public class ListViewFunctionsForMain {
                     if (index >= 0 && index < foods.size() && item.contains("#DELETED#")) {
                         setTextFill(Color.RED);
                     } else {
-                        setTextFill(Color.BLACK);
+                        setTextFill(Color.WHITE);
                     }
                 }
             }
