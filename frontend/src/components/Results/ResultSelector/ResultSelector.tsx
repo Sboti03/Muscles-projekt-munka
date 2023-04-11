@@ -5,7 +5,7 @@ import {DateRange, DayPicker} from "react-day-picker";
 import {da} from "date-fns/locale";
 import ResultsDataView from "../ResultsDataView/ResultsDataView";
 import ResultsContext from "../ResultsContext";
-import {normalizeDate} from "../../DayInfo/DayInfoContextProvider";
+import {normalizeDate} from "../../DayInfo/context/DayInfoContextProvider";
 
 export default function ResultSelector() {
 

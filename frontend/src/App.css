@@ -31,4 +31,52 @@
 .align-center {
   text-align: center;
 }
+.margin-top-10 {
+  margin-top: 10px;
+}
 
+
+.infoBtn {
+  background-color: white;
+  border: solid 1px black;
+  border-radius: 30px;
+  height: 30px;
+  width: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.infoBtn:hover {
+  background-color: rgba(228,228,228,0.91);
+  cursor: pointer;
+}
+
+.infoBtn:active {
+  background-color: rgba(194, 194, 194, 0.91);
+}
+
+body {
+  font-family: sans-serif !important;
+}
+
+.profile-btn-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: none;
+  border: none;
+}
+
+.profilePic {
+  width: 100px;
+  height: 100px;
+  background: none;
+  border: none;
+  margin: 0 auto;
+}
+
+.profilePic:active > div > div > div {
+  border-color: #5b2e73;
+}

@@ -5,7 +5,7 @@ import PeriodInfoPage from "../PeriodInfo/PeriodInfoPage";
 import DayInfoNavigatorContext, {DayInfoPages} from "./Context/DayInfoNavigatorContext";
 import {FoodDetails} from "../../FoodAdder/FoodDetails/FoodDetails";
 import {Methods, singleFetch} from "../../utils/Fetch";
-import DayInfoContext from "../DayInfoContext";
+import FoodSearchPage from "../../FoodAdder/FoodSearchPage";
 
 export default function DayInfoNavigator() {
     const {changeDayInfoPage, dayInfoPage, foodEditMeal} = useContext(DayInfoNavigatorContext)
@@ -30,6 +30,8 @@ export default function DayInfoNavigator() {
             return <MinimalDayData />
         case DayInfoPages.PERIOD_INFO_DATA:
             return <PeriodInfoPage dayPeriodName={selectedPeriodInfo!}/>
+        case DayInfoPages.FOOD_SEARCH:
+            return <FoodSearchPage action={()=> changeDayInfoPage(DayInfoPages.PERIOD_INFO_DATA)} />
 
     }
 }

@@ -10,17 +10,20 @@ import {BetweenValue, FoodFilter} from "./data/FoodFilter";
 import Filter, {TotalMax} from "./Filter";
 import LoadingManager from "../Loading/LoadingManager";
 import {capitalize} from "@mui/material";
+import ListFoods from "./ListFoods/ListFoods";
+import NavigatorContext from "../Navigator/NavigatorContext";
 
 
-export default function FoodSearchPage() {
+export default function FoodSearchPage(props: {action?: Function}) {
 
     const {response, isLoading, error} = useFetch<Food[]>('api/food', Methods.GET)
+    const {setPrevPage} = useContext(NavigatorContext)
     const totalMax = useMemo(() => calculateTotalMax(response), [response])
     const [search, setSearch] = useState('')
     const [filter, setFilter] = useState<FoodFilter>()
     const [filterOpened, setFilterOpened] = useState(false)
-    const {setCurrentFood, addFood, loadingFoodAdd} = useContext(FoodContext)
-    const [loadingIds, setLoadingIds] = useState<number[]>([])
+    const {action} = props
+
     useEffect(() => {
         if (response && totalMax) {
             setFilter(getInitFilterValues(totalMax))
@@ -43,22 +46,10 @@ export default function FoodSearchPage() {
     }, [search, response, filter])
     const [addAmount, setAddAmount] = useState(100)
 
-    function showFood(food: Food) {
-        setCurrentFood(food)
-    }
-
-    function handleAddFood(foodId: number) {
-        if (addAmount > 0) {
-             setLoadingIds([...loadingIds, foodId])
-            addFood(addAmount, foodId).then(()=> {
-                setLoadingIds(prevState => prevState.filter(id=> id !== foodId))
-            })
-        }
-    }
 
     return (
         <LoadingManager fullCenter={true} isLoading={isLoading}>
-            <BackButton/>
+            <Button onClick={()=> action ? action() : setPrevPage()}>Back</Button>
             <div className={styles.foodSearchContainer}>
                 <div className={styles.search}>
                     <div className={styles.foodAddValue}>
@@ -80,28 +71,10 @@ export default function FoodSearchPage() {
                     <Filter totalMax={totalMax} filter={filter} setFilter={setFilter} opened={filterOpened}/>}
 
             </div>
-            <div className={styles.container}>
-                <div className={styles.foodResultBox}>
-                    {result?.map(food => (
-                        <div className={styles.food} key={food.foodId}>
-                            <div>
-                                {capitalize(food.name)}
-                            </div>
-                            <div>
-                                {addAmount ? Math.round(food.kcal / food.perUnit * addAmount) : food.kcal}kcal
-                            </div>
-                            <Button disabled={loadingIds.includes(food.foodId) ? loadingFoodAdd : false} onClick={() => handleAddFood(food.foodId)}>
-                                <LoadingManager size={'sm'} isLoading={loadingIds.includes(food.foodId) ? loadingFoodAdd : false}>
-                                    Add
-                                </LoadingManager>
-                            </Button>
-
-                            <button className={styles.info} onClick={()=> showFood(food)}><FontAwesomeIcon icon={faInfo}/></button>
-
-                        </div>
-                    ))}
-                </div>
+            <div className={styles.foodTable}>
+                <ListFoods foods={result} addAmount={addAmount} />
             </div>
+
         </LoadingManager>
     )
 }

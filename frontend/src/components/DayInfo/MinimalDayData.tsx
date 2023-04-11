@@ -2,19 +2,18 @@ import FoodDayInfo from "./FoodDayInfo/FoodDayInfo";
 import DayPeriodInfo from "./DayPeriodInfo/DayPeriodInfo";
 import React, {useContext, useState} from "react";
 import WeightInfo from "./WeightInfo/WeightInfo";
-import DayInfoContext from "./DayInfoContext";
+import DayInfoContext from "./context/DayInfoContext";
 
 
 
 export default function MinimalDayData() {
-
     const {currentDate, dayInfo} = useContext(DayInfoContext)
 
 
     return (
         <>
             <div className="full-center">
-                <FoodDayInfo/>
+                <FoodDayInfo dayInfo={dayInfo}/>
             </div>
             <div>
                 <DayPeriodInfo/>

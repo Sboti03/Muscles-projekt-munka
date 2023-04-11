@@ -8,15 +8,16 @@ import Lock from '../../../assets/SVG/Lock.svg'
 import Eye from '../../../assets/SVG/eye.svg'
 import {Methods, singleFetch} from "../../utils/Fetch";
 import {LoginResponse} from "./LoginFetch";
+import { Button } from '@mui/joy';
 
 
 function LoginPage() {
-    const {setUser} = useContext(AuthContext)
+    const {login} = useContext(AuthContext)
     const {changePage} = useContext(NavigatorContext)
     const [alertTimeOut, setAlertTimeOut] = useState<number | undefined>()
     const [alert, setAlert] = useState<string | undefined>(undefined)
 
-    const handleFormSubmit = (event: FormEvent<HTMLFormElement>) => {
+    const handleFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         let email = ""
@@ -42,16 +43,11 @@ function LoginPage() {
             return;
         }
 
-        const request = login(email, password)
-        request.then(result => {
-            const {response, error} = result
-            if (error) {
-                displayAlert("Error: " + error.message)
-            } else if (response) {
-                setUser(response.user)
-                changePage(Page.HOME)
-            }
-        })
+        const result = await login(email, password)
+        if (result !== -1) {
+            displayAlert("Error")
+        }
+
     }
 
     function displayAlert(alertText: string) {
@@ -79,22 +75,17 @@ function LoginPage() {
                     <div>
                         <Input className="Input" startDecorator={<img src={Lock} />} endDecorator={<button className="classic-btn"><img src={Eye}/></button>} placeholder="Password" name="password"/>
                     </div>
-                    <div className="full-center">
-                        <button className="login-btn btn" type="submit">Login</button>
+                    <div className="flex justify-center">
+                        <Button className="w-1/2" type="submit">Login</Button>
                     </div>
-                    <div className="full-center">
-                        <button className="register-btn btn" onClick={loadRegister} type="button">Register</button>
+                    <div className="flex justify-center">
+                        <Button className='w-1/3' onClick={loadRegister} type='button'>Register</Button>
                     </div>
                     {alert && <Alert color={"danger"}>{alert}</Alert>}
                 </div>
             </form>
         </>
     )
-
-
-    async function login(email: string, password: string) {
-        return await singleFetch<LoginResponse>('/api/auth/login', Methods.POST, {email: email, password: password})
-    }
 }
 
 export default LoginPage

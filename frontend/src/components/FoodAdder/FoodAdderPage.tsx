@@ -3,7 +3,7 @@ import FoodContext from "./context/FoodContext";
 import FoodSearchPage, {Food} from "./FoodSearchPage";
 import {FoodDetails} from "./FoodDetails/FoodDetails";
 import {Methods, singleFetch} from "../utils/Fetch";
-import {normalizeDate} from "../DayInfo/DayInfoContextProvider";
+import {normalizeDate} from "../DayInfo/context/DayInfoContextProvider";
 
 export default function FoodAdderPage() {
 

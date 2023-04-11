@@ -4,5 +4,7 @@ export interface ProfileResponse {
     lastName: string
     height: number | undefined
     registrationDate: string
+    profilePicPath: string
+
 
 }

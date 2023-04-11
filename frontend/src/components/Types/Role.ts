@@ -1,4 +1,4 @@
-export interface Roles {
+export interface Role {
     roleId: number;
     roleName: RoleEnum;
     changedAt: Date;

@@ -4,35 +4,37 @@ import dayPeriodInfoFetch, {DayPeriodName} from "../DayPeriodInfoFetch";
 import {DayPeriodResponse} from "../../Data/DayPeriodResponse";
 import {Methods, singleFetch} from "../../../utils/Fetch";
 import {MealHistoryResponse} from "../../Data/MealHistoryResponse";
-import DayInfoContext from "../../DayInfoContext";
+import DayInfoContext from "../../context/DayInfoContext";
 import DayInfoNavigatorContext from "../../Navigator/Context/DayInfoNavigatorContext";
 
-export default function DayPeriodInfoContextProvider(props: PropsWithChildren) {
+export default function DayPeriodInfoContextProvider(props: PropsWithChildren<{profileId?: number}>) {
 
+    const {profileId} = props
     const [breakfast, setBreakfast] = useState<DayPeriodResponse[]>()
     const [dinner, setDinner] = useState<DayPeriodResponse[]>()
     const [lunch, setLunch] = useState<DayPeriodResponse[]>()
     const [other, setOther] = useState<DayPeriodResponse[]>()
     const [selectedPeriodInfo, setSelectedPeriodInfo] = useState<DayPeriodName | undefined>(undefined)
-    const {currentDate} = useContext(DayInfoContext)
+    const {currentDate, setNewDayInfo} = useContext(DayInfoContext)
     async function setMealCompleted(completed: boolean, mealHistoryId: number) {
-        const {error, response} = await singleFetch('api/meal-history/update', Methods.PATCH,
+        const {error} = await singleFetch('api/meal-history/update', Methods.PATCH,
             {mealHistoryId: mealHistoryId, isCompleted: completed}
         )
         if (error) {
-            console.log(mealHistoryId)
+
         } else {
-            setDayPeriods()
+            await setDayPeriods()
         }
     }
 
     async function deleteMealHistory(mealHistoryId: number) {
-        const url = 'api/meal-history/' + mealHistoryId
-        const {error, response} = await singleFetch(url, Methods.DELETE)
+        const url = `api/meal-history/${mealHistoryId}${profileId ? '&userId=' + profileId : ''}`
+        const {error} = await singleFetch(url, Methods.DELETE)
         if (error) {
-            // TODO handle error
+            return false
         } else {
-            setDayPeriods()
+            await setDayPeriods()
+            return true
         }
     }
 
@@ -53,9 +55,10 @@ export default function DayPeriodInfoContextProvider(props: PropsWithChildren) {
         if (other.response) {
             setOther(other.response)
         }
+        setNewDayInfo()
     }
     useEffect(()=> {
-        setDayPeriods()
+        setDayPeriods().then()
     }, [currentDate])
 
     return (

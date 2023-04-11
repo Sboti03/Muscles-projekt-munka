@@ -1,5 +1,5 @@
 import {Methods, singleFetch} from "../../utils/Fetch";
-import {normalizeDate} from "../DayInfoContextProvider";
+import {normalizeDate} from "../context/DayInfoContextProvider";
 import {DayPeriodResponse} from "../Data/DayPeriodResponse";
 
 export default async function dayPeriodInfoFetch(date: Date, periodName: DayPeriodName): Promise<DayPeriodInfoFetchResponse> {

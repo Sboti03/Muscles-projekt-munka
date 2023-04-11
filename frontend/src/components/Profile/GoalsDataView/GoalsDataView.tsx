@@ -3,7 +3,7 @@ import React, {useContext, useEffect, useState} from "react";
 import {Button, FormControl, FormLabel, Input} from "@mui/joy";
 import {GoalsResponse} from "./GoalsResponse";
 import styles from './GoalsDataView.module.css'
-import {normalizeDate} from "../../DayInfo/DayInfoContextProvider";
+import {normalizeDate} from "../../DayInfo/context/DayInfoContextProvider";
 import NavigatorContext from "../../Navigator/NavigatorContext";
 import LoadingManager from "../../Loading/LoadingManager";
 
@@ -31,8 +31,7 @@ export default function GoalsDataView(props: Props) {
 
         if (error) {
             //TODO handle error
-            console.log(error)
-            console.log(goalsData)
+
         }
         setIsLoading(false)
         if (props.saveBtnAction) {

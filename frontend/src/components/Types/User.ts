@@ -1,4 +1,4 @@
-import {Roles} from "./Roles";
+import {Role} from "./Role";
 
 export interface User {
     userId: number;
@@ -6,5 +6,5 @@ export interface User {
     roleId: number;
     changedAt: String;
     isBlocked: boolean;
-    role: Roles;
+    role: Role;
 }

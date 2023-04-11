@@ -1,7 +1,7 @@
 import './DayPeriodInfo.css'
 import {useContext, useEffect, useState} from "react";
 import {DayPeriodName} from "./DayPeriodInfoFetch";
-import DayInfoContext from "../DayInfoContext";
+import DayInfoContext from "../context/DayInfoContext";
 import {DayPeriodResponse, getMinimalInfo} from "../Data/DayPeriodResponse";
 import DayPeriodInfoContainer from "./DayPeriodInfoContainer";
 import DayPeriodContext from "./context/DayPeriodContext";
@@ -18,13 +18,10 @@ export default function DayPeriodInfo() {
     const [otherCalories, setOtherCalories] = useState(0)
 
     useEffect(() => {
-        const setter = async ()=> {
-            setBreakfastCalories(await getDayPeriodInfo(breakfast))
-            setLunchCalories(await getDayPeriodInfo(lunch))
-            setDinnerCalories(await getDayPeriodInfo(dinner))
-            setOtherCalories(await getDayPeriodInfo(other))
-        }
-        setter()
+        setBreakfastCalories(getDayPeriodInfo(breakfast))
+        setLunchCalories(getDayPeriodInfo(lunch))
+        setDinnerCalories(getDayPeriodInfo(dinner))
+        setOtherCalories(getDayPeriodInfo(other))
     }, [currentDate, breakfast, other, lunch, dinner])
 
 
@@ -53,7 +50,7 @@ export default function DayPeriodInfo() {
         </div>
     )
 
-    async function getDayPeriodInfo(dayPeriodResponse: DayPeriodResponse[] | undefined) {
+    function getDayPeriodInfo(dayPeriodResponse: DayPeriodResponse[] | undefined) {
         if (dayPeriodResponse) {
             return getMinimalInfo(dayPeriodResponse)
         } else {

@@ -1,0 +1,18 @@
+.border > div {
+    border: solid 2pt #6F00B3;
+}
+
+.border {
+    display: flex;
+    justify-content: center;
+}
+.borderHover > div {
+
+}
+
+
+.borderHover > div:hover {
+    color: #58008a;
+    border-color: #a16ebe;
+    cursor: pointer;
+}

@@ -47,6 +47,7 @@ const { unstable_sxConfig: joySxConfig, ...joyTheme } = extendJoyTheme({
                 }),
             }
         },
+
         JoyLinearProgress: {
             styleOverrides: {
                 root: ({ownerState}) => ({
@@ -69,13 +70,18 @@ const mergedTheme = ({
     }
 } as unknown) as ReturnType<typeof extendJoyTheme>;
 
+// @ts-ignore
 mergedTheme.generateCssVars = (colorScheme) => ({
     css: {
+        // @ts-ignore
         ...muiTheme.generateCssVars(colorScheme).css,
+        // @ts-ignore
         ...joyTheme.generateCssVars(colorScheme).css
     },
     vars: deepmerge(
+        // @ts-ignore
         muiTheme.generateCssVars(colorScheme).vars,
+        // @ts-ignore
         joyTheme.generateCssVars(colorScheme).vars
     )
 });

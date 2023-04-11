@@ -2,7 +2,7 @@ import 'react-day-picker/dist/style.css';
 import './DayPickerBar.css'
 import {DayPicker} from "react-day-picker";
 import {useContext, useEffect, useState} from "react";
-import DayInfoContext from "../DayInfoContext";
+import DayInfoContext from "../context/DayInfoContext";
 
 export default function DayPickerBar() {
 

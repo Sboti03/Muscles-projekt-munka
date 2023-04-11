@@ -14,7 +14,8 @@ interface DayInfoNavigatorContextValue {
 export enum DayInfoPages {
     MINIMAL_DATA,
     PERIOD_INFO_DATA,
-    MEAL_HISTORY_EDIT
+    MEAL_HISTORY_EDIT,
+    FOOD_SEARCH,
 }
 
 

@@ -13,6 +13,7 @@ export enum Page {
     LOGIN= 'login',
     REGISTER = 'register',
     HOME = 'home',
+    WELCOME = 'WELCOME',
     ADMIN = 'admin',
     FOOD_SEARCH = 'food_search',
     PROFILE_CREATE = 'profile_create',
@@ -21,6 +22,7 @@ export enum Page {
     GOALS = "GOALS",
     PROFILE_DATA = "PROFILE_DATA",
     COACH_HOME = 'COACH_HOME',
+    USER_COACH = 'USER_COACH',
 }
 
 

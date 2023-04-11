@@ -1,8 +1,9 @@
 import FoodContext from "./FoodContext";
-import {PropsWithChildren, useState} from "react";
+import {PropsWithChildren, useContext, useState} from "react";
 import {Food} from "../FoodSearchPage";
 import {Methods, singleFetch} from "../../utils/Fetch";
-import {normalizeDate} from "../../DayInfo/DayInfoContextProvider";
+import {normalizeDate} from "../../DayInfo/context/DayInfoContextProvider";
+import DayInfoContext from "../../DayInfo/context/DayInfoContext";
 
 export default function FoodContextProvider(props: PropsWithChildren) {
     const [currentDate, setCurrentDate] = useState<Date | undefined>()

@@ -24,7 +24,12 @@
     grid-template-columns: 1fr 1fr 1fr;
     align-items: center;
 }
-
+.delete-btn {
+    width: 40px !important;
+    height: 40px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
 
 
 .food-btn:hover {

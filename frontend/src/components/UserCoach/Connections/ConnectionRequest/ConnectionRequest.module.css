@@ -1,0 +1,36 @@
+.userData {
+    border: solid 1px black;
+    display: flex;
+    gap: 20px;
+    text-align: left;
+    font-size: 16px;
+    height: 50px;
+    padding: 10px;
+    border-radius: 10px;
+    align-items: center;
+    width: 200px;
+    margin: 5px;
+}
+.profilePic > div > div {
+    width: 50px;
+    height: 50px;
+}
+
+.userData:hover {
+    cursor: pointer;
+    background-color: rgba(120, 0, 194, 0.17);
+}
+.userData:active {
+    background-color: rgba(120, 0, 194, 0.23);
+}
+
+.btn {
+    display: flex;
+    justify-content: space-around;
+}
+
+.container {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}

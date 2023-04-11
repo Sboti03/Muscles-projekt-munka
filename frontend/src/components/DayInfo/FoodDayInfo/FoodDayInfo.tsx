@@ -1,10 +1,11 @@
 import {useContext, useEffect} from "react";
-import DayInfoContext from "../DayInfoContext";
+import DayInfoContext from "../context/DayInfoContext";
 import './FoodDayInfo.css'
 import {extendTheme, LinearProgress} from "@mui/joy";
+import {DayInfoData, MinimalDayInfoData} from "../Data/DayInfoData";
 
-export default function FoodDayInfo( ) {
-    const {dayInfo} = useContext(DayInfoContext)
+export default function FoodDayInfo(props: {dayInfo: MinimalDayInfoData | undefined}) {
+    const {dayInfo} = props
     return (
         <div className="food-day-container">
             <div>
@@ -21,18 +22,24 @@ export default function FoodDayInfo( ) {
                 <div className="food-day-progress-box">
                     <div className="fdi-mini-text">
                         <div>Carbohydrate</div>
-                        <LinearProgress determinate value={dayInfo?.progressCarbohydrate} />
-                        <div>{dayInfo?.eatenCarbohydrate}</div>
+                        <div>
+                            <LinearProgress determinate value={dayInfo?.progressCarbohydrate} />
+                        </div>
+                        <div>{dayInfo?.eatenCarbohydrate}/{dayInfo?.totalCarbohydrate}</div>
                     </div>
                     <div className="fdi-mini-text">
                         <div>Protein</div>
-                        <LinearProgress determinate value={dayInfo?.progressProtein} />
-                        <div>{dayInfo?.eatenProtein}</div>
+                        <div>
+                            <LinearProgress determinate value={dayInfo?.progressProtein} />
+                        </div>
+                        <div>{dayInfo?.eatenProtein}/{dayInfo?.totalProtein}</div>
                     </div>
                     <div className="fdi-mini-text">
                         <div>Fat</div>
-                        <LinearProgress determinate value={dayInfo?.progressFat} />
-                        <div>{dayInfo?.eatenFat}</div>
+                        <div>
+                            <LinearProgress determinate value={dayInfo?.progressFat} />
+                        </div>
+                        <div>{dayInfo?.eatenFat}/{dayInfo?.totalFat}</div>
                     </div>
                 </div>
             </div>

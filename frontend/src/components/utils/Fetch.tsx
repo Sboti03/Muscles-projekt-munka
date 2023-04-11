@@ -63,6 +63,7 @@ export enum Methods {
     GET,
     DELETE,
     PATCH,
+    FILE,
 }
 
 
@@ -76,6 +77,12 @@ function getAxios(path: string, method: Methods, body?: Object) {
             return axios.patch(path, body)
         case Methods.DELETE:
             return axios.delete(path)
+        case Methods.FILE:
+            return axios.post(path, body, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
     }
 }
 

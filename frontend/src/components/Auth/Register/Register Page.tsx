@@ -1,4 +1,4 @@
-import {Alert, CircularProgress, Input} from "@mui/joy";
+import {Alert, Button, CircularProgress, Input} from "@mui/joy";
 import Mail from "../../../assets/SVG/mail.svg";
 import Lock from "../../../assets/SVG/Lock.svg";
 import Eye from "../../../assets/SVG/eye.svg";
@@ -61,8 +61,9 @@ export default function RegisterPage() {
 
     async function handleRegisterResponse(registerData: RegisterData) {
         const result = await register(registerData)
+        console.log("Wait finished")
+        console.log(result)
         if (result.response) {
-            setUser(result.response.user)
             changePage(Page.PROFILE_CREATE)
         } else {
             setIsLoading(false)
@@ -97,11 +98,11 @@ export default function RegisterPage() {
                 <div>
                     <Input disabled={isLoading} required type={`${isRePasswordVisible ? "text" : "password"}`} className="Input" startDecorator={<img src={Lock} />} endDecorator={<button type="button" onClick={changeRePasswordVisibility} className="classic-btn"><img src={Eye}/></button>} placeholder="Password again" name="passwordAgain"/>
                 </div>
-                <div className="full-center">
-                    <button disabled={isLoading} className="login-btn btn" type="submit">Register</button>
+                <div className="flex justify-center">
+                    <Button disabled={isLoading} className="w-1/2" type="submit">Register</Button>
                 </div>
-                <div className="full-center">
-                    <button disabled={isLoading} className="register-btn btn" onClick={loadLogin} type="button">Login</button>
+                <div className="flex justify-center">
+                    <Button disabled={isLoading} className="w-1/3" onClick={loadLogin} type="button">Login</Button>
                 </div>
                 {alert && <Alert color={"danger"}>{alert}</Alert>}
                 <div className="full-center">

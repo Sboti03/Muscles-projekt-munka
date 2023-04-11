@@ -38,3 +38,8 @@
     color: #ff2121;
     font-weight: bold;
 }
+
+
+.dpi > button {
+    @apply shadow-md shadow-gray-400
+}
