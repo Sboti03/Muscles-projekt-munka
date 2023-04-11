@@ -9,7 +9,7 @@ export class UserDayHistoryQuery {
     @Type(() => Number)
     @IsUndefinable()
     @IsNumber()
-    id?: number;
+    userId?: number;
 
 
     @ApiProperty()

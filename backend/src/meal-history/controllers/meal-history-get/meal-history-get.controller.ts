@@ -35,7 +35,7 @@ export class MealHistoryGetController {
     async getMealHistoryData(@Query() dayHistoryQuery: UserDayHistoryQuery,
                              @GetAndCheckProfileId() currentProfileId,
                              @GetCurrentUserId() currentUserId: number) {
-        return this.mealHistoryGetService.getMealHistoryData(currentUserId, dayHistoryQuery.date, dayHistoryQuery.id, currentProfileId);
+        return this.mealHistoryGetService.getMealHistoryData(currentUserId, dayHistoryQuery.date, dayHistoryQuery.userId, currentProfileId);
     }
 
     @Get('data/between')
