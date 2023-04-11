@@ -17,8 +17,8 @@ export default function DayPeriodInfoContextProvider(props: PropsWithChildren<{p
     const [selectedPeriodInfo, setSelectedPeriodInfo] = useState<DayPeriodName | undefined>(undefined)
     const {currentDate, setNewDayInfo} = useContext(DayInfoContext)
     async function setMealCompleted(completed: boolean, mealHistoryId: number) {
-        const {error} = await singleFetch('api/meal-history/update', Methods.PATCH,
-            {mealHistoryId: mealHistoryId, isCompleted: completed}
+        const {error} = await singleFetch('api/meal-history/update/' + mealHistoryId, Methods.PATCH,
+            {isCompleted: completed}
         )
         if (error) {
 

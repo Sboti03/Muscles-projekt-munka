@@ -22,5 +22,5 @@ export function getMinimalInfo(dayPeriodResponse:DayPeriodResponse[]) {
             totalCalorie += meal.food.kcal / meal.food.perUnit * meal.amount
         })
     }
-    return totalCalorie
+    return Math.floor(totalCalorie)
 }

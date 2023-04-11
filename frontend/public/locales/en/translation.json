@@ -16,7 +16,7 @@
     "firstname": "First name",
     "lastname": "Last name",
     "height": {
-      "text": "Height",
+      "text": "Height (cm)",
       "description": "Height in cm"
     },
     "date-of-birth": "Date of birth",
