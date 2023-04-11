@@ -1,6 +1,5 @@
 import {Module} from '@nestjs/common';
 import {AdminBlockService} from "./services/admin-block/admin-block.service";
-import {AdminDeleteService} from "./services/admin-delete/admin-delete.service";
 import {PrismaService} from "../Common/utils/prirsma.service";
 import {AdminUserController} from "./controllers/admin-user/admin-user.controller";
 import { AdminFoodController } from './controllers/admin-food/admin-food.controller';
@@ -14,7 +13,6 @@ import { UserGetService } from "../user/services/user-get/user-get.service";
     imports: [FoodsModule],
     providers: [
         AdminBlockService,
-        AdminDeleteService,
         PrismaService,
         AdminFoodService,
         ProfileGetService,
@@ -27,7 +25,6 @@ import { UserGetService } from "../user/services/user-get/user-get.service";
     ],
     exports: [
         AdminBlockService,
-        AdminDeleteService,
         PrismaService,
     ]
 })
