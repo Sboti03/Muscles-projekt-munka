@@ -1,0 +1,45 @@
+#root-view {
+    -fx-background-color: transparent;
+}
+
+TextField {
+    -fx-background-color: transparent;
+    -fx-border-color: #460965;
+    -fx-text-fill: white;
+    -fx-font-size: 10pt;
+}
+
+TextField:focused {
+    -fx-background-color: transparent;
+    -fx-border-color: #ee00ff;
+    -fx-text-fill: white;
+    -fx-font-size: 10pt;
+}
+
+Label {
+-fx-text-fill: white;
+}
+
+
+Button {
+    -fx-border-color: #8200cc;
+    -fx-border-radius: 120em;
+    -fx-background-color: #460965;
+    -fx-text-fill: white;
+    -fx-background-radius: 120em;
+}
+Button:hover {
+    -fx-background-color: #40115e;
+    -fx-border-color: #ee00ff;
+    -fx-border-radius: 120px;
+    -fx-text-fill: white;
+    -fx-background-radius: 120em;
+}
+
+Button:pressed {
+    -fx-background-color: #40115e;
+    -fx-border-color: #ee00ff;
+    -fx-border-radius: 120px;
+    -fx-text-fill: white;
+    -fx-background-radius: 120em;
+}

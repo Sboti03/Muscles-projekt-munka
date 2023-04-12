@@ -10,6 +10,7 @@ import hu.muscles.desktop.foodsData.UnitsEnum;
 import hu.muscles.desktop.models.FoodModel;
 import hu.muscles.desktop.models.LoginModel;
 import hu.muscles.desktop.urls.Urls;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -21,6 +22,8 @@ import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Objects;
+
+import static hu.muscles.desktop.controllers.MainViewController.setUpdateToInvisible;
 
 public class UpdateFoodController {
 
@@ -36,7 +39,7 @@ public class UpdateFoodController {
     @FXML
     private TextField kcalField;
     @FXML
-    private ComboBox unitField;
+    private ComboBox<UnitsEnum> unitField;
     @FXML
     private TextField perUnitField;
     @FXML
@@ -64,17 +67,21 @@ public class UpdateFoodController {
     @FXML
     private TextArea messageTextArea;
 
+
     @FXML
     public void updateFoodClick(ActionEvent actionEvent) {
         createFoodMainMethods.CreateFood(nameField, kcalField, unitField, perUnitField, proteinField, fatField, saturatedFatField, polyunsaturatedFatField, monounsaturatedFatField, carbohydrateField, sugarField, fiberField, messageTextArea, loginModel, restTemplate, url, true, foodModel.getFood().getFoodId());
     }
 
+    public void resetSuccessMessage() {
+        messageTextArea.setText("");
+    }
 
 
     @FXML
     public void cancelFoodClick(ActionEvent actionEvent) {
         resetFieldsToDefault();
-
+        setUpdateToInvisible();
     }
 
     @FXML
@@ -88,6 +95,7 @@ public class UpdateFoodController {
 
     public void setUpdateModelForUpdate(FoodModel foodModel) {
         this.foodModel = foodModel;
+        createFoodMainMethods.InitializeFields(kcalField, perUnitField, proteinField, fatField, carbohydrateField, saturatedFatField, polyunsaturatedFatField, monounsaturatedFatField, sugarField, fiberField, unitField);
         nameField.setText(foodModel.getFood().getName());
         kcalField.setText(String.valueOf(foodModel.getFood().getKcal()));
         unitField.setValue(UnitsEnum.valueOf(foodModel.getFood().getUnit().getUnit()));
@@ -118,7 +126,4 @@ public class UpdateFoodController {
         fiberField.setText(String.valueOf(foodOriginalValue.getFiber()));
     }
 
-    @Deprecated
-    public void loadUserDataClick(ActionEvent actionEvent) {
-    }
 }

@@ -37,12 +37,6 @@ public class ProfileInfoController implements Initializable {
     private final Urls url = new Urls();
     private List<User> users;
 
-    @FXML
-    public void loadUserDataClick(ActionEvent actionEvent) {
-        PopOver pop = new PopOver();
-
-    }
-
     public void setProfileForProfileInfo(ProfileModel profileModel, UserModel userModel) {
         dataListView.getItems().clear();
         this.profileModel = profileModel;
@@ -58,6 +52,7 @@ public class ProfileInfoController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         dataLabelListView.getItems().addAll(profileDataString);
+        //TODO: dataLabelListView.setCell  Stylehoz
     }
 
     public <T> String setStringToEmptyIfItsNull(T val) {

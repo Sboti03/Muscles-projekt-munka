@@ -22,7 +22,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
@@ -57,9 +60,11 @@ public class MainViewController implements Initializable {
     @FXML
     private VBox editVbox;
     @FXML
-    private TextArea messageTextArea;
+    private TextField messageTextArea;
     @FXML
     private VBox showDataVbox;
+    @FXML
+    private HBox buttonsHbox;
 
 
     private List<Foods> foods;
@@ -86,6 +91,9 @@ public class MainViewController implements Initializable {
     @FXML
     private Button unblockButton;
 
+    private static VBox editVboxStatic;
+    private static ListView<String> mainListViewStatic;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -96,9 +104,15 @@ public class MainViewController implements Initializable {
         confirmExit.setHeaderText("Are you sure you want to exit the app?");
         loadFromServerToPOJO = new LoadFromServerToPojo(mainListView);
         listViewFunctionsForMain = new ListViewFunctionsForMain(mainListView, messageTextArea);
+        editVboxStatic = editVbox;
+        mainListView.setBackground(Background.fill(Paint.valueOf("#1F0449B0")));
         mainListView.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
+            mainListViewStatic = mainListView;
+            if (!mainListView.getSelectionModel().isEmpty()) {
+                ((UpdateFoodController) updateFoodLoader.getController()).resetSuccessMessage();
+            }
             if (isFoodShown && !isProfileShown) {
-                if (mainListView.getSelectionModel().getSelectedItems() != null && (listViewFunctionsForMain.getCurrentItemIndex(mainListView)) != -1) {
+                if (!mainListView.getSelectionModel().isEmpty() && (listViewFunctionsForMain.getCurrentItemIndex(mainListView)) != -1) {
                     int index = listViewFunctionsForMain.getCurrentItemIndex(mainListView);
                     Foods food = foods.stream().filter(x -> x.getFoodId() == index).findFirst().orElse(null);
                     if (food != null) {
@@ -110,6 +124,7 @@ public class MainViewController implements Initializable {
                         editVbox.setManaged(true);
                     }
                 }
+
                 if (mainListView.getSelectionModel().isEmpty()) {
                     editVbox.setVisible(false);
                     editVbox.setManaged(false);
@@ -121,7 +136,7 @@ public class MainViewController implements Initializable {
                         int index = listViewFunctionsForMain.getCurrentItemIndex(mainListView);
                         Profiles profile = profiles.stream().filter(x -> x.getProfileId() == index).findFirst().orElse(null);
                         if (profile != null) {
-                            Optional<User> user = users.stream().filter(x->x.userId == profile.getUserId()).findFirst();
+                            Optional<User> user = users.stream().filter(x -> x.userId == profile.getUserId()).findFirst();
                             if (profile.getFirstName().startsWith("#BLOCKED#"))
                                 profile.setFirstName(profile.getFirstName().replaceAll(profile.getFirstName().substring(0, 10), ""));
                             userModel = new UserModel(user.get());
@@ -131,16 +146,18 @@ public class MainViewController implements Initializable {
                             showDataVbox.setManaged(true);
                         }
                     }
-                    if (mainListView.getSelectionModel().isEmpty()) {
-                        showDataVbox.setVisible(false);
-                        showDataVbox.setManaged(false);
-                    }
+                }
+                if (mainListView.getSelectionModel().isEmpty()) {
+                    showDataVbox.setVisible(false);
+                    showDataVbox.setManaged(false);
 
                 }
             }
+
+
         });
         mainListView.setOnMouseClicked(event -> {
-            if (mainListView.getSelectionModel().getSelectedItem() != null) {
+            if (!mainListView.getSelectionModel().getSelectedItem().isEmpty()) {
                 if (event.getClickCount() == 2) {
                     mainListView.getSelectionModel().clearSelection();
                 }
@@ -172,22 +189,21 @@ public class MainViewController implements Initializable {
     public void deleteClick(ActionEvent actionEvent) {
         if (!isProfileShown && isFoodShown) {
             int index = listViewFunctionsForMain.getCurrentItemIndex(mainListView);
-            sendRequest(HttpMethod.DELETE, url.DELETE_FOOD(index), actionEvent, "Food deleted successfully!", "An error has occurred.", "ERROR: Couldn't delete profile.", true);
-        }
-        if (isProfileShown && !isFoodShown) {
-            int index = listViewFunctionsForMain.getCurrentItemIndex(mainListView);
-            sendRequest(HttpMethod.DELETE, url.DELETE_USER(index), actionEvent, "User deleted successfully!", "An error has occurred.", "ERROR: Couldn't delete user.", false);
+            sendRequest(HttpMethod.DELETE, url.DELETE_FOOD(index), actionEvent, "Food deleted successfully", "An error has occurred.", "ERROR: Couldn't delete profile.", true);
         }
     }
 
     @FXML
     public void undeleteClick(ActionEvent actionEvent) {
-        int index = listViewFunctionsForMain.getCurrentItemIndex(mainListView);
-        sendRequest(HttpMethod.PATCH, url.UNDELETE_FOOD(index), actionEvent, "Food undeleted successfully!", "An error has occurred.", "ERROR: Couldn't undelete food.", true);
+        if (!isProfileShown && isFoodShown) {
+            int index = listViewFunctionsForMain.getCurrentItemIndex(mainListView);
+            sendRequest(HttpMethod.PATCH, url.UNDELETE_FOOD(index), actionEvent, "Food undeleted successfully", "An error has occurred.", "ERROR: Couldn't undelete food.", true);
+        }
     }
 
     @FXML
     public void profilesClick(ActionEvent actionEvent) {
+        mainListView.setBackground(Background.fill(Paint.valueOf("#1F0449B0")));
         isFoodShown = false;
         changeButtonsBetweenProfileAndFood(true);
         mainListView.getSelectionModel().clearSelection();
@@ -212,6 +228,7 @@ public class MainViewController implements Initializable {
 
     @FXML
     public void foodsClick(ActionEvent actionEvent) {
+        mainListView.setBackground(Background.fill(Paint.valueOf("#1F0449B0")));
         isProfileShown = false;
         changeButtonsBetweenProfileAndFood(false);
         mainListView.getSelectionModel().clearSelection();
@@ -236,8 +253,10 @@ public class MainViewController implements Initializable {
 
     @FXML
     public void blockClick(ActionEvent actionEvent) {
-        int index = listViewFunctionsForMain.getCurrentItemIndex(mainListView);
-        sendRequest(HttpMethod.DELETE, url.BLOCK_USER(index), actionEvent, "Profile blocked successfully!", "An error has occurred.", "ERROR: Couldn't block profile.", false);
+        if (isProfileShown && !isFoodShown) {
+            int index = listViewFunctionsForMain.getCurrentItemIndex(mainListView);
+            sendRequest(HttpMethod.DELETE, url.BLOCK_USER(index), actionEvent, "Profile blocked successfully", "An error has occurred.", "ERROR: Couldn't block profile.", false);
+        }
     }
 
     @FXML
@@ -255,28 +274,34 @@ public class MainViewController implements Initializable {
     public void changeButtonsBetweenProfileAndFood(boolean isProfile) {
         if (isProfile) {
             undeleteBtn.setVisible(false);
-            loadCreateBtn.setVisible(false);
             undeleteBtn.setManaged(false);
+            loadCreateBtn.setVisible(false);
             loadCreateBtn.setManaged(false);
-            blockButton.setVisible(true);
-            unblockButton.setVisible(true);
             editVbox.setVisible(false);
             editVbox.setManaged(false);
             showDataVbox.setVisible(false);
             showDataVbox.setManaged(true);
+            deleteBtn.setVisible(false);
+            deleteBtn.setManaged(false);
+            blockButton.setVisible(true);
+            blockButton.setManaged(true);
+            unblockButton.setVisible(true);
+            unblockButton.setManaged(true);
         } else {
+            blockButton.setVisible(false);
+            blockButton.setManaged(false);
+            unblockButton.setVisible(false);
+            unblockButton.setManaged(false);
             undeleteBtn.setVisible(true);
             loadCreateBtn.setVisible(true);
             undeleteBtn.setManaged(true);
             loadCreateBtn.setManaged(true);
-            blockButton.setVisible(false);
-            blockButton.setManaged(true);
-            unblockButton.setVisible(false);
-            unblockButton.setManaged(true);
             editVbox.setVisible(false);
             editVbox.setManaged(true);
             showDataVbox.setVisible(false);
             showDataVbox.setManaged(false);
+            deleteBtn.setVisible(true);
+            deleteBtn.setManaged(true);
         }
     }
 
@@ -302,8 +327,10 @@ public class MainViewController implements Initializable {
 
     @FXML
     public void unblockClick(ActionEvent actionEvent) {
-        int index = listViewFunctionsForMain.getCurrentItemIndex(mainListView);
-        sendRequest(HttpMethod.PATCH, url.UNBLOCK_USER(index), actionEvent, "Profile unblocked successfully!", "An error has occurred.", "ERROR: Couldn't unblock profile.", false);
+        if (isProfileShown && !isFoodShown) {
+            int index = listViewFunctionsForMain.getCurrentItemIndex(mainListView);
+            sendRequest(HttpMethod.PATCH, url.UNBLOCK_USER(index), actionEvent, "Profile unblocked successfully", "An error has occurred.", "ERROR: Couldn't unblock profile.", false);
+        }
     }
 
     public void sendRequest(HttpMethod httpMethod, String url, ActionEvent actionEvent, String successMessage, String JsonError, String errorMessage, boolean changeInFoodList) {
@@ -335,7 +362,6 @@ public class MainViewController implements Initializable {
     }
 
 
-
     private List<User> getUsersList() {
         RequestSender rqs = new RequestSender();
         try {
@@ -347,6 +373,13 @@ public class MainViewController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
             return null;
+
         }
     }
+
+    public static void setUpdateToInvisible() {
+        editVboxStatic.setVisible(false);
+        mainListViewStatic.getSelectionModel().clearSelection();
+    }
+
 }

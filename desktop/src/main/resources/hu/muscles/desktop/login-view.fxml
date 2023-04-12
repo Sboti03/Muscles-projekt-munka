@@ -22,7 +22,7 @@
                <VBox.margin>
                   <Insets top="15.0" />
                </VBox.margin></Button>
-        <TextArea fx:id="infoArea" disable="true" editable="false" focusTraversable="false" mouseTransparent="true" styleClass="messageArea" stylesheets="@style/loginFormStyle.css">
+        <TextArea fx:id="infoArea" editable="false" focusTraversable="false" mouseTransparent="true" styleClass="messageArea" stylesheets="@style/loginFormStyle.css" visible="false">
                <cursor>
                   <Cursor fx:constant="DEFAULT" />
                </cursor>

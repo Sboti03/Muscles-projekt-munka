@@ -1,11 +1,10 @@
-#main-bg {
+#root {
     -fx-background-color: #490c7a;
-    -fx-background-image: url('./backgrounds/bg-main.png');
+    -fx-background-image: url('./backgrounds/editing-bg.png');
     -fx-background-size: cover;
     -fx-background-position: center center;
     -fx-background-repeat: no-repeat;
 }
-
 
 Button:focused {
     -fx-border-radius: 120px;
@@ -37,26 +36,18 @@ Button:pressed {
     -fx-background-radius: 120em;
 }
 
-
-
-ListView {
-    -fx-background-color: rgba(31, 4, 73, 0.69);
-    -fx-text-alignment: center;
+Label {
     -fx-text-fill: white;
 }
 
-
-#messageBox {
-    -fx-background-color: transparent;
-    -fx-border-color: transparent;
-    -fx-text-alignment: center;
-    -fx-font-weight: bold;
+.edit-field {
+    -fx-background-color: #460965;
+    -fx-border-color: #8200cc;
     -fx-text-fill: white;
 }
 
-#messageBox .content {
-    -fx-text-alignment: center;
-    -fx-background-color: transparent;
+.edit:focused {
+    -fx-background-color: #40115e;
+    -fx-border-color: #ee00ff;
     -fx-text-fill: white;
-    -fx-fill: transparent;
 }

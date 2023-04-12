@@ -3,7 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -43,7 +43,7 @@
                         <Insets bottom="10.0" top="10.0" />
                      </VBox.margin>
                   </HBox>
-                  <HBox alignment="CENTER_RIGHT" spacing="35.0" stylesheets="@style/mainFormStlye.css" VBox.vgrow="NEVER">
+                  <HBox fx:id="buttonsHbox" alignment="CENTER_RIGHT" spacing="35.0" stylesheets="@style/mainFormStlye.css" VBox.vgrow="NEVER">
                      <children>
                         <Button fx:id="blockButton" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#blockClick" prefHeight="35.0" prefWidth="170.0" stylesheets="@style/mainFormStlye.css" text="Block" visible="false" />
                         <Button fx:id="unblockButton" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#unblockClick" prefHeight="35.0" prefWidth="170.0" stylesheets="@style/mainFormStlye.css" text="Unblock" visible="false" />
@@ -65,12 +65,15 @@
             </VBox>
             <VBox alignment="TOP_RIGHT" stylesheets="@style/mainFormStlye.css" GridPane.columnIndex="1">
                <children>
-                  <Button fx:id="exitButton" minWidth="25.0" mnemonicParsing="false" onAction="#exitClick" stylesheets="@style/mainFormStlye.css" text="X" />
-                  <TextArea id="messageBox" fx:id="messageTextArea" editable="false" focusTraversable="false" maxWidth="-Infinity" mouseTransparent="true" prefHeight="42.0" prefWidth="705.0" stylesheets="@style/mainFormStlye.css" VBox.vgrow="ALWAYS">
+                  <Button fx:id="exitButton" minWidth="25.0" mnemonicParsing="false" onAction="#exitClick" stylesheets="@style/mainFormStlye.css" text="X">
                      <VBox.margin>
-                        <Insets right="380.0" />
+                        <Insets />
+                     </VBox.margin></Button>
+                  <TextField id="messageBox" fx:id="messageTextArea" alignment="CENTER" editable="false" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mouseTransparent="true" nodeOrientation="RIGHT_TO_LEFT" prefHeight="42.0" prefWidth="705.0" stylesheets="@style/mainFormStlye.css">
+                     <VBox.margin>
+                        <Insets right="330.0" />
                      </VBox.margin>
-                  </TextArea>
+                  </TextField>
                </children>
             </VBox>
          </children>

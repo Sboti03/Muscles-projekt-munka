@@ -1,6 +1,6 @@
 .main-root-login-form {
     -fx-background-color: #490c7a;
-    -fx-background-image: url('./backgrounds/test-bg.png');
+    -fx-background-image: url('./backgrounds/login-bg.png');
     -fx-background-size: cover;
     -fx-background-position: center center;
     -fx-background-repeat: no-repeat;
@@ -22,31 +22,25 @@
 
 
 /* message area */
-.messageArea:disabled {
-    -fx-background-color: rgba(255, 255, 255, 0);
+TextArea {
+    -fx-background-color: null;
+    -fx-fill: null;
     -fx-border-color: #490c7a;
     -fx-progress-color: #490c7a;
     -fx-color-label-visible: #490c7a;
     -fx-text-fill: #ef1400;
     -fx-text-alignment: center;
     -fx-font-weight: bold;
+    -fx-background-insets: 0;
 }
 
-.messageArea . content {
-    -fx-background-color: #490c7a;
-    -fx-border-color: #490c7a;
-    -fx-progress-color: #490c7a;
-    -fx-color-label-visible: #490c7a;
+TextArea .content {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
     -fx-text-fill: #ef1400;
     -fx-text-alignment: center;
     -fx-font-weight: bold;
-}
-
-.messageArea:selected {
-    -fx-background-color: rgba(255, 255, 255, 0);
-    -fx-border-color: #490c7a;
-    -fx-progress-color: #490c7a;
-    -fx-color-label-visible: #490c7a;
+    -fx-background-insets: 0;
 }
 
 

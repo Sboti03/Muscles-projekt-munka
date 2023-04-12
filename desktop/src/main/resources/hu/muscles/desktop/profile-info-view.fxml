@@ -4,12 +4,12 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.muscles.desktop.controllers.ProfileInfoController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="700.0" styleClass="rootElements" stylesheets="@style/profileInfo.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.muscles.desktop.controllers.ProfileInfoController">
    <children>
-      <HBox prefHeight="100.0" prefWidth="732.0" VBox.vgrow="ALWAYS">
+      <HBox prefHeight="100.0" prefWidth="732.0" styleClass="rootElements" stylesheets="@style/profileInfo.css" VBox.vgrow="ALWAYS">
          <children>
-            <ListView fx:id="dataLabelListView" focusTraversable="false" mouseTransparent="true" prefWidth="300.0" />
-            <ListView fx:id="dataListView" focusTraversable="false" mouseTransparent="true" prefWidth="400.0" />
+            <ListView fx:id="dataLabelListView" focusTraversable="false" mouseTransparent="true" prefWidth="300.0" stylesheets="@style/profileInfo.css" />
+            <ListView fx:id="dataListView" focusTraversable="false" mouseTransparent="true" prefWidth="400.0" stylesheets="@style/profileInfo.css" />
          </children>
       </HBox>
    </children>
