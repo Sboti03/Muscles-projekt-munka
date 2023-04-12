@@ -6,7 +6,10 @@ import hu.muscles.desktop.userData.User;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.Background;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 
 import java.util.Comparator;
 import java.util.List;
@@ -14,10 +17,10 @@ import java.util.stream.Collectors;
 
 public class ListViewFunctionsForMain {
     private final ListView<String> mainListView;
-    private final TextArea messageTextArea;
+    private final TextField messageTextArea;
 
 
-    public ListViewFunctionsForMain(ListView<String> mainListView, TextArea messageTextArea) {
+    public ListViewFunctionsForMain(ListView<String> mainListView, TextField messageTextArea) {
         this.mainListView = mainListView;
         this.messageTextArea = messageTextArea;
     }
@@ -41,7 +44,7 @@ public class ListViewFunctionsForMain {
 
     public void loadProfilesToListView(List<Profiles> profiles, List<User> users) {
         emptyAllText();
-        mainListView.getItems().addAll(profiles.stream().map(profile -> profile.getUserId() +"\t"+ profile.getFirstName() + " " + (profile.getLastName() != null ? profile.getLastName() : "")).toList());
+        mainListView.getItems().addAll(profiles.stream().map(profile -> profile.getUserId() + "\t" + profile.getFirstName() + " " + (profile.getLastName() != null ? profile.getLastName() : "")).toList());
 
         emptyAllText();
         List<Profiles> sortedProfiles = profiles.stream().sorted(Comparator.comparingInt(Profiles::getUserId)).collect(Collectors.toList());
@@ -51,7 +54,7 @@ public class ListViewFunctionsForMain {
         deletedProfiles.forEach(profile -> profile.setFirstName("#BLOCKED#\t" + profile.getFirstName()));
         sortedProfiles.removeAll(deletedProfiles);
         sortedProfiles.addAll(deletedProfiles);
-        mainListView.getItems().addAll(sortedProfiles.stream().map(profile -> profile.getUserId() +"\t"+ profile.getFirstName() + " " + (profile.getLastName() != null ? profile.getLastName() : "")).toList());
+        mainListView.getItems().addAll(sortedProfiles.stream().map(profile -> profile.getUserId() + "\t" + profile.getFirstName() + " " + (profile.getLastName() != null ? profile.getLastName() : "")).toList());
 
         mainListView.setCellFactory(listView -> new ListCell<>() {
             @Override
@@ -60,14 +63,22 @@ public class ListViewFunctionsForMain {
 
                 if (empty || item == null) {
                     setText(null);
+                    setBackground(Background.fill(Paint.valueOf("#1F0449B0")));
                 } else {
                     setText(item);
-
                     int index = getIndex();
+                    setBackground(Background.fill(Paint.valueOf("#1F0449B0")));
                     if (index >= 0 && index < profiles.size() && item.contains("#BLOCKED#")) {
                         setTextFill(Color.RED);
                     } else {
                         setTextFill(Color.WHITE);
+                    }
+                    if (index >= 0 && index < profiles.size()) {
+                        if (!mainListView.getSelectionModel().isEmpty()) {
+                            if (item.contains(mainListView.getSelectionModel().getSelectedItem())) {
+                                setBackground(Background.fill(Paint.valueOf("#2b1354")));
+                            }
+                        }
                     }
                 }
             }
@@ -91,19 +102,29 @@ public class ListViewFunctionsForMain {
 
                 if (empty || item == null) {
                     setText(null);
+                    setBackground(Background.fill(Paint.valueOf("#1F0449B0")));
                 } else {
                     setText(item);
 
+                    setBackground(Background.fill(Paint.valueOf("#1F0449B0")));
                     int index = getIndex();
                     if (index >= 0 && index < foods.size() && item.contains("#DELETED#")) {
                         setTextFill(Color.RED);
                     } else {
                         setTextFill(Color.WHITE);
                     }
+                    if (index >= 0 && index < foods.size()) {
+                        if (!mainListView.getSelectionModel().isEmpty()) {
+                            if (item.contains(mainListView.getSelectionModel().getSelectedItem())) {
+                                setBackground(Background.fill(Paint.valueOf("#2b1354")));
+                            }
+                        }
+                    }
                 }
             }
         });
     }
+
     public int getCurrentItemIndex(ListView<String> mainListView) {
         String selected = mainListView.getSelectionModel().getSelectedItem();
         if (selected != null && !selected.isEmpty()) {

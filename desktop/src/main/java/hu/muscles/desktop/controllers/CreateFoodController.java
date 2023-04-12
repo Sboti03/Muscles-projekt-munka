@@ -69,17 +69,7 @@ public class CreateFoodController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        createFoodMainMethods.setTextFieldToDoubleOrNull(kcalField);
-        createFoodMainMethods.setTextFieldToDoubleOrNull(perUnitField);
-        createFoodMainMethods.setTextFieldToDoubleOrNull(proteinField);
-        createFoodMainMethods.setTextFieldToDoubleOrNull(fatField);
-        createFoodMainMethods.setTextFieldToDoubleOrNull(carbohydrateField);
-        createFoodMainMethods.setTextFieldToDoubleOrNull(saturatedFatField);
-        createFoodMainMethods.setTextFieldToDoubleOrNull(polyunsaturatedFatField);
-        createFoodMainMethods.setTextFieldToDoubleOrNull(monounsaturatedFatField);
-        createFoodMainMethods.setTextFieldToDoubleOrNull(sugarField);
-        createFoodMainMethods.setTextFieldToDoubleOrNull(fiberField);
-        unitField.setItems(FXCollections.observableArrayList(UnitsEnum.values()));
+        createFoodMainMethods.InitializeFields(kcalField, perUnitField, proteinField, fatField, carbohydrateField, saturatedFatField, polyunsaturatedFatField, monounsaturatedFatField, sugarField, fiberField, unitField);
         unitField.setValue((UnitsEnum.gram));
     }
 

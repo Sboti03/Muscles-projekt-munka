@@ -9,14 +9,17 @@ import hu.muscles.desktop.foodsData.UnitsEnum;
 import hu.muscles.desktop.models.LoginModel;
 import hu.muscles.desktop.requestsender.RequestSender;
 import hu.muscles.desktop.urls.Urls;
+import javafx.collections.FXCollections;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.util.StringConverter;
+import javafx.util.converter.NumberStringConverter;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
+import java.text.DecimalFormat;
 import java.util.Objects;
 
 public class CreateFoodMainMethods {
@@ -25,14 +28,13 @@ public class CreateFoodMainMethods {
     }
 
     public void setTextFieldToDoubleOrNull(TextField textField) {
+        DecimalFormat decimalFormat = new DecimalFormat("#.##################");
+        StringConverter<Number> converter = new NumberStringConverter(decimalFormat);
         StringConverter<Double> customDoubleStringConverter = new StringConverter<Double>() {
             @Override
             public String toString(Double value) {
                 if (value == null) {
                     return "";
-                }
-                if (value == Math.rint(value)) {
-                    return String.format("%.0f", value);
                 } else {
                     return value.toString();
                 }
@@ -44,7 +46,11 @@ public class CreateFoodMainMethods {
                     return null;
                 }
                 try {
-                    return Double.parseDouble(string);
+                    double number = Double.parseDouble(string);
+                    if (Double.compare(number, 0.0001) <= 0 && Double.compare(number, 0) != 0) {
+                        return null;
+                    }
+                    return number;
                 } catch (NumberFormatException e) {
                     return null;
                 }
@@ -70,6 +76,7 @@ public class CreateFoodMainMethods {
             }
         }));
     }
+
 
     public FoodsCreateOrUpdate foodCreate(TextField nameField, TextField kcalField, ComboBox<UnitsEnum> unitField, TextField perUnitField, TextField proteinField, TextField fatField, TextField saturatedFatField, TextField polyunsaturatedFatField, TextField monounsaturatedFatField, TextField carbohydrateField, TextField sugarField, TextField fiberField, TextArea messageTextArea) {
         String name = nameField.getText().trim();
@@ -176,5 +183,19 @@ public class CreateFoodMainMethods {
         } else {
             messageTextArea.setText(responseEntity.getBody());
         }
+    }
+
+    public void InitializeFields(TextField kcalField, TextField perUnitField, TextField proteinField, TextField fatField, TextField carbohydrateField, TextField saturatedFatField, TextField polyunsaturatedFatField, TextField monounsaturatedFatField, TextField sugarField, TextField fiberField, ComboBox unitField) {
+        setTextFieldToDoubleOrNull(kcalField);
+        setTextFieldToDoubleOrNull(perUnitField);
+        setTextFieldToDoubleOrNull(proteinField);
+        setTextFieldToDoubleOrNull(fatField);
+        setTextFieldToDoubleOrNull(carbohydrateField);
+        setTextFieldToDoubleOrNull(saturatedFatField);
+        setTextFieldToDoubleOrNull(polyunsaturatedFatField);
+        setTextFieldToDoubleOrNull(monounsaturatedFatField);
+        setTextFieldToDoubleOrNull(sugarField);
+        setTextFieldToDoubleOrNull(fiberField);
+        unitField.setItems(FXCollections.observableArrayList(UnitsEnum.values()));
     }
 }

@@ -13,9 +13,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.muscles.desktop.controllers.CreateFoodController">
+<VBox id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@style/createFoodStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.muscles.desktop.controllers.CreateFoodController">
    <children>
-      <GridPane VBox.vgrow="ALWAYS">
+      <GridPane stylesheets="@style/createFoodStyle.css" VBox.vgrow="ALWAYS">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="1024.0" minWidth="10.0" prefWidth="847.1999755859375" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="1575.9999694824219" minWidth="10.0" prefWidth="467.99997558593736" />
@@ -37,7 +37,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Name">
+            <Label stylesheets="@style/createFoodStyle.css" text="Name">
                <font>
                   <Font size="25.0" />
                </font>
@@ -45,7 +45,7 @@
                   <Insets left="150.0" />
                </GridPane.margin>
             </Label>
-            <Label text="kCal" GridPane.rowIndex="1">
+            <Label stylesheets="@style/createFoodStyle.css" text="kCal" GridPane.rowIndex="1">
                <font>
                   <Font size="25.0" />
                </font>
@@ -53,7 +53,7 @@
                   <Insets left="150.0" />
                </GridPane.margin>
             </Label>
-            <Label text="Unit" GridPane.rowIndex="2">
+            <Label stylesheets="@style/createFoodStyle.css" text="Unit" GridPane.rowIndex="2">
                <font>
                   <Font size="25.0" />
                </font>
@@ -61,7 +61,7 @@
                   <Insets left="150.0" />
                </GridPane.margin>
             </Label>
-            <Label text="Per Unit" GridPane.rowIndex="3">
+            <Label stylesheets="@style/createFoodStyle.css" text="Per Unit" GridPane.rowIndex="3">
                <font>
                   <Font size="25.0" />
                </font>
@@ -69,7 +69,7 @@
                   <Insets left="150.0" />
                </GridPane.margin>
             </Label>
-            <Label text="Protein" GridPane.rowIndex="4">
+            <Label stylesheets="@style/createFoodStyle.css" text="Protein" GridPane.rowIndex="4">
                <font>
                   <Font size="25.0" />
                </font>
@@ -77,7 +77,7 @@
                   <Insets left="150.0" />
                </GridPane.margin>
             </Label>
-            <Label text="Fat" GridPane.rowIndex="5">
+            <Label stylesheets="@style/createFoodStyle.css" text="Fat" GridPane.rowIndex="5">
                <font>
                   <Font size="25.0" />
                </font>
@@ -85,7 +85,7 @@
                   <Insets left="150.0" />
                </GridPane.margin>
             </Label>
-            <Label text="Saturated Fat" GridPane.rowIndex="6">
+            <Label stylesheets="@style/createFoodStyle.css" text="Saturated Fat" GridPane.rowIndex="6">
                <font>
                   <Font size="25.0" />
                </font>
@@ -93,7 +93,7 @@
                   <Insets left="150.0" />
                </GridPane.margin>
             </Label>
-            <Label text="Polyunsaturated Fat" GridPane.rowIndex="7">
+            <Label stylesheets="@style/createFoodStyle.css" text="Polyunsaturated Fat" GridPane.rowIndex="7">
                <font>
                   <Font size="25.0" />
                </font>
@@ -101,7 +101,7 @@
                   <Insets left="150.0" />
                </GridPane.margin>
             </Label>
-            <Label text="Monounsaturated Fat" GridPane.rowIndex="8">
+            <Label stylesheets="@style/createFoodStyle.css" text="Monounsaturated Fat" GridPane.rowIndex="8">
                <font>
                   <Font size="25.0" />
                </font>
@@ -109,7 +109,7 @@
                   <Insets left="150.0" />
                </GridPane.margin>
             </Label>
-            <Label text="Carbohydrate" GridPane.rowIndex="9">
+            <Label stylesheets="@style/createFoodStyle.css" text="Carbohydrate" GridPane.rowIndex="9">
                <font>
                   <Font size="25.0" />
                </font>
@@ -117,7 +117,7 @@
                   <Insets left="150.0" />
                </GridPane.margin>
             </Label>
-            <Label text="Sugar" GridPane.rowIndex="10">
+            <Label stylesheets="@style/createFoodStyle.css" text="Sugar" GridPane.rowIndex="10">
                <font>
                   <Font size="25.0" />
                </font>
@@ -125,7 +125,7 @@
                   <Insets left="150.0" />
                </GridPane.margin>
             </Label>
-            <Label text="Fiber" GridPane.rowIndex="11">
+            <Label stylesheets="@style/createFoodStyle.css" text="Fiber" GridPane.rowIndex="11">
                <font>
                   <Font size="25.0" />
                </font>
@@ -133,33 +133,33 @@
                   <Insets left="150.0" />
                </GridPane.margin>
             </Label>
-            <TextField fx:id="nameField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="33.0" prefWidth="300.0" GridPane.columnIndex="1" />
-            <TextField fx:id="kcalField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="33.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <ComboBox fx:id="unitField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="33.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id="perUnitField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="33.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="proteinField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="33.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <TextField fx:id="fatField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="33.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <TextField fx:id="saturatedFatField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="33.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <TextField fx:id="polyunsaturatedFatField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="33.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <TextField fx:id="monounsaturatedFatField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="33.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-            <TextField fx:id="carbohydrateField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="33.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-            <TextField fx:id="sugarField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="33.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-            <TextField fx:id="fiberField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="33.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="11" />
-            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="35.0" GridPane.columnIndex="1" GridPane.rowIndex="12">
+            <TextField fx:id="nameField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="33.0" prefWidth="300.0" styleClass="edit-field" stylesheets="@style/createFoodStyle.css" GridPane.columnIndex="1" />
+            <TextField fx:id="kcalField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="33.0" prefWidth="300.0" styleClass="edit-field" stylesheets="@style/createFoodStyle.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <ComboBox fx:id="unitField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="33.0" prefWidth="300.0" stylesheets="@style/createFoodStyle.css" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="perUnitField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="33.0" prefWidth="300.0" styleClass="edit-field" stylesheets="@style/createFoodStyle.css" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="proteinField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="33.0" prefWidth="300.0" styleClass="edit-field" stylesheets="@style/createFoodStyle.css" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="fatField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="33.0" prefWidth="300.0" styleClass="edit-field" stylesheets="@style/createFoodStyle.css" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="saturatedFatField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="33.0" prefWidth="300.0" styleClass="edit-field" stylesheets="@style/createFoodStyle.css" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <TextField fx:id="polyunsaturatedFatField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="33.0" prefWidth="300.0" styleClass="edit-field" stylesheets="@style/createFoodStyle.css" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <TextField fx:id="monounsaturatedFatField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="33.0" prefWidth="300.0" styleClass="edit-field" stylesheets="@style/createFoodStyle.css" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <TextField fx:id="carbohydrateField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="33.0" prefWidth="300.0" styleClass="edit-field" stylesheets="@style/createFoodStyle.css" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+            <TextField fx:id="sugarField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="33.0" prefWidth="300.0" styleClass="edit-field" stylesheets="@style/createFoodStyle.css" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+            <TextField fx:id="fiberField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="33.0" prefWidth="300.0" styleClass="edit-field" stylesheets="@style/createFoodStyle.css" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="35.0" stylesheets="@style/createFoodStyle.css" GridPane.columnIndex="1" GridPane.rowIndex="12">
                <children>
-                  <Button fx:id="createFoodBtn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#createFoodClick" prefHeight="36.0" prefWidth="120.0" text="Add Food">
+                  <Button fx:id="createFoodBtn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#createFoodClick" prefHeight="36.0" prefWidth="120.0" stylesheets="@style/createFoodStyle.css" text="Add Food">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Button>
-                  <Button fx:id="cancelCreateFoodBtn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#cancelCreateFoodBtnClick" prefHeight="36.0" prefWidth="120.0" text="Cancel">
+                  <Button fx:id="cancelCreateFoodBtn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#cancelCreateFoodBtnClick" prefHeight="36.0" prefWidth="120.0" stylesheets="@style/createFoodStyle.css" text="Cancel">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Button>
                </children>
             </HBox>
-            <TextArea fx:id="messageTextArea" editable="false" prefHeight="20.0" prefWidth="10.0" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.rowSpan="3">
+            <TextArea fx:id="messageTextArea" editable="false" prefHeight="20.0" prefWidth="10.0" stylesheets="@style/createFoodStyle.css" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.rowSpan="3">
                <GridPane.margin>
                   <Insets left="40.0" right="40.0" />
                </GridPane.margin>
