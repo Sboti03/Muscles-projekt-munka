@@ -39,7 +39,7 @@ Button:pressed {
 
 
 
-ListView {
+JFXListView {
     -fx-background-color: rgba(31, 4, 73, 0.69);
     -fx-text-alignment: center;
     -fx-text-fill: white;
@@ -47,16 +47,10 @@ ListView {
 
 
 #messageBox {
-    -fx-background-color: transparent;
-    -fx-border-color: transparent;
-    -fx-text-alignment: center;
     -fx-font-weight: bold;
     -fx-text-fill: white;
 }
 
-#messageBox .content {
+#messageBox *.text {
     -fx-text-alignment: center;
-    -fx-background-color: transparent;
-    -fx-text-fill: white;
-    -fx-fill: transparent;
 }

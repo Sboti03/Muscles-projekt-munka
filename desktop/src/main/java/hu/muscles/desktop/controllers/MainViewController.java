@@ -2,11 +2,14 @@ package hu.muscles.desktop.controllers;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import hu.muscles.desktop.app;
+import com.jfoenix.controls.JFXListView;
+import com.jfoenix.controls.JFXTextArea;
+import hu.muscles.desktop.App;
 import hu.muscles.desktop.createfoodmainmethods.CreateFoodMainMethods;
 import hu.muscles.desktop.foodsData.Foods;
 import hu.muscles.desktop.listViewShowAndHideFunctions.ListViewFunctionsForMain;
 import hu.muscles.desktop.loadFromServerToPOJO.LoadFromServerToPojo;
+import hu.muscles.desktop.messageFunctions.MessageFunctions;
 import hu.muscles.desktop.models.FoodModel;
 import hu.muscles.desktop.models.LoginModel;
 import hu.muscles.desktop.models.ProfileModel;
@@ -28,6 +31,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import org.springframework.http.*;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
@@ -52,7 +56,7 @@ public class MainViewController implements Initializable {
     @FXML
     private Button foodsBtn;
     @FXML
-    private ListView<String> mainListView;
+    private JFXListView<String> mainListView;
     @FXML
     private Button exitButton;
     @FXML
@@ -60,11 +64,15 @@ public class MainViewController implements Initializable {
     @FXML
     private VBox editVbox;
     @FXML
-    private TextField messageTextArea;
+    private JFXTextArea messageTextArea;
     @FXML
     private VBox showDataVbox;
     @FXML
     private HBox buttonsHbox;
+    @FXML
+    private Button blockButton;
+    @FXML
+    private Button unblockButton;
 
 
     private List<Foods> foods;
@@ -76,24 +84,18 @@ public class MainViewController implements Initializable {
     private ProfileModel profileModel;
     private final Urls url = new Urls();
     private RestTemplate restTemplate = new RestTemplate();
-    private final HttpHeaders headers = new HttpHeaders();
     private boolean isProfileShown = false;
     private boolean isFoodShown = false;
     private LoadFromServerToPojo loadFromServerToPOJO;
     private ListViewFunctionsForMain listViewFunctionsForMain;
-    private final FXMLLoader updateFoodLoader = new FXMLLoader(app.class.getResource("update-food-view.fxml"));
-    private final FXMLLoader profileInfoLoader = new FXMLLoader(app.class.getResource("profile-info-view.fxml"));
+    private final FXMLLoader updateFoodLoader = new FXMLLoader(App.class.getResource("update-food-view.fxml"));
+    private final FXMLLoader profileInfoLoader = new FXMLLoader(App.class.getResource("profile-info-view.fxml"));
     private final CreateFoodMainMethods createFoodMainMethods = new CreateFoodMainMethods();
     private final RequestSender rqs = new RequestSender();
     private List<User> users = new ArrayList<>();
-    @FXML
-    private Button blockButton;
-    @FXML
-    private Button unblockButton;
-
+    private final MessageFunctions messageFunctions = new MessageFunctions();
     private static VBox editVboxStatic;
     private static ListView<String> mainListViewStatic;
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -101,11 +103,12 @@ public class MainViewController implements Initializable {
         confirmExit = new Alert(Alert.AlertType.CONFIRMATION);
         confirmExit.setResizable(false);
         confirmExit.setTitle("Exit");
-        confirmExit.setHeaderText("Are you sure you want to exit the app?");
+        confirmExit.setHeaderText("Are you sure you want to exit the App?");
         loadFromServerToPOJO = new LoadFromServerToPojo(mainListView);
         listViewFunctionsForMain = new ListViewFunctionsForMain(mainListView, messageTextArea);
         editVboxStatic = editVbox;
         mainListView.setBackground(Background.fill(Paint.valueOf("#1F0449B0")));
+
         mainListView.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
             mainListViewStatic = mainListView;
             if (!mainListView.getSelectionModel().isEmpty()) {
@@ -175,7 +178,7 @@ public class MainViewController implements Initializable {
     @FXML
     public void loadCreateClick(ActionEvent actionEvent) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(app.class.getResource("create-food-view.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("create-food-view.fxml"));
             Stage stage = (Stage) loadCreateBtn.getScene().getWindow();
             stage.getScene().setRoot(fxmlLoader.load());
             ((CreateFoodController) fxmlLoader.getController()).setLoginModelCreateFood(loginModel);
@@ -189,7 +192,17 @@ public class MainViewController implements Initializable {
     public void deleteClick(ActionEvent actionEvent) {
         if (!isProfileShown && isFoodShown) {
             int index = listViewFunctionsForMain.getCurrentItemIndex(mainListView);
-            sendRequest(HttpMethod.DELETE, url.DELETE_FOOD(index), actionEvent, "Food deleted successfully", "An error has occurred.", "ERROR: Couldn't delete profile.", true);
+            Optional<Foods> optionalFood = foods.stream().filter(food1 -> food1.getFoodId() == index).findFirst();
+            if (optionalFood.isPresent()) {
+                Foods food = optionalFood.get();
+                if (!food.isDeleted()) {
+                    sendRequest(HttpMethod.DELETE, url.DELETE_FOOD(index), actionEvent, "Food deleted successfully", "An error has occurred.", "ERROR: Couldn't delete profile.", true);
+                } else {
+                    messageFunctions.setTextThenEmpty(messageTextArea, "Food is deleted already.", "#ef1400", 3);
+                }
+            } else {
+                messageFunctions.setTextThenEmpty(messageTextArea, "Please select an item from the list!", "#ef1400", 3);
+            }
         }
     }
 
@@ -197,7 +210,17 @@ public class MainViewController implements Initializable {
     public void undeleteClick(ActionEvent actionEvent) {
         if (!isProfileShown && isFoodShown) {
             int index = listViewFunctionsForMain.getCurrentItemIndex(mainListView);
-            sendRequest(HttpMethod.PATCH, url.UNDELETE_FOOD(index), actionEvent, "Food undeleted successfully", "An error has occurred.", "ERROR: Couldn't undelete food.", true);
+            Optional<Foods> optionalFood = foods.stream().filter(food1 -> food1.getFoodId() == index).findFirst();
+            if (optionalFood.isPresent()) {
+                Foods food = optionalFood.get();
+                if (food.isDeleted()) {
+                    sendRequest(HttpMethod.PATCH, url.UNDELETE_FOOD(index), actionEvent, "Food undeleted successfully", "An error has occurred.", "ERROR: Couldn't undelete food.", true);
+                } else {
+                    messageFunctions.setTextThenEmpty(messageTextArea, "Food isn't deleted.", "#ef1400", 3);
+                }
+            } else {
+                messageFunctions.setTextThenEmpty(messageTextArea, "Please select an item from the list!", "#ef1400", 3);
+            }
         }
     }
 
@@ -243,8 +266,7 @@ public class MainViewController implements Initializable {
                 listViewFunctionsForMain.loadFoodsToListView(foods);
                 isFoodShown = true;
             } else {
-                messageTextArea.clear();
-                messageTextArea.setText("An error has occurred");
+                messageFunctions.setTextThenEmpty(messageTextArea, "An error has occurred while loading foods", "#ef1400", 3);
             }
         } catch (Exception e) {
             listViewFunctionsForMain.CouldNotLoadFoodOrProfiles(false, e);
@@ -319,8 +341,7 @@ public class MainViewController implements Initializable {
             showDataVbox.setVisible(false);
             showDataVbox.setManaged(false);
         } catch (IOException e) {
-            messageTextArea.setText(e.getMessage());
-            throw new RuntimeException(e);
+            messageFunctions.setTextThenEmpty(messageTextArea, messageFunctions.messageFromError(e), "#ef1400", 3);
         }
     }
 
@@ -335,29 +356,30 @@ public class MainViewController implements Initializable {
 
     public void sendRequest(HttpMethod httpMethod, String url, ActionEvent actionEvent, String successMessage, String JsonError, String errorMessage, boolean changeInFoodList) {
         if (mainListView.getSelectionModel().isEmpty()) {
-            messageTextArea.clear();
-            messageTextArea.setText("Please select an item from the list!");
+            messageFunctions.setTextThenEmpty(messageTextArea, "Please select an item from the list!", "#ef1400", 3);
             return;
         }
         try {
             RequestSender requestSender = new RequestSender();
-            String request = requestSender.sendRequest(restTemplate, loginModel, httpMethod, url);
+            String request = requestSender.sendRequest(loginModel, httpMethod, url);
             listViewFunctionsForMain.emptyAllText();
             if (createFoodMainMethods.isValidJSON(request)) {
                 if (changeInFoodList) {
                     foodsClick(actionEvent);
                     messageTextArea.setText(successMessage);
+                    messageFunctions.setTextThenEmpty(messageTextArea, successMessage, "#29be0e", 3);
+
                 } else {
                     profilesClick(actionEvent);
-                    messageTextArea.setText(successMessage);
+                    messageFunctions.setTextThenEmpty(messageTextArea, successMessage, "#29be0e", 3);
                 }
             } else {
-                messageTextArea.setText(JsonError);
+                messageFunctions.setTextThenEmpty(messageTextArea, JsonError, "#ef1400", 3);
             }
         } catch (Exception e) {
             listViewFunctionsForMain.emptyAllText();
-            messageTextArea.setText(errorMessage + " -> " + e.getMessage());
-            e.printStackTrace();
+            messageFunctions.setTextThenEmpty(messageTextArea, errorMessage + " -> " + messageFunctions.messageFromError(e), "#ef1400", 3);
+
         }
     }
 

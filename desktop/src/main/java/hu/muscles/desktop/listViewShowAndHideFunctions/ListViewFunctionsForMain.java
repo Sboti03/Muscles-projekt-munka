@@ -1,5 +1,6 @@
 package hu.muscles.desktop.listViewShowAndHideFunctions;
 
+import com.jfoenix.controls.JFXTextArea;
 import hu.muscles.desktop.foodsData.Foods;
 import hu.muscles.desktop.profileData.Profiles;
 import hu.muscles.desktop.userData.User;
@@ -17,10 +18,10 @@ import java.util.stream.Collectors;
 
 public class ListViewFunctionsForMain {
     private final ListView<String> mainListView;
-    private final TextField messageTextArea;
+    private final JFXTextArea messageTextArea;
 
 
-    public ListViewFunctionsForMain(ListView<String> mainListView, TextField messageTextArea) {
+    public ListViewFunctionsForMain(ListView<String> mainListView, JFXTextArea messageTextArea) {
         this.mainListView = mainListView;
         this.messageTextArea = messageTextArea;
     }

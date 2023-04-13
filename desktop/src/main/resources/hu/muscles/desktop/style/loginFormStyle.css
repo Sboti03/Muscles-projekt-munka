@@ -9,64 +9,74 @@
 
 /* login fields */
 .login-field {
-    -fx-background-color: #460965;
-    -fx-border-color: #8200cc;
-    -fx-text-fill: white;
+    -fx-background-color:
+            rgb(134, 42, 168),
+            rgb(251, 248, 255);
+    -fx-text-fill: rgb(134, 42, 168);
 }
 
 .login-field:focused {
-    -fx-background-color: #40115e;
-    -fx-border-color: #ee00ff;
+    -fx-background-color: rgba(91, 10, 105, 0.84);
+    -fx-background-insets: 0, 2;
+    -fx-border-color: white;
     -fx-text-fill: white;
+    -fx-border-radius: 4px;
+}
+
+.login-field:hover {
+    -fx-background-color:
+            rgb(247, 0, 255),
+            rgb(251, 248, 255);
+    -fx-text-fill: rgb(134, 42, 168);
+}
+.login-field:hover:focused {
+    -fx-background-color: rgba(91, 10, 105, 0.84);
+    -fx-background-insets: 0, 2;
+    -fx-border-color: white;
+    -fx-text-fill: white;
+    -fx-border-radius: 4px;
 }
 
 
 /* message area */
-TextArea {
-    -fx-background-color: null;
-    -fx-fill: null;
-    -fx-border-color: #490c7a;
-    -fx-progress-color: #490c7a;
-    -fx-color-label-visible: #490c7a;
+JFXTextArea {
     -fx-text-fill: #ef1400;
     -fx-text-alignment: center;
     -fx-font-weight: bold;
-    -fx-background-insets: 0;
+    -fx-alignment: center;
 }
 
-TextArea .content {
-    -fx-background-color: transparent;
-    -fx-border-color: transparent;
-    -fx-text-fill: #ef1400;
+JFXTextArea *.text {
     -fx-text-alignment: center;
-    -fx-font-weight: bold;
-    -fx-background-insets: 0;
+    -fx-padding-top: 30px;
 }
 
 
 /* login button */
 .login-button {
-    -fx-border-color: #8200cc;
-    -fx-border-radius: 120em;
-    -fx-background-color: #460965;
+    -fx-border-color: rgb(251, 248, 255);
+    -fx-border-radius: 4px;
+    -fx-background-color: #6b0c7b;
     -fx-text-fill: white;
-    -fx-background-radius: 120em;
+    -fx-background-radius: 4px;
 }
 .login-button:focused {
-    -fx-border-radius: 120px;
-    -fx-background-color: #40115e;
-    -fx-border-color: #ee00ff;
+    -fx-background-color:
+            rgb(134, 42, 168),
+            rgba(107, 12, 123, 0.87);
     -fx-text-fill: white;
-    -fx-background-radius: 120em;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
 }
 
 
 .login-button:hover {
-    -fx-background-color: #40115e;
-    -fx-border-color: #ee00ff;
-    -fx-border-radius: 120px;
+    -fx-background-color:
+            rgb(134, 42, 168),
+            rgba(87, 9, 101, 0.87);
     -fx-text-fill: white;
-    -fx-background-radius: 120em;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
 }
 
 .login-button:pressed {
