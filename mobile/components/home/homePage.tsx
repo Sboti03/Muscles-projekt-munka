@@ -1,11 +1,10 @@
 import * as React from 'react';
 import {useContext, useEffect, useRef, useState} from 'react';
-import {Box, Button, Chip, Flex, HStack, IconButton, Text, VStack} from "@react-native-material/core";
+import {Box, Chip, Flex, HStack, IconButton, Text, VStack} from "@react-native-material/core";
 import NavigatorContext, {Page} from "../navigator/NavigatorProvider";
 import {BASE_URL} from "@env"
 import axios from "axios";
 import {
-    BackHandler,
     DrawerLayoutAndroid,
     Keyboard,
     KeyboardAvoidingView,
@@ -14,38 +13,25 @@ import {
 } from "react-native";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import * as Progress from 'react-native-progress';
-import AuthContext from "../auth/AuthContext";
-import CreateMealHistory from "../mealHistory/createMealHistory";
 import SideBarContent from "../sidebar/SideBarContent";
 import MealHistoryContext from "../mealHistory/mealHistoryContext";
 import ProfileContext, {ProfileResponse} from "../profile/ProfileProvider";
 import MealPeriods from "../mealPeriods/MealPeriods";
 import {calculateDayInfoData} from "../food/foodCalculations";
-import MealHistoryInterface, {DayInfoData} from "../mealHistory/types/mealHistoryInterface";
+import {DayInfoData} from "../mealHistory/types/mealHistoryInterface";
 import { LinearGradient } from 'expo-linear-gradient';
 import Weight from "./Weight";
-import ScrollPicker from "react-native-wheel-scrollview-picker";
-import WeightInterface from "../mealHistory/types/weightInterface";
-import mealHistoryContext from "../mealHistory/mealHistoryContext";
-import PageHistoryContext from "../PageHistory/PageHistoryProvider";
+import PageHistoryContext from "../pageHistory/PageHistoryProvider";
 
-const getAllProfileInfo = BASE_URL + 'api/user/all'
-const getAllGoalData = BASE_URL + 'api/goals'
-const profileCreate = BASE_URL + 'api/profile/create'
 const getProfileAPI = BASE_URL + 'api/profile'
 const getMealHistoryData = BASE_URL + 'api/meal-history/data/?date='
-const updateWeightHistoryApi = BASE_URL + 'api/weight-history/update'
-const createFoodApi = BASE_URL + 'api/food'
-const createMealHistoryApi = BASE_URL + 'api/meal-history/create'
-
 
 function HomePage(){
 
     const {changePage} = useContext(NavigatorContext)
     const {profile, updateProfile} = useContext(ProfileContext)
-    const {logout} = useContext(AuthContext)
     const {date, setDate, setMealHistory, mealHistory} = useContext(MealHistoryContext)
-    const {deleteLastPage,addPage, pageHistory} = useContext(PageHistoryContext)
+    const {addPage, pageHistory} = useContext(PageHistoryContext)
 
     const drawer = useRef<DrawerLayoutAndroid>(null);
     const [foodCalculations, setFoodCalculations] = useState<DayInfoData>()
@@ -120,7 +106,7 @@ function HomePage(){
           <Flex fill={1} style={{width:'100%'}} >
 
               <HStack style={homePageStyle.menuOnTop}>
-                  <IconButton icon={<MaterialCommunityIcons name="account-circle-outline" size={40} color='#7a44cf' />}
+                  <IconButton icon={<MaterialCommunityIcons name="menu" size={45} color='#7a44cf' />}
                               style={{marginLeft:5}}
                               onPress={() => {
                                   drawer.current?.openDrawer()
@@ -197,6 +183,7 @@ function HomePage(){
                   </VStack>
               </Box>
               <MealPeriods />
+              <Text style={{marginTop: '13%', textAlign: 'center', color: '#bedbff'}}>Daily weight</Text>
               <KeyboardAvoidingView behavior={"position"} >
               <Weight/>
               </KeyboardAvoidingView>

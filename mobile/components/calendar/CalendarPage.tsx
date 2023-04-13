@@ -7,7 +7,7 @@ import {Flex, IconButton, Text} from "@react-native-material/core";
 import MealHistoryContext from "../mealHistory/mealHistoryContext";
 import {LinearGradient} from "expo-linear-gradient";
 import {Alert, BackHandler, StyleSheet, TouchableOpacity} from "react-native";
-import PageHistoryContext from "../PageHistory/PageHistoryProvider";
+import PageHistoryContext from "../pageHistory/PageHistoryProvider";
 
 export default function CalendarPage() {
     const {changePage} = useContext(NavigatorContext)
@@ -81,9 +81,10 @@ export default function CalendarPage() {
                           )
                       }}
                       theme={{
-                          calendarBackground: '#28117e',
+                          calendarBackground: '#3d117e',
                           todayTextColor: '#7a44cf',
                           textDayFontSize: 20,
+                          monthTextColor: '#FFF'
                       }}
                       enableSwipeMonths={true}
             />

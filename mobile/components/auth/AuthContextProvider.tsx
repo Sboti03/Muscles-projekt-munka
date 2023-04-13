@@ -6,7 +6,7 @@ import axios from "axios";
 import {BASE_URL} from "@env";
 import User from "./types/user";
 import {ProfileResponse} from "../profile/ProfileProvider";
-import PageHistoryContext from "../PageHistory/PageHistoryProvider";
+import PageHistoryContext from "../pageHistory/PageHistoryProvider";
 
 const logoutAPI = BASE_URL + 'api/auth/logout'
 const loginAPI: string = BASE_URL + 'api/auth/login'
@@ -57,6 +57,7 @@ function AuthContextProvider(props:PropsWithChildren) {
                             console.log(error)
                         })
                 },).catch(function (error) {
+                console.log('error login')
                 console.log(error.request)
             })
         },

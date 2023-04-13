@@ -19,6 +19,7 @@ export enum Page {
    SHOWMEALHISTORY,
    SHOWFODDETAILS,
    CALENDAR,
+   MYGOAL,
 
 }
 

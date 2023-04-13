@@ -10,9 +10,10 @@ import CreateMealHistory from "../mealHistory/pages/CreateMealHistory";
 import ShowMealHistory from "../mealHistory/pages/ShowMealHistory";
 import ShowOneFood from "../food/ShowOneFood";
 import MealHistoryContext from "../mealHistory/mealHistoryContext";
-import CalendarPage from "../Calendar/CalendarPage";
-import PageHistoryContext from "../PageHistory/PageHistoryProvider";
+import CalendarPage from "../calendar/CalendarPage";
+import PageHistoryContext from "../pageHistory/PageHistoryProvider";
 import {Alert, BackHandler} from "react-native";
+import MyGoal from "../home/goals/myGoal";
 
 export default function Pages() {
 
@@ -72,5 +73,7 @@ export default function Pages() {
          return <ShowOneFood DayPeriodResponse={dayHistories[currentPlaceOfDayPeriodResponse]}/>
       case Page.CALENDAR:
          return <CalendarPage />
+      case Page.MYGOAL:
+         return <MyGoal />
    }
 }

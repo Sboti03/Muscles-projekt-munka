@@ -1,6 +1,6 @@
 import {Button, Flex, Text, TextInput, VStack} from "@react-native-material/core";
 import {useContext, useState} from "react";
-import {Keyboard, StyleSheet, TouchableWithoutFeedback} from "react-native";
+import {Keyboard, StyleSheet, TouchableOpacity, TouchableWithoutFeedback} from "react-native";
 import profileProvider from "./ProfileProvider";
 import NavigatorProvider, {Page} from "../navigator/NavigatorProvider";
 import {homePageStyle} from "../home/homePage";
@@ -8,7 +8,8 @@ import {loginPageStyle} from "../loginPage";
 import {DateTimePickerAndroid} from '@react-native-community/datetimepicker';
 import {BASE_URL} from "@env";
 import axios from "axios";
-import PageHistoryContext from "../PageHistory/PageHistoryProvider";
+import PageHistoryContext from "../pageHistory/PageHistoryProvider";
+import {LinearGradient} from "expo-linear-gradient";
 
 const updateProfileAPI = BASE_URL + 'api/profile/update'
 
@@ -80,10 +81,18 @@ export default function ProfileFormPages (props: ProfileProps) {
 
     if (props.birthDay){
         return (
+            <LinearGradient  colors={['#efe8fd', '#865eff']}
+                             style={{width: '100%', flex: 1, alignItems: "center"}}>
             <Flex fill>
                 <VStack style={profileFormStyles.container}>
-                    <Text>{profile?.birthDay?.toLocaleDateString()}</Text>
-                    <Text onPress={showDatePicker}>change birthday</Text>
+                    <Text style={{color: '#FFF'}}>BirthDay:</Text>
+                    <TouchableOpacity onPress={showDatePicker}
+                                      style={profileFormStyles.birthdayBox}
+
+                    >
+                        <Text style={profileFormStyles.birthDayText}>{profile?.birthDay?.toLocaleDateString()}</Text>
+                    </TouchableOpacity>
+
                     <TextInput placeholder={'height'}
                                style={Object.assign({}, profileFormStyles.inputOnTheMiddle ,loginPageStyle.inputBox)}
                                inputStyle={{backgroundColor: '#aa8dff'}}
@@ -103,9 +112,12 @@ export default function ProfileFormPages (props: ProfileProps) {
                         />
                 </VStack>
             </Flex>
+            </LinearGradient>
         )
     }
     else return (
+        <LinearGradient  colors={['#efe8fd', '#865eff']}
+                         style={{width: '100%', flex: 1, alignItems: "center"}}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <Flex fill >
                 <VStack  style={profileFormStyles.container}>
@@ -143,13 +155,14 @@ export default function ProfileFormPages (props: ProfileProps) {
                 </VStack>
             </Flex>
         </TouchableWithoutFeedback>
+        </LinearGradient>
     )
 }
 const profileFormStyles = StyleSheet.create({
     inputOnTheMiddle: {
         width: 270,
         marginTop: 20,
-        backgroundColor: '#cbb9ff'
+
     },
     container: {
         flex: 1,
@@ -166,6 +179,19 @@ const profileFormStyles = StyleSheet.create({
         alignSelf: "flex-start",
         color: '#7a44cf'
     },
+    birthDayText: {
+        fontWeight: '400',
+        fontSize: 35,
+        color: '#cdb9ff',
+    },
+    birthdayBox: {
+        borderWidth: 4,
+        borderRadius: 40,
+        borderColor: '#7a4dc2',
+        paddingLeft: 5,
+        paddingRight: 3,
+        backgroundColor: '#9674ff'
 
+    }
 
 })

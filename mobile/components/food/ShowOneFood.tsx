@@ -10,7 +10,7 @@ import {getOneFoodInfo} from "./foodCalculations";
 import FoodInterface from "./foodInterface";
 import {BASE_URL} from "@env";
 import axios from "axios";
-import PageHistoryContext from "../PageHistory/PageHistoryProvider";
+import PageHistoryContext from "../pageHistory/PageHistoryProvider";
 
 const submitFoodAPI = BASE_URL + 'api/meal-history/update/'
 
@@ -42,19 +42,19 @@ export default function ShowOneFood(props: { DayPeriodResponse: DayPeriodRespons
     return (
         <LinearGradient  colors={['#efe8fd', '#865eff']}
                          style={{width: '100%', flex: 1, alignItems: "center"}}>
-        <Flex fill style={{ width: '100%'}}>
+        <Flex fill style={{ width: '90%'}}>
             <IconButton onPress={() => {
                 changePage(Page.SHOWMEALHISTORY)
                 deleteLastPage()
             }}
                         icon={<MaterialCommunityIcons name={'arrow-left-bold-outline'} size={30} color={'#7a44cf'} />}
                         style={{marginLeft:5, marginTop: 30}}/>
-            <Text style={{marginTop: 10, textTransform: 'capitalize'}}>{props.DayPeriodResponse.meal.food.name}</Text>
+            <Text style={oneFoodStyle.title}>{props.DayPeriodResponse.meal.food.name}</Text>
             <HStack style={oneFoodStyle.basicHStack}>
-                <VStack><Text>Amount</Text><Text>{currentAmount}</Text></VStack>
-                <VStack><Text>Calories</Text><Text>{oneFoodData?.kcal}</Text></VStack>
-                <VStack><Text>Protein</Text><Text>{oneFoodData?.protein}</Text></VStack>
-                <VStack><Text>Carbohydrate</Text><Text>{oneFoodData?.carbohydrate}</Text></VStack>
+                <VStack><Text style={oneFoodStyle.text}>Amount (g)</Text><Text style={oneFoodStyle.text}>{currentAmount}</Text></VStack>
+                <VStack><Text style={oneFoodStyle.text}>Calories</Text><Text style={oneFoodStyle.text}>{oneFoodData?.kcal}</Text></VStack>
+                <VStack><Text style={oneFoodStyle.text}>Protein</Text><Text style={oneFoodStyle.text}>{oneFoodData?.protein}</Text></VStack>
+                <VStack><Text style={oneFoodStyle.text}>Carbohydrate</Text><Text style={oneFoodStyle.text}>{oneFoodData?.carbohydrate}</Text></VStack>
             </HStack>
             <KeyboardAvoidingView behavior={"height"} style={oneFoodStyle.bottom}>
                 <HStack style={{marginBottom: 10,}}>
@@ -80,9 +80,33 @@ export default function ShowOneFood(props: { DayPeriodResponse: DayPeriodRespons
     )
 }
 const oneFoodStyle = StyleSheet.create({
+    title: {
+        textAlign: "center",
+        fontFamily: 'serif',
+        marginTop: 40,
+        fontSize: 50,
+        color: '#FFF',
+        borderColor: '#d7c1ff',
+        borderWidth: 2,
+        borderRadius: 20,
+        backgroundColor: '#b68bff',
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 4,
+        },
+        shadowOpacity: 0.30,
+        shadowRadius: 4.65,
+
+        elevation: 8,
+    },
     basicHStack : {
         width: '100%',
-        alignContent: "space-between",
+        justifyContent: "space-between",
+        marginTop: 40
+    },
+    text: {
+        textAlign: 'center',
     },
     bottom: {
         flex: 1,

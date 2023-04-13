@@ -10,8 +10,8 @@ import NavigatorContext, {Page} from "../navigator/NavigatorProvider";
 import {loginPageStyle} from "../loginPage";
 import {StyleSheet} from "react-native";
 import {createMealHistoryStyle} from "../mealHistory/pages/CreateMealHistory";
-import PageHistoryProvider from "../PageHistory/PageHistoryProvider";
-import PageHistoryContext from "../PageHistory/PageHistoryProvider";
+import PageHistoryProvider from "../pageHistory/PageHistoryProvider";
+import PageHistoryContext from "../pageHistory/PageHistoryProvider";
 
 const patchProfileURL = BASE_URL + 'api/profile/update'
 const getProfileAPI = BASE_URL + 'api/profile'

@@ -9,7 +9,7 @@ import {BASE_URL} from "@env";
 // @ts-ignore
 import SwitchSelector from "react-native-switch-selector";
 import {LinearGradient} from 'expo-linear-gradient';
-import PageHistoryContext from "../PageHistory/PageHistoryProvider";
+import PageHistoryContext from "../pageHistory/PageHistoryProvider";
 
 
 const registerAPI = BASE_URL + 'api/auth/register'
@@ -166,8 +166,8 @@ const registerStyles = StyleSheet.create({
         height: 70,
         borderRadius: 10,
         overflow: "hidden",
-        borderWidth: 0,
-        borderColor: '#FFF',
+        borderWidth: 1,
+        borderColor: '#ccc8ff',
     },
     inputContainer: {
         backgroundColor: '#aa8dff',

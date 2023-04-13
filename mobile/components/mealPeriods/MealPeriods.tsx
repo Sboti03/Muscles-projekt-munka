@@ -6,7 +6,7 @@ import {PeriodNamesEnum} from "../mealHistory/types/dayHistoryInterface";
 import NavigatorContext, {Page} from "../navigator/NavigatorProvider";
 import {getConsumedCaloriesByMealPeriod} from "../food/foodCalculations";
 import {StyleSheet} from "react-native";
-import PageHistoryContext from "../PageHistory/PageHistoryProvider";
+import PageHistoryContext from "../pageHistory/PageHistoryProvider";
 
 function MealPeriods() {
 

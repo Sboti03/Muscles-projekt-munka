@@ -7,7 +7,7 @@ import {MaterialCommunityIcons} from '@expo/vector-icons';
 import Ripple from "react-native-material-ripple";
 import AuthContext from "./auth/AuthContext";
 import { LinearGradient } from "expo-linear-gradient";
-import PageHistoryContext from "./PageHistory/PageHistoryProvider";
+import PageHistoryContext from "./pageHistory/PageHistoryProvider";
 
 const loginAPI: string = BASE_URL + 'api/auth/login'
 export default function LoginPage() {
@@ -31,13 +31,23 @@ export default function LoginPage() {
             <Text style={loginPageStyle.title}>
                 Login Page
             </Text>
-            <VStack style={loginPageStyle.vStack}>
+            <VStack style={loginPageStyle.vStack} spacing={15}>
                 <TextInput style={loginPageStyle.inputBox}
+                           inputStyle={loginPageStyle.input}
+                           inputContainerStyle={loginPageStyle.inputContainer}
+                           placeholderTextColor={'#ebd8fc'}
+                           leadingContainerStyle={{alignSelf: 'center'}}
+                           trailingContainerStyle={{alignSelf: 'center'}}
                            onChangeText={ (text) => { setEmail(text) } }
                            trailing={<MaterialCommunityIcons name="email" size={24} color="#684dd1" />}
                            placeholder={"email"}
                 />
                 <TextInput style={loginPageStyle.inputBox}
+                           inputStyle={loginPageStyle.input}
+                           inputContainerStyle={loginPageStyle.inputContainer}
+                           placeholderTextColor={'#ebd8fc'}
+                           leadingContainerStyle={{alignSelf: 'center'}}
+                           trailingContainerStyle={{alignSelf: 'center'}}
                            onChangeText={ (text) => { setPassword(text) } }
                            leading={<MaterialCommunityIcons name="key" size={24} color="#684dd1" />}
                            secureTextEntry={visible}
@@ -55,8 +65,10 @@ export default function LoginPage() {
                         deleteLastPage()
                         addPage(Page.REGISTER)
 
-                    }} >
-                        <Text style={loginPageStyle.text}>
+                    }}
+                            style={{marginLeft: 8}}
+                    >
+                        <Text style={loginPageStyle.registerText}>
                             Register
                         </Text>
                     </Ripple>
@@ -89,6 +101,19 @@ export const loginPageStyle = StyleSheet.create({
     inputBox: {
         width: 300,
         height: 70,
+        borderRadius: 10,
+        overflow: "hidden",
+        borderWidth: 1,
+        borderColor: '#ccc8ff',
+    },
+    input: {
+        color: '#e6daff',
+        paddingLeft: 14,
+    },
+    inputContainer: {
+        backgroundColor: '#aa8dff',
+        borderRadius: 30,
+        flexGrow: 1
     },
     vStack: {
         flex: 1,
@@ -96,6 +121,7 @@ export const loginPageStyle = StyleSheet.create({
         width: 300,
         justifyContent: "center",
         marginBottom: 70,
+
     },
     title: {
         textAlign: "center",
@@ -107,7 +133,17 @@ export const loginPageStyle = StyleSheet.create({
     text: {
       textTransform: "capitalize"
     },
-    button: {
+    registerText: {
+        color: '#FFF',
+        fontSize: 18,
+        fontWeight: 'bold',
+        textShadowColor: '#FFF',
+        textShadowRadius: 2,
+        textShadowOffset: {width: 2, height: 20}
 
+    },
+    button: {
+        backgroundColor: '#7a44cf',
+        marginRight: 7
     }
 })

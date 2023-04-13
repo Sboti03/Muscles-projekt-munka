@@ -7,7 +7,9 @@ import axios from "axios";
 import FoodInterface from "../../food/foodInterface";
 import NavigatorContext, {Page} from "../../navigator/NavigatorProvider";
 import {StyleSheet} from "react-native";
-import PageHistoryContext from "../../PageHistory/PageHistoryProvider";
+import PageHistoryContext from "../../pageHistory/PageHistoryProvider";
+import {LinearGradient} from "expo-linear-gradient";
+import {loginPageStyle} from "../../loginPage";
 
 const getAllFoodApi = BASE_URL + 'api/food'
 const createMealHistoryAPI = BASE_URL + 'api/meal-history/create'
@@ -71,34 +73,44 @@ function CreateMealHistory() {
     }, [])
 
     return (
-        <Flex fill style={createMealHistoryStyle.page}>
-            <Text style={createMealHistoryStyle.mealPeriodNameText}>{mealPeriod?.toString()}</Text>
-            <VStack spacing={10} style={createMealHistoryStyle.content}>
-                <SelectList searchPlaceholder={'Search'}
-                            placeholder={'Search foods'}
-                            data={data}
-                            setSelected={setSelected}
-                            save={'key'}/>
-                <Text style={{color: '#807c7c', fontSize: 14, marginLeft: 15}}>{foodWarning}</Text>
-                <Text>Amount (g)</Text>
-                <TextInput maxLength={4} keyboardType={'numeric'} onChangeText={text => setAmount(Number(text))} helperText={amountWarning}/>
-                <HStack style={createMealHistoryStyle.hStackWithButtons}>
-                    <Button title={'Submit'}
-                            onPress={() => {
-                                createMealHistoryToBackend()
-                            }}
-                            style={createMealHistoryStyle.submitButton}
+        <LinearGradient  colors={['#efe8fd', '#865eff']}
+                         style={{width: '100%', flex: 1, alignItems: "center"}}>
+            <Flex fill >
+                <Text style={createMealHistoryStyle.title}>{mealPeriod?.toString()}</Text>
+                <VStack spacing={10} style={createMealHistoryStyle.content}>
+                    <SelectList searchPlaceholder={'Search'}
+                                placeholder={'Search foods'}
+                                data={data}
+                                setSelected={setSelected}
+                                save={'key'}/>
+                    <Text style={createMealHistoryStyle.warningText}>{foodWarning}</Text>
+                    <Text>Amount (g)</Text>
+                    <TextInput maxLength={4}
+                               keyboardType={'numeric'}
+                               onChangeText={text => setAmount(Number(text))}
+                               style={createMealHistoryStyle.inputBox}
+                               inputStyle={createMealHistoryStyle.input}
+                               inputContainerStyle={createMealHistoryStyle.inputContainer}
                     />
-                    <Button title={'Cancel'}
-                            onPress={() => {
-                                changePage(Page.HOME)
-                                deleteLastPage()
-                            }}
-                            style={createMealHistoryStyle.cancelButton}
-                    />
-                </HStack>
-            </VStack>
-        </Flex>
+                    <Text style={createMealHistoryStyle.warningText}>{amountWarning}</Text>
+                    <HStack style={createMealHistoryStyle.hStackWithButtons}>
+                        <Button title={'Submit'}
+                                onPress={() => {
+                                    createMealHistoryToBackend()
+                                }}
+                                style={createMealHistoryStyle.submitButton}
+                        />
+                        <Button title={'Cancel'}
+                                onPress={() => {
+                                    changePage(Page.HOME)
+                                    deleteLastPage()
+                                }}
+                                style={createMealHistoryStyle.cancelButton}
+                        />
+                    </HStack>
+                </VStack>
+            </Flex>
+        </LinearGradient>
     )
 }
 export default CreateMealHistory
@@ -106,6 +118,13 @@ export default CreateMealHistory
 export const createMealHistoryStyle = StyleSheet.create({
     page: {
       backgroundColor: '#cbb9ff'
+    },
+    title: {
+        textAlign: "center",
+        fontFamily: 'serif',
+        marginTop: 80,
+        fontSize: 50,
+        color: '#FFF'
     },
     mealPeriodNameText: {
         textAlign: "center",
@@ -130,5 +149,27 @@ export const createMealHistoryStyle = StyleSheet.create({
         marginTop: 20,
         justifyContent: 'space-between',
         width: '100%'
+    },
+    inputBox: {
+        width: 300,
+        height: 70,
+        borderRadius: 10,
+        overflow: "hidden",
+        borderWidth: 1,
+        borderColor: '#ccc8ff',
+    },
+    input: {
+        color: '#e6daff',
+        paddingLeft: 14,
+    },
+    inputContainer: {
+        backgroundColor: '#aa8dff',
+        borderRadius: 30,
+        flexGrow: 1
+    },
+    warningText: {
+        color: '#807c7c',
+        fontSize: 14,
+        marginLeft: 15
     }
 })
