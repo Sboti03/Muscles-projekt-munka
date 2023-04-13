@@ -17,19 +17,19 @@ public class RequestSender {
     public RequestSender() {
     }
 
-    public String sendRequest(RestTemplate restTemplate, LoginModel loginModel, HttpMethod httpMethod, String url) {
+    public String sendRequest(LoginModel loginModel, HttpMethod httpMethod, String url) throws Exception {
         try {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             headers.setBearerAuth(loginModel.getLoginData().getTokens().getAccessToken());
             HttpEntity<String> requestEntity = new HttpEntity<>(null, headers);
-            restTemplate = new RestTemplate();
+            RestTemplate restTemplate = new RestTemplate();
             restTemplate = getPATCHRestTemplate(restTemplate, httpMethod);
             ResponseEntity<String> responseEntity = restTemplate.exchange(url, httpMethod, requestEntity, String.class);
             return responseEntity.getBody();
         } catch (Exception e) {
             e.printStackTrace();
-            return e.getMessage();
+            throw new Exception();
         }
     }
 

@@ -1,29 +1,20 @@
 package hu.muscles.desktop.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.module.SimpleModule;
-import hu.muscles.desktop.app;
+import hu.muscles.desktop.App;
 import hu.muscles.desktop.createfoodmainmethods.CreateFoodMainMethods;
-import hu.muscles.desktop.customdoubleserializer.CustomDoubleSerializer;
-import hu.muscles.desktop.foodsData.FoodsCreateOrUpdate;
 import hu.muscles.desktop.foodsData.UnitsEnum;
 import hu.muscles.desktop.models.LoginModel;
 import hu.muscles.desktop.urls.Urls;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import javafx.util.StringConverter;
-import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class CreateFoodController implements Initializable {
@@ -81,7 +72,7 @@ public class CreateFoodController implements Initializable {
     @FXML
     public void cancelCreateFoodBtnClick(ActionEvent actionEvent) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(app.class.getResource("main-view.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("main-view.fxml"));
             Stage stage = (Stage) cancelCreateFoodBtn.getScene().getWindow();
             stage.getScene().setRoot(fxmlLoader.load());
             ((MainViewController) fxmlLoader.getController()).setLoginModelForMain(loginModel);

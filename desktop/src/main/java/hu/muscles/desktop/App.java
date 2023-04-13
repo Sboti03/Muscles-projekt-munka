@@ -10,14 +10,25 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
-public class app extends Application {
+public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(app.class.getResource("login-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("login-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1080, 1920);
         stage.setTitle("Login");
         stage.setScene(scene);
-        LoginController.setNewWindow(scene, stage);
+        setNewWindow(scene, stage);
+    }
+
+    public void setNewWindow(Scene scene, Stage stage) {
+        stage.setMaximized(true);
+        stage.setResizable(false);
+        stage.setFullScreenExitHint("");
+        stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+        stage.fullScreenProperty();
+        stage.initStyle(StageStyle.TRANSPARENT);
+        stage.setScene(scene);
+        stage.show();
     }
 
     public static void main(String[] args) {

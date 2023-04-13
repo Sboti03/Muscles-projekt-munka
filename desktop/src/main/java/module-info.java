@@ -7,7 +7,7 @@ module hu.muscles.desktop {
     requires org.controlsfx.controls;
     requires org.apache.httpcomponents.client5.httpclient5;
     requires org.apache.httpcomponents.core5.httpcore5;
-
+    requires com.jfoenix;
 
     opens hu.muscles.desktop to javafx.fxml;
     opens hu.muscles.desktop.loginData to com.fasterxml.jackson.databind;

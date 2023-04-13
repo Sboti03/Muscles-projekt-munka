@@ -16,6 +16,12 @@
   <dependencies>
 
     <dependency>
+      <groupId>org.jfxtras</groupId>
+      <artifactId>jfxtras-controls</artifactId>
+      <version>17-r1</version>
+    </dependency>
+
+    <dependency>
       <groupId>org.springframework.</groupId>
       <artifactId>spring-web</artifactId>
       <version>6.0.5</version>
@@ -62,6 +68,14 @@
       <version>5.2.1</version>
     </dependency>
 
+    <dependency>
+      <groupId>com.jfoenix</groupId>
+      <artifactId>jfoenix</artifactId>
+      <version>9.0.10</version>
+    </dependency>
+
+
+
   </dependencies>
 
   <build>
@@ -84,7 +98,7 @@
             <!-- Default configuration for running with: mvn clean javafx:run -->
             <id>default-cli</id>
             <configuration>
-              <mainClass>hu.muscles.desktop/hu.muscles.desktop.app</mainClass>
+              <mainClass>hu.muscles.desktop/hu.muscles.desktop.App</mainClass>
               <launcher>app</launcher>
               <jlinkZipName>app</jlinkZipName>
               <jlinkImageName>app</jlinkImageName>
