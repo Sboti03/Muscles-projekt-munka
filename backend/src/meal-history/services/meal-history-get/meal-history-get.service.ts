@@ -104,7 +104,9 @@ export class MealHistoryGetService {
             select: {
                 meal: {
                     select: {
+                        addedBy: true,
                         amount: true,
+                        completed: true,
                         food: {
                             select: {
                                 perUnit: true,

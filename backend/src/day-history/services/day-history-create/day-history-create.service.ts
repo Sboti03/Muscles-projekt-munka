@@ -21,4 +21,28 @@ export class DayHistoryCreateService {
             }
         });
     }
+
+
+    async commentDayHistory(userId: number, date: Date, comment: string) {
+        const {profileId} = await this.prismaService.profileData.findUnique({
+            where: {userId},
+            select: {profileId: true}
+        })
+        return this.prismaService.dayHistory.upsert({
+            where: {
+                date_profileId: {
+                    date,
+                    profileId
+                },
+            },
+            create: {
+                date,
+                profileId,
+                comment,
+            },
+            update: {
+                comment
+            }
+        })
+    }
 }

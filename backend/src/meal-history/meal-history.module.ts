@@ -20,7 +20,7 @@ import {ConnectionModule} from "../Connections/connection/connection.module";
 import {ProfileModule} from "../profile/profile.module";
 
 @Module({
-    imports: [MealModule, DayHistoryModule ,ProfileModule, GoalsModule, WeightHistoryModule, FoodsModule, ConnectionModule],
+    imports: [MealModule, DayHistoryModule ,ProfileModule, GoalsModule, WeightHistoryModule, FoodsModule, ConnectionModule, ConnectionModule],
     controllers: [MealHistoryGetController, MealHistoryCreateController, MealHistoryUpdateController, MealHistoryDeleteController],
     providers: [
         MealHistoryCreateService,

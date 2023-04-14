@@ -8,9 +8,12 @@ import {GoalsModule} from "../goals/goals.module";
 import {WeightHistoryModule} from "../weight-history/weight-history.module";
 import {MealModule} from "../meal/meal.module";
 import {MealHistoryModule} from "../meal-history/meal-history.module";
+import { DayHistoryController } from './controllers/day-history/day-history.controller';
+import {ConnectionCheckService} from "../Connections/connection/services/connection-check/connection-check.service";
+import {ConnectionModule} from "../Connections/connection/connection.module";
 
 @Module({
-    imports: [],
+    imports: [ConnectionModule],
     providers: [
         DayHistoryCreateService,
         DayHistoryGetService,
@@ -18,7 +21,8 @@ import {MealHistoryModule} from "../meal-history/meal-history.module";
         DayHistoryCheckService
     ],
     controllers: [
-        DayHistoryGetController
+        DayHistoryGetController,
+        DayHistoryController
     ],
     exports: [
         DayHistoryCreateService,
