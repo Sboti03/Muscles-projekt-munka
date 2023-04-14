@@ -20,7 +20,15 @@ import {join} from "path";
 
 @Module({
     imports: [
+        ServeStaticModule.forRoot({
+            rootPath: join(__dirname, '..', 'client'),
+            exclude: ['/api/(.*)'],
+        }),
         UserModule,
+        DevtoolsModule.register({
+            http: process.env.NODE_ENV !== 'prod',
+            port: 8000
+        }),
         AuthModule,
         ProfileModule,
         ConfigModule.forRoot({
