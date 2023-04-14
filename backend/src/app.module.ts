@@ -18,6 +18,7 @@ import {DevtoolsModule} from "@nestjs/devtools-integration";
 
 @Module({
     imports: [
+
         UserModule,
         DevtoolsModule.register({
             http: process.env.NODE_ENV !== 'prod',
