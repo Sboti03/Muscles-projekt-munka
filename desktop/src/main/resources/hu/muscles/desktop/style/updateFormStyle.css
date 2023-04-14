@@ -4,7 +4,7 @@
 
 TextField {
     -fx-background-color: transparent;
-    -fx-border-color: #460965;
+    -fx-border-color: #4a096c;
     -fx-text-fill: white;
     -fx-font-size: 10pt;
 }
@@ -17,7 +17,7 @@ TextField:focused {
 }
 
 Label {
--fx-text-fill: white;
+    -fx-text-fill: white;
 }
 
 
@@ -28,6 +28,7 @@ Button {
     -fx-text-fill: white;
     -fx-background-radius: 120em;
 }
+
 Button:hover {
     -fx-background-color: #40115e;
     -fx-border-color: #ee00ff;
@@ -42,4 +43,30 @@ Button:pressed {
     -fx-border-radius: 120px;
     -fx-text-fill: white;
     -fx-background-radius: 120em;
+}
+
+ComboBox {
+    -fx-background-color: transparent;
+    -fx-border-color: #460965;
+    -fx-text-fill: white;
+    -fx-font-size: 10pt;
+}
+
+ComboBox .cell:selected {
+    -fx-text-fill: white;
+}
+
+ComboBox:focused {
+    -fx-background-color: transparent;
+    -fx-border-color: #ee00ff;
+    -fx-text-fill: white;
+    -fx-font-size: 10pt;
+}
+
+ComboBox .arrow-button .arrow {
+    -fx-background-color: #4a096c;
+}
+
+ComboBox:focused .arrow-button .arrow {
+    -fx-background-color: #ee00ff;
 }

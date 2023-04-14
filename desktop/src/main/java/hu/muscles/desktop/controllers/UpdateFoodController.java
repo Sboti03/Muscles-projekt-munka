@@ -1,27 +1,18 @@
 package hu.muscles.desktop.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.jfoenix.controls.JFXTextArea;
 import hu.muscles.desktop.createfoodmainmethods.CreateFoodMainMethods;
-import hu.muscles.desktop.customdoubleserializer.CustomDoubleSerializer;
 import hu.muscles.desktop.foodsData.FoodsCreateOrUpdate;
 import hu.muscles.desktop.foodsData.UnitsEnum;
 import hu.muscles.desktop.models.FoodModel;
 import hu.muscles.desktop.models.LoginModel;
 import hu.muscles.desktop.urls.Urls;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
-import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.Objects;
 
 import static hu.muscles.desktop.controllers.MainViewController.setUpdateToInvisible;
 
@@ -65,18 +56,15 @@ public class UpdateFoodController {
     @FXML
     private Button resetFoodBtn;
     @FXML
-    private TextArea messageTextArea;
+    private JFXTextArea messageTextArea;
 
 
     @FXML
     public void updateFoodClick(ActionEvent actionEvent) {
-        createFoodMainMethods.CreateFood(nameField, kcalField, unitField, perUnitField, proteinField, fatField, saturatedFatField, polyunsaturatedFatField, monounsaturatedFatField, carbohydrateField, sugarField, fiberField, messageTextArea, loginModel, restTemplate, url, true, foodModel.getFood().getFoodId());
+        createFoodMainMethods.CreateFood(nameField, kcalField, unitField, perUnitField, proteinField, fatField, saturatedFatField, polyunsaturatedFatField, monounsaturatedFatField, carbohydrateField, sugarField, fiberField, loginModel, url, true, foodModel.getFood().getFoodId());
+       // TODO: reload foods
+        cancelFoodClick(actionEvent);
     }
-
-    public void resetSuccessMessage() {
-        messageTextArea.setText("");
-    }
-
 
     @FXML
     public void cancelFoodClick(ActionEvent actionEvent) {

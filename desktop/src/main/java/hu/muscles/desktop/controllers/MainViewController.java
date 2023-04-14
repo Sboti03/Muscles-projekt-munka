@@ -31,7 +31,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import org.springframework.http.*;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
@@ -96,6 +95,8 @@ public class MainViewController implements Initializable {
     private final MessageFunctions messageFunctions = new MessageFunctions();
     private static VBox editVboxStatic;
     private static ListView<String> mainListViewStatic;
+    private static JFXTextArea staticMessageTextArea;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -107,13 +108,11 @@ public class MainViewController implements Initializable {
         loadFromServerToPOJO = new LoadFromServerToPojo(mainListView);
         listViewFunctionsForMain = new ListViewFunctionsForMain(mainListView, messageTextArea);
         editVboxStatic = editVbox;
+        staticMessageTextArea = messageTextArea;
         mainListView.setBackground(Background.fill(Paint.valueOf("#1F0449B0")));
 
         mainListView.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
             mainListViewStatic = mainListView;
-            if (!mainListView.getSelectionModel().isEmpty()) {
-                ((UpdateFoodController) updateFoodLoader.getController()).resetSuccessMessage();
-            }
             if (isFoodShown && !isProfileShown) {
                 if (!mainListView.getSelectionModel().isEmpty() && (listViewFunctionsForMain.getCurrentItemIndex(mainListView)) != -1) {
                     int index = listViewFunctionsForMain.getCurrentItemIndex(mainListView);
@@ -402,6 +401,11 @@ public class MainViewController implements Initializable {
     public static void setUpdateToInvisible() {
         editVboxStatic.setVisible(false);
         mainListViewStatic.getSelectionModel().clearSelection();
+    }
+
+    public static void setMessageForMainTextArea(String text, String color, int seconds) {
+        MessageFunctions messageFunctions1 = new MessageFunctions();
+        messageFunctions1.setTextThenEmpty(staticMessageTextArea, text, color, seconds);
     }
 
 }

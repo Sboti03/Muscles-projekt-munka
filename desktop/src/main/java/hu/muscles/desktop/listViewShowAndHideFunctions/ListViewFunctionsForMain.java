@@ -6,8 +6,6 @@ import hu.muscles.desktop.profileData.Profiles;
 import hu.muscles.desktop.userData.User;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.Background;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;

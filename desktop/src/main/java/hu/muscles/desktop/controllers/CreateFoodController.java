@@ -1,8 +1,10 @@
 package hu.muscles.desktop.controllers;
 
+import com.jfoenix.controls.JFXTextArea;
 import hu.muscles.desktop.App;
 import hu.muscles.desktop.createfoodmainmethods.CreateFoodMainMethods;
 import hu.muscles.desktop.foodsData.UnitsEnum;
+import hu.muscles.desktop.messageFunctions.MessageFunctions;
 import hu.muscles.desktop.models.LoginModel;
 import hu.muscles.desktop.urls.Urls;
 import javafx.event.ActionEvent;
@@ -47,12 +49,14 @@ public class CreateFoodController implements Initializable {
     @FXML
     private Button cancelCreateFoodBtn;
     @FXML
-    private TextArea messageTextArea;
+    private JFXTextArea messageTextArea;
 
     private LoginModel loginModel;
     private final Urls url = new Urls();
     private final RestTemplate restTemplate = new RestTemplate();
     private final CreateFoodMainMethods createFoodMainMethods = new CreateFoodMainMethods();
+    private final MessageFunctions messageFunctions = new MessageFunctions();
+    private static JFXTextArea staticMessageTextArea;
 
     public void setLoginModelCreateFood(LoginModel loginModel) {
         this.loginModel = loginModel;
@@ -62,11 +66,12 @@ public class CreateFoodController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         createFoodMainMethods.InitializeFields(kcalField, perUnitField, proteinField, fatField, carbohydrateField, saturatedFatField, polyunsaturatedFatField, monounsaturatedFatField, sugarField, fiberField, unitField);
         unitField.setValue((UnitsEnum.gram));
+        staticMessageTextArea = messageTextArea;
     }
 
     @FXML
     public void createFoodClick(ActionEvent actionEvent) {
-        createFoodMainMethods.CreateFood(nameField, kcalField, unitField, perUnitField, proteinField, fatField, saturatedFatField, polyunsaturatedFatField, monounsaturatedFatField, carbohydrateField, sugarField, fiberField, messageTextArea, loginModel, restTemplate, url, false, -1);
+        createFoodMainMethods.CreateFood(nameField, kcalField, unitField, perUnitField, proteinField, fatField, saturatedFatField, polyunsaturatedFatField, monounsaturatedFatField, carbohydrateField, sugarField, fiberField, loginModel, url, false, -1);
     }
 
     @FXML
@@ -77,11 +82,14 @@ public class CreateFoodController implements Initializable {
             stage.getScene().setRoot(fxmlLoader.load());
             ((MainViewController) fxmlLoader.getController()).setLoginModelForMain(loginModel);
         } catch (IOException e) {
-            messageTextArea.setText("Error in heading back to main.");
+            messageFunctions.setTextThenEmpty(messageTextArea, "Error in heading back to main.", "#ef1400", 3);
         }
-
     }
 
+    public static void setMessageForCreateTextArea(String text, String color, int seconds) {
+        MessageFunctions messageFunctions1 = new MessageFunctions();
+        messageFunctions1.setTextThenEmpty(staticMessageTextArea, text, color, seconds);
+    }
 }
 
 
