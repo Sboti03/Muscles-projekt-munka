@@ -1,15 +1,20 @@
-import {Injectable} from '@nestjs/common';
+import {Injectable, NotFoundException} from '@nestjs/common';
 import {PrismaService} from "../../../Common/utils/prirsma.service";
+import {RoleEnum} from "../../../Common/Role/utils/roles";
 
 @Injectable()
 export class AdminBlockService {
     constructor(private prismaService: PrismaService) {
     }
 
-    blockUserByUserId(userId: number) {
-       return this.prismaService.users.update({
+    async blockUserByUserId(userId: number) {
+        const user = await this.prismaService.users.findUnique({where: {userId}, include: {role: true}})
+        if (!user || user.role.roleName === RoleEnum.ADMIN) {
+            throw new NotFoundException("No user or coach found")
+        }
+        return this.prismaService.users.update({
             where: {
-              userId,
+                userId,
             },
             data: {
                 isBlocked: true,
@@ -17,10 +22,10 @@ export class AdminBlockService {
         });
     }
 
-    unblockUserById(userId  : number) {
+    unblockUserById(userId: number) {
         return this.prismaService.users.update({
-            where: { userId },
-            data: { isBlocked: false }
+            where: {userId},
+            data: {isBlocked: false}
         });
     }
 }
