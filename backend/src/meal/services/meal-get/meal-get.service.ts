@@ -10,6 +10,7 @@ export class MealGetService {
       return {
          amount: createMealHistoryDTO.amount,
          addedBy: addedBy.valueOf(),
+         completed: createMealHistoryDTO.isCompleted,
          food: {
             connect: {
                foodId: createMealHistoryDTO.foodId

@@ -1,4 +1,4 @@
-import {Transform} from "class-transformer";
+import {Transform, Type} from "class-transformer";
 import { IsDate, IsNotEmpty, IsNumber } from "class-validator";
 import {PeriodNamesEnum} from "../../Common/utils/PeriodNames";
 import {ApiProperty} from "@nestjs/swagger";
@@ -17,6 +17,7 @@ export default class MealHistoryGetDto {
     periodName: PeriodNamesEnum
 
     @IsUndefinable()
+    @Type(()=> Number)
     @IsNumber()
     @ApiProperty({example: 12})
     userId?: number
