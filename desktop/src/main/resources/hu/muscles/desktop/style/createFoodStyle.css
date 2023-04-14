@@ -13,6 +13,7 @@ Button:focused {
     -fx-text-fill: white;
     -fx-background-radius: 120em;
 }
+
 Button {
     -fx-border-color: #8200cc;
     -fx-border-radius: 120em;
@@ -20,6 +21,7 @@ Button {
     -fx-text-fill: white;
     -fx-background-radius: 120em;
 }
+
 Button:hover {
     -fx-background-color: #40115e;
     -fx-border-color: #ee00ff;
@@ -51,3 +53,36 @@ Label {
     -fx-border-color: #ee00ff;
     -fx-text-fill: white;
 }
+
+ComboBox {
+    -fx-background-color: #460965;
+    -fx-border-color: #8200cc;
+    -fx-text-fill: white;
+}
+
+ComboBox:selected {
+    -fx-background-color: #40115e;
+    -fx-border-color: #ee00ff;
+    -fx-text-fill: white;
+}
+
+ComboBox .cell:selected {
+    -fx-text-fill: white;
+}
+
+
+ComboBox .arrow-button .arrow {
+    -fx-background-color: #8200cc;;
+}
+
+ComboBox:focused .arrow-button .arrow {
+    -fx-background-color: #ee00ff;
+    -fx-font-weight: bold;
+}
+
+JFXTextArea *.text {
+    -fx-text-alignment: left;
+    -fx-font-weight: bold;
+}
+
+

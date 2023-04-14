@@ -6,12 +6,12 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import hu.muscles.desktop.customdoubleserializer.CustomDoubleSerializer;
 import hu.muscles.desktop.foodsData.FoodsCreateOrUpdate;
 import hu.muscles.desktop.foodsData.UnitsEnum;
+import hu.muscles.desktop.messageFunctions.MessageFunctions;
 import hu.muscles.desktop.models.LoginModel;
 import hu.muscles.desktop.requestsender.RequestSender;
 import hu.muscles.desktop.urls.Urls;
 import javafx.collections.FXCollections;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.util.StringConverter;
@@ -22,9 +22,14 @@ import org.springframework.web.client.RestTemplate;
 import java.text.DecimalFormat;
 import java.util.Objects;
 
+import static hu.muscles.desktop.controllers.CreateFoodController.setMessageForCreateTextArea;
+import static hu.muscles.desktop.controllers.MainViewController.setMessageForMainTextArea;
+
 public class CreateFoodMainMethods {
+    private final MessageFunctions messageFunctions;
 
     public CreateFoodMainMethods() {
+        messageFunctions = new MessageFunctions();
     }
 
     public void setTextFieldToDoubleOrNull(TextField textField) {
@@ -78,7 +83,7 @@ public class CreateFoodMainMethods {
     }
 
 
-    public FoodsCreateOrUpdate foodCreate(TextField nameField, TextField kcalField, ComboBox<UnitsEnum> unitField, TextField perUnitField, TextField proteinField, TextField fatField, TextField saturatedFatField, TextField polyunsaturatedFatField, TextField monounsaturatedFatField, TextField carbohydrateField, TextField sugarField, TextField fiberField, TextArea messageTextArea) {
+    public FoodsCreateOrUpdate foodCreate(TextField nameField, TextField kcalField, ComboBox<UnitsEnum> unitField, TextField perUnitField, TextField proteinField, TextField fatField, TextField saturatedFatField, TextField polyunsaturatedFatField, TextField monounsaturatedFatField, TextField carbohydrateField, TextField sugarField, TextField fiberField, boolean isUpdate) {
         String name = nameField.getText().trim();
         UnitsEnum units = unitField.getValue();
         Double kcal;
@@ -87,11 +92,11 @@ public class CreateFoodMainMethods {
         Double fat;
         Double carbohydrate;
         try {
-            kcal = returnDoubleValue(kcalField, messageTextArea);
-            perUnit = returnDoubleValue(perUnitField, messageTextArea);
-            protein = returnDoubleValue(proteinField, messageTextArea);
-            fat = returnDoubleValue(fatField, messageTextArea);
-            carbohydrate = returnDoubleValue(carbohydrateField, messageTextArea);
+            kcal = returnDoubleValue(kcalField, isUpdate);
+            perUnit = returnDoubleValue(perUnitField, isUpdate);
+            protein = returnDoubleValue(proteinField, isUpdate);
+            fat = returnDoubleValue(fatField, isUpdate);
+            carbohydrate = returnDoubleValue(carbohydrateField, isUpdate);
         } catch (IllegalArgumentException e) {
             return null;
         }
@@ -101,6 +106,7 @@ public class CreateFoodMainMethods {
         Double sugar = returnNullableDoubleValue(sugarField);
         Double fiber = returnNullableDoubleValue(fiberField);
         return new FoodsCreateOrUpdate(name, kcal, units, perUnit, protein, fat, saturatedFat, polyunsaturatedFat, monounsaturatedFat, carbohydrate, sugar, fiber);
+        //TODO: above here create more constructors
     }
 
     public Double returnNullableDoubleValue(TextField field) {
@@ -112,12 +118,11 @@ public class CreateFoodMainMethods {
         return fieldElement;
     }
 
-    public Double returnDoubleValue(TextField field, TextArea messageTextArea) {
+    public Double returnDoubleValue(TextField field, boolean isUpdate) {
         try {
             return Double.parseDouble(field.getText());
         } catch (NumberFormatException e) {
-            messageTextArea.clear();
-            messageTextArea.setText(e.getMessage());
+            setMessage(isUpdate, "Error -> " + messageFunctions.messageFromError(e), "ef1400", 3);
             throw new IllegalArgumentException();
         }
     }
@@ -132,9 +137,9 @@ public class CreateFoodMainMethods {
         }
     }
 
-    public void CreateFood(TextField nameField, TextField kcalField, ComboBox<UnitsEnum> unitField, TextField perUnitField, TextField proteinField, TextField fatField, TextField saturatedFatField, TextField polyunsaturatedFatField, TextField monounsaturatedFatField, TextField carbohydrateField, TextField sugarField, TextField fiberField, TextArea messageTextArea, LoginModel loginModel, RestTemplate restTemplate, Urls url, boolean isUpdate, int foodId) {
+    public void CreateFood(TextField nameField, TextField kcalField, ComboBox<UnitsEnum> unitField, TextField perUnitField, TextField proteinField, TextField fatField, TextField saturatedFatField, TextField polyunsaturatedFatField, TextField monounsaturatedFatField, TextField carbohydrateField, TextField sugarField, TextField fiberField, LoginModel loginModel, Urls url, boolean isUpdate, int foodId) {
         try {
-            FoodsCreateOrUpdate food = foodCreate(nameField, kcalField, unitField, perUnitField, proteinField, fatField, saturatedFatField, polyunsaturatedFatField, monounsaturatedFatField, carbohydrateField, sugarField, fiberField, messageTextArea);
+            FoodsCreateOrUpdate food = foodCreate(nameField, kcalField, unitField, perUnitField, proteinField, fatField, saturatedFatField, polyunsaturatedFatField, monounsaturatedFatField, carbohydrateField, sugarField, fiberField, isUpdate);
             if (food != null && !Objects.equals(food.getName(), "")) {
                 ObjectMapper mapper = new ObjectMapper();
                 mapper.registerModule(new SimpleModule().addSerializer(Double.class, new CustomDoubleSerializer()));
@@ -142,32 +147,28 @@ public class CreateFoodMainMethods {
                 try {
                     json = mapper.writeValueAsString(food);
                 } catch (JsonProcessingException e) {
-                    e.printStackTrace();
-                    messageTextArea.setText(e.getMessage());
+                    setMessage(isUpdate, "Json Processing Error happened.", "#ef1400", 3);
+                    return;
                 }
                 if (!isUpdate) {
                     if (!json.isEmpty()) {
-                        sendRequest(loginModel, url.CREATE_FOOD(), json, messageTextArea, "Food is created successfully!", HttpMethod.POST);
+                        sendRequest(loginModel, url.CREATE_FOOD(), json, "Food is created successfully!", HttpMethod.POST, false);
                     }
                 } else {
                     if (!json.isEmpty()) {
-                        sendRequest(loginModel, url.UPDATE_FOOD(foodId), json, messageTextArea, "Food is updated successfully!", HttpMethod.PATCH);
+                        sendRequest(loginModel, url.UPDATE_FOOD(foodId), json, "Food is updated successfully!", HttpMethod.PATCH, true);
                     }
                 }
             } else {
-                messageTextArea.clear();
-                messageTextArea.setText("Not all argument are valid.");
+                setMessage(isUpdate, "Not all value are valid.", "#ef1400", 3);
             }
         } catch (Exception e) {
-            messageTextArea.clear();
-            messageTextArea.setText(e.getMessage());
-            System.out.println(e.getMessage());
-            e.printStackTrace();
+            setMessage(isUpdate, messageFunctions.messageFromError(e), "#ef1400", 3);
         }
     }
 
 
-    private void sendRequest(LoginModel loginModel, String url, String json, TextArea messageTextArea, String textareaMessage, HttpMethod httpMethod) {
+    private void sendRequest(LoginModel loginModel, String url, String json, String textareaMessage, HttpMethod httpMethod, boolean isUpdate) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setBearerAuth(loginModel.getLoginData().getTokens().getAccessToken());
@@ -176,12 +177,10 @@ public class CreateFoodMainMethods {
         RequestSender rq = new RequestSender();
         restTemplate = rq.getPATCHRestTemplate(restTemplate, httpMethod);
         ResponseEntity<String> responseEntity = restTemplate.exchange(url, httpMethod, requestEntity, String.class);
-        System.out.println(responseEntity.getBody());
-        messageTextArea.clear();
         if (isValidJSON(requestEntity.getBody())) {
-            messageTextArea.setText(textareaMessage);
+            setMessage(isUpdate, textareaMessage, "#29be0e", 3);
         } else {
-            messageTextArea.setText(responseEntity.getBody());
+            setMessage(isUpdate, "ERROR -> got back: " + responseEntity.getBody(), "#ef1400", 3);
         }
     }
 
@@ -197,5 +196,13 @@ public class CreateFoodMainMethods {
         setTextFieldToDoubleOrNull(sugarField);
         setTextFieldToDoubleOrNull(fiberField);
         unitField.setItems(FXCollections.observableArrayList(UnitsEnum.values()));
+    }
+
+    private void setMessage(boolean isUpdate, String text, String color, int seconds) {
+        if (isUpdate) {
+            setMessageForMainTextArea(text, color, seconds);
+        } else {
+            setMessageForCreateTextArea(text, color, seconds);
+        }
     }
 }
