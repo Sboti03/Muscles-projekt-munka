@@ -18,6 +18,9 @@ import {MealHistoryCheckService} from "../../services/meal-history-check/meal-hi
 import {AccessTokenGuard} from "../../../auth/guards/access-token.guard";
 import {ProfileGuard} from "../../../auth/guards/profile.guard";
 import { IdParam } from "../../../Common/params/id.param";
+import {
+    ConnectionCheckService
+} from "../../../Connections/connection/services/connection-check/connection-check.service";
 
 @UseGuards(AccessTokenGuard, ProfileGuard)
 @Controller('meal-history')
@@ -26,7 +29,8 @@ export class MealHistoryUpdateController {
                 private dayHistoryCheckService: DayHistoryCheckService,
                 private mealHistoryGetService: MealHistoryGetService,
                 private mealUpdateService: MealUpdateService,
-                private mealHistoryCheckService:MealHistoryCheckService) {
+                private mealHistoryCheckService:MealHistoryCheckService,
+                private connectionCheckService: ConnectionCheckService) {
 
     }
 
@@ -34,6 +38,14 @@ export class MealHistoryUpdateController {
     @Patch('/update/:id')
     async updateMealHistory(@Param() idParam: IdParam, @Body() updateMealHistoryDTO: UpdateMealHistoryDto, @GetCurrentUserProfileId() currentProfileId: number){
         const {id: mealHistoryId} = idParam
+        const userId = updateMealHistoryDTO.userId ? updateMealHistoryDTO.userId : currentProfileId
+        const coachId = updateMealHistoryDTO.userId ? currentProfileId : undefined
+        if (coachId) {
+            const isConnectionExist = this.connectionCheckService.checkAccessCoachToUser(userId, coachId)
+            if (!isConnectionExist) {
+                throw new NotFoundException("No connection found")
+            }
+        }
         Logger.log(`/meal-history/update/${mealHistoryId} (PATCH) Updating meal-history dto: 
         amount: ${updateMealHistoryDTO.amount}
         completed: ${updateMealHistoryDTO.isCompleted}
@@ -45,7 +57,7 @@ export class MealHistoryUpdateController {
         }
 
         const {day: {profileId}} = await this.mealHistoryGetService.getProfileIdByMealHistoryId(mealHistoryId)
-        if (currentProfileId !== profileId) {
+        if (userId !== profileId) {
             throw new NotAcceptableException('Different user')
         }
 

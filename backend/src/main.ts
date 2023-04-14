@@ -6,9 +6,7 @@ import * as cookieParser from "cookie-parser";
 import * as process from "process";
 
 async function bootstrap() {
-    const app = await NestFactory.create(AppModule, {
-        snapshot: true
-    });
+    const app = await NestFactory.create(AppModule);
     app.useGlobalPipes(new ValidationPipe({
         transform: true
     }));
@@ -30,7 +28,7 @@ async function bootstrap() {
     SwaggerModule.setup('api', app, document);
     app.use(cookieParser())
 
-    await app.listen(process.env.PORT ? parseInt(process.env.PORT) : 3000);
+    await app.listen(process.env.PORT ? parseInt(process.env.PORT) : 3030);
 }
 
 bootstrap();

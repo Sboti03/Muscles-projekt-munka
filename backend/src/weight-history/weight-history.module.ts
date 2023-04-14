@@ -10,12 +10,17 @@ import { WeightHistoryGetService } from './services/weight-history-get/weight-hi
 import {DayHistoryModule} from "../day-history/day-history.module";
 import {DayHistoryCreateDto} from "../day-history/dto/DayHistoryCreate.dto";
 import { WeightHistoryGetController } from './controller/weight-history-get/weight-history-get.controller';
+import {ConnectionCheckService} from "../Connections/connection/services/connection-check/connection-check.service";
+import {ConnectionGetService} from "../Connections/connection/services/connection-get/connection-get.service";
 
 @Module({
+
     providers: [
         WeightHistoryUpdateOrCreateService,
         PrismaService,
         DayHistoryGetService,
+        ConnectionCheckService,
+        ConnectionGetService,
         DayHistoryCreateService,
         WeightHistoryGetService,
     ],

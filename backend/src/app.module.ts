@@ -15,14 +15,16 @@ import { AdminModule } from './admin/admin.module';
 import {MealHistoryModule} from "./meal-history/meal-history.module";
 import * as process from "process";
 import {DevtoolsModule} from "@nestjs/devtools-integration";
+import {ServeStaticModule} from "@nestjs/serve-static";
+import {join} from "path";
 
 @Module({
     imports: [
-        UserModule,
-        DevtoolsModule.register({
-            http: process.env.NODE_ENV !== 'prod',
-            port: 8000
+        ServeStaticModule.forRoot({
+           rootPath: join(__dirname, '..', 'client'),
+            exclude: ['/api/(.*)'],
         }),
+        UserModule,
         AuthModule,
         ProfileModule,
         ConfigModule.forRoot({

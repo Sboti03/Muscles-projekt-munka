@@ -1,9 +1,13 @@
 import {Injectable} from '@nestjs/common';
 import {PrismaService} from "../../../Common/utils/prirsma.service";
 import {PeriodNamesEnum} from "../../../Common/utils/PeriodNames";
+import {
+    ConnectionCheckService
+} from "../../../Connections/connection/services/connection-check/connection-check.service";
 @Injectable()
 export class DayHistoryGetService {
-    constructor(private prismaService: PrismaService) {
+    constructor(private prismaService: PrismaService,
+                private connectionCheckService:ConnectionCheckService) {
     }
 
     getDayIdByDate(searchedDate: Date, profileId: number) {
@@ -88,4 +92,17 @@ export class DayHistoryGetService {
     }
 
 
+    async getComment(date: Date, requesterProfileId: number, requestedProfileId?: number) {
+        if (requestedProfileId) {
+            await this.connectionCheckService.validateConnection(requesterProfileId, requestedProfileId)
+        }
+        const profileId = requestedProfileId ? requestedProfileId : requesterProfileId
+        return this.prismaService.dayHistory.findUnique({
+            where: {date_profileId: {date, profileId}},
+            select: {
+                comment: true,
+                changedAt: true
+            }
+        })
+    }
 }

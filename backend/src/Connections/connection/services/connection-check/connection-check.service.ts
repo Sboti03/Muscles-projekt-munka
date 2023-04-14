@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import {Injectable, NotFoundException} from '@nestjs/common';
 import {PrismaService} from "../../../../Common/utils/prirsma.service";
 import {ConnectionGetService} from "../connection-get/connection-get.service";
 
@@ -34,5 +34,13 @@ export class ConnectionCheckService {
         } catch (e) {
             return false
         }
+    }
+
+
+    async validateConnection(userProfileId: number, coachProfileId: number) {
+        if (await this.checkAccessCoachToUser(userProfileId, coachProfileId)) {
+            throw new NotFoundException("No connetion found")
+        }
+        return undefined
     }
 }

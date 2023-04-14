@@ -1,0 +1,44 @@
+{
+  "profile": {
+    "gender": {
+      "text": "gender",
+      "male": "male",
+      "female": "female"
+    },
+    "error": {
+      "no-change": "Nothing changed",
+      "firstname": {
+        "length": "First name max length is 100"
+      },
+      "lastname": {
+        "length": "Last name max length is 200"
+      },
+      "birth-day": {
+        "age": "To use this app should be older then 12"
+      },
+      "height": "Please enter a valid height in centimeters"
+    },
+    "firstname": "First name",
+    "lastname": "Last name",
+    "height": {
+      "text": "Height (cm)",
+      "description": "Height in cm"
+    },
+    "date-of-birth": "Date of birth",
+    "registration-date": "Registration date"
+  },
+  "connection": {
+    "error": {
+      "accept": "Unknown error"
+    }
+  },
+  "register": {
+    "error": {
+      "password": {
+        "match": "Password not match"
+      },
+      "exist": "User already exists",
+      "input": "Wrong input"
+    }
+  }
+}

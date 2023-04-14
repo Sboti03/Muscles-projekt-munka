@@ -136,9 +136,10 @@ model dayHistory {
   changedAt     DateTime       @default(now()) @updatedAt @db.Timestamp(6)
   profileData   profileData    @relation(fields: [profileId], references: [profileId], onDelete: NoAction, onUpdate: NoAction, map: "profileIdFK")
   mealHistory   mealHistory[]
+  comment       String?
   weightHistory weightHistory?
 
-  @@unique([dayId, profileId], map: "dayIdProfileIdUQ")
+  @@unique([date, profileId], map: "dayIdProfileIdUQ")
 }
 
 model mealPeriods {
