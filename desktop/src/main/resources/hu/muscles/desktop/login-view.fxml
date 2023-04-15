@@ -30,7 +30,7 @@
                   <Insets bottom="5.0" />
                </VBox.margin></TextField>
         <PasswordField fx:id="passwordTextField" prefHeight="35.0" promptText="password" styleClass="login-field" stylesheets="@style/loginFormStyle.css" />
-        <Button fx:id="loginButton" mnemonicParsing="false" onAction="#LoginButtonClick" prefHeight="30.0" prefWidth="140.0" styleClass="login-button" stylesheets="@style/loginFormStyle.css" text="Login" textAlignment="CENTER">
+        <Button fx:id="loginButton" focusTraversable="false" mnemonicParsing="false" onAction="#LoginButtonClick" prefHeight="34.0" prefWidth="140.0" styleClass="login-button" stylesheets="@style/loginFormStyle.css" text="Login" textAlignment="CENTER">
                <VBox.margin>
                   <Insets bottom="30.0" top="15.0" />
                </VBox.margin></Button>

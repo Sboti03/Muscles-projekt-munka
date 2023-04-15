@@ -23,16 +23,25 @@
           <RowConstraints vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <HBox alignment="CENTER" prefWidth="483.0" spacing="40.0" stylesheets="@style/mainFormStlye.css">
+            <VBox alignment="TOP_CENTER">
                <children>
-                  <Button fx:id="profilesBtn" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#profilesClick" prefHeight="35.0" prefWidth="170.0" stylesheets="@style/mainFormStlye.css" text="Profiles" />
-                  <Button fx:id="foodsBtn" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#foodsClick" prefHeight="35.0" prefWidth="170.0" stylesheets="@style/mainFormStlye.css" text="Foods" />
+                  <HBox alignment="CENTER" prefWidth="483.0" spacing="40.0" stylesheets="@style/mainFormStlye.css">
+                     <children>
+                        <Button fx:id="profilesBtn" focusTraversable="false" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#profilesClick" prefHeight="35.0" prefWidth="170.0" stylesheets="@style/mainFormStlye.css" text="Profiles" />
+                        <Button fx:id="foodsBtn" focusTraversable="false" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#foodsClick" prefHeight="35.0" prefWidth="170.0" stylesheets="@style/mainFormStlye.css" text="Foods" />
+                     </children>
+                  </HBox>
+                  <JFXTextArea id="showListName" fx:id="showListNameText" editable="false" focusColor="#405aa800" focusTraversable="false" minHeight="-Infinity" mouseTransparent="true" prefHeight="41.0" prefWidth="502.0" stylesheets="@style/mainFormStlye.css" text="Foods" unFocusColor="#4d4d4d00">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <padding>
+                        <Insets left="33.0" top="9.0" />
+                     </padding>
+                  </JFXTextArea>
                </children>
-               <GridPane.margin>
-                  <Insets bottom="24.0" />
-               </GridPane.margin>
-            </HBox>
-            <JFXListView id="foodAndProfileMainListview" fx:id="mainListView" prefHeight="300.0" prefWidth="627.0" stylesheets="@style/mainFormStlye.css" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS" />
+            </VBox>
+            <JFXListView id="foodAndProfileMainListview" fx:id="mainListView" focusTraversable="false" prefHeight="300.0" prefWidth="627.0" stylesheets="@style/mainFormStlye.css" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS" />
             <VBox alignment="TOP_CENTER" spacing="20.0" stylesheets="@style/mainFormStlye.css" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                <children>
                   <HBox alignment="TOP_CENTER" stylesheets="@style/mainFormStlye.css" VBox.vgrow="ALWAYS">
@@ -48,9 +57,9 @@
                      <children>
                         <Button fx:id="blockButton" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#blockClick" prefHeight="35.0" prefWidth="170.0" stylesheets="@style/mainFormStlye.css" text="Block" visible="false" />
                         <Button fx:id="unblockButton" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#unblockClick" prefHeight="35.0" prefWidth="170.0" stylesheets="@style/mainFormStlye.css" text="Unblock" visible="false" />
-                        <Button fx:id="loadCreateBtn" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#loadCreateClick" prefHeight="35.0" prefWidth="170.0" stylesheets="@style/mainFormStlye.css" text="Create" />
-                        <Button fx:id="deleteBtn" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#deleteClick" prefHeight="35.0" prefWidth="170.0" stylesheets="@style/mainFormStlye.css" text="Delete" />
-                        <Button fx:id="undeleteBtn" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#undeleteClick" prefHeight="35.0" prefWidth="170.0" stylesheets="@style/mainFormStlye.css" text="Undelete" />
+                        <Button fx:id="loadCreateBtn" focusTraversable="false" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#loadCreateClick" prefHeight="35.0" prefWidth="170.0" stylesheets="@style/mainFormStlye.css" text="Create" />
+                        <Button fx:id="deleteBtn" focusTraversable="false" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#deleteClick" prefHeight="35.0" prefWidth="170.0" stylesheets="@style/mainFormStlye.css" text="Delete" />
+                        <Button fx:id="undeleteBtn" focusTraversable="false" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#undeleteClick" prefHeight="35.0" prefWidth="170.0" stylesheets="@style/mainFormStlye.css" text="Undelete" />
                      </children>
                      <padding>
                         <Insets right="40.0" />
@@ -64,15 +73,20 @@
                   <Insets />
                </GridPane.margin>
             </VBox>
-            <VBox alignment="TOP_RIGHT" stylesheets="@style/mainFormStlye.css" GridPane.columnIndex="1">
+            <VBox alignment="CENTER" stylesheets="@style/mainFormStlye.css" GridPane.columnIndex="1">
                <children>
-                  <Button fx:id="exitButton" minWidth="25.0" mnemonicParsing="false" onAction="#exitClick" stylesheets="@style/mainFormStlye.css" text="X">
+                  <VBox alignment="TOP_RIGHT" VBox.vgrow="ALWAYS">
+                     <children>
+                        <Button fx:id="exitButton" focusTraversable="false" minWidth="25.0" mnemonicParsing="false" onAction="#exitClick" stylesheets="@style/mainFormStlye.css" text="X">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <JFXTextArea id="messageBox" fx:id="messageTextArea" editable="false" focusColor="#405aa800" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mouseTransparent="true" prefHeight="42.0" prefWidth="705.0" stylesheets="@style/mainFormStlye.css" unFocusColor="#4d4d4d00">
                      <VBox.margin>
                         <Insets />
-                     </VBox.margin></Button>
-                  <JFXTextArea id="messageBox" fx:id="messageTextArea" editable="false" focusColor="#405aa800" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mouseTransparent="true" prefHeight="42.0" prefWidth="705.0" stylesheets="@style/mainFormStlye.css" unFocusColor="#4d4d4d00">
-                     <VBox.margin>
-                        <Insets right="330.0" />
                      </VBox.margin>
                      <font>
                         <Font size="19.0" />

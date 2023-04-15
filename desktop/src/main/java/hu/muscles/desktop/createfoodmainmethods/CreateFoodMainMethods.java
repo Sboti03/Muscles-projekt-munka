@@ -3,6 +3,9 @@ package hu.muscles.desktop.createfoodmainmethods;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import hu.muscles.desktop.controllers.CreateFoodController;
+import hu.muscles.desktop.controllers.MainViewController;
+import hu.muscles.desktop.controllers.UpdateFoodController;
 import hu.muscles.desktop.customdoubleserializer.CustomDoubleSerializer;
 import hu.muscles.desktop.foodsData.FoodsCreateOrUpdate;
 import hu.muscles.desktop.foodsData.UnitsEnum;
@@ -11,15 +14,19 @@ import hu.muscles.desktop.models.LoginModel;
 import hu.muscles.desktop.requestsender.RequestSender;
 import hu.muscles.desktop.urls.Urls;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
+import javafx.scene.input.KeyCode;
 import javafx.util.StringConverter;
 import javafx.util.converter.NumberStringConverter;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.text.DecimalFormat;
+import java.util.List;
 import java.util.Objects;
 
 import static hu.muscles.desktop.controllers.CreateFoodController.setMessageForCreateTextArea;
@@ -152,11 +159,11 @@ public class CreateFoodMainMethods {
                 }
                 if (!isUpdate) {
                     if (!json.isEmpty()) {
-                        sendRequest(loginModel, url.CREATE_FOOD(), json, "Food is created successfully!", HttpMethod.POST, false);
+                        sendRequest(loginModel, url.CREATE_FOOD(), json, "Food created successfully!", HttpMethod.POST, false);
                     }
                 } else {
                     if (!json.isEmpty()) {
-                        sendRequest(loginModel, url.UPDATE_FOOD(foodId), json, "Food is updated successfully!", HttpMethod.PATCH, true);
+                        sendRequest(loginModel, url.UPDATE_FOOD(foodId), json, "Food updated successfully!", HttpMethod.PATCH, true);
                     }
                 }
             } else {
@@ -169,18 +176,22 @@ public class CreateFoodMainMethods {
 
 
     private void sendRequest(LoginModel loginModel, String url, String json, String textareaMessage, HttpMethod httpMethod, boolean isUpdate) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.setBearerAuth(loginModel.getLoginData().getTokens().getAccessToken());
-        HttpEntity<String> requestEntity = new HttpEntity<>(json, headers);
-        RestTemplate restTemplate = new RestTemplate();
-        RequestSender rq = new RequestSender();
-        restTemplate = rq.getPATCHRestTemplate(restTemplate, httpMethod);
-        ResponseEntity<String> responseEntity = restTemplate.exchange(url, httpMethod, requestEntity, String.class);
-        if (isValidJSON(requestEntity.getBody())) {
-            setMessage(isUpdate, textareaMessage, "#29be0e", 3);
-        } else {
-            setMessage(isUpdate, "ERROR -> got back: " + responseEntity.getBody(), "#ef1400", 3);
+        try {
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            headers.setBearerAuth(loginModel.getLoginData().getTokens().getAccessToken());
+            HttpEntity<String> requestEntity = new HttpEntity<>(json, headers);
+            RestTemplate restTemplate = new RestTemplate();
+            RequestSender rq = new RequestSender();
+            restTemplate = rq.getPATCHRestTemplate(restTemplate, httpMethod);
+            ResponseEntity<String> responseEntity = restTemplate.exchange(url, httpMethod, requestEntity, String.class);
+            if (isValidJSON(requestEntity.getBody())) {
+                setMessage(isUpdate, textareaMessage, "#29be0e", 3);
+            } else {
+                setMessage(isUpdate, "ERROR -> got back: " + responseEntity.getBody(), "#ef1400", 3);
+            }
+        } catch (Exception e) {
+            setMessage(isUpdate, messageFunctions.messageFromError(e), "#ef1400", 3);
         }
     }
 
@@ -203,6 +214,26 @@ public class CreateFoodMainMethods {
             setMessageForMainTextArea(text, color, seconds);
         } else {
             setMessageForCreateTextArea(text, color, seconds);
+        }
+    }
+
+    public void addEnterExecution(List<TextField> textFieldList, boolean isUpdate, CreateFoodController createFoodController, UpdateFoodController updateFoodController) {
+        if (isUpdate) {
+            for (TextField textField : textFieldList) {
+                textField.setOnKeyPressed(keyEvent -> {
+                    if (keyEvent.getCode() == KeyCode.ENTER) {
+                        updateFoodController.updateFoodClick(new ActionEvent());
+                    }
+                });
+            }
+        } else {
+            for (TextField textField : textFieldList) {
+                textField.setOnKeyPressed(keyEvent -> {
+                    if (keyEvent.getCode() == KeyCode.ENTER) {
+                        createFoodController.createFoodClick(new ActionEvent());
+                    }
+                });
+            }
         }
     }
 }

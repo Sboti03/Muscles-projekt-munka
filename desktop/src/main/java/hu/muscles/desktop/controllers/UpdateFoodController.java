@@ -14,6 +14,9 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static hu.muscles.desktop.controllers.MainViewController.setUpdateToInvisible;
 
 public class UpdateFoodController {
@@ -25,6 +28,7 @@ public class UpdateFoodController {
     private final Urls url = new Urls();
     private final RestTemplate restTemplate = new RestTemplate();
     private final CreateFoodMainMethods createFoodMainMethods = new CreateFoodMainMethods();
+    private MainViewController mainViewController;
     @FXML
     private TextField nameField;
     @FXML
@@ -62,7 +66,7 @@ public class UpdateFoodController {
     @FXML
     public void updateFoodClick(ActionEvent actionEvent) {
         createFoodMainMethods.CreateFood(nameField, kcalField, unitField, perUnitField, proteinField, fatField, saturatedFatField, polyunsaturatedFatField, monounsaturatedFatField, carbohydrateField, sugarField, fiberField, loginModel, url, true, foodModel.getFood().getFoodId());
-       // TODO: reload foods
+        mainViewController.foodsClick(actionEvent);
         cancelFoodClick(actionEvent);
     }
 
@@ -92,11 +96,14 @@ public class UpdateFoodController {
         fatField.setText(String.valueOf(foodModel.getFood().getFat()));
         saturatedFatField.setText(String.valueOf(foodModel.getFood().getSaturatedFat()));
         polyunsaturatedFatField.setText(String.valueOf(foodModel.getFood().getPolyunsaturatedFat()));
-        monounsaturatedFatField.setText(String.valueOf(foodModel.getFood().getMonounsaturatedFat()));
         carbohydrateField.setText(String.valueOf(foodModel.getFood().getCarbohydrate()));
+        monounsaturatedFatField.setText(String.valueOf(foodModel.getFood().getMonounsaturatedFat()));
         sugarField.setText(String.valueOf(foodModel.getFood().getSugar()));
         fiberField.setText(String.valueOf(foodModel.getFood().getFiber()));
         foodOriginalValue = new FoodsCreateOrUpdate(foodModel.getFood().getName(), foodModel.getFood().getKcal(), UnitsEnum.valueOf(foodModel.getFood().getUnit().getUnit()), foodModel.getFood().getPerUnit(), foodModel.getFood().getProtein(), foodModel.getFood().getFat(), foodModel.getFood().getSaturatedFat(), foodModel.getFood().getPolyunsaturatedFat(), foodModel.getFood().getMonounsaturatedFat(), foodModel.getFood().getCarbohydrate(), foodModel.getFood().getSugar(), foodModel.getFood().getFiber());
+        List<TextField> textFields = new ArrayList<>(List.of(nameField, kcalField, perUnitField, proteinField, fatField, saturatedFatField, carbohydrateField, monounsaturatedFatField, sugarField, fiberField, polyunsaturatedFatField));
+        createFoodMainMethods.addEnterExecution(textFields, true,null, this);
+
     }
 
     private void resetFieldsToDefault() {
@@ -114,4 +121,8 @@ public class UpdateFoodController {
         fiberField.setText(String.valueOf(foodOriginalValue.getFiber()));
     }
 
+
+    public void setMainController(MainViewController mainViewController) {
+        this.mainViewController = mainViewController;
+    }
 }

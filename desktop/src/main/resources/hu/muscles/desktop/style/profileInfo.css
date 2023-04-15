@@ -2,6 +2,7 @@ ListView {
     -fx-background-color: rgba(31, 4, 73, 0.69);
     -fx-text-alignment: center;
     -fx-text-fill: white;
+    -fx-control-inner-background-alt: rgba(31, 4, 73, 0.69);
 }
 
 .rootElements {

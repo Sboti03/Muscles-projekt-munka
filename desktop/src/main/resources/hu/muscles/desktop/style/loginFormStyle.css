@@ -16,11 +16,13 @@
 }
 
 .login-field:focused {
-    -fx-background-color: rgba(91, 10, 105, 0.84);
     -fx-background-insets: 0, 2;
     -fx-border-color: white;
-    -fx-text-fill: white;
     -fx-border-radius: 4px;
+    -fx-background-color:
+            rgb(134, 42, 168),
+            rgb(251, 248, 255);
+    -fx-text-fill: rgb(134, 42, 168);
 }
 
 .login-field:hover {
@@ -30,11 +32,13 @@
     -fx-text-fill: rgb(134, 42, 168);
 }
 .login-field:hover:focused {
-    -fx-background-color: rgba(91, 10, 105, 0.84);
     -fx-background-insets: 0, 2;
     -fx-border-color: white;
-    -fx-text-fill: white;
     -fx-border-radius: 4px;
+    -fx-background-color:
+            rgb(134, 42, 168),
+            rgb(251, 248, 255);
+    -fx-text-fill: rgb(134, 42, 168);
 }
 
 
@@ -67,8 +71,8 @@ JFXTextArea *.text {
     -fx-text-fill: white;
     -fx-border-radius: 4px;
     -fx-background-radius: 4px;
-}
 
+}
 
 .login-button:hover {
     -fx-background-color:
@@ -80,9 +84,7 @@ JFXTextArea *.text {
 }
 
 .login-button:pressed {
-    -fx-background-color: #40115e;
+    -fx-background-color: #400967;
     -fx-border-color: #ee00ff;
-    -fx-border-radius: 120px;
     -fx-text-fill: white;
-    -fx-background-radius: 120em;
 }
