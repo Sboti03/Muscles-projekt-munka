@@ -19,6 +19,7 @@ import hu.muscles.desktop.requestsender.RequestSender;
 import hu.muscles.desktop.urls.Urls;
 import hu.muscles.desktop.userData.User;
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -96,6 +97,8 @@ public class MainViewController implements Initializable {
     private static VBox editVboxStatic;
     private static ListView<String> mainListViewStatic;
     private static JFXTextArea staticMessageTextArea;
+    @FXML
+    private JFXTextArea showListNameText;
 
 
     @Override
@@ -118,9 +121,11 @@ public class MainViewController implements Initializable {
                     int index = listViewFunctionsForMain.getCurrentItemIndex(mainListView);
                     Foods food = foods.stream().filter(x -> x.getFoodId() == index).findFirst().orElse(null);
                     if (food != null) {
-                        if (food.getName().startsWith("#DELETED#"))
+                        if (food.getName().startsWith("#DELETED#")) {
                             food.setName(food.getName().replaceAll(food.getName().substring(0, 10), ""));
+                        }
                         foodModel = new FoodModel(food);
+                        ((UpdateFoodController) updateFoodLoader.getController()).setMainController(this);
                         ((UpdateFoodController) updateFoodLoader.getController()).setUpdateModelForUpdate(foodModel);
                         editVbox.setVisible(true);
                         editVbox.setManaged(true);
@@ -139,8 +144,9 @@ public class MainViewController implements Initializable {
                         Profiles profile = profiles.stream().filter(x -> x.getProfileId() == index).findFirst().orElse(null);
                         if (profile != null) {
                             Optional<User> user = users.stream().filter(x -> x.userId == profile.getUserId()).findFirst();
-                            if (profile.getFirstName().startsWith("#BLOCKED#"))
+                            if (profile.getFirstName().startsWith("#BLOCKED#")) {
                                 profile.setFirstName(profile.getFirstName().replaceAll(profile.getFirstName().substring(0, 10), ""));
+                            }
                             userModel = new UserModel(user.get());
                             profileModel = new ProfileModel(profile);
                             ((ProfileInfoController) profileInfoLoader.getController()).setProfileForProfileInfo(profileModel, userModel);
@@ -159,11 +165,15 @@ public class MainViewController implements Initializable {
 
         });
         mainListView.setOnMouseClicked(event -> {
-            if (!mainListView.getSelectionModel().getSelectedItem().isEmpty()) {
+            if (!mainListView.getSelectionModel().isEmpty()) {
                 if (event.getClickCount() == 2) {
                     mainListView.getSelectionModel().clearSelection();
                 }
             }
+        });
+        buttonsHbox.visibleProperty().bind(Bindings.createBooleanBinding(() -> !mainListView.getItems().isEmpty(), mainListView.getItems()));
+        Platform.runLater(() -> {
+            foodsClick(new ActionEvent());
         });
     }
 
@@ -231,6 +241,7 @@ public class MainViewController implements Initializable {
         mainListView.getSelectionModel().clearSelection();
         listViewFunctionsForMain.emptyAllText();
         editVbox.setVisible(false);
+        showListNameText.setText("Profiles");
         try {
             profiles = loadFromServerToPOJO.loadAllProfile(rqs.sendGet(this.url.GET_ALL_PROFILE(), loginModel));
         } catch (IOException e) {
@@ -255,6 +266,8 @@ public class MainViewController implements Initializable {
         changeButtonsBetweenProfileAndFood(false);
         mainListView.getSelectionModel().clearSelection();
         listViewFunctionsForMain.emptyAllText();
+        showListNameText.setText("Foods");
+
         try {
             foods = loadFromServerToPOJO.loadAllFood(rqs.sendGet(this.url.GET_ALL_FOOD(), loginModel));
         } catch (IOException e) {

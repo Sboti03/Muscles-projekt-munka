@@ -17,6 +17,8 @@ import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class CreateFoodController implements Initializable {
@@ -67,6 +69,8 @@ public class CreateFoodController implements Initializable {
         createFoodMainMethods.InitializeFields(kcalField, perUnitField, proteinField, fatField, carbohydrateField, saturatedFatField, polyunsaturatedFatField, monounsaturatedFatField, sugarField, fiberField, unitField);
         unitField.setValue((UnitsEnum.gram));
         staticMessageTextArea = messageTextArea;
+        List<TextField> textFields = new ArrayList<>(List.of(nameField, kcalField, perUnitField, proteinField, fatField, saturatedFatField, carbohydrateField, monounsaturatedFatField, sugarField, fiberField, polyunsaturatedFatField));
+        createFoodMainMethods.addEnterExecution(textFields, false,this, null);
     }
 
     @FXML

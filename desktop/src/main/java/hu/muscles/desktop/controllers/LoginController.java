@@ -142,8 +142,6 @@ public class LoginController implements Initializable {
         });
 
         loading.setProgress(ProgressIndicator.INDETERMINATE_PROGRESS);
-        infoArea.setStyle("-fx-text-alignment: center;");
-
     }
 
 }

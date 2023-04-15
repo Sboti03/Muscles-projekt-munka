@@ -11,7 +11,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.Background;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import org.controlsfx.control.PopOver;
 import hu.muscles.desktop.userData.User;
 
@@ -53,6 +57,34 @@ public class ProfileInfoController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         dataLabelListView.getItems().addAll(profileDataString);
         //TODO: dataLabelListView.setCell  Stylehoz
+        dataLabelListView.setCellFactory(listView -> new ListCell<>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                    setBackground(Background.fill(Paint.valueOf("#1F0449B0")));
+                } else {
+                    setText(item);
+                    setTextFill(Color.WHITE);
+                    setBackground(Background.fill(Paint.valueOf("#1F0449B0")));
+                }
+            }
+        });
+        dataListView.setCellFactory(listView -> new ListCell<>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                    setBackground(Background.fill(Paint.valueOf("#1F0449B0")));
+                } else {
+                    setText(item);
+                    setTextFill(Color.WHITE);
+                    setBackground(Background.fill(Paint.valueOf("#1F0449B0")));
+                }
+            }
+        });
     }
 
     public <T> String setStringToEmptyIfItsNull(T val) {
