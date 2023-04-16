@@ -66,16 +66,16 @@ export default function PeriodInfoPage(props: { dayPeriodName: DayPeriodName }) 
             </div>
             <div className="margin-top-10">
                 <div className="add-container">
-                    <Button onClick={back}>Back</Button>
+                    <Button onClick={back} >Back</Button>
                     <Select value={props.dayPeriodName} onChange={(e, value) => value ? setSelectedPeriodInfo(value) : {}}>
                         <Option value={DayPeriodName.BREAKFAST}>{DayPeriodName.BREAKFAST}</Option>
                         <Option value={DayPeriodName.LUNCH}>{DayPeriodName.LUNCH}</Option>
                         <Option value={DayPeriodName.DINNER}>{DayPeriodName.DINNER}</Option>
                         <Option value={DayPeriodName.OTHER}>{DayPeriodName.OTHER}</Option>
                     </Select>
-                    <button onClick={loadFoodPSearchPage} className="add-btn">
+                    <Button onClick={loadFoodPSearchPage} className="add-btn">
                         Add food <FontAwesomeIcon icon={faCirclePlus}/>
-                    </button>
+                    </Button>
                 </div>
             </div>
             <div className="food-container">

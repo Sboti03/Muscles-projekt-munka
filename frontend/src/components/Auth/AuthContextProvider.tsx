@@ -74,6 +74,7 @@ function AuthContextProvider(props: PropsWithChildren) {
         singleFetch('/api/auth/logout', Methods.GET)
         setUser(undefined)
         window.localStorage.setItem('user', '')
+        window.location.reload();
         changePage(Page.LOGIN)
     }
 
