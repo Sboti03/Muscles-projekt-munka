@@ -9,7 +9,7 @@ interface FoodContextValue {
     setPeriodName: (periodName: string) => void,
     currentFood: Food | undefined,
     setCurrentFood: (currentFood: Food | undefined) => void,
-    addFood: (amount: number, foodId?: number) => Promise<void>
+    addFood: (amount: number, foodId?: number, isCompleted?: boolean) => Promise<void>
     loadingFoodAdd: boolean
 }
 

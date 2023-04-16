@@ -1,5 +1,6 @@
 import {MealHistoryResponse} from "./Data/MealHistoryResponse";
 import {DayInfoData} from "./Data/DayInfoData";
+import {RoleEnum} from "../Types/Role";
 
 export function calculateDayInfoData(mealHistoryResponse: MealHistoryResponse): DayInfoData {
     const PROTEIN_PER_KCAL = 4;
@@ -13,6 +14,7 @@ export function calculateDayInfoData(mealHistoryResponse: MealHistoryResponse): 
     let eaten = 0;
     let totalCalorie = goal.targetCalories ? goal.targetCalories : 0;
     let eatenProtein = 0;
+    let shouldEat = 0;
 
     mealHistoryResponse.dayHistory.forEach(day => {
         const perEach = (day.meal.amount) / day.meal.food.perUnit
@@ -20,8 +22,13 @@ export function calculateDayInfoData(mealHistoryResponse: MealHistoryResponse): 
         eatenFat += food.fat * perEach;
         eatenCarbohydrate += food.carbohydrate * perEach;
         eatenProtein += food.protein * perEach;
-        eaten += perEach * food.kcal
+        if (day.meal.addedBy === RoleEnum.COACH && !day.meal.completed){
+            shouldEat += food.kcal
+        } else {
+            eaten += perEach * food.kcal
+        }
     })
+
 
     eatenFat = Math.round(eatenFat)
     eatenCarbohydrate = Math.round(eatenCarbohydrate)
@@ -56,6 +63,7 @@ export function calculateDayInfoData(mealHistoryResponse: MealHistoryResponse): 
         totalDinner,
         totalLunch,
         totalOther,
+        shouldEat,
     }
 }
 const clamp = (num: number) => Math.min(Math.max(num, 0), 100);

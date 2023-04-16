@@ -3,7 +3,8 @@ import {ProfileData} from "../data/ProfileData";
 
 interface Value {
     profileData: ProfileData,
-    fetchProfileData: ()=>void
+    fetchProfileData: (profileId?: number)=>Promise<ProfileData | undefined>
+    setProfileData: ()=> void
 }
 
 export const ProfileContext = createContext<Value>(null as any)

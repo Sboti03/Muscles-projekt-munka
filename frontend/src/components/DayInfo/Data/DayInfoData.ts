@@ -15,6 +15,7 @@ export interface DayInfoData {
     totalDinner: number,
     totalLunch: number,
     totalOther: number,
+    shouldEat: number
 }
 
 
@@ -30,5 +31,6 @@ export interface MinimalDayInfoData {
     progressProtein: number,
     progressFat: number,
     progressCarbohydrate: number,
+    shouldEat: number
 
 }

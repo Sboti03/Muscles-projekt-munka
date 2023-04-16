@@ -1,3 +1,5 @@
+import {RoleEnum} from "../../Types/Role";
+
 export interface MealHistoryResponse {
     dayHistory: DayHistory[];
     goal:       Goal;
@@ -10,7 +12,9 @@ export interface DayHistory {
 
 export interface Meals {
     amount: number;
+    addedBy: RoleEnum;
     food:   Food;
+    completed: boolean
 }
 
 export interface Food {

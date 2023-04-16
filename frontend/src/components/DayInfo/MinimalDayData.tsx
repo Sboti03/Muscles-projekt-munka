@@ -3,6 +3,7 @@ import DayPeriodInfo from "./DayPeriodInfo/DayPeriodInfo";
 import React, {useContext, useState} from "react";
 import WeightInfo from "./WeightInfo/WeightInfo";
 import DayInfoContext from "./context/DayInfoContext";
+import Comment from "./Comment/Comment";
 
 
 
@@ -20,6 +21,9 @@ export default function MinimalDayData() {
             </div>
             <div>
                 <WeightInfo weight={dayInfo?.weight ? dayInfo.weight : 0} currentDate={currentDate}/>
+            </div>
+            <div>
+                <Comment />
             </div>
         </>
     )

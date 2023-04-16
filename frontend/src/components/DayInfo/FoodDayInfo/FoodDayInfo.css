@@ -20,7 +20,8 @@
 }
 
 .food-day-info-box {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     justify-content: space-around;
     text-align: center;
 }
@@ -32,6 +33,10 @@
     text-align: center;
 }
 
+.fdi-mini-text {
+
+}
+
 .food-day-progress-box > div {
     margin-left: 50pt;
     margin-right: 50pt;
@@ -39,9 +44,21 @@
 
 
 .fdi-mini-text > div {
-    @apply first:text-2xl
+    @apply first:text-lg md:first:text-2xl
 }
 
 .fdi-main-text > div {
-    @apply first:text-2xl
+    @apply first:text-lg md:first:text-2xl
+}
+
+
+
+@media only screen and (max-width: 860px) {
+    .food-day-progress-box > div {
+        margin-left: 5vw;
+        margin-right: 5vw;
+    }
+    .food-day-progress-box {
+        grid-template-columns: 33vw 33vw 33vw;
+    }
 }

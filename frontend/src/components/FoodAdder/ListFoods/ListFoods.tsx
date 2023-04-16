@@ -7,8 +7,11 @@ import React, {useContext, useState} from "react";
 import styles from '../FoodSearchPage.module.css'
 import {Food} from "../FoodSearchPage";
 import FoodContext from "../context/FoodContext";
-import DayInfoContext from "../../DayInfo/context/DayInfoContext";
 import DayPeriodContext from "../../DayInfo/DayPeriodInfo/context/DayPeriodContext";
+import AuthContext from "../../Auth/AuthContext";
+import {RoleEnum} from "../../Types/Role";
+import {normalizeDate} from "../../DayInfo/context/DayInfoContextProvider";
+import DayInfoContext from "../../DayInfo/context/DayInfoContext";
 
 
 interface Props {
@@ -20,16 +23,21 @@ export default function ListFoods(props: Props) {
     const {setCurrentFood, addFood, loadingFoodAdd} = useContext(FoodContext)
     const {foods, addAmount} = props
     const {setDayPeriods} = useContext(DayPeriodContext)
+    const {user} = useContext(AuthContext)
+    const {currentDate} = useContext(DayInfoContext)
 
     function showFood(food: Food) {
+        console.log(food)
         setCurrentFood(food)
+
     }
     const [loadingIds, setLoadingIds] = useState<number[]>([])
 
     function handleAddFood(foodId: number) {
         if (addAmount > 0) {
             setLoadingIds([...loadingIds, foodId])
-            addFood(addAmount, foodId).then(()=> {
+            const isCompleted = user?.role.roleName === RoleEnum.USER ? normalizeDate(new Date()) === normalizeDate(currentDate) : false
+            addFood(addAmount, foodId, isCompleted).then(()=> {
                 setLoadingIds(prevState => prevState.filter(id=> id !== foodId))
                 setDayPeriods().then()
             })

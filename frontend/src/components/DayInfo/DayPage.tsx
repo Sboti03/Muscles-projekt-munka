@@ -8,12 +8,13 @@ import MinimalDayData from "./MinimalDayData";
 import DayPeriodContext from "./DayPeriodInfo/context/DayPeriodContext";
 import DayInfoNavigator from "./Navigator/DayInfoNavigator";
 import DayInfoNavigatorContextProvider from "./Navigator/Context/DayInfoNavigatorContextProvider";
+import UserCoachContext from "../UserCoach/context/UserCoachContext";
 
-export default function DayPage(props: {profileId?: number}) {
+export default function DayPage() {
 
     return (
-        <DayInfoContextProvider profileId={props.profileId}>
-            <DayPeriodInfoContextProvider profileId={props.profileId}>
+        <DayInfoContextProvider>
+            <DayPeriodInfoContextProvider>
                 <DayInfoNavigatorContextProvider>
                     <DayInfoNavbar />
                     <DayInfoNavigator />

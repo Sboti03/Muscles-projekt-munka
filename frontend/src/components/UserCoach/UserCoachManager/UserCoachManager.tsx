@@ -6,7 +6,6 @@ import UserCoachNavigatorContext, {UserCoachPages} from "../navigator/UserCoachN
 
 export default function UserCoachManager() {
 
-    const {showProfileId} = useContext(UserCoachContext)
     const {changePage, userCoachPage} = useContext(UserCoachNavigatorContext)
 
     function handleBackClick() {
@@ -18,7 +17,7 @@ export default function UserCoachManager() {
             <div className={"m-3"}>
                 <Button onClick={handleBackClick}>Home</Button>
             </div>
-            <DayPage profileId={showProfileId}/>
+            <DayPage/>
         </>
     )
 }

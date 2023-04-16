@@ -1,0 +1,38 @@
+.edit-text-box {}
+
+.edit-text-box > div > div > div > button {
+    opacity: 0;
+    transition: opacity 50ms ease-in-out;
+}
+
+.comment-edit-btn {
+    color: #6F00B3;
+    @apply mx-2
+}
+
+.comment-edit-btn:hover {
+    color: #55008a;
+}
+
+.comment-edit-btn:active {
+    color: #450070;
+}
+
+.comment-delete-btn {
+    color: #8c0606;
+    @apply mx-2
+}
+
+.comment-delete-btn:hover {
+    color: #790606;
+}
+.comment-delete-btn:active {
+    color: #650505;
+}
+
+
+
+.edit-text-box:hover > div > div > div > button {
+    opacity: 100%;
+}
+

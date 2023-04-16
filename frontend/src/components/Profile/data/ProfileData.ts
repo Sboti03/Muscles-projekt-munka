@@ -1,9 +1,10 @@
 export interface ProfileData {
-    firstName: string
-    lastName: string
-    birthDay: Date
-    height: number
+    firstName: string | undefined
+    lastName: string | undefined
+    birthDay: Date | undefined
+    height: number | undefined
     profilePicPath: string
+    male: boolean
     registrationDate: Date
 }
 
@@ -14,6 +15,7 @@ export interface ProfileDataToSend {
     height?: number
     profilePicPath?: string
     registrationDate?: Date
+    male?: boolean
 }
 
 const initProfileData: ProfileData = {
@@ -22,7 +24,8 @@ const initProfileData: ProfileData = {
     birthDay: new Date(),
     height: 200,
     lastName: '',
-    registrationDate: new Date()
+    registrationDate: new Date(),
+    male: true
 }
 
 export default initProfileData

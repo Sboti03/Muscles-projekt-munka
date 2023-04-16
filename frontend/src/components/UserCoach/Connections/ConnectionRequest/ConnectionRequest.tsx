@@ -9,9 +9,9 @@ import {Button} from "@mui/joy";
 import ProfilePicture from "../../../ProfilePicture/ProfilePicture";
 import UserCoachContext from "../../context/UserCoachContext";
 import UserCoachNavigatorContext, {UserCoachPages} from "../../navigator/UserCoachNavigatorContext";
-import AlertBoxContext from "../../../Alert/AlertBoxContext";
 import ConnectionContext from "../../../connection/ConnectionContext";
 import {useTranslation} from "react-i18next";
+import {toast} from "react-toastify";
 
 export default function ConnectionRequest(props: { connectionRequest: ConnectionRequestResponse }) {
     const {coachId, userId, requestBy} = props.connectionRequest
@@ -21,7 +21,6 @@ export default function ConnectionRequest(props: { connectionRequest: Connection
     const otherUserId = ownId === userId ? coachId : userId
     const {setShowProfileId, refresh} = useContext(UserCoachContext)
     const {changePage} = useContext(UserCoachNavigatorContext)
-    const {setAlertText} = useContext(AlertBoxContext)
     const [profile, setProfile] = useState<ProfileData>()
     const {acceptConnectionRequest, deleteConnectionRequest} = useContext(ConnectionContext)
     const {t} = useTranslation()
@@ -54,7 +53,7 @@ export default function ConnectionRequest(props: { connectionRequest: Connection
         if (result) {
             refresh()
         } else {
-            setAlertText(t("connection.error.accept"))
+            toast.error(t("connection.error.accept"))
         }
     }
 
@@ -64,7 +63,7 @@ export default function ConnectionRequest(props: { connectionRequest: Connection
         if (result) {
             refresh()
         } else {
-            setAlertText(t("connection.error.accept"))
+            toast.error(t("connection.error.accept"))
         }
     }
 

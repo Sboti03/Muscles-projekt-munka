@@ -18,6 +18,10 @@ export default function FoodDayInfo(props: {dayInfo: MinimalDayInfoData | undefi
                         <div>{dayInfo?.left}</div>
                         <div>Left</div>
                     </div>
+                    <div className="fdi-main-text">
+                        <div>{dayInfo?.shouldEat}</div>
+                        <div>Should eat</div>
+                    </div>
                 </div>
                 <div className="food-day-progress-box">
                     <div className="fdi-mini-text">

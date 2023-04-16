@@ -27,7 +27,6 @@ export default function WeightInfo(props: { currentDate: Date, weight: number })
                     date: normalizeDate(currentDate),
                     weight
                 })
-                console.log(res)
             }, 500)
         }
     }, [weight])

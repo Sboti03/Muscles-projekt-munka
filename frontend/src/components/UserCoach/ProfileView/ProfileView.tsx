@@ -8,9 +8,9 @@ import UserCoachNavigatorContext, {UserCoachPages} from "../navigator/UserCoachN
 import {ConnectionStatus} from "../data/ConnectionStatus";
 import UserProfileDataView, {SIZE} from "../UserProfileDataView/UserProfileDataView";
 import AuthContext from "../../Auth/AuthContext";
-import AlertBoxContext from "../../Alert/AlertBoxContext";
 import ConnectionContext from "../../connection/ConnectionContext";
 import {useTranslation} from "react-i18next";
+import {toast} from "react-toastify";
 
 export default function ProfileView(props: {profileId: number, connectionStatus: ConnectionStatus, changeAction?: ()=> void, size?: SIZE, refresh?: Function}){
 
@@ -18,7 +18,6 @@ export default function ProfileView(props: {profileId: number, connectionStatus:
     const {user} = useContext(AuthContext)
     const [profileData, setProfileData] = useState<ProfileData>()
     const {changePage} = useContext(UserCoachNavigatorContext)
-    const {setAlertText} = useContext(AlertBoxContext)
     const [isLoading, setIsLoading] = useState(false)
     const {createConnectionRequest, acceptConnectionRequest, deleteConnection, deleteConnectionRequest} = useContext(ConnectionContext)
     const {t} = useTranslation()
@@ -30,7 +29,7 @@ export default function ProfileView(props: {profileId: number, connectionStatus:
             const profileData = convertResponseToData(result.response)
             setProfileData(profileData)
         } else {
-            setAlertText(result.error.message)
+            toast.error(result.error.message)
         }
         setIsLoading(false)
         if (refresh) {
@@ -77,7 +76,7 @@ export default function ProfileView(props: {profileId: number, connectionStatus:
         if (result) {
             fetchUser()
         } else {
-            setAlertText(t("connection.error.accept"))
+            toast.error(t("connection.error.accept"))
         }
 
     }
@@ -85,7 +84,7 @@ export default function ProfileView(props: {profileId: number, connectionStatus:
     async function handleDeleteConnection() {
         const result = await deleteConnection(profileId)
         if (!result){
-            setAlertText(t("connection.error.accept"))
+            toast.error(t("connection.error.accept"))
         } else {
             fetchUser()
         }
@@ -94,7 +93,7 @@ export default function ProfileView(props: {profileId: number, connectionStatus:
     async function handleDeleteConnectionRequest() {
         const result = await deleteConnectionRequest(profileId)
         if (!result) {
-            setAlertText(t("connection.error.accept"))
+            toast.error(t("connection.error.accept"))
         } else {
             fetchUser()
         }

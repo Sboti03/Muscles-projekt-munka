@@ -46,10 +46,18 @@ export default function FoodSearchPage(props: {action?: Function}) {
     }, [search, response, filter])
     const [addAmount, setAddAmount] = useState(100)
 
+    function handleAction() {
+        console.log(action)
+        if (action) {
+            action()
+        } else {
+            setPrevPage()
+        }
+    }
 
     return (
         <LoadingManager fullCenter={true} isLoading={isLoading}>
-            <Button onClick={()=> action ? action() : setPrevPage()}>Back</Button>
+            <Button onClick={handleAction}>Back</Button>
             <div className={styles.foodSearchContainer}>
                 <div className={styles.search}>
                     <div className={styles.foodAddValue}>

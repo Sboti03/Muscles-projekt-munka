@@ -11,12 +11,12 @@ export function ProfileContextProvider(props: PropsWithChildren) {
 
     useEffect(()=> {
         if (user) {
-            fetchProfileData().then()
+            handleProfileDataSet()
         }
     }, [user])
 
-    async function fetchProfileData() {
-        const result = await singleFetch<ProfileResponse>('/api/profile/', Methods.GET)
+    async function fetchProfileData(profileId?: number): Promise<ProfileData | undefined> {
+        const result = await singleFetch<ProfileResponse>(`/api/profile/${profileId ? `search/id/${profileId}` : ''}`, Methods.GET)
         if (result.response) {
             let birthDay = new Date()
             let regDate = new Date()
@@ -26,7 +26,15 @@ export function ProfileContextProvider(props: PropsWithChildren) {
             if (result.response.registrationDate) {
                 regDate = new Date(result.response.registrationDate)
             }
-            setProfileData({...result.response, birthDay: birthDay, registrationDate: regDate})
+            return ({...result.response, birthDay: birthDay, registrationDate: regDate})
+        }
+    }
+
+
+    async function handleProfileDataSet() {
+        const result = await fetchProfileData()
+        if (result) {
+            setProfileData(result)
         }
     }
 
@@ -34,7 +42,8 @@ export function ProfileContextProvider(props: PropsWithChildren) {
     return (
         <ProfileContext.Provider value={{
             profileData,
-            fetchProfileData
+            fetchProfileData,
+            setProfileData: handleProfileDataSet,
         }}>{props.children}</ProfileContext.Provider>
     )
 }

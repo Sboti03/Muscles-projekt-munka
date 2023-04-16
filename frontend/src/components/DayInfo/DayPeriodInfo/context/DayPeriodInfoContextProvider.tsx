@@ -6,29 +6,33 @@ import {Methods, singleFetch} from "../../../utils/Fetch";
 import {MealHistoryResponse} from "../../Data/MealHistoryResponse";
 import DayInfoContext from "../../context/DayInfoContext";
 import DayInfoNavigatorContext from "../../Navigator/Context/DayInfoNavigatorContext";
+import CoachHomeContext from "../../../Coach home/Context/CoachHomeContext";
+import UserCoachContext from "../../../UserCoach/context/UserCoachContext";
+import NavigatorContext, {Page} from "../../../Navigator/NavigatorContext";
 
-export default function DayPeriodInfoContextProvider(props: PropsWithChildren<{profileId?: number}>) {
-
-    const {profileId} = props
+export default function DayPeriodInfoContextProvider(props: PropsWithChildren) {
     const [breakfast, setBreakfast] = useState<DayPeriodResponse[]>()
     const [dinner, setDinner] = useState<DayPeriodResponse[]>()
     const [lunch, setLunch] = useState<DayPeriodResponse[]>()
     const [other, setOther] = useState<DayPeriodResponse[]>()
     const [selectedPeriodInfo, setSelectedPeriodInfo] = useState<DayPeriodName | undefined>(undefined)
+    const {showProfileId} = useContext(UserCoachContext)
     const {currentDate, setNewDayInfo} = useContext(DayInfoContext)
+    const {page} = useContext(NavigatorContext)
     async function setMealCompleted(completed: boolean, mealHistoryId: number) {
         const {error} = await singleFetch('api/meal-history/update/' + mealHistoryId, Methods.PATCH,
             {isCompleted: completed}
         )
         if (error) {
-
+            return false
         } else {
             await setDayPeriods()
+            return true
         }
     }
 
     async function deleteMealHistory(mealHistoryId: number) {
-        const url = `api/meal-history/${mealHistoryId}${profileId ? '&userId=' + profileId : ''}`
+        const url = `api/meal-history/${mealHistoryId}`
         const {error} = await singleFetch(url, Methods.DELETE)
         if (error) {
             return false
@@ -39,19 +43,25 @@ export default function DayPeriodInfoContextProvider(props: PropsWithChildren<{p
     }
 
     async function setDayPeriods() {
-        const breakfast = await dayPeriodInfoFetch(currentDate, DayPeriodName.BREAKFAST)
+        let userId = undefined
+        if (page === Page.COACH_HOME) {
+            userId = showProfileId
+        }
+
+
+        const breakfast = await dayPeriodInfoFetch(currentDate, DayPeriodName.BREAKFAST, userId)
         if (breakfast.response) {
             setBreakfast(breakfast.response)
         }
-        const lunch = await dayPeriodInfoFetch(currentDate, DayPeriodName.LUNCH)
+        const lunch = await dayPeriodInfoFetch(currentDate, DayPeriodName.LUNCH, userId)
         if (lunch.response) {
             setLunch(lunch.response)
         }
-        const dinner = await dayPeriodInfoFetch(currentDate, DayPeriodName.DINNER)
+        const dinner = await dayPeriodInfoFetch(currentDate, DayPeriodName.DINNER, userId)
         if (dinner.response) {
             setDinner(dinner.response)
         }
-        const other = await dayPeriodInfoFetch(currentDate, DayPeriodName.OTHER)
+        const other = await dayPeriodInfoFetch(currentDate, DayPeriodName.OTHER, userId)
         if (other.response) {
             setOther(other.response)
         }

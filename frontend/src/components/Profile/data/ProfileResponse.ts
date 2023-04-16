@@ -5,6 +5,7 @@ export interface ProfileResponse {
     height: number | undefined
     registrationDate: string
     profilePicPath: string
+    male: boolean
 
 
 }

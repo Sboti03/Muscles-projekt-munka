@@ -1,18 +1,20 @@
 import DayInfoContext from "./DayInfoContext";
-import {PropsWithChildren, useEffect, useState} from "react";
+import {PropsWithChildren, useContext, useEffect, useState} from "react";
 import {Methods, singleFetch} from "../../utils/Fetch";
 import {MealHistoryResponse} from "../Data/MealHistoryResponse";
 import {DayInfoData} from "../Data/DayInfoData";
 import {DayPeriodResponse} from "../Data/DayPeriodResponse";
 import {calculateDayInfoData} from "../CalculateDayInfoData";
+import UserCoachContext from "../../UserCoach/context/UserCoachContext";
+import NavigatorContext, {Page} from "../../Navigator/NavigatorContext";
 
-export default function DayInfoContextProvider(props: PropsWithChildren<{profileId?: number}>) {
+export default function DayInfoContextProvider(props: PropsWithChildren) {
+    const {showProfileId} = useContext(UserCoachContext)
     const [dayInfo, setDayInfo] = useState<DayInfoData | undefined>()
     const [currentDate, setCurrentDate] = useState(new Date())
-    const {profileId} = props
     const [dayPeriodInfo, setDayPeriodInfo] = useState<DayPeriodResponse>()
     const [mealHistoryResponse, setMealHistoryResponse] = useState<MealHistoryResponse>()
-
+    const {page} = useContext(NavigatorContext)
     useEffect(()=> {
         fetchDay(currentDate).then(r => {
             setMealHistoryResponse(r)
@@ -26,7 +28,11 @@ export default function DayInfoContextProvider(props: PropsWithChildren<{profile
     }
 
     async function fetchDay(date: Date) {
-        const path = `/api/meal-history/data/?date=${normalizeDate(date)}${profileId ? '&userId=' + profileId : ''}`
+        let userId = undefined
+        if (page === Page.COACH_HOME) {
+            userId = showProfileId
+        }
+        const path = `/api/meal-history/data/?date=${normalizeDate(date)}${userId ? '&userId=' + userId : ''}`
         const result = await singleFetch<MealHistoryResponse>(path, Methods.GET)
         if (result.error) {
             //TODO handle errror

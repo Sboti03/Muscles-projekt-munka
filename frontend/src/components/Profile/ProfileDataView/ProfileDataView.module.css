@@ -36,3 +36,7 @@
 .miniInput {
     width: 150px;
 }
+
+.genderInput > div{
+    display: flex !important;
+}

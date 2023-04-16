@@ -1,9 +1,10 @@
 import {Food} from "../../FoodAdder/FoodSearchPage";
+import {RoleEnum} from "../../Types/Role";
 
 
 export interface Meal {
     amount: number;
-    addedBy: string;
+    addedBy: RoleEnum;
     completed: boolean;
     food: Food;
 }

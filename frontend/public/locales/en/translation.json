@@ -1,6 +1,22 @@
 {
   "profile": {
+    "password": {
+      "successful": "Successfully change password",
+      "old": "Old password",
+      "new": "New password"
+    },
+    "gender": {
+      "text": "gender",
+      "male": "male",
+      "female": "female"
+    },
     "error": {
+      "password": {
+        "new": "New password can not be empty",
+        "old": "Old password can not be empty",
+        "same": "Old and new password can not be the same",
+        "not-same": "Wrong password"
+      },
       "no-change": "Nothing changed",
       "firstname": {
         "length": "First name max length is 100"
@@ -25,6 +41,15 @@
   "connection": {
     "error": {
       "accept": "Unknown error"
+    }
+  },
+  "register": {
+    "error": {
+      "password": {
+        "match": "Password not match"
+      },
+      "exist": "User already exists",
+      "input": "Wrong input"
     }
   }
 }

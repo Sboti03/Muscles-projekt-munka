@@ -49,6 +49,8 @@ export default function Pages() {
         default:
             return (
                 <div className="full-height full-center">
+                    default:
+                    return <>Error</>
                     <LoadingManager isLoading={true} />
                 </div>
             )

@@ -9,23 +9,17 @@ import './Register.css'
 import {RegisterData} from "./RegisterData";
 import AuthContext from "../AuthContext";
 import NavigatorContext, {Page} from "../../Navigator/NavigatorContext";
+import {toast} from "react-toastify";
+import {useTranslation} from "react-i18next";
 
 export default function RegisterPage() {
-
+    const {t} = useTranslation()
     const {register, setUser} = useContext(AuthContext)
     const {changePage} = useContext(NavigatorContext)
-    const [alert, setAlert] = useState<string | undefined>(undefined)
     const [isLoading, setIsLoading] = useState(false)
     const [isCoach, setIsCoach] = useState(false)
     const [isPasswordVisible, setIsPasswordVisible] = useState(false)
     const [isRePasswordVisible, setReIsPasswordVisible] = useState(false)
-    function displayAlert(alertText: string) {
-        setAlert(alertText)
-        setTimeout(()=> {
-            setAlert(undefined)
-        }, 5000)
-        return;
-    }
 
     const handleRegister = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -46,10 +40,8 @@ export default function RegisterPage() {
                     break;
             }
         }
-        
-        console.log(password, passwordAgain)
         if (password !== passwordAgain) {
-            displayAlert('Password not match')
+            toast.error(t('register.error.password.match'))
             return;
         }
         const registerData: RegisterData = {email, password, isCoach}
@@ -61,13 +53,19 @@ export default function RegisterPage() {
 
     async function handleRegisterResponse(registerData: RegisterData) {
         const result = await register(registerData)
-        console.log("Wait finished")
-        console.log(result)
+
         if (result.response) {
             changePage(Page.PROFILE_CREATE)
         } else {
             setIsLoading(false)
-            setAlert(result.error.message)
+            switch (result.error.statusCode) {
+                case 403:
+                    toast.error(t("register.exist"));
+                    break;
+                case 400:
+                    toast.error(t("register.input"));
+                    break;
+            }
         }
     }
 
@@ -104,7 +102,6 @@ export default function RegisterPage() {
                 <div className="flex justify-center">
                     <Button disabled={isLoading} className="w-1/3" onClick={loadLogin} type="button">Login</Button>
                 </div>
-                {alert && <Alert color={"danger"}>{alert}</Alert>}
                 <div className="full-center">
                     {isLoading && <CircularProgress />}
                 </div>

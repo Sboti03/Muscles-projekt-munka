@@ -6,6 +6,7 @@ import DayInfoNavigatorContext, {DayInfoPages} from "./Context/DayInfoNavigatorC
 import {FoodDetails} from "../../FoodAdder/FoodDetails/FoodDetails";
 import {Methods, singleFetch} from "../../utils/Fetch";
 import FoodSearchPage from "../../FoodAdder/FoodSearchPage";
+import FoodAdderPage from "../../FoodAdder/FoodAdderPage";
 
 export default function DayInfoNavigator() {
     const {changeDayInfoPage, dayInfoPage, foodEditMeal} = useContext(DayInfoNavigatorContext)
@@ -14,7 +15,10 @@ export default function DayInfoNavigator() {
     async function updateFood(amount: number) {
         if (foodEditMeal) {
             setIsLoading(true)
-            const {response, error} = await singleFetch<{amount: number}>(`/api/meal-history/update/${foodEditMeal.mealHistoryId}`, Methods.PATCH, {amount})
+            const {error} = await singleFetch<{amount: number}>(`/api/meal-history/update/${foodEditMeal.mealHistoryId}`, Methods.PATCH, {amount})
+            if (error) {
+                // TODO: handle error
+            }
             setDayPeriods().then(()=> setIsLoading(false))
         }
     }
@@ -31,7 +35,9 @@ export default function DayInfoNavigator() {
         case DayInfoPages.PERIOD_INFO_DATA:
             return <PeriodInfoPage dayPeriodName={selectedPeriodInfo!}/>
         case DayInfoPages.FOOD_SEARCH:
-            return <FoodSearchPage action={()=> changeDayInfoPage(DayInfoPages.PERIOD_INFO_DATA)} />
-
+            // return <FoodSearchPage action={()=> changeDayInfoPage(DayInfoPages.PERIOD_INFO_DATA)} />
+            return <FoodAdderPage />
+        default:
+            return <>Error</>
     }
 }
