@@ -59,7 +59,7 @@ public class ListViewFunctionsForMain {
             @Override
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
-
+                setStyle("-fx-background-insets: 0;");
                 if (empty || item == null) {
                     setText(null);
                     setBackground(Background.fill(Paint.valueOf("#1F0449B0")));
@@ -98,6 +98,7 @@ public class ListViewFunctionsForMain {
             @Override
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
+                setStyle("-fx-background-insets: 0;");
 
                 if (empty || item == null) {
                     setText(null);

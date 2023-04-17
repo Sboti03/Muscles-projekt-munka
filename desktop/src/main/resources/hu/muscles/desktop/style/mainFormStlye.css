@@ -43,7 +43,30 @@ JFXListView {
     -fx-background-color: rgba(31, 4, 73, 0.69);
     -fx-text-alignment: center;
     -fx-text-fill: white;
+    -fx-control-inner-background: blue;
+    -fx-control-inner-background-alt: blue;
 }
+
+JFXListView .list-cell:odd, JFXListView .list-cell:even {
+    -fx-background-color: #1F0449B0
+}
+
+
+
+
+JFXListView .scroll-bar:vertical {
+    -fx-background-color: rgba(39, 6, 91, 0.69);
+}
+
+JFXListView .scroll-bar:vertical .thumb {
+    -fx-background-color: rgba(60, 8, 141, 0.69);
+}
+
+
+
+
+
+
 
 
 #messageBox {

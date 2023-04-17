@@ -4,6 +4,7 @@
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -27,6 +28,7 @@
                <children>
                   <HBox alignment="CENTER" prefWidth="483.0" spacing="40.0" stylesheets="@style/mainFormStlye.css">
                      <children>
+                        <ProgressIndicator fx:id="loading" focusTraversable="false" mouseTransparent="true" nodeOrientation="LEFT_TO_RIGHT" prefHeight="0.0" prefWidth="13.0" stylesheets="@style/mainFormStlye.css" visible="false" HBox.hgrow="ALWAYS" />
                         <Button fx:id="profilesBtn" focusTraversable="false" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#profilesClick" prefHeight="35.0" prefWidth="170.0" stylesheets="@style/mainFormStlye.css" text="Profiles" />
                         <Button fx:id="foodsBtn" focusTraversable="false" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#foodsClick" prefHeight="35.0" prefWidth="170.0" stylesheets="@style/mainFormStlye.css" text="Foods" />
                      </children>
@@ -55,8 +57,8 @@
                   </HBox>
                   <HBox fx:id="buttonsHbox" alignment="CENTER_RIGHT" spacing="35.0" stylesheets="@style/mainFormStlye.css" VBox.vgrow="NEVER">
                      <children>
-                        <Button fx:id="blockButton" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#blockClick" prefHeight="35.0" prefWidth="170.0" stylesheets="@style/mainFormStlye.css" text="Block" visible="false" />
-                        <Button fx:id="unblockButton" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#unblockClick" prefHeight="35.0" prefWidth="170.0" stylesheets="@style/mainFormStlye.css" text="Unblock" visible="false" />
+                        <Button fx:id="blockButton" focusTraversable="false" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#blockClick" prefHeight="35.0" prefWidth="170.0" stylesheets="@style/mainFormStlye.css" text="Block" visible="false" />
+                        <Button fx:id="unblockButton" focusTraversable="false" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#unblockClick" prefHeight="35.0" prefWidth="170.0" stylesheets="@style/mainFormStlye.css" text="Unblock" visible="false" />
                         <Button fx:id="loadCreateBtn" focusTraversable="false" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#loadCreateClick" prefHeight="35.0" prefWidth="170.0" stylesheets="@style/mainFormStlye.css" text="Create" />
                         <Button fx:id="deleteBtn" focusTraversable="false" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#deleteClick" prefHeight="35.0" prefWidth="170.0" stylesheets="@style/mainFormStlye.css" text="Delete" />
                         <Button fx:id="undeleteBtn" focusTraversable="false" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#undeleteClick" prefHeight="35.0" prefWidth="170.0" stylesheets="@style/mainFormStlye.css" text="Undelete" />

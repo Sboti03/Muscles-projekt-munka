@@ -113,7 +113,7 @@ public class CreateFoodMainMethods {
         Double sugar = returnNullableDoubleValue(sugarField);
         Double fiber = returnNullableDoubleValue(fiberField);
         return new FoodsCreateOrUpdate(name, kcal, units, perUnit, protein, fat, saturatedFat, polyunsaturatedFat, monounsaturatedFat, carbohydrate, sugar, fiber);
-        //TODO: above here create more constructors
+        //TODO: above here create more constructors to not send values (be null).
     }
 
     public Double returnNullableDoubleValue(TextField field) {

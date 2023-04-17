@@ -88,3 +88,7 @@ JFXTextArea *.text {
     -fx-border-color: #ee00ff;
     -fx-text-fill: white;
 }
+
+ProgressIndicator {
+    -fx-accent: rgb(251, 248, 255);
+}
