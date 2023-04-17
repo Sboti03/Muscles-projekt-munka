@@ -99,6 +99,8 @@ public class MainViewController implements Initializable {
     private static JFXTextArea staticMessageTextArea;
     @FXML
     private JFXTextArea showListNameText;
+    @FXML
+    private ProgressIndicator loading;
 
 
     @Override
@@ -163,13 +165,6 @@ public class MainViewController implements Initializable {
             }
 
 
-        });
-        mainListView.setOnMouseClicked(event -> {
-            if (!mainListView.getSelectionModel().isEmpty()) {
-                if (event.getClickCount() == 2) {
-                    mainListView.getSelectionModel().clearSelection();
-                }
-            }
         });
         buttonsHbox.visibleProperty().bind(Bindings.createBooleanBinding(() -> !mainListView.getItems().isEmpty(), mainListView.getItems()));
         Platform.runLater(() -> {
@@ -289,7 +284,18 @@ public class MainViewController implements Initializable {
     public void blockClick(ActionEvent actionEvent) {
         if (isProfileShown && !isFoodShown) {
             int index = listViewFunctionsForMain.getCurrentItemIndex(mainListView);
-            sendRequest(HttpMethod.DELETE, url.BLOCK_USER(index), actionEvent, "Profile blocked successfully", "An error has occurred.", "ERROR: Couldn't block profile.", false);
+            Optional<User> optionalUser = users.stream().filter(x->x.getUserId() == index).findFirst();
+            if (optionalUser.isPresent()) {
+                User user = optionalUser.get();
+                if (!user.isBlocked()) {
+                    sendRequest(HttpMethod.DELETE, url.BLOCK_USER(index), actionEvent, "Profile blocked successfully", "An error has occurred.", "ERROR: Couldn't block profile.", false);
+                } else {
+                    messageFunctions.setTextThenEmpty(messageTextArea, "Profile is blocked.", "#ef1400", 3);
+                }
+            } else {
+                messageFunctions.setTextThenEmpty(messageTextArea, "Please select an item from the list!", "#ef1400", 3);
+            }
+
         }
     }
 
@@ -362,7 +368,17 @@ public class MainViewController implements Initializable {
     public void unblockClick(ActionEvent actionEvent) {
         if (isProfileShown && !isFoodShown) {
             int index = listViewFunctionsForMain.getCurrentItemIndex(mainListView);
-            sendRequest(HttpMethod.PATCH, url.UNBLOCK_USER(index), actionEvent, "Profile unblocked successfully", "An error has occurred.", "ERROR: Couldn't unblock profile.", false);
+            Optional<User> optionalUser = users.stream().filter(x->x.getUserId() == index).findFirst();
+            if (optionalUser.isPresent()) {
+                User user = optionalUser.get();
+                if (user.isBlocked()) {
+                    sendRequest(HttpMethod.PATCH, url.UNBLOCK_USER(index), actionEvent, "Profile unblocked successfully", "An error has occurred.", "ERROR: Couldn't unblock profile.", false);
+                } else {
+                    messageFunctions.setTextThenEmpty(messageTextArea, "Profile is not blocked.", "#ef1400", 3);
+                }
+            } else {
+                messageFunctions.setTextThenEmpty(messageTextArea, "Please select an item from the list!", "#ef1400", 3);
+            }
         }
     }
 
@@ -422,3 +438,13 @@ public class MainViewController implements Initializable {
     }
 
 }
+
+/*
+* TODO: (NRI - Not really important)
+*  NRI - Food create/update double, (maybe convert to int) stuff
+*  NRI - Loading circle while loading food and profile data
+*      - Exit button custom confirmation window (new View)
+*  NRI - Listview -> no little lines (each 4 -> css)
+*      - Maybe some error does not give understandable message to user
+*      - more constructors in update and create
+* */
