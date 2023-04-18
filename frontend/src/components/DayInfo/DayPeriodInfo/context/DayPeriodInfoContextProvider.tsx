@@ -3,10 +3,7 @@ import DayPeriodContext from "./DayPeriodContext";
 import dayPeriodInfoFetch, {DayPeriodName} from "../DayPeriodInfoFetch";
 import {DayPeriodResponse} from "../../Data/DayPeriodResponse";
 import {Methods, singleFetch} from "../../../utils/Fetch";
-import {MealHistoryResponse} from "../../Data/MealHistoryResponse";
 import DayInfoContext from "../../context/DayInfoContext";
-import DayInfoNavigatorContext from "../../Navigator/Context/DayInfoNavigatorContext";
-import CoachHomeContext from "../../../Coach home/Context/CoachHomeContext";
 import UserCoachContext from "../../../UserCoach/context/UserCoachContext";
 import NavigatorContext, {Page} from "../../../Navigator/NavigatorContext";
 

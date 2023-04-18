@@ -60,10 +60,10 @@ export default function RegisterPage() {
             setIsLoading(false)
             switch (result.error.statusCode) {
                 case 403:
-                    toast.error(t("register.exist"));
+                    toast.error(t("register.error.exist"));
                     break;
                 case 400:
-                    toast.error(t("register.input"));
+                    toast.error(t("register.error.input"));
                     break;
             }
         }

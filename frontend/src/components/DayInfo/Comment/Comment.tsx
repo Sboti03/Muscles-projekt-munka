@@ -21,6 +21,22 @@ export default function Comment() {
     const connection = connections.find(value => value.accessAll)
     const [editMode, setEditMode] = useState(false)
     const commentInput = useRef<HTMLInputElement>(null)
+    const isCommentExist = commentData ?  commentData.comment !==  '' : false;
+
+    const [renderedComment, setRenderedComment] = useState(<></>)
+
+    useEffect(()=> {
+        console.log(isCommentExist)
+        if (isCommentExist) {
+            setRenderedComment(showComment)
+        } else {
+            if (user?.role.roleName === RoleEnum.COACH) {
+                setRenderedComment(showWriteSomeThing)
+            } else {
+                setRenderedComment(<></>)
+            }
+        }
+    }, [isCommentExist])
 
     async function fetchComment() {
         let query = '?date=' + normalizeDate(currentDate)
@@ -38,7 +54,9 @@ export default function Comment() {
     }
 
     useEffect(() => {
-        fetchComment()
+        if (user) {
+            fetchComment()
+        }
     }, [user, currentDate])
 
 
@@ -72,6 +90,39 @@ export default function Comment() {
         setCommentData({...commentData!, comment: ''})
         handleSend('')
     }
+
+    if (!commentData || !connections || !user) {
+        return (
+            <></>
+        )
+    }
+
+
+
+    return (
+        <div className="flex justify-center">
+            <div className="bg-gray-200 w-96 my-5 p-2 flex rounded-xl shadow shadow-gray-300 edit-text-box relative">
+                <div className="flex m-1">
+                    <ProfilePicture size={50} clickable={false}
+                                    profileId={connection ? connection.coachId : undefined}/>
+                </div>
+                <div className="mt-2">
+                    <div className="">
+                        {profile ? <>
+                                {profile.firstName} {profile.lastName}
+                            </> :
+                            <>
+                                {profileData.firstName} {profileData.lastName}
+                            </>
+                        }
+                    </div>
+                    {
+                        renderedComment
+                    }
+                </div>
+            </div>
+        </div>
+    )
 
     function showComment() {
         return <div className="mt-5">
@@ -107,37 +158,5 @@ export default function Comment() {
             </div>
         )
     }
-
-    if (!commentData || !connections || !user) {
-        return (
-            <></>
-        )
-    }
-
-
-
-    return (
-        <div className="flex justify-center">
-            <div className="bg-gray-200 w-96 my-5 p-2 flex rounded-xl shadow shadow-gray-300 edit-text-box relative">
-                <div className="flex m-1">
-                    <ProfilePicture size={50} clickable={false}
-                                    profileId={connection ? connection.coachId : undefined}/>
-                </div>
-                <div className="mt-2">
-                    <div className="">
-                        {profile ? <>
-                                {profile.firstName} {profile.lastName}
-                            </> :
-                            <>
-                                {profileData.firstName} {profileData.lastName}
-                            </>
-                        }
-                    </div>
-                    {
-                        commentData?.comment !== '' ? showComment() : user?.role.roleName === RoleEnum.COACH && showWriteSomeThing()
-                    }
-                </div>
-            </div>
-        </div>
-    )
 }
+

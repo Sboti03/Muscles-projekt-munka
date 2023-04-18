@@ -1,7 +1,4 @@
-import {useEffect, useState} from "react";
-import axios from "axios";
-import {User} from "../../Types/User";
-import {Tokens} from "../../Types/Tokens";
+import {Role} from "../../Types/Role";
 
 
 export interface LoginData {
@@ -12,4 +9,18 @@ export interface LoginData {
 export interface LoginResponse {
     user: User,
     tokens: Tokens
+}
+
+export interface Tokens {
+    accessToken: string;
+    refreshToken: string;
+}
+
+export interface User {
+    userId: number;
+    email: string;
+    roleId: number;
+    changedAt: String;
+    isBlocked: boolean;
+    role: Role;
 }
