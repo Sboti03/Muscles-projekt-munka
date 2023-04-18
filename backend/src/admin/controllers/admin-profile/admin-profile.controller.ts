@@ -5,7 +5,8 @@ import { RolesGuard } from "../../../auth/guards/role.guard";
 import { IdParam } from "../../../Common/params/id.param";
 import { AccessTokenGuard } from "../../../auth/guards/access-token.guard";
 import { ProfileGetService } from "../../../profile/services/profile-get/profile-get.service";
-
+import {ApiTags} from "@nestjs/swagger";
+@ApiTags('admin/profile')
 @Roles(RoleEnum.ADMIN)
 @UseGuards(AccessTokenGuard, RolesGuard)
 @Controller('admin/profile')

@@ -10,7 +10,9 @@ import MealHistoryGetDto from "../../dto/meal-history-get.dto";
 import {GoalsGetService} from "../../../goals/services/goals-get/goals-get.service";
 import {WeightHistoryGetService} from "../../../weight-history/services/weight-history-get/weight-history-get.service";
 import {CommentGetDto} from "../../dto/comment.get.dto";
+import {ApiTags} from "@nestjs/swagger";
 
+@ApiTags('day-history')
 @UseGuards(AccessTokenGuard)
 @Controller('day-history')
 export class DayHistoryGetController {

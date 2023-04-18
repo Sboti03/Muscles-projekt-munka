@@ -4,6 +4,7 @@ import {RequestMethod, ValidationPipe} from '@nestjs/common';
 import {DocumentBuilder, SwaggerModule} from '@nestjs/swagger';
 import * as cookieParser from "cookie-parser";
 import * as process from "process";
+import {AuthModule} from "./auth/auth.module";
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
@@ -20,8 +21,21 @@ async function bootstrap() {
     const config = new DocumentBuilder()
         .setTitle('Muscles API')
         .setDescription('The Muscles API')
-        .setVersion('1.0')
-        .addTag('muscles')
+        .setVersion('2.0')
+        .addTag('admin/user')
+        .addTag('admin/food')
+        .addTag('admin/profile')
+        .addTag('auth')
+        .addTag('connection')
+        .addTag('connection-request')
+        .addTag('day-history')
+        .addTag('goals')
+        .addTag('food')
+        .addTag('meal-history')
+        .addTag('profile')
+        .addTag('user')
+        .addTag('weight-history')
+        .setTitle("Muscles")
         .build();
     const document = SwaggerModule.createDocument(app, config);
 

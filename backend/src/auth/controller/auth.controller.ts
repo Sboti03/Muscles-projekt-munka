@@ -28,8 +28,10 @@ import {UserCheckService} from "../../user/services/user-check/user-check.servic
 import {UserDeleteService} from "../../user/services/user-delete/user-delete.service";
 import {UserUpdateService} from "../../user/services/user-update/user-update.service";
 import { PasswordChangeDto } from "../dto/password-change.dto";
+import {ApiOkResponse, ApiResponse, ApiTags} from "@nestjs/swagger";
+import LoginResponse from "../dto/login.response";
 
-
+@ApiTags('auth')
 @Controller('auth')
 export class AuthController {
     constructor(private authService: AuthService, private authTokenService: AuthTokenService,
@@ -39,6 +41,10 @@ export class AuthController {
 
     @UseGuards(LocalAuthGuard)
     @Post('login')
+    @ApiOkResponse({status: 200, type: LoginResponse})
+    @ApiResponse({status: 403, description: 'No user found'})
+    @ApiResponse({status: 423, description: 'User is blocked'})
+    @ApiResponse({status: 400, description: 'Wrong post body'})
     login(@Req() req, @Body() loginDto: LoginDto, @Res({passthrough: true}) res: Response) {
         const tokens = req.user.tokens
         this.authTokenService.storeTokens(tokens, res)

@@ -1,17 +1,12 @@
-import {Body, Controller, Get, Patch, Post, UseGuards} from '@nestjs/common';
-import {GetCurrentUserId, GetCurrentUserProfileId} from "../../../auth/decorators/decorators";
+import {Controller, UseGuards} from '@nestjs/common';
 import {ProfileCreateService} from "../../services/profile-create/profile-create.service";
-import ProfileCreateDto from "../../dto/profile-create.dto";
-import ProfileUpdateDto from "../../dto/profile-update.dto";
 import {ProfileUpdateService} from "../../services/profile-update/profile-update.service";
 import {ProfileConvertService} from "../../services/profile-convert/profile-convert.service";
 import {AccessTokenGuard} from "../../../auth/guards/access-token.guard";
-import {RolesGuard} from "../../../auth/guards/role.guard";
-import {Roles} from "../../../Common/Role/decorators/ roles.decorator";
-import {RoleEnum} from "../../../Common/Role/utils/roles";
-import {ProfileGetService} from "../../services/profile-get/profile-get.service";
 import {AuthTokenService} from "../../../auth/services/auth-token/auth-token.service";
+import {ApiTags} from "@nestjs/swagger";
 
+@ApiTags('profile')
 @UseGuards(AccessTokenGuard)
 @Controller('profile')
 export class ProfileCreateController {

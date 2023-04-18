@@ -13,7 +13,9 @@ import { MealHistoryGetService } from "../../services/meal-history-get/meal-hist
 import { AccessTokenGuard } from "../../../auth/guards/access-token.guard";
 import { UserDayHistoryQuery } from "../../../Connections/connection/data/UserDayHistoryQuery";
 import DayHistoryBetweenQuery from "../../dto/DayHistoryBetween.query";
+import {ApiTags} from "@nestjs/swagger";
 
+@ApiTags('meal-history')
 @UseGuards(AccessTokenGuard)
 @Controller("meal-history")
 export class MealHistoryGetController {

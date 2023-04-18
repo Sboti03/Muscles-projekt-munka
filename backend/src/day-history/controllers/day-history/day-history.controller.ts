@@ -7,7 +7,8 @@ import {
 } from "../../../Connections/connection/services/connection-check/connection-check.service";
 import {GetCurrentUserId} from "../../../auth/decorators/decorators";
 import {DayHistoryGetService} from "../../services/day-history-get/day-history-get.service";
-
+import {ApiTags} from "@nestjs/swagger";
+@ApiTags('day-history')
 @Controller('day-history')
 @UseGuards(AccessTokenGuard)
 export class DayHistoryController {

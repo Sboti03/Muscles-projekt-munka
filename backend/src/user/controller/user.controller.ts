@@ -4,7 +4,9 @@ import {UserGetService} from "../services/user-get/user-get.service";
 import { IdParam } from "../../Common/params/id.param";
 import { ProfileGetService } from "../../profile/services/profile-get/profile-get.service";
 import { UserCheckService } from "../services/user-check/user-check.service";
+import {ApiTags} from "@nestjs/swagger";
 
+@ApiTags('user')
 @UseGuards(AccessTokenGuard)
 @Controller('user')
 export class UserController {

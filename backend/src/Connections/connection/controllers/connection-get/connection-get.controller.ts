@@ -1,11 +1,13 @@
-import {Controller, Get, Logger, NotFoundException, Param, UseGuards} from '@nestjs/common';
+import {Controller, Get, NotFoundException, Param, UseGuards} from '@nestjs/common';
 import {ConnectionGetService} from "../../services/connection-get/connection-get.service";
 import {GetCurrentUser, GetCurrentUserId} from "../../../../auth/decorators/decorators";
 import {AccessTokenGuard} from "../../../../auth/guards/access-token.guard";
 import {IdParam} from "../../../../Common/params/id.param";
 import {RoleEnum} from "../../../../Common/Role/utils/roles";
 import {ConnectionCheckService} from "../../services/connection-check/connection-check.service";
+import {ApiTags} from "@nestjs/swagger";
 
+@ApiTags('connection')
 @UseGuards(AccessTokenGuard)
 @Controller('connection')
 export class ConnectionGetController {

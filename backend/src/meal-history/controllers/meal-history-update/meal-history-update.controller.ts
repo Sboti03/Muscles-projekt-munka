@@ -21,7 +21,9 @@ import { IdParam } from "../../../Common/params/id.param";
 import {
     ConnectionCheckService
 } from "../../../Connections/connection/services/connection-check/connection-check.service";
+import {ApiTags} from "@nestjs/swagger";
 
+@ApiTags('meal-history')
 @UseGuards(AccessTokenGuard, ProfileGuard)
 @Controller('meal-history')
 export class MealHistoryUpdateController {

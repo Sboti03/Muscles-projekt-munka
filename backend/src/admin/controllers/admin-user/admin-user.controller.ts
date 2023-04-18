@@ -6,7 +6,8 @@ import {Roles} from "../../../Common/Role/decorators/ roles.decorator";
 import {RolesGuard} from "../../../auth/guards/role.guard";
 import {IdParam} from "../../../Common/params/id.param";
 import { UserGetService } from "../../../user/services/user-get/user-get.service";
-
+import {ApiTags} from "@nestjs/swagger";
+@ApiTags('admin/user')
 @Roles(RoleEnum.ADMIN)
 @UseGuards(AccessTokenGuard, RolesGuard)
 @Controller('admin/user')

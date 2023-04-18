@@ -16,7 +16,9 @@ import { Express, Response } from "express";
 import { IdParam } from "../../../Common/params/id.param";
 import { ProfileImageService } from "../../services/profile-image/profile-image.service";
 import { AccessTokenGuard } from "../../../auth/guards/access-token.guard";
+import {ApiTags} from "@nestjs/swagger";
 
+@ApiTags('profile')
 @UseGuards(AccessTokenGuard)
 @Controller('profile')
 export class ProfileImageController {

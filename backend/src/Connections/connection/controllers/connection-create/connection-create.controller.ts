@@ -21,8 +21,9 @@ import {
     ConnectionRequestCheckService
 } from "../../../connection-request/services/connection-request-check/connection-request-check.service";
 import { UserCheckService } from "../../../../user/services/user-check/user-check.service";
+import {ApiTags} from "@nestjs/swagger";
 
-
+@ApiTags('connection')
 @UseGuards(AccessTokenGuard)
 @Controller('connection')
 export class ConnectionCreateController {

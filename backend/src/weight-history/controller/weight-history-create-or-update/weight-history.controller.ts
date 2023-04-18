@@ -8,8 +8,9 @@ import {
 import {DayHistoryGetService} from "../../../day-history/services/day-history-get/day-history-get.service";
 import {WeightHistoryDataDto} from "../../dto/WeightHistoryData.dto";
 import {AccessTokenGuard} from "../../../auth/guards/access-token.guard";
+import {ApiTags} from "@nestjs/swagger";
 
-
+@ApiTags('weight-history')
 @UseGuards(AccessTokenGuard)
 @Controller('weight-history')
 export class WeightHistoryController {
