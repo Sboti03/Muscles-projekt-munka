@@ -22,8 +22,9 @@ import {FoodCreateService} from "../../../foods/services/food-create/food-create
 import {FoodUpdateDto} from "../../../foods/dto/food-update.dto";
 import {FoodUpdateService} from "../../../foods/services/food-update/food-update.service";
 import SearchFoodQuery from "../../../foods/dto/SearchFood.query";
+import {ApiTags} from "@nestjs/swagger";
 
-
+@ApiTags('admin/food')
 @Roles(RoleEnum.ADMIN)
 @UseGuards(AccessTokenGuard, RolesGuard)
 @Controller('admin/food')

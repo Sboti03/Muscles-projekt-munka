@@ -15,7 +15,9 @@ import {ConnectionRequestCheckService} from "../../services/connection-request-c
 import {
     ConnectionRequestDeleteService
 } from "../../services/connection-request-delete/connection-request-delete.service";
+import {ApiTags} from "@nestjs/swagger";
 
+@ApiTags('connection-request')
 @UseGuards(AccessTokenGuard)
 @Controller('connection-request')
 export class ConnectionRequestDeleteController {

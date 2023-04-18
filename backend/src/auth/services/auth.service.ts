@@ -1,4 +1,12 @@
-import {ForbiddenException, Injectable, Logger, NotFoundException} from '@nestjs/common';
+import {
+    ForbiddenException,
+    HttpCode,
+    HttpException,
+    HttpStatus,
+    Injectable,
+    Logger,
+    NotFoundException
+} from '@nestjs/common';
 import { UserGetService } from '../../user/services/user-get/user-get.service';
 import { compareData } from '../../Common/utils/bcrypt';
 import LoginDto from '../dto/login.dto';
@@ -33,7 +41,7 @@ export class AuthService {
 
         if (user.isBlocked) {
             Logger.log(`User is blocked userId: ${user.userId} email: ${user.email}`)
-            throw new ForbiddenException('You are blocked :(')
+            throw new HttpException('You are blocked :(', 423)
         }
 
         const passMatch: boolean = compareData(
@@ -42,7 +50,7 @@ export class AuthService {
         );
         if (!passMatch) {
             Logger.log(`Password did not matched: ${loginDto.email}`)
-            throw new ForbiddenException('Access Denied');
+            throw new ForbiddenException('No user found');
         }
 
         const { password, refreshTokens, ...rest } = user;

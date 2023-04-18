@@ -15,8 +15,10 @@ import {FoodCheckService} from "../../../foods/services/food-check/food-check.se
 import {
     ConnectionCheckService
 } from "../../../Connections/connection/services/connection-check/connection-check.service";
+import {ApiTags} from "@nestjs/swagger";
 
 
+@ApiTags('meal-history')
 @UseGuards(AccessTokenGuard)
 @Controller('meal-history')
 export class MealHistoryCreateController {

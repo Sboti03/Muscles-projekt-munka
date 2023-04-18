@@ -1,6 +1,5 @@
 import {Module} from '@nestjs/common';
 import {FoodGetController} from './controllers/food-get/food-get.controller';
-import {FoodUpdateController} from './controllers/food-update/food-update.controller';
 import {FoodCreateController} from './controllers/food-create/food-create.controller';
 import {FoodDeleteController} from './controllers/food-delete/food-delete.controller';
 import {FoodDeleteService} from './services/food-delete/food-delete.service';
@@ -14,7 +13,7 @@ import {RolesGuard} from "../auth/guards/role.guard";
 import {FoodConvertService} from './services/food-convert/food-convert.service';
 
 @Module({
-    controllers: [FoodGetController, FoodUpdateController, FoodCreateController, FoodDeleteController],
+    controllers: [FoodGetController, FoodCreateController, FoodDeleteController],
     providers: [
         FoodDeleteService,
         FoodGetService,

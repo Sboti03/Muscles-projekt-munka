@@ -7,7 +7,9 @@ import {RoleEnum} from "../../../Common/Role/utils/roles";
 import {FoodCreateDto} from "../../dto/food-create.dto";
 import {FoodGetService} from "../../services/food-get/food-get.service";
 import {FoodConvertService} from "../../services/food-convert/food-convert.service";
+import {ApiTags} from "@nestjs/swagger";
 
+@ApiTags('food')
 @Roles(RoleEnum.ADMIN)
 @UseGuards(AccessTokenGuard, RolesGuard)
 @Controller('food')

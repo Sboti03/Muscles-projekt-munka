@@ -4,7 +4,9 @@ import {AccessTokenGuard} from "../../../auth/guards/access-token.guard";
 import {RoleEnum} from "../../../Common/Role/utils/roles";
 import {ProfileGetService} from "../../services/profile-get/profile-get.service";
 import {IdParam} from "../../../Common/params/id.param";
+import {ApiTags} from "@nestjs/swagger";
 
+@ApiTags('profile')
 @UseGuards(AccessTokenGuard)
 @Controller('profile')
 export class ProfileGetController {

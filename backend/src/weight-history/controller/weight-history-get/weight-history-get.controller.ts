@@ -3,7 +3,9 @@ import {GetAndCheckProfileId} from "../../../auth/decorators/decorators";
 import {DateParam} from "../../../Common/params/date.param";
 import {DayHistoryGetService} from "../../../day-history/services/day-history-get/day-history-get.service";
 import {AccessTokenGuard} from "../../../auth/guards/access-token.guard";
+import {ApiTags} from "@nestjs/swagger";
 
+@ApiTags('weight-history')
 @UseGuards(AccessTokenGuard)
 @Controller('weight-history')
 export class WeightHistoryGetController {

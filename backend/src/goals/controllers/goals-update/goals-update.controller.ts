@@ -5,8 +5,9 @@ import {GetAndCheckProfileId, GetCurrentUserProfileId} from "../../../auth/decor
 import {GoalsUpdateDto} from "../../goals-update.dto";
 import {GoalsConvertService} from "../../services/goals-convert/goals-convert.service";
 import {GoalsCheckService} from "../../services/goals-check/goals-check.service";
+import {ApiTags} from "@nestjs/swagger";
 
-
+@ApiTags('goals')
 @UseGuards(AccessTokenGuard)
 @Controller('goals')
 export class GoalsUpdateController {
