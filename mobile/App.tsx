@@ -1,4 +1,4 @@
-import { StyleSheet} from 'react-native';
+import {StatusBar, StyleSheet} from 'react-native';
 import NavigatorContextProvider from './components/navigator/NavigatorContextProvider';
 import Pages from "./components/navigator/pages";
 import AuthContextProvider from "./components/auth/AuthContextProvider";
@@ -14,6 +14,10 @@ export default function App() {
         <AuthContextProvider>
           <ProfileContextProvider>
             <MealHistoryContextProvider>
+                <StatusBar
+                    backgroundColor={'#b3b7ff'}
+                    translucent={true}
+                />
                 <Pages />
             </MealHistoryContextProvider>
           </ProfileContextProvider>

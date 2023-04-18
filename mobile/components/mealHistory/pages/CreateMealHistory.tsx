@@ -73,8 +73,8 @@ function CreateMealHistory() {
     }, [])
 
     return (
-        <LinearGradient  colors={['#efe8fd', '#865eff']}
-                         style={{width: '100%', flex: 1, alignItems: "center"}}>
+        <LinearGradient colors={['#efe8fd', '#865eff']}
+                        style={{width: '100%', flex: 1, alignItems: "center"}}>
             <Flex fill >
                 <Text style={createMealHistoryStyle.title}>{mealPeriod?.toString()}</Text>
                 <VStack spacing={10} style={createMealHistoryStyle.content}>
@@ -95,6 +95,7 @@ function CreateMealHistory() {
                     <Text style={createMealHistoryStyle.warningText}>{amountWarning}</Text>
                     <HStack style={createMealHistoryStyle.hStackWithButtons}>
                         <Button title={'Submit'}
+
                                 onPress={() => {
                                     createMealHistoryToBackend()
                                 }}
