@@ -1,6 +1,7 @@
 import {Injectable, NotFoundException} from '@nestjs/common';
 import {PrismaService} from "../../../Common/utils/prirsma.service";
 import {RoleEnum} from "../../../Common/Role/utils/roles";
+import * as crypto from "crypto";
 
 @Injectable()
 export class AdminBlockService {
@@ -27,5 +28,24 @@ export class AdminBlockService {
             where: {userId},
             data: {isBlocked: false}
         });
+    }
+
+    deleteAllUserData(email: string) {
+        return this.prismaService.users.update({
+            where: {email},
+            data: {
+                email: crypto.randomUUID(),
+                password: '',
+                profileData: {
+                    update: {
+                        birthDay: null,
+                        firstName: '',
+                        lastName: '',
+                        height: 0,
+                        profilePicPath: ''
+                    }
+                }
+            }
+        })
     }
 }

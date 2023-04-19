@@ -45,6 +45,7 @@ export class AuthController {
     @ApiResponse({status: 403, description: 'No user found'})
     @ApiResponse({status: 423, description: 'User is blocked'})
     @ApiResponse({status: 400, description: 'Wrong post body'})
+    @HttpCode(200)
     login(@Req() req, @Body() loginDto: LoginDto, @Res({passthrough: true}) res: Response) {
         const tokens = req.user.tokens
         this.authTokenService.storeTokens(tokens, res)
@@ -52,6 +53,7 @@ export class AuthController {
     }
 
     @Post('register')
+    @HttpCode(201)
     async register(@Body() createUserDto: CreateUserDto, @Res({passthrough: true}) res: Response) {
         Logger.log(`/auth/register (POST) email: ${createUserDto.email} isCoach: ${createUserDto.isCoach} password: ${(!!createUserDto.password)}`)
         const userData = await this.authService.register(createUserDto);

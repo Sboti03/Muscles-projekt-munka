@@ -1,73 +1,37 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+**Muslces backend**
+*Fejlesztői dokkumentáció*
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Fejlesztői környezet
+A backend futtatásához a következők kellenek
+Windows rendszeren:
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+- [Postgres 15.1 vagy újabb](https://www.postgresql.org/download/)
+- [Node js 18.16.0](https://nodejs.org/en/download)
+- Nest js `npm install -g @nestjs/cli`
+- Prisma client `npm install @prisma/client`
+- Node env `npm install -g win-node-env`
 
-## Description
+Linux:
+- [Postgres 15.1 vagy újabb](https://www.postgresql.org/download/)
+- [Node js 18.16.0](https://nodejs.org/en/download)
+- Nest js `npm install -g @nestjs/cli`
+- Prisma client `npm install @prisma/client`
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Futtatás
+Az adatbázis beállításához létre kell hozni egy egy új schemat **musclesdb** néven.  A  **.dev.env** fáljban lehet átírni az adatbázishoz szükséges felhasználó nevet és jelszót ami alapértelmezetten postgres, *Ezen alkalmazás adatbázis jelszava: pwd felhasználó neve: postgres*
 
-## Installation
+Az egyszerűbb megoldás érdekében érdemes [dockert](https://www.docker.com/products/docker-desktop/) telepíteni és lefuttatni a `docker run --name postgresdb -p 5432:5432 -e POSTGRES_PASSWORD=pwd -d postgres` parancsot
 
-```bash
-$ npm install
-```
+Az adatbázis beállítása után a backend mappában az `npm run push:dev` és `npm run seed:dev` parancsokat kell lefuttatni.
+Ezek után már futtatható is az alkalmazás az `npm run start:dev` paranccsal.
 
-## Running the app
+A production mode google cloud VM instances modera van elkészítve. Githubon ssh kulcsot kell beállítani és minden egyes push után ami a main brachre történt az alkalmazás autómatikusan lebuildel és elérhetővé válik bárki számára a backend összes route-ja.
 
-```bash
-# development
-$ npm run start
+## Feljlesztéshez szükséges adatok
+Az alkalmazás elindítása után megtekinthetőek a route-ok a [http://localhost:3000/api](http://localhost:3000/api) útvonalon.
+Vagy a jelenlegi [Linken](http://34.22.242.178:3000/api)
 
-# watch mode
-$ npm run start:dev
+A teljesen működő alkalmazás megtekinthető a [http://34.22.242.178:3000/](http://34.22.242.178:3000/)
 
-# production mode
-$ npm run start:prod
-```
-
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+## Frontend backend összekapcsolás
+A frontend buildelése után az dist mappában található fáljokat és mappákat a client mappába kell másolni és ezáltal egybe lehet futtatni a backendet és frontendet is.
