@@ -14,7 +14,6 @@ import {ConnectionModule} from './Connections/connection/connection.module';
 import {AdminModule} from './admin/admin.module';
 import {MealHistoryModule} from "./meal-history/meal-history.module";
 import * as process from "process";
-import {DevtoolsModule} from "@nestjs/devtools-integration";
 import {ServeStaticModule} from "@nestjs/serve-static";
 import {join} from "path";
 
