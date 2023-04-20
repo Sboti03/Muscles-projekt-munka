@@ -34,9 +34,9 @@ const { unstable_sxConfig: joySxConfig, ...joyTheme } = extendJoyTheme({
         JoyButton: {
             styleOverrides: {
                 root: ({ownerState}) => ({
-                    backgroundColor: '#6F00B3',
+                    backgroundColor: '#8600da',
                     '&:hover': {
-                        backgroundColor: '#58008a'
+                        backgroundColor: '#6a00a8'
                     },
                     ...ownerState.color === 'danger' && {
                         backgroundColor: '#8c0606',

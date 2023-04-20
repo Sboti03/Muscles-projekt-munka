@@ -82,7 +82,7 @@ export default function RegisterPage() {
     }
 
     return (
-        <form onSubmit={handleRegister} className="login-box">
+        <form onSubmit={handleRegister} className="login-box welcome-bg">
             <div className="login-box-elements">
                <div className="switch-selector">
                    <SwitchSelector disabled={isLoading} onChange={selectedOptionValue => setIsCoach(selectedOptionValue as boolean)} options={NormalCoachOption} />

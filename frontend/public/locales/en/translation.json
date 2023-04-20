@@ -51,5 +51,13 @@
       "exist": "User already exists",
       "input": "Wrong input"
     }
+  },
+  "login": {
+    "success": "Successfully logged in",
+    "error": {
+      "bad-request": "You entered data in the wrong format",
+      "no-user": "No user found with this email or password",
+      "blocked": "Sorry you are blocked :("
+    }
   }
 }

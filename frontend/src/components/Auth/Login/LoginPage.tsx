@@ -2,21 +2,21 @@ import './Login.css'
 import {FormEvent, useContext, useState} from "react";
 import AuthContext from "../AuthContext";
 import NavigatorContext, {Page} from "../../Navigator/NavigatorContext";
-import {Alert, Input} from "@mui/joy";
+import { Input} from "@mui/joy";
 import Mail from '../../../assets/SVG/mail.svg'
 import Lock from '../../../assets/SVG/Lock.svg'
 import Eye from '../../../assets/SVG/eye.svg'
 import {Methods, singleFetch} from "../../utils/Fetch";
 import {LoginResponse} from "./LoginFetch";
 import { Button } from '@mui/joy';
+import {toast} from "react-toastify";
+import {useTranslation} from "react-i18next";
 
 
 function LoginPage() {
     const {login} = useContext(AuthContext)
     const {changePage} = useContext(NavigatorContext)
-    const [alertTimeOut, setAlertTimeOut] = useState<number | undefined>()
-    const [alert, setAlert] = useState<string | undefined>(undefined)
-
+    const {t} = useTranslation()
     const handleFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
@@ -35,30 +35,33 @@ function LoginPage() {
         }
 
         if (email === "") {
-            displayAlert("Email should not be empty")
+            toast.error("Email should not be empty")
             return;
         }
         if (password === "") {
-            displayAlert("Password should not be empty")
+            toast.error("Password should not be empty")
             return;
         }
 
         const result = await login(email, password)
         if (result !== -1) {
-            displayAlert("Error")
+            switch (result) {
+                case 400:
+                    toast.error(t("login.error.bad-request"))
+                    break
+                case 403:
+                    toast.error(t("login.error.no-user"))
+                    break
+                case 423:
+                    toast.error(t("login.error.blocked"))
+                    break
+            }
+        } else {
+            toast.info(t("login.success"))
         }
 
     }
 
-    function displayAlert(alertText: string) {
-        clearTimeout(alertTimeOut)
-        setAlert(alertText)
-        const timeout = setTimeout(()=> {
-            setAlert(undefined)
-        }, 5000)
-        setAlertTimeOut(timeout)
-        return;
-    }
 
 
     function loadRegister() {
@@ -66,7 +69,7 @@ function LoginPage() {
     }
 
     return (
-        <>
+        <div className='welcome-bg'>
             <form onSubmit={handleFormSubmit} className="login-box">
                 <div className="login-box-elements">
                     <div>
@@ -81,10 +84,9 @@ function LoginPage() {
                     <div className="flex justify-center">
                         <Button className='w-1/3' onClick={loadRegister} type='button'>Register</Button>
                     </div>
-                    {alert && <Alert color={"danger"}>{alert}</Alert>}
                 </div>
             </form>
-        </>
+        </div>
     )
 }
 

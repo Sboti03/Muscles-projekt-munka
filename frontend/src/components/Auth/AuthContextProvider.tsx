@@ -107,7 +107,6 @@ function AuthContextProvider(props: PropsWithChildren) {
 
     async function login(email: string, password: string) {
         const result = await singleFetch<LoginResponse>('/api/auth/login', Methods.POST, {email: email, password: password})
-        console.log(result.response, 'response')
         if (result.response) {
             setUser(result.response.user)
             saveObject(result.response.user, "user")
