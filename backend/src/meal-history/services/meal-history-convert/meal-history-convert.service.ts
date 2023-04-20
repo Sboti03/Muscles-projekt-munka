@@ -23,7 +23,7 @@ export class MealHistoryConvertService {
                     periodName: createMealHistoryDTO.periodName
                 }
             },
-            meals: {
+            meal: {
                 connect: {
                     mealId
                 }

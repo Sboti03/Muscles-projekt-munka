@@ -69,19 +69,15 @@ export class DayHistoryGetService {
                 periodName: periodName.valueOf()
             },
             select: {
-                meals: {
+                meal: {
                     select: {
                         amount: true,
                         addedBy: true,
                         completed: true,
                         food: true,
-                        mealHistory: {
-                            select: {
-                                mealHistoryId: true,
-                            }
-                        }
                     },
                 },
+                mealHistoryId: true
             }
         })
     }

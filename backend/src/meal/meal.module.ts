@@ -6,6 +6,8 @@ import {MealUpdateService} from "./services/meal-update/meal-update.service";
 import {MealDeleteService} from "./services/meal-delete/meal-delete.service";
 import {PrismaService} from "../Common/utils/prirsma.service";
 import {MealGetService} from "./services/meal-get/meal-get.service";
+import {DayHistoryModule} from "../day-history/day-history.module";
+import {DayHistoryCheckService} from "../day-history/services/day-history-check/day-history-check.service";
 
 @Module({
     providers: [
@@ -13,7 +15,7 @@ import {MealGetService} from "./services/meal-get/meal-get.service";
         MealGetService,
         MealUpdateService,
         MealDeleteService,
-        PrismaService
+        PrismaService,
     ],
     exports: [
         PrismaService,

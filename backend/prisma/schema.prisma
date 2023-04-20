@@ -111,7 +111,7 @@ model mealHistory {
   changedAt     DateTime    @default(now()) @updatedAt @db.Timestamp(6)
   day           dayHistory  @relation(fields: [dayId], references: [dayId], onDelete: Cascade)
   mealPeriod    mealPeriods @relation(fields: [periodName], references: [periodName])
-  meals         meals       @relation(fields: [mealId], references: [mealId], map: "mealIdFK", onDelete: Cascade)
+  meal          meals       @relation(fields: [mealId], references: [mealId], map: "mealIdFK", onDelete: Cascade)
 }
 
 model meals {
@@ -154,7 +154,7 @@ model profileData {
   height           Float?
   dayHistory       dayHistory[]
   user             users        @relation(fields: [userId], references: [userId], onDelete: NoAction, onUpdate: NoAction, map: "userIdFK")
-  goal             goals?
+  goal             goals[]
   changedAt        DateTime     @default(now()) @updatedAt @db.Timestamp(6)
 }
 
@@ -167,7 +167,13 @@ model goals {
   carbohydratesPerDay Int         @default(50)
   proteinPerDay       Int         @default(30)
   fatPerDay           Int         @default(20)
-  changedAt           DateTime    @default(now()) @updatedAt @db.Timestamp(6)
+  breakfastPerDay     Int         @default(30)
+  lunchPerDay         Int         @default(40)
+  dinnerPerDay        Int         @default(25)
+  otherPerDay         Int         @default(5)
+  date                DateTime    @default(now()) @db.Date
+
+  @@unique([profileId, date])
 }
 
 model roles {
