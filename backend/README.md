@@ -28,7 +28,7 @@ Az adatbázis beállításához létre kell hozni egy egy új schemat **musclesd
 Az egyszerűbb megoldás érdekében érdemes [dockert](https://www.docker.com/products/docker-desktop/) telepíteni és lefuttatni a következő parancsot:
 ```bash  
 docker run --name postgresdb -p 5432:5432 -e POSTGRES_PASSWORD=pwd -d postgres  
-```  
+```
 
 Az adatbázis beállítása után a backend mappában az adatbázis schema integrálásához az `npm run push:dev` parancsot lehet használni, ezután alap adatok feltöltése érdekében az `npm run seed:dev` parancsokat kell lefuttatni.  
 Ezek után már futtatható is az alkalmazás az `npm run start:dev` paranccsal.
@@ -57,6 +57,11 @@ A backend **JWT tokeneket** használ a felhasználók jogosultságainak kezelés
 
 Az **Access** és **Refresh** token **lejárati idejét**, illetve **secret**-ét a **.prod.env** **.dev.env** file-okban lehet beállítani
 
+
+## Adatbázis
+
+Az adatbázis sémaja a **prisma** mappában található **schema.prisma** fáljban található.
+<img src="../musclesdb.png">
 
 ## File struktúra
 
