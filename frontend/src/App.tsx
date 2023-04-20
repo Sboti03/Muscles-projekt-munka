@@ -11,32 +11,7 @@ import ConnectionContextProvider from "./components/connection/ConnectionContext
 import UserCoachContextProvider from "./components/UserCoach/context/UserCoachContextProvider";
 import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import NavigatorContext, {Page} from "./components/Navigator/NavigatorContext";
-import {Option, Select} from "@mui/joy";
-import UserCoachPageNavigator from "./components/UserCoach/navigator/UserCoachPageNavigator";
-import AuthContext from "./components/Auth/AuthContext";
 
-function PageSelector() {
-    const {changePage, page} = useContext(NavigatorContext)
-    const {user} = useContext(AuthContext)
-    if (window.location.pathname === "/admin") {
-        return (
-            <>
-                <Select value={page}  onChange={(event, value) => value ? changePage(value): {} } >
-                    {Object.values(Page).map(page => <Option value={page} >{page}</Option>)}
-                </Select>
-                <div className="flex gap-4">
-                    <div>{user?.userId}</div>
-                    <div>{user?.email}</div>
-                    <div>{user?.role.roleName}</div>
-                    <div>{user?.roleId}</div>
-                </div>
-            </>
-        )
-    }
-    return <></>
-
-}
 
 function App() {
     return (
@@ -49,7 +24,6 @@ function App() {
                                 <UserCoachContextProvider>
                                     <FoodContextProvider>
                                         <Pages/>
-                                        <PageSelector />
                                         <ToastContainer/>
                                     </FoodContextProvider>
                                 </UserCoachContextProvider>
