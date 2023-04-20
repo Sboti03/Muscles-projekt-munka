@@ -6,7 +6,7 @@ import {MaterialCommunityIcons} from "@expo/vector-icons";
 import {Flex, IconButton, Text} from "@react-native-material/core";
 import MealHistoryContext from "../mealHistory/mealHistoryContext";
 import {LinearGradient} from "expo-linear-gradient";
-import {Alert, BackHandler, StyleSheet, TouchableOpacity} from "react-native";
+import {Alert, BackHandler, ImageBackground, StyleSheet, TouchableOpacity} from "react-native";
 import PageHistoryContext from "../pageHistory/PageHistoryProvider";
 
 export default function CalendarPage() {
@@ -37,14 +37,14 @@ export default function CalendarPage() {
     //     return () => backHandler.remove();
     // })
     return (
-        <LinearGradient  colors={['#efe8fd', '#865eff']}
-                         style={{width: '100%', flex: 1, alignItems: "center"}}>
-            <Flex fill style={{justifyContent: 'center'}}>
-            <IconButton onPress={() => {
+            <Flex fill >
+                <ImageBackground source={ require('../../assets/background/gears.png')} style={{flex: 1, justifyContent: 'center', alignItems: 'center'}} imageStyle={{flex: 1}}>
+
+                <IconButton onPress={() => {
                 changePage(Page.HOME)
                 deleteLastPage()
             }}
-                        icon={<MaterialCommunityIcons name={'arrow-left-bold-outline'} size={30} color={'#7a44cf'} />}
+                        icon={<MaterialCommunityIcons name={'arrow-left-bold-outline'} size={30} color={'#9671d0'} />}
                         style={{marginLeft:5, marginTop: 30}}/>
             <Calendar firstDay={1}
                       initialDate={date.toISOString()}
@@ -88,8 +88,9 @@ export default function CalendarPage() {
                       }}
                       enableSwipeMonths={true}
             />
+                </ImageBackground>
             </Flex>
-        </LinearGradient>
+
     )
 }
 

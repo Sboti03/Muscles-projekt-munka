@@ -5,7 +5,7 @@ import NavigatorContext, {Page} from "../navigator/NavigatorProvider";
 import {BASE_URL} from "@env"
 import axios from "axios";
 import {
-    DrawerLayoutAndroid,
+    DrawerLayoutAndroid, ImageBackground,
     Keyboard,
     KeyboardAvoidingView,
     StyleSheet,
@@ -100,10 +100,9 @@ function HomePage(){
                             drawerPosition={'left'}
        >
            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-           <LinearGradient  colors={['#efe8fd', '#865eff']}
-                            style={{width: '100%', flex: 1, alignItems: "center"}}>
 
           <Flex fill={1} style={{width:'100%'}} >
+              <ImageBackground source={ require('../../assets/background/abstract.png')} style={{flex: 1}} imageStyle={{flex: 1}}>
 
               <HStack style={homePageStyle.menuOnTop}>
                   <IconButton icon={<MaterialCommunityIcons name="menu" size={45} color='#7a44cf' />}
@@ -187,9 +186,9 @@ function HomePage(){
               <KeyboardAvoidingView behavior={"position"} >
               <Weight/>
               </KeyboardAvoidingView>
+              </ImageBackground>
           </Flex>
 
-           </LinearGradient>
            </TouchableWithoutFeedback>
        </DrawerLayoutAndroid>
    )

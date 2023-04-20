@@ -1,5 +1,5 @@
 import {Button, Flex, HStack, IconButton, Text, TextInput, VStack} from "@react-native-material/core";
-import {StyleSheet} from "react-native";
+import {ImageBackground, StyleSheet} from "react-native";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import React, {useContext, useEffect, useState} from "react";
 import NavigatorContext, {Page} from "../navigator/NavigatorProvider";
@@ -51,9 +51,9 @@ export default function RegisterPage() {
     }
 
    return(
-       <LinearGradient  colors={['#efe8fd', '#865eff']}
-                        style={{width: '100%', flex: 1, alignItems: "center"}}>
        <Flex fill >
+           <ImageBackground source={ require('../../assets/background/dumbbells.png')} style={{flex: 1}} imageStyle={{flex: 1}}>
+
 
            <Text style={registerStyles.title}>
                Register Page
@@ -141,8 +141,8 @@ export default function RegisterPage() {
                   />
               </HStack>
           </VStack>
+           </ImageBackground>
       </Flex>
-       </LinearGradient>
    )
 }
 const registerStyles = StyleSheet.create({

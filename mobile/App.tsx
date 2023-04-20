@@ -15,7 +15,7 @@ export default function App() {
           <ProfileContextProvider>
             <MealHistoryContextProvider>
                 <StatusBar
-                    backgroundColor={'#b3b7ff'}
+                    backgroundColor={'#8c60fd'}
                     translucent={true}
                 />
                 <Pages />

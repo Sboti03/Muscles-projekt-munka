@@ -1,7 +1,7 @@
 import {Button, Flex, HStack, IconButton, Text, TextInput, VStack} from "@react-native-material/core";
 import React, {useContext, useEffect, useState} from "react";
 import NavigatorContext, {Page} from "./navigator/NavigatorProvider";
-import {StyleSheet, View} from "react-native";
+import {Image, ImageBackground, StyleSheet, View} from "react-native";
 import {BASE_URL} from "@env";
 import {MaterialCommunityIcons} from '@expo/vector-icons';
 import Ripple from "react-native-material-ripple";
@@ -25,9 +25,11 @@ export default function LoginPage() {
     }, [])
 
     return (
-        <LinearGradient  colors={['#efe8fd', '#865eff']}
-                         style={{width: '100%', flex: 1, alignItems: "center"}}>
-        <Flex fill>
+
+
+        <Flex fill style={{backgroundColor: '#FFF'}}>
+            <ImageBackground source={ require('../assets/background/dumbbells.png')} style={{flex: 1, backgroundColor: '#e18d8d'}} imageStyle={{flex: 1}}>
+
             <Text style={loginPageStyle.title}>
                 Login Page
             </Text>
@@ -80,8 +82,17 @@ export default function LoginPage() {
                     />
                 </HStack>
             </VStack>
+
+
+            {/*<Image*/}
+            {/*    style={{height: 50, width: 30}}*/}
+            {/*    source={{*/}
+            {/*        uri: 'https://reactnative.dev/img/tiny_logo.png',*/}
+            {/*    }}*/}
+            {/*/>*/}
+            </ImageBackground>
+
         </Flex>
-        </LinearGradient>
             )
 
 }
@@ -105,6 +116,7 @@ export const loginPageStyle = StyleSheet.create({
         overflow: "hidden",
         borderWidth: 1,
         borderColor: '#ccc8ff',
+        borderBottomWidth: 0,
     },
     input: {
         color: '#e6daff',

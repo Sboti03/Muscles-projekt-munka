@@ -1,6 +1,6 @@
 import {Button, Flex, Text, TextInput, VStack} from "@react-native-material/core";
 import {useContext, useState} from "react";
-import {Keyboard, StyleSheet, TouchableOpacity, TouchableWithoutFeedback} from "react-native";
+import {ImageBackground, Keyboard, StyleSheet, TouchableOpacity, TouchableWithoutFeedback} from "react-native";
 import profileProvider from "./ProfileProvider";
 import NavigatorProvider, {Page} from "../navigator/NavigatorProvider";
 import {homePageStyle} from "../home/homePage";
@@ -81,9 +81,9 @@ export default function ProfileFormPages (props: ProfileProps) {
 
     if (props.birthDay){
         return (
-            <LinearGradient  colors={['#efe8fd', '#865eff']}
-                             style={{width: '100%', flex: 1, alignItems: "center"}}>
             <Flex fill>
+                <ImageBackground source={ require('../../assets/background/gears.png')} style={{flex: 1}} imageStyle={{flex: 1}}>
+
                 <VStack style={profileFormStyles.container}>
                     <Text style={{color: '#FFF'}}>BirthDay:</Text>
                     <TouchableOpacity onPress={showDatePicker}
@@ -95,8 +95,9 @@ export default function ProfileFormPages (props: ProfileProps) {
 
                     <TextInput placeholder={'height'}
                                style={Object.assign({}, profileFormStyles.inputOnTheMiddle ,loginPageStyle.inputBox)}
-                               inputStyle={{backgroundColor: '#aa8dff'}}
-                               placeholderTextColor={'#d2bdfc'}
+                               inputStyle={{backgroundColor: '#aa8dff', color: '#FFF'}}
+                               inputContainerStyle={loginPageStyle.inputContainer}
+                               placeholderTextColor={'#e9dbff'}
                                keyboardType={"numeric"}
                                maxLength={3}
                                onChangeText={inputHeight => {
@@ -111,23 +112,24 @@ export default function ProfileFormPages (props: ProfileProps) {
                                 onPress={submitBirthdayAndHeight}
                         />
                 </VStack>
+                </ImageBackground>
             </Flex>
-            </LinearGradient>
         )
     }
     else return (
-        <LinearGradient  colors={['#efe8fd', '#865eff']}
-                         style={{width: '100%', flex: 1, alignItems: "center"}}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <Flex fill >
+                <ImageBackground source={ require('../../assets/background/gears.png')} style={{flex: 1}} imageStyle={{flex: 1}}>
+
                 <VStack  style={profileFormStyles.container}>
                     <Text style={profileFormStyles.texts}>
                         First name
                     </Text>
                     <TextInput placeholder={'Firstname'}
                                style={Object.assign({}, profileFormStyles.inputOnTheMiddle ,loginPageStyle.inputBox)}
-                               inputStyle={{backgroundColor: '#aa8dff'}}
-                               placeholderTextColor={'#d2bdfc'}
+                               inputStyle={{backgroundColor: '#aa8dff', color: '#FFF'}}
+                               inputContainerStyle={loginPageStyle.inputContainer}
+                               placeholderTextColor={'#e9dbff'}
                                onChangeText={firstName =>{
                                    updateProfile({...profile, firstName})
                                    clearWarning()
@@ -140,8 +142,9 @@ export default function ProfileFormPages (props: ProfileProps) {
                     </Text>
                     <TextInput placeholder={'Lastname'}
                                style={Object.assign({}, profileFormStyles.inputOnTheMiddle ,loginPageStyle.inputBox)}
-                               inputStyle={{backgroundColor: '#aa8dff'}}
-                               placeholderTextColor={'#d2bdfc'}
+                               inputStyle={{backgroundColor: '#aa8dff', color: '#FFF'}}
+                               inputContainerStyle={loginPageStyle.inputContainer}
+                               placeholderTextColor={'#e9dbff'}
                                onChangeText={lastName =>{
                                    updateProfile({...profile, lastName})
                                    clearWarning()
@@ -153,9 +156,9 @@ export default function ProfileFormPages (props: ProfileProps) {
                             onPress={submitFirstAndLastName}
                     />
                 </VStack>
+                </ImageBackground>
             </Flex>
         </TouchableWithoutFeedback>
-        </LinearGradient>
     )
 }
 const profileFormStyles = StyleSheet.create({
@@ -177,7 +180,7 @@ const profileFormStyles = StyleSheet.create({
     },
     texts: {
         alignSelf: "flex-start",
-        color: '#7a44cf'
+        color: '#9b7fc5'
     },
     birthDayText: {
         fontWeight: '400',
