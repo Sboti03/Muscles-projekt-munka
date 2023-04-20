@@ -21,6 +21,13 @@ Linux:
 
 ## Futtatás
 
+### Tesztelés
+
+A teszteléshez a backend mappában az `npm run test` parancsot kell lefuttatni.
+Csak a fontosabb tesztek vannak megírva:
+- **Auth** tesztek
+- **User** tesztek
+- **Food** tesztek
 
 ### Fejlesztés
 Az adatbázis beállításához létre kell hozni egy egy új schemat **musclesdb** néven. A **.dev.env** fáljban lehet átírni az adatbázishoz szükséges felhasználó nevet és jelszót ami alapértelmezetten postgres, *Ezen alkalmazás adatbázis jelszava: pwd felhasználó neve: postgres*
