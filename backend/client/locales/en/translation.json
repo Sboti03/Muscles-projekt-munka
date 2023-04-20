@@ -1,11 +1,22 @@
 {
   "profile": {
+    "password": {
+      "successful": "Successfully change password",
+      "old": "Old password",
+      "new": "New password"
+    },
     "gender": {
       "text": "gender",
       "male": "male",
       "female": "female"
     },
     "error": {
+      "password": {
+        "new": "New password can not be empty",
+        "old": "Old password can not be empty",
+        "same": "Old and new password can not be the same",
+        "not-same": "Wrong password"
+      },
       "no-change": "Nothing changed",
       "firstname": {
         "length": "First name max length is 100"
@@ -39,6 +50,14 @@
       },
       "exist": "User already exists",
       "input": "Wrong input"
+    }
+  },
+  "login": {
+    "success": "Successfully logged in",
+    "error": {
+      "bad-request": "You entered data in the wrong format",
+      "no-user": "No user found with this email or password",
+      "blocked": "Sorry you are blocked :("
     }
   }
 }
