@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import {PrismaService} from "../../../../Common/utils/prirsma.service";
 import {ConnectionRequestGetService} from "../connection-request-get/connection-request-get.service";
-import {ConnectionGetService} from "../../../connection/services/connection-get/connection-get.service";
 
 @Injectable()
 export class ConnectionRequestCheckService {
@@ -18,6 +17,19 @@ export class ConnectionRequestCheckService {
         } catch (e) {
             return false
         }
+    }
+
+    async isSameRole(userId: number, userId2: number) {
+        const {role: {roleId: user1Role}} = await this.prismaService.users.findUnique({
+            where: {userId},
+            select: {role: {select: {roleId: true}}}
+        })
+
+        const {role: {roleId: user2Role}} = await this.prismaService.users.findUnique({
+            where: {userId: userId2},
+            select: {role: {select: {roleId: true}}}
+        })
+        return user1Role === user2Role
     }
 
 

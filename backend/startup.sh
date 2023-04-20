@@ -1,4 +1,4 @@
-npx prisma db push --accept-data-loss
-npx prisma db seed
+sleep 5
+npm run migrate:prod
 npm run start:prod
 

@@ -9,6 +9,9 @@ export class UserCreateService {
   createUser(user: Prisma.usersCreateInput) {
     return this.prismaService.users.create({
       data: user,
+      include: {
+        role: true
+      }
     });
   }
 }

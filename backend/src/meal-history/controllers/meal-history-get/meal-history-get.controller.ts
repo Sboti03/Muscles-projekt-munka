@@ -1,56 +1,53 @@
-import {Controller, Get, Param, Query, UseGuards} from '@nestjs/common';
-import {PrismaService} from "../../../Common/utils/prirsma.service";
+import { Controller, Get, Logger, Query, UseGuards } from "@nestjs/common";
+import { PrismaService } from "../../../Common/utils/prirsma.service";
 import MealHistoryGetDto from "../../../day-history/dto/meal-history-get.dto";
-import {GetAndCheckProfileId} from "../../../auth/decorators/decorators";
-import {DateParam} from "../../../Common/params/date.param";
-import {DayHistoryGetService} from "../../../day-history/services/day-history-get/day-history-get.service";
-import {DayHistoryCheckService} from "../../../day-history/services/day-history-check/day-history-check.service";
-import {MealHistoryGetService} from "../../services/meal-history-get/meal-history-get.service";
-import {GoalsGetService} from "../../../goals/services/goals-get/goals-get.service";
-import {WeightHistoryGetService} from "../../../weight-history/services/weight-history-get/weight-history-get.service";
-import {AccessTokenGuard} from "../../../auth/guards/access-token.guard";
+import {
+    GetAndCheckProfileId,
+    GetCurrentUser,
+    GetCurrentUserId,
+    GetCurrentUserProfileId
+} from "../../../auth/decorators/decorators";
+import { DayHistoryGetService } from "../../../day-history/services/day-history-get/day-history-get.service";
+import { DayHistoryCheckService } from "../../../day-history/services/day-history-check/day-history-check.service";
+import { MealHistoryGetService } from "../../services/meal-history-get/meal-history-get.service";
+import { AccessTokenGuard } from "../../../auth/guards/access-token.guard";
+import { UserDayHistoryQuery } from "../../../Connections/connection/data/UserDayHistoryQuery";
+import DayHistoryBetweenQuery from "../../dto/DayHistoryBetween.query";
+import {ApiTags} from "@nestjs/swagger";
 
+@ApiTags('meal-history')
 @UseGuards(AccessTokenGuard)
-@Controller('meal-history')
+@Controller("meal-history")
 export class MealHistoryGetController {
 
-    constructor(private prismaService:PrismaService,
-                private dayHistoryGetService:DayHistoryGetService,
-                private dayHistoryCheckService:DayHistoryCheckService,
-                private mealHistoryGetService:MealHistoryGetService,
-                private goalsGetService:GoalsGetService,
-                private weightHistoryGetService:WeightHistoryGetService) {
+    constructor(private prismaService: PrismaService,
+                private dayHistoryGetService: DayHistoryGetService,
+                private dayHistoryCheckService: DayHistoryCheckService,
+                private mealHistoryGetService: MealHistoryGetService) {
     }
 
-    @Get('/')
-    async getMealHistory(@Query() historyGetDto:MealHistoryGetDto, @GetAndCheckProfileId() currentProfileId) {
-        const {date, periodName} = historyGetDto
-        const isDayHistoryExist = await this.dayHistoryCheckService.checkExistingDayHistory(currentProfileId, date)
-        if (!isDayHistoryExist) {
-            return []
-        }
-        const {dayId} = await this.dayHistoryGetService.getDayIdByDate(date, currentProfileId)
-        return this.dayHistoryGetService.getAllMealHistoryByIds(dayId, periodName)
+    @Get("/")
+    async getMealHistory(@Query() historyGetDto: MealHistoryGetDto,
+                         @GetAndCheckProfileId() currentProfileId,
+                         @GetCurrentUserId() currentUserId: number) {
+        return this.mealHistoryGetService.getMealHistory(historyGetDto, currentProfileId, currentUserId);
     }
-    //test
-    @Get('data/:date')
-    async getDayHistoryData(@Param() dateParam: DateParam, @GetAndCheckProfileId() currentProfileId) {
-        const {date} = dateParam
-        let dayHistory;
-        const isDayHistoryExist = await this.dayHistoryCheckService.checkExistingDayHistory(currentProfileId, date)
-        if (!isDayHistoryExist) {
-            dayHistory = []
-        } else {
-            const {dayId} = await this.dayHistoryGetService.getDayIdByDate(date, currentProfileId)
-            dayHistory = await this.mealHistoryGetService.getAllMealDataByDayId(dayId)
-        }
-        const goal = await this.goalsGetService.getGoalByProfileIdAndDate(currentProfileId, date);
-        const {weight, day: {date: weightDate}} = await this.weightHistoryGetService.getWeightFromDate(date, currentProfileId)
-        return {
-            dayHistory: dayHistory,
-            goal,
-            weight: {weight, weightDate}
-        }
+
+    @Get("data/")
+    async getMealHistoryData(@Query() dayHistoryQuery: UserDayHistoryQuery,
+                             @GetAndCheckProfileId() currentProfileId,
+                             @GetCurrentUserId() currentUserId: number) {
+        return this.mealHistoryGetService.getMealHistoryData(currentUserId, dayHistoryQuery.date, dayHistoryQuery.userId, currentProfileId);
     }
+
+    @Get('data/between')
+    async getMealHistoryBetween(@Query() dayHistoryBetweenQuery: DayHistoryBetweenQuery,
+                               @GetCurrentUserProfileId() currentProfileId: number,
+                               @GetCurrentUserId() currentUserId: number) {
+        const {to, from, userId} = dayHistoryBetweenQuery
+        Logger.log(`/meal-history/data/between (GET) from: ${from.toISOString()} to: ${to.toISOString()} requesterId: ${currentUserId} ${userId ? 'requested: ' + userId : ''}`)
+        return  this.mealHistoryGetService.getMealHistoryBetween(currentUserId, currentProfileId, from, to, userId);
+    }
+
 
 }

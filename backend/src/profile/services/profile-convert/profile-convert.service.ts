@@ -12,6 +12,7 @@ export class ProfileConvertService {
             firstName: profileUpdateDto.firstName,
             height: profileUpdateDto.height,
             lastName: profileUpdateDto.lastName,
+            male: profileUpdateDto.male
         }
     }
 
@@ -21,6 +22,7 @@ export class ProfileConvertService {
             firstName: profileCreateDto.firstName,
             lastName: profileCreateDto.lastName,
             height: profileCreateDto.height,
+            male: profileCreateDto.male,
             goal: {
                 create: {
 

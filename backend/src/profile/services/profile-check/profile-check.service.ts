@@ -18,4 +18,16 @@ export class ProfileCheckService {
             return false
         }
     }
+
+
+    async checkProfileByProfileId(profileId: number) {
+        try {
+            await this.prismaService.profileData.findUniqueOrThrow({
+                where: {profileId}
+            })
+            return true
+        } catch (e) {
+            return false
+        }
+    }
 }

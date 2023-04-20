@@ -1,20 +1,16 @@
-import {Body, ConflictException, Controller, Delete, Param, UseGuards} from '@nestjs/common';
+import {ConflictException, Controller, Delete, Param, UseGuards} from '@nestjs/common';
 import {
     ConnectionRequestGetService
 } from "../../../connection-request/services/connection-request-get/connection-request-get.service";
-import {
-    ConnectionRequestCheckService
-} from "../../../connection-request/services/connection-request-check/connection-request-check.service";
-import {
-    ConnectionRequestDeleteService
-} from "../../../connection-request/services/connection-request-delete/connection-request-delete.service";
-import {ProfileGuard} from "../../../../auth/guards/profile.guard";
 import {IdParam} from "../../../../Common/params/id.param";
 import {GetCurrentUser, GetCurrentUserId} from "../../../../auth/decorators/decorators";
 import {RoleEnum} from "../../../../Common/Role/utils/roles";
 import {ConnectionCheckService} from "../../services/connection-check/connection-check.service";
 import {ConnectionDeleteService} from "../../services/connection-delete/connection-delete.service";
-
+import {AccessTokenGuard} from "../../../../auth/guards/access-token.guard";
+import {ApiTags} from "@nestjs/swagger";
+@ApiTags('connection')
+@UseGuards(AccessTokenGuard)
 @Controller('connection')
 export class ConnectionDeleteController {
 
@@ -24,9 +20,8 @@ export class ConnectionDeleteController {
         private deleteService:ConnectionDeleteService) {
     }
 
-    @UseGuards(ProfileGuard)
     @Delete(':id')
-    async deleteConnectionRequest(@Param('id') idParam: IdParam,
+    async deleteConnectionRequest(@Param() idParam: IdParam,
                                   @GetCurrentUserId() requesterId: number,
                                   @GetCurrentUser('role') requesterRole: RoleEnum) {
         if (idParam.id === requesterId) {

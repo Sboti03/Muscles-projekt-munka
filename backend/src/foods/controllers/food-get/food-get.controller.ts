@@ -1,10 +1,10 @@
-import {Controller, Get, Param, UseGuards} from '@nestjs/common';
+import { Controller, Get, Query, UseGuards } from "@nestjs/common";
 import {AccessTokenGuard} from "../../../auth/guards/access-token.guard";
 import {FoodGetService} from "../../services/food-get/food-get.service";
-import {RolesGuard} from "../../../auth/guards/role.guard";
-import {Roles} from "../../../Common/Role/decorators/ roles.decorator";
-import {RoleEnum} from "../../../Common/Role/utils/roles";
+import SearchFoodQuery from "../../dto/SearchFood.query";
+import {ApiTags} from "@nestjs/swagger";
 
+@ApiTags('food')
 @Controller('food')
 @UseGuards(AccessTokenGuard)
 export class FoodGetController {
@@ -13,14 +13,14 @@ export class FoodGetController {
 
     @Get()
     async getAllFood() {
-        return this.foodGetService.getAllFood();
+        return this.foodGetService.getAllActiveFood();
     }
 
-    @Get(':id')
-    @Roles(RoleEnum.ADMIN)
-    @UseGuards(RolesGuard)
-    async getFoodById(@Param('id') id: number) {
-        return this.foodGetService.getFoodById(id);
+    @Get('search/')
+    async searchFood(@Query() searchFoodQuery: SearchFoodQuery) {
+        const take = searchFoodQuery.max
+        const skip = searchFoodQuery.page * take
+        return this.foodGetService.foodSearch(take, skip)
     }
 
 }

@@ -1,18 +1,18 @@
-import {Injectable} from '@nestjs/common';
-import ProfileUpdateDto from "../../dto/profile-update.dto";
-import {Prisma} from "@prisma/client";
+import {Injectable, Logger} from '@nestjs/common';
 import {PrismaService} from "../../../Common/utils/prirsma.service";
-import ProfileCreateDto from "../../dto/profile-create.dto";
+import {RoleEnum} from "../../../Common/Role/utils/roles";
+import loader from "ts-loader";
 
 @Injectable()
 export class ProfileGetService {
 
-    constructor(private prismaService: PrismaService) {}
+    constructor(private prismaService: PrismaService) {
+    }
 
     getProfileIdByUserId(userId: number) {
         return this.prismaService.profileData.findFirstOrThrow({
             select: {
-              profileId: true
+                profileId: true
             },
             where: {
                 userId
@@ -34,11 +34,12 @@ export class ProfileGetService {
 
     getAllProfile() {
         return this.prismaService.profileData.findMany({
-            select:{
+            select: {
                 profileId: true,
                 userId: true,
                 firstName: true,
-                lastName: true
+                lastName: true,
+                male: true
             }
         })
     }
@@ -52,11 +53,67 @@ export class ProfileGetService {
                 birthDay: true,
                 height: true,
                 registrationDate: true,
-                userId: true
+                userId: true,
+                male: true
             }
         })
     }
 
+    getAllProfilesByName(name: string) {
+        return this.getProfilesByName(name)
+    }
 
+    async getProfiles(name: string, role: RoleEnum, profileId: number) {
+        const result = await this.getProfilesByName(name, role, profileId)
+        Logger.log(result)
+        return result
+    }
 
+    getProfilesByName(name: string, role?: RoleEnum, profileId?: number) {
+        Logger.log(name)
+        Logger.log(role)
+        return this.prismaService.profileData.findMany({
+            where: {
+                NOT: {
+                    profileId
+                },
+                user: {
+                    role: {
+                        roleName: role
+                    }
+                },
+                OR: [
+                    {
+                        firstName: {
+                            contains: name,
+                            mode: 'insensitive'
+                        }
+                    },
+                    {
+                        lastName: {
+                            contains: name,
+                            mode: 'insensitive'
+                        }
+                    }
+                ]
+            },
+            select: {
+                profileId: true,
+                firstName: true,
+                lastName: true,
+                userId: true,
+                male: true,
+                user: {
+                    select: {
+                        email: true,
+                        role: {
+                            select: {
+                                roleName: true
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
 }

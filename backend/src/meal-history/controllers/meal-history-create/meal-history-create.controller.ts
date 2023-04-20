@@ -1,4 +1,12 @@
-import {Body, Controller, NotFoundException, Post, UseGuards} from '@nestjs/common';
+import {
+    Body,
+    Controller,
+    Logger,
+    NotFoundException,
+    Post,
+    ServiceUnavailableException,
+    UseGuards
+} from "@nestjs/common";
 import {GetCurrentUser, GetCurrentUserProfileId} from "../../../auth/decorators/decorators";
 import {RoleEnum} from "../../../Common/Role/utils/roles";
 import {CreateMealHistoryDto} from "../../dto/createMealHistory.dto";
@@ -10,11 +18,16 @@ import {MealHistoryCreateService} from "../../services/meal-history-create/meal-
 import {MealHistoryConvertService} from "../../services/meal-history-convert/meal-history-convert.service";
 import {DayHistoryCheckService} from "../../../day-history/services/day-history-check/day-history-check.service";
 import {AccessTokenGuard} from "../../../auth/guards/access-token.guard";
-import {ProfileGuard} from "../../../auth/guards/profile.guard";
 import {FoodCheckService} from "../../../foods/services/food-check/food-check.service";
+import {
+    ConnectionCheckService
+} from "../../../Connections/connection/services/connection-check/connection-check.service";
+import {ApiTags} from "@nestjs/swagger";
+import {PrismaError} from "prisma-error-enum";
 
 
-@UseGuards(AccessTokenGuard, ProfileGuard)
+@ApiTags('meal-history')
+@UseGuards(AccessTokenGuard)
 @Controller('meal-history')
 export class MealHistoryCreateController {
 
@@ -25,22 +38,39 @@ export class MealHistoryCreateController {
                 private mealHistoryCreateService: MealHistoryCreateService,
                 private mealHistoryConvertService: MealHistoryConvertService,
                 private dayHistoryCheckService: DayHistoryCheckService,
-                private foodCheckService:FoodCheckService) {
+                private foodCheckService:FoodCheckService,
+                private connectionCheckService:ConnectionCheckService) {
     }
 
     @Post('/create')
     async createMealHistory(@GetCurrentUser('role') addedBy: RoleEnum, @Body() createMealHistoryDTO: CreateMealHistoryDto, @GetCurrentUserProfileId() profileId: number) {
-        const isFoodExist = await this.foodCheckService.checkValidFood(createMealHistoryDTO.foodId)
-        if (!isFoodExist) {
-            throw new NotFoundException('No food found')
+        Logger.log(`/meal-history/create (POST) profileId: ${profileId} addedBy: ${addedBy} BODY: 
+        foodId: ${createMealHistoryDTO.foodId}
+        date: ${createMealHistoryDTO.date.toISOString()}
+        amount: ${createMealHistoryDTO.amount}
+        periodName: ${createMealHistoryDTO.periodName}`)
+
+        const userId = createMealHistoryDTO.userId ? createMealHistoryDTO.userId : profileId
+        const coachId = createMealHistoryDTO.userId ? profileId : undefined
+
+        if (coachId) {
+            const isConnectionExist = await this.connectionCheckService.checkAccessCoachToUser(userId, coachId)
+            if (!isConnectionExist) {
+                throw new NotFoundException("No connection found")
+            }
         }
-        const isDayHistoryExist = await this.dayHistoryCheckService.checkExistingDayHistory(profileId, createMealHistoryDTO.date)
+        const isDayHistoryExist = await this.dayHistoryCheckService.checkExistingDayHistory(userId, createMealHistoryDTO.date)
         if (!isDayHistoryExist) {
-            await this.dayHistoryCreateService.createDayHistory(profileId, createMealHistoryDTO.date);
+            await this.dayHistoryCreateService.createDayHistory(userId, createMealHistoryDTO.date);
         }
-        const {dayId} = await this.dayHistoryGetService.getDayIdByDate(createMealHistoryDTO.date, profileId);
+        const {dayId} = await this.dayHistoryGetService.getDayIdByDate(createMealHistoryDTO.date, userId);
         const mealCreateInput = this.mealGetService.getMealCreateInput(createMealHistoryDTO, addedBy)
-        const {mealId} = await this.mealCreateService.createMeal(mealCreateInput)
+        const {mealId} = await this.mealCreateService.createMeal(mealCreateInput).catch(e => {
+            if (e.code === PrismaError.RecordsNotFound) {
+                throw new NotFoundException('No food found')
+            }
+            throw new ServiceUnavailableException('Something went wrong')
+        })
         const mealHistoryCreateInput = await this.mealHistoryConvertService.convertMealHistoryDtoToInput(dayId, mealId, createMealHistoryDTO)
         return this.mealHistoryCreateService.createMealHistory(mealHistoryCreateInput)
     }

@@ -1,73 +1,98 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+# Muslces backend
+*Fejlesztői dokkumentáció*
 
-## Description
+## Fejlesztői környezet
+A backend futtatásához a következők kellenek  
+Windows rendszeren:
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- [Postgres 15.1 vagy újabb](https://www.postgresql.org/download/)
+- [Node js 18.16.0](https://nodejs.org/en/download)
+- Nest js `npm install -g @nestjs/cli`
+- Prisma client `npm install @prisma/client`
+- Node env `npm install -g win-node-env`
 
-## Installation
+Linux:
+- [Postgres 15.1 vagy újabb](https://www.postgresql.org/download/)
+- [Node js 18.16.0](https://nodejs.org/en/download)
+- Nest js `npm install -g @nestjs/cli`
+- Prisma client `npm install @prisma/client`
 
-```bash
-$ npm install
+## Futtatás
+
+### Tesztelés
+
+A teszteléshez a backend mappában az `npm run test` parancsot kell lefuttatni.
+Csak a fontosabb tesztek vannak megírva:
+- **Auth** tesztek
+- **User** tesztek
+- **Food** tesztek
+
+### Fejlesztés
+Az adatbázis beállításához létre kell hozni egy egy új schemat **musclesdb** néven. A **.dev.env** fáljban lehet átírni az adatbázishoz szükséges felhasználó nevet és jelszót ami alapértelmezetten postgres, *Ezen alkalmazás adatbázis jelszava: pwd felhasználó neve: postgres*
+
+Az egyszerűbb megoldás érdekében érdemes [dockert](https://www.docker.com/products/docker-desktop/) telepíteni és lefuttatni a következő parancsot:
+```bash  
+docker run --name postgresdb -p 5432:5432 -e POSTGRES_PASSWORD=pwd -d postgres  
 ```
 
-## Running the app
+Az adatbázis beállítása után a backend mappában az adatbázis schema integrálásához az `npm run push:dev` parancsot lehet használni, ezután alap adatok feltöltése érdekében az `npm run seed:dev` parancsokat kell lefuttatni.  
+Ezek után már futtatható is az alkalmazás az `npm run start:dev` paranccsal.
 
-```bash
-# development
-$ npm run start
+### Production/Frontend fejlesztéshez
 
-# watch mode
-$ npm run start:dev
+A backend mappában a `docker compose up --build` paranccsal el lehet indítani az egész backend alkalmazást és a **3000**-es porton el lehet érni.
 
-# production mode
-$ npm run start:prod
-```
+### Google cloud
 
-## Test
+Google cloudon is van lehetőség futtatni, ehhez csak egy **ssh-kulcsot** kell generálni és beállítani a **Githubon**, illetve a **VM instance**-en és minden egyes push után a **main branchen** autómatikusan elindul az alkalmazás új buildje.
 
-```bash
-# unit tests
-$ npm run test
+## Feljlesztéshez szükséges adatok
+Az alkalmazás elindítása után megtekinthetőek a route-ok a [http://localhost:3000/api](http://localhost:3000/api) útvonalon.  
+Vagy a jelenlegi [Linked](http://34.22.242.178:3000/api)
 
-# e2e tests
-$ npm run test:e2e
+A teljesen működő alkalmazás megtekinthető a [http://34.22.242.178:3000/](http://34.22.242.178:3000/)
 
-# test coverage
-$ npm run test:cov
-```
+## Frontend backend összekapcsolás
+A frontend buildelése után az dist mappában található fáljokat és mappákat a client mappába kell másolni és ezáltal egybe lehet futtatni a backendet és frontendet is.
 
-## Support
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+## Autentikáció/Autorizáció
 
-## Stay in touch
+A backend **JWT tokeneket** használ a felhasználók jogosultságainak kezelésére, melyet vagy minden egyes kéréskor **Bearer tokenént** kell küldeni a fejlécben vagy böngésző használata során automatikusan a backend **eltárolja a sütikbe**.
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+Az **Access** és **Refresh** token **lejárati idejét**, illetve **secret**-ét a **.prod.env** **.dev.env** file-okban lehet beállítani
 
-## License
 
-Nest is [MIT licensed](LICENSE).
+## Adatbázis
+
+Az adatbázis sémaja a **prisma** mappában található **schema.prisma** fáljban található.
+Vagy képként a következőképpen néz ki:
+
+<img src="../musclesdb.png" alt="../muscles.png" style="width: 70%; height: 70%" >
+
+## File struktúra
+
+Néhány hasznos mappa a fejlesztés során.
+
+```markdown  
+├── src  
+│ ├── MVC  
+├── cleint  
+│ ├── React build  
+├── prisma  
+│ ├── Adatbázis model  
+│ ├── Seed file  
+│ ├── Alap étel adatok CSV formátumban  
+├── images  
+│ ├── default  
+│ │ ├── Két alap profilkép  
+│ ├── Profileképek  
+└── .gitignore  
+```  
+
+## Hasznos dokkumentációk
+[Nestjs](https://docs.nestjs.com/)  
+[Prisma](https://www.prisma.io/)  
+[Docker](https://docs.docker.com/)

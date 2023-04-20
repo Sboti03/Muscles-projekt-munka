@@ -6,25 +6,35 @@ import {MealHistoryCheckService} from "../../services/meal-history-check/meal-hi
 import {GetCurrentUserProfileId} from "../../../auth/decorators/decorators";
 import {MealHistoryGetService} from "../../services/meal-history-get/meal-history-get.service";
 import {MealDeleteService} from "../../../meal/services/meal-delete/meal-delete.service";
+import {IdParam} from "../../../Common/params/id.param";
+import {
+    ConnectionCheckService
+} from "../../../Connections/connection/services/connection-check/connection-check.service";
+import {ApiTags} from "@nestjs/swagger";
 
+@ApiTags('meal-history')
 @UseGuards(AccessTokenGuard, ProfileGuard)
 @Controller('meal-history')
 export class MealHistoryDeleteController {
 
     constructor(private mealHistoryCheckService:MealHistoryCheckService,
                 private mealHistoryGetService:MealHistoryGetService,
-                private mealDeleteService:MealDeleteService) {
+                private mealDeleteService:MealDeleteService,
+                private connectionCheckService:ConnectionCheckService) {
     }
     @Delete(':id')
-    async deleteMealHistory(@GetCurrentUserProfileId() currentProfileId: number,@Param('id') deleteMealHistoryDTO: DeleteMealHistoryDto) {
-        const {mealHistoryId} = deleteMealHistoryDTO
+    async deleteMealHistory(@GetCurrentUserProfileId() currentProfileId: number,@Param() idParam: IdParam) {
+        const {id: mealHistoryId} = idParam
         const isMealHistoryExist = await this.mealHistoryCheckService.checkExistingMealHistoryById(mealHistoryId)
         if (!isMealHistoryExist) {
             throw new NotFoundException('No meal history found')
         }
         const {day: {profileId}} = await this.mealHistoryGetService.getProfileIdByMealHistoryId(mealHistoryId)
         if (profileId !== currentProfileId) {
-            throw new ConflictException('Not the same profile')
+            const isConnectedCoach = this.connectionCheckService.checkAccessCoachToUser(profileId, currentProfileId)
+            if (!isConnectedCoach) {
+                throw new ConflictException('Not the same profile')
+            }
         }
         const {mealId} = await this.mealHistoryGetService.getMealIdByMealHistoryId(mealHistoryId)
         return this.mealDeleteService.deleteMealByMealId(mealId)

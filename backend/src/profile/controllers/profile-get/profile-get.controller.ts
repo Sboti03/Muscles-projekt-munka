@@ -1,31 +1,17 @@
-import {Controller, Get, NotFoundException, Param, UseGuards} from '@nestjs/common';
-import {GetCurrentUserProfileId} from "../../../auth/decorators/decorators";
+import {Controller, Get, Logger, NotFoundException, Param, UseGuards} from '@nestjs/common';
+import { GetCurrentUser, GetCurrentUserProfileId } from "../../../auth/decorators/decorators";
 import {AccessTokenGuard} from "../../../auth/guards/access-token.guard";
-import {RolesGuard} from "../../../auth/guards/role.guard";
-import {Roles} from "../../../Common/Role/decorators/ roles.decorator";
 import {RoleEnum} from "../../../Common/Role/utils/roles";
 import {ProfileGetService} from "../../services/profile-get/profile-get.service";
-import {ProfileGuard} from "../../../auth/guards/profile.guard";
+import {IdParam} from "../../../Common/params/id.param";
+import {ApiTags} from "@nestjs/swagger";
 
-@UseGuards(AccessTokenGuard, ProfileGuard)
+@ApiTags('profile')
+@UseGuards(AccessTokenGuard)
 @Controller('profile')
 export class ProfileGetController {
 
     constructor(private profileGetService: ProfileGetService) {}
-
-    @Roles(RoleEnum.ADMIN)
-    @UseGuards(RolesGuard)
-    @Get('admin/all')
-    async getAllProfileAdminVersion() {
-        return this.profileGetService.getAllProfileAllData();
-    }
-
-    @Roles(RoleEnum.ADMIN)
-    @UseGuards(RolesGuard)
-    @Get('admin/id/:id')
-    async getAllProfileDataById(@Param('id') id: number) {
-        return this.profileGetService.getAllProfileDataByProfileId(id)
-    }
 
 
     @Get('/')
@@ -33,15 +19,29 @@ export class ProfileGetController {
         return this.profileGetService.getAllProfileDataByProfileId(profileId)
     }
 
-    @Get('all')
-    async getAllProfile() {
-        return this.profileGetService.getAllProfileAllData();
+
+
+    @Get('search/name/:name')
+    async getProfileByName(@Param('name') name: string, @GetCurrentUser('role') role: string,
+                           @GetCurrentUserProfileId() profileId: number) {
+        Logger.log(`Searching for ${name} profileId: ${profileId} [${role}]`)
+        if (role === RoleEnum.USER) {
+            Logger.log(`Search for Coach`)
+
+            return this.profileGetService.getProfiles(name, RoleEnum.COACH, profileId)
+        } else if (role === RoleEnum.COACH) {
+            Logger.log(`Search for user`)
+            return this.profileGetService.getProfiles(name, RoleEnum.USER, profileId)
+        } else {
+            return this.profileGetService.getAllProfilesByName(name)
+        }
     }
 
-    @Get('/:id')
-    async getProfileDataById(@Param('id') id: number) {
+    @Get('search/id/:id')
+    async getProfileDataById(@Param() idParam: IdParam) {
+        Logger.log('Searching for ' + idParam.id)
         try {
-            return await this.profileGetService.getProfileDataByProfileId(id)
+            return await this.profileGetService.getProfileDataByProfileId(idParam.id)
 
         }catch (e) {
             throw new NotFoundException('No profile found')
