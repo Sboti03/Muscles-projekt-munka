@@ -3,6 +3,7 @@
 
 ## Install
 
+Clone the project
     
     ~ cd .\mobile\
     ~ npm install
