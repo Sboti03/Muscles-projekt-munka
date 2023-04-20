@@ -61,7 +61,9 @@ Az **Access** és **Refresh** token **lejárati idejét**, illetve **secret**-é
 ## Adatbázis
 
 Az adatbázis sémaja a **prisma** mappában található **schema.prisma** fáljban található.
-<img src="../musclesdb.png">
+Vagy képként a következőképpen néz ki:
+
+<img src="../musclesdb.png" alt="../muscles.png" style="width: 70%; height: 70%" >
 
 ## File struktúra
 
