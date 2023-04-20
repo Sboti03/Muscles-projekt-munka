@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox id="root-view" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="820.0" stylesheets="@style/updateFormStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.muscles.desktop.controllers.UpdateFoodController">
+<VBox id="root-view" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="608.0" prefWidth="715.0" stylesheets="@style/updateFormStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.muscles.desktop.controllers.UpdateFoodController">
    <children>
       <GridPane alignment="CENTER" maxWidth="-Infinity" prefWidth="810.0" stylesheets="@style/updateFormStyle.css" VBox.vgrow="ALWAYS">
          <columnConstraints>
@@ -32,7 +32,7 @@
             <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="55.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="90.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Label stylesheets="@style/updateFormStyle.css" text="Name">
@@ -133,7 +133,7 @@
             </Label>
             <TextField fx:id="nameField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="33.0" prefWidth="300.0" stylesheets="@style/updateFormStyle.css" GridPane.columnIndex="1" />
             <TextField fx:id="kcalField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="33.0" prefWidth="300.0" stylesheets="@style/updateFormStyle.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <ComboBox fx:id="unitField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="33.0" prefWidth="300.0" promptText="GRam" stylesheets="@style/updateFormStyle.css" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <ComboBox fx:id="unitField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="33.0" prefWidth="300.0" stylesheets="@style/updateFormStyle.css" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="perUnitField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="33.0" prefWidth="300.0" stylesheets="@style/updateFormStyle.css" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <TextField fx:id="proteinField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="33.0" prefWidth="300.0" stylesheets="@style/updateFormStyle.css" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <TextField fx:id="fatField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="33.0" prefWidth="300.0" stylesheets="@style/updateFormStyle.css" GridPane.columnIndex="1" GridPane.rowIndex="5" />

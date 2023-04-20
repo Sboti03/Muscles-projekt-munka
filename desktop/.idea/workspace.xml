@@ -6,14 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="00e91fc0-96b8-4172-906f-ab5075727363" name="Changes" comment="Fixing button selections, styling, loading to list on start">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/MainViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/MainViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/createfoodmainmethods/CreateFoodMainMethods.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/createfoodmainmethods/CreateFoodMainMethods.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/listViewShowAndHideFunctions/ListViewFunctionsForMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/listViewShowAndHideFunctions/ListViewFunctionsForMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/login-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/login-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/main-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/main-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/style/loginFormStyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/style/loginFormStyle.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/style/mainFormStlye.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/style/mainFormStlye.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/update-food-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/update-food-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,7 +50,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "extract.method.default.visibility": "private",
-    "last_opened_file_path": "C:/Users/oktatas/Downloads/M_N/Muscles-Project-munka/desktop/src/main/resources/hu/muscles/desktop/style/backgrounds",
+    "last_opened_file_path": "C:/Users/k2347/IdeaProjects/Muscles-projekt-munka/desktop",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -103,7 +97,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.app" />
+        <item itemvalue="Application.App" />
       </list>
     </recent_temporary>
   </component>
@@ -117,6 +111,7 @@
       <updated>1678361741933</updated>
       <workItem from="1678361743381" duration="16631000" />
       <workItem from="1680006862680" duration="214781000" />
+      <workItem from="1681993328416" duration="1011000" />
     </task>
     <task id="LOCAL-00001" summary="refactoring (renaming)">
       <created>1678362647589</created>
