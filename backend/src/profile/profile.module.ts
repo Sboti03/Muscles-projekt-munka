@@ -1,6 +1,5 @@
 import {Module} from '@nestjs/common';
 import {ProfileGetService} from './services/profile-get/profile-get.service';
-import {ProfileCreateController} from './controllers/profile-create/profile-create.controller';
 import {ProfileCreateService} from './services/profile-create/profile-create.service';
 import {ProfileUpdateService} from './services/profile-update/profile-update.service';
 import {ProfileDeleteService} from './services/profile-delete/profile-delete.service';
@@ -29,7 +28,7 @@ import { ProfileImageController } from './controllers/profile-image/profile-imag
         ImageService,
         ProfileImageService
     ],
-    controllers: [ProfileCreateController, ProfileUpdateController, ProfileGetController, ProfileImageController],
+    controllers: [ProfileUpdateController, ProfileGetController, ProfileImageController],
     exports:
         [ProfileGetService,
         ProfileCreateService,
