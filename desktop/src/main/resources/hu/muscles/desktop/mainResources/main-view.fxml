@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXListView?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox id="main-bg" fx:id="mainVbox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@mainFormStlye.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.muscles.desktop.controllers.MainViewController">
+   <children>
+      <GridPane alignment="TOP_CENTER" hgap="3.0" stylesheets="@mainFormStlye.css" VBox.vgrow="ALWAYS">
+        <columnConstraints>
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="1586.400146484375" minWidth="502.0" prefWidth="502.4000488281249" />
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="1422.399920654297" minWidth="10.0" prefWidth="1390.399951171875" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints maxHeight="1.7976931348623157E308" valignment="CENTER" />
+          <RowConstraints vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <VBox alignment="TOP_CENTER">
+               <children>
+                  <HBox alignment="CENTER" prefWidth="483.0" spacing="40.0" stylesheets="@mainFormStlye.css">
+                     <children>
+                        <ProgressIndicator fx:id="loading" focusTraversable="false" mouseTransparent="true" nodeOrientation="LEFT_TO_RIGHT" prefHeight="0.0" prefWidth="13.0" stylesheets="@mainFormStlye.css" visible="false" HBox.hgrow="ALWAYS" />
+                        <Button fx:id="profilesBtn" focusTraversable="false" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#profilesClick" prefHeight="35.0" prefWidth="170.0" stylesheets="@mainFormStlye.css" text="Profiles" />
+                        <Button fx:id="foodsBtn" focusTraversable="false" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#foodsClick" prefHeight="35.0" prefWidth="170.0" stylesheets="@mainFormStlye.css" text="Foods" />
+                     </children>
+                  </HBox>
+                  <JFXTextArea id="showListName" fx:id="showListNameText" editable="false" focusColor="#405aa800" focusTraversable="false" minHeight="-Infinity" mouseTransparent="true" prefHeight="41.0" prefWidth="502.0" stylesheets="@mainFormStlye.css" text="Foods" unFocusColor="#4d4d4d00">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <padding>
+                        <Insets left="33.0" top="9.0" />
+                     </padding>
+                  </JFXTextArea>
+               </children>
+            </VBox>
+            <VBox alignment="TOP_CENTER" spacing="20.0" stylesheets="@mainFormStlye.css" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
+               <children>
+                  <HBox alignment="TOP_CENTER" stylesheets="@mainFormStlye.css" VBox.vgrow="ALWAYS">
+                     <children>
+                        <VBox fx:id="editVbox" alignment="TOP_CENTER" stylesheets="@mainFormStlye.css" visible="false" />
+                        <VBox fx:id="showDataVbox" alignment="CENTER" stylesheets="@mainFormStlye.css" HBox.hgrow="ALWAYS" />
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox fx:id="buttonsHbox" alignment="CENTER_RIGHT" spacing="35.0" stylesheets="@mainFormStlye.css" VBox.vgrow="NEVER">
+                     <children>
+                        <Button fx:id="blockButton" focusTraversable="false" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#blockClick" prefHeight="35.0" prefWidth="170.0" stylesheets="@mainFormStlye.css" text="Block" visible="false" />
+                        <Button fx:id="unblockButton" focusTraversable="false" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#unblockClick" prefHeight="35.0" prefWidth="170.0" stylesheets="@mainFormStlye.css" text="Unblock" visible="false" />
+                        <Button fx:id="loadCreateBtn" focusTraversable="false" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#loadCreateClick" prefHeight="35.0" prefWidth="170.0" stylesheets="@mainFormStlye.css" text="Create" />
+                        <Button fx:id="deleteBtn" focusTraversable="false" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#deleteClick" prefHeight="35.0" prefWidth="170.0" stylesheets="@mainFormStlye.css" text="Delete" />
+                        <Button fx:id="undeleteBtn" focusTraversable="false" minHeight="35.0" minWidth="170.0" mnemonicParsing="false" onAction="#undeleteClick" prefHeight="35.0" prefWidth="170.0" stylesheets="@mainFormStlye.css" text="Undelete" />
+                     </children>
+                     <padding>
+                        <Insets right="40.0" />
+                     </padding>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets left="20.0" />
+               </padding>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+            </VBox>
+            <VBox alignment="CENTER" stylesheets="@mainFormStlye.css" GridPane.columnIndex="1">
+               <children>
+                  <VBox alignment="TOP_RIGHT" VBox.vgrow="ALWAYS">
+                     <children>
+                        <Button fx:id="exitButton" focusTraversable="false" minWidth="25.0" mnemonicParsing="false" onAction="#exitClick" stylesheets="@mainFormStlye.css" text="X">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <JFXTextArea id="messageBox" fx:id="messageTextArea" editable="false" focusColor="#405aa800" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mouseTransparent="true" prefHeight="42.0" prefWidth="705.0" stylesheets="@mainFormStlye.css" unFocusColor="#4d4d4d00">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <font>
+                        <Font size="19.0" />
+                     </font>
+                  </JFXTextArea>
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
+               <children>
+                  <JFXListView id="foodAndProfileMainListview" fx:id="mainListView" focusTraversable="false" prefHeight="300.0" prefWidth="627.0" stylesheets="@mainFormStlye.css" VBox.vgrow="ALWAYS" />
+                  <TextField id="searchBar" fx:id="searchField" focusTraversable="false" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="36.0" promptText="Search from the list here..." stylesheets="@mainFormStlye.css">
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </VBox>
+         </children>
+         <VBox.margin>
+            <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+         </VBox.margin>
+      </GridPane>
+   </children>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+</VBox>

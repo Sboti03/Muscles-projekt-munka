@@ -1,13 +1,9 @@
 package hu.muscles.desktop.controllers;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import hu.muscles.desktop.models.LoginModel;
 import hu.muscles.desktop.models.ProfileModel;
 import hu.muscles.desktop.models.UserModel;
-import hu.muscles.desktop.requestsender.RequestSender;
 import hu.muscles.desktop.urls.Urls;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -16,14 +12,10 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Background;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import org.controlsfx.control.PopOver;
-import hu.muscles.desktop.userData.User;
+import hu.muscles.desktop.responses.userResponse.User;
 
-import java.io.InputStream;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class ProfileInfoController implements Initializable {

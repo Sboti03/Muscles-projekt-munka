@@ -3,8 +3,8 @@ package hu.muscles.desktop.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jfoenix.controls.JFXTextArea;
 import hu.muscles.desktop.App;
-import hu.muscles.desktop.loginData.LoginResponse;
-import hu.muscles.desktop.messageFunctions.MessageFunctions;
+import hu.muscles.desktop.responses.loginResponse.LoginResponse;
+import hu.muscles.desktop.informUser.InformUser;
 import hu.muscles.desktop.models.LoginModel;
 import hu.muscles.desktop.urls.Urls;
 import javafx.application.Platform;
@@ -13,12 +13,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -44,7 +41,7 @@ public class LoginController implements Initializable {
     @FXML
     private ProgressIndicator loading;
 
-    private final MessageFunctions messageFunctions = new MessageFunctions();
+    private final InformUser informUser = new InformUser();
 
     private final static RestTemplate restTemplate = new RestTemplate();
     private final Urls url = new Urls();
@@ -57,7 +54,7 @@ public class LoginController implements Initializable {
         String password = passwordTextField.getText().trim();
 
         if (email.isEmpty() || password.isEmpty()) {
-            messageFunctions.setTextThenEmpty(infoArea, "In order to login, fill all gaps.", "#ef1400", 3);
+            informUser.setTextThenEmpty(infoArea, "In order to login, fill all gaps.", "#ef1400", 3);
             return;
         }
 
@@ -70,7 +67,7 @@ public class LoginController implements Initializable {
                 LoginResponse user = om.readValue(response, LoginResponse.class);
                 if (!userIsAdmin(user)) {
                     Platform.runLater(() -> {
-                        messageFunctions.setTextThenEmpty(infoArea, "Your profile does not have admin rights.", "#ef1400", 3);
+                        informUser.setTextThenEmpty(infoArea, "Your profile does not have admin rights.", "#ef1400", 3);
                         url.LOGOUT();
                     });
                     return null;
@@ -80,7 +77,7 @@ public class LoginController implements Initializable {
                     try {
                         showMainWindow(loginModel);
                     } catch (IOException e) {
-                        messageFunctions.setTextThenEmpty(infoArea, "ERROR: Couldn't load main page", "#ef1400", 3);
+                        informUser.setTextThenEmpty(infoArea, "ERROR: Couldn't load main page", "#ef1400", 3);
                     }
                 });
                 return null;
@@ -94,7 +91,7 @@ public class LoginController implements Initializable {
             @Override
             protected void failed() {
                 loading.setVisible(false);
-                messageFunctions.setTextThenEmpty(infoArea, messageFunctions.messageFromError((Exception) getException()), "#ef1400", 3);
+                informUser.setTextThenEmpty(infoArea, informUser.messageFromError((Exception) getException()), "#ef1400", 3);
             }
         };
         Thread loginThread = new Thread(loginTask);
@@ -114,7 +111,7 @@ public class LoginController implements Initializable {
     }
 
     private void showMainWindow(LoginModel loginModel) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("main-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/hu/muscles/desktop/mainResources/main-view.fxml"));
         Stage stage = (Stage) loginButton.getScene().getWindow();
         stage.getScene().setRoot(fxmlLoader.load());
         ((MainViewController) fxmlLoader.getController()).setLoginModelForMain(loginModel);

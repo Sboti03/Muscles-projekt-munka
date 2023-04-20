@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="608.0" prefWidth="715.0" styleClass="rootElements" stylesheets="@profileInfo.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.muscles.desktop.controllers.ProfileInfoController">
+   <children>
+      <HBox prefHeight="100.0" prefWidth="732.0" styleClass="rootElements" stylesheets="@profileInfo.css" VBox.vgrow="ALWAYS">
+         <children>
+            <ListView fx:id="dataLabelListView" focusTraversable="false" mouseTransparent="true" prefWidth="300.0" stylesheets="@profileInfo.css" />
+            <ListView fx:id="dataListView" focusTraversable="false" mouseTransparent="true" prefWidth="400.0" stylesheets="@profileInfo.css" />
+         </children>
+      </HBox>
+   </children>
+</VBox>

@@ -1,6 +1,5 @@
 package hu.muscles.desktop;
 
-import hu.muscles.desktop.controllers.LoginController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -15,10 +14,10 @@ import java.util.Objects;
 public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("login-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/hu/muscles/desktop/loginResources/login-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1080, 1920);
-        stage.setTitle("Login");
-        stage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/hu/muscles/desktop/style/backgrounds/icon.png"))));
+        stage.setTitle("Muscles Admin App");
+        stage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/hu/muscles/desktop/backgroundResources/icon.png"))));
         stage.setScene(scene);
         setNewWindow(scene, stage);
     }

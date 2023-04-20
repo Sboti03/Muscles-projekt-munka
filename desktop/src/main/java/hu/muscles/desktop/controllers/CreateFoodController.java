@@ -2,9 +2,10 @@ package hu.muscles.desktop.controllers;
 
 import com.jfoenix.controls.JFXTextArea;
 import hu.muscles.desktop.App;
-import hu.muscles.desktop.createfoodmainmethods.CreateFoodMainMethods;
-import hu.muscles.desktop.foodsData.UnitsEnum;
-import hu.muscles.desktop.messageFunctions.MessageFunctions;
+import hu.muscles.desktop.foodMethods.createfoodmainmethods.CreateFoodMainMethods;
+import hu.muscles.desktop.foodMethods.foodTextInput.FoodTextInput;
+import hu.muscles.desktop.responses.foodResponse.UnitsEnum;
+import hu.muscles.desktop.informUser.InformUser;
 import hu.muscles.desktop.models.LoginModel;
 import hu.muscles.desktop.urls.Urls;
 import javafx.event.ActionEvent;
@@ -57,8 +58,9 @@ public class CreateFoodController implements Initializable {
     private final Urls url = new Urls();
     private final RestTemplate restTemplate = new RestTemplate();
     private final CreateFoodMainMethods createFoodMainMethods = new CreateFoodMainMethods();
-    private final MessageFunctions messageFunctions = new MessageFunctions();
+    private final InformUser informUser = new InformUser();
     private static JFXTextArea staticMessageTextArea;
+    private final FoodTextInput foodTextInput = new FoodTextInput();
 
     public void setLoginModelCreateFood(LoginModel loginModel) {
         this.loginModel = loginModel;
@@ -66,7 +68,7 @@ public class CreateFoodController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        createFoodMainMethods.InitializeFields(kcalField, perUnitField, proteinField, fatField, carbohydrateField, saturatedFatField, polyunsaturatedFatField, monounsaturatedFatField, sugarField, fiberField, unitField);
+        foodTextInput.InitializeFields(kcalField, perUnitField, proteinField, fatField, carbohydrateField, saturatedFatField, polyunsaturatedFatField, monounsaturatedFatField, sugarField, fiberField, unitField);
         unitField.setValue((UnitsEnum.gram));
         staticMessageTextArea = messageTextArea;
         List<TextField> textFields = new ArrayList<>(List.of(nameField, kcalField, perUnitField, proteinField, fatField, saturatedFatField, carbohydrateField, monounsaturatedFatField, sugarField, fiberField, polyunsaturatedFatField));
@@ -81,18 +83,18 @@ public class CreateFoodController implements Initializable {
     @FXML
     public void cancelCreateFoodBtnClick(ActionEvent actionEvent) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("main-view.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/hu/muscles/desktop/mainResources/main-view.fxml"));
             Stage stage = (Stage) cancelCreateFoodBtn.getScene().getWindow();
             stage.getScene().setRoot(fxmlLoader.load());
             ((MainViewController) fxmlLoader.getController()).setLoginModelForMain(loginModel);
         } catch (IOException e) {
-            messageFunctions.setTextThenEmpty(messageTextArea, "Error in heading back to main.", "#ef1400", 3);
+            informUser.setTextThenEmpty(messageTextArea, "Error in heading back to main.", "#ef1400", 3);
         }
     }
 
     public static void setMessageForCreateTextArea(String text, String color, int seconds) {
-        MessageFunctions messageFunctions1 = new MessageFunctions();
-        messageFunctions1.setTextThenEmpty(staticMessageTextArea, text, color, seconds);
+        InformUser informUser1 = new InformUser();
+        informUser1.setTextThenEmpty(staticMessageTextArea, text, color, seconds);
     }
 }
 

@@ -1,9 +1,10 @@
 package hu.muscles.desktop.controllers;
 
 import com.jfoenix.controls.JFXTextArea;
-import hu.muscles.desktop.createfoodmainmethods.CreateFoodMainMethods;
-import hu.muscles.desktop.foodsData.FoodsCreateOrUpdate;
-import hu.muscles.desktop.foodsData.UnitsEnum;
+import hu.muscles.desktop.foodMethods.createfoodmainmethods.CreateFoodMainMethods;
+import hu.muscles.desktop.foodMethods.foodTextInput.FoodTextInput;
+import hu.muscles.desktop.responses.foodResponse.FoodsCreateOrUpdate;
+import hu.muscles.desktop.responses.foodResponse.UnitsEnum;
 import hu.muscles.desktop.models.FoodModel;
 import hu.muscles.desktop.models.LoginModel;
 import hu.muscles.desktop.urls.Urls;
@@ -62,6 +63,8 @@ public class UpdateFoodController {
     @FXML
     private JFXTextArea messageTextArea;
 
+    private final FoodTextInput foodTextInput = new FoodTextInput();
+
 
     @FXML
     public void updateFoodClick(ActionEvent actionEvent) {
@@ -87,7 +90,7 @@ public class UpdateFoodController {
 
     public void setUpdateModelForUpdate(FoodModel foodModel) {
         this.foodModel = foodModel;
-        createFoodMainMethods.InitializeFields(kcalField, perUnitField, proteinField, fatField, carbohydrateField, saturatedFatField, polyunsaturatedFatField, monounsaturatedFatField, sugarField, fiberField, unitField);
+        foodTextInput.InitializeFields(kcalField, perUnitField, proteinField, fatField, carbohydrateField, saturatedFatField, polyunsaturatedFatField, monounsaturatedFatField, sugarField, fiberField, unitField);
         nameField.setText(foodModel.getFood().getName());
         kcalField.setText(String.valueOf(foodModel.getFood().getKcal()));
         unitField.setValue(UnitsEnum.valueOf(foodModel.getFood().getUnit().getUnit()));
@@ -102,8 +105,7 @@ public class UpdateFoodController {
         fiberField.setText(String.valueOf(foodModel.getFood().getFiber()));
         foodOriginalValue = new FoodsCreateOrUpdate(foodModel.getFood().getName(), foodModel.getFood().getKcal(), UnitsEnum.valueOf(foodModel.getFood().getUnit().getUnit()), foodModel.getFood().getPerUnit(), foodModel.getFood().getProtein(), foodModel.getFood().getFat(), foodModel.getFood().getSaturatedFat(), foodModel.getFood().getPolyunsaturatedFat(), foodModel.getFood().getMonounsaturatedFat(), foodModel.getFood().getCarbohydrate(), foodModel.getFood().getSugar(), foodModel.getFood().getFiber());
         List<TextField> textFields = new ArrayList<>(List.of(nameField, kcalField, perUnitField, proteinField, fatField, saturatedFatField, carbohydrateField, monounsaturatedFatField, sugarField, fiberField, polyunsaturatedFatField));
-        createFoodMainMethods.addEnterExecution(textFields, true,null, this);
-
+        createFoodMainMethods.addEnterExecution(textFields, true, null, this);
     }
 
     private void resetFieldsToDefault() {
