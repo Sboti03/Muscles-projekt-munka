@@ -1,9 +1,7 @@
 package hu.muscles.desktop.models;
 
-import hu.muscles.desktop.loginData.LoginResponse;
+import hu.muscles.desktop.responses.loginResponse.LoginResponse;
 import javafx.beans.binding.ObjectBinding;
-import javafx.beans.value.ObservableObjectValue;
-import javafx.collections.FXCollections;
 
 public class LoginModel extends ObjectBinding<LoginResponse> {
     private final LoginResponse loginData;

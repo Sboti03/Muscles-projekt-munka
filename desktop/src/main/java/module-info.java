@@ -10,18 +10,18 @@ module hu.muscles.desktop {
     requires com.jfoenix;
 
     opens hu.muscles.desktop to javafx.fxml;
-    opens hu.muscles.desktop.loginData to com.fasterxml.jackson.databind;
-    opens hu.muscles.desktop.profileData to com.fasterxml.jackson.databind;
+    opens hu.muscles.desktop.responses.loginResponse to com.fasterxml.jackson.databind;
+    opens hu.muscles.desktop.responses.profileResponse to com.fasterxml.jackson.databind;
     opens hu.muscles.desktop.controllers to javafx.fxml;
     opens hu.muscles.desktop.urls to javafx.fxml;
-    opens hu.muscles.desktop.foodsData to com.fasterxml.jackson.databind;
-    opens hu.muscles.desktop.userData to com.fasterxml.jackson.databind;
+    opens hu.muscles.desktop.responses.foodResponse to com.fasterxml.jackson.databind;
+    opens hu.muscles.desktop.responses.userResponse to com.fasterxml.jackson.databind;
     exports hu.muscles.desktop.urls;
     exports hu.muscles.desktop;
     exports hu.muscles.desktop.controllers;
     exports hu.muscles.desktop.models;
-    exports hu.muscles.desktop.loginData;
-    exports hu.muscles.desktop.foodsData;
-    exports hu.muscles.desktop.profileData;
-    exports hu.muscles.desktop.userData;
+    exports hu.muscles.desktop.responses.loginResponse;
+    exports hu.muscles.desktop.responses.foodResponse;
+    exports hu.muscles.desktop.responses.profileResponse;
+    exports hu.muscles.desktop.responses.userResponse;
 }

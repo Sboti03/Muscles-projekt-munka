@@ -1,22 +1,22 @@
 package hu.muscles.desktop.models;
 
-import hu.muscles.desktop.profileData.Profiles;
+import hu.muscles.desktop.responses.profileResponse.Profile;
 import javafx.beans.binding.ObjectBinding;
 
-public class ProfileModel extends ObjectBinding<Profiles> {
-    private final Profiles profile;
+public class ProfileModel extends ObjectBinding<Profile> {
+    private final Profile profile;
 
-    public ProfileModel(Profiles profile) {
+    public ProfileModel(Profile profile) {
         this.profile = profile;
     }
 
 
-    public Profiles getProfile() {
+    public Profile getProfile() {
         return profile;
     }
 
     @Override
-    protected Profiles computeValue() {
+    protected Profile computeValue() {
         return profile;
     }
 }

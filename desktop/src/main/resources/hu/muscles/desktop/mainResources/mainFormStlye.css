@@ -1,0 +1,81 @@
+#main-bg {
+    -fx-background-color: #490c7a;
+    -fx-background-image: url('../backgroundResources/bg-main.png');
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+    -fx-background-repeat: no-repeat;
+}
+
+
+Button:focused {
+    -fx-border-radius: 8px;
+    -fx-background-color: #40115e;
+    -fx-border-color: #ee00ff;
+    -fx-text-fill: white;
+    -fx-background-radius: 8px;
+}
+Button {
+    -fx-border-color: #8200cc;
+    -fx-border-radius: 8px;
+    -fx-background-color: #460965;
+    -fx-text-fill: white;
+    -fx-background-radius: 8px;
+}
+Button:hover {
+    -fx-background-color: #40115e;
+    -fx-border-color: #ff00ea;
+    -fx-border-radius: 8px;
+    -fx-text-fill: white;
+    -fx-background-radius: 8px;
+}
+
+Button:pressed {
+    -fx-background-color: #40115e;
+    -fx-border-color: #ee00ff;
+    -fx-border-radius: 8px;
+    -fx-text-fill: white;
+    -fx-background-radius: 8px;
+}
+
+
+
+JFXListView {
+    -fx-background-color: rgba(31, 4, 73, 0.69);
+    -fx-text-alignment: center;
+    -fx-text-fill: white;
+}
+
+JFXListView .list-cell:odd, JFXListView .list-cell:even {
+    -fx-background-color: #1F0449B0
+}
+
+
+
+
+JFXListView .scroll-bar:vertical {
+    -fx-background-color: rgba(39, 6, 91, 0.69);
+}
+
+JFXListView .scroll-bar:vertical .thumb {
+    -fx-background-color: rgba(60, 8, 141, 0.69);
+}
+
+
+
+
+
+
+
+
+#messageBox {
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+#messageBox *.text {
+    -fx-text-alignment: center;
+}
+
+#showListName {
+    -fx-text-fill: white;
+}

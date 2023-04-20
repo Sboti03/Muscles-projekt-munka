@@ -1,0 +1,94 @@
+.main-root-login-form {
+    -fx-background-color: #490c7a;
+    -fx-background-image: url('../backgroundResources/login-bg.png');
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+    -fx-background-repeat: no-repeat;
+}
+
+
+/* login fields */
+.login-field {
+    -fx-background-color:
+            rgb(134, 42, 168),
+            rgb(251, 248, 255);
+    -fx-text-fill: rgb(134, 42, 168);
+}
+
+.login-field:focused {
+    -fx-background-insets: 0, 2;
+    -fx-border-color: white;
+    -fx-border-radius: 4px;
+    -fx-background-color:
+            rgb(134, 42, 168),
+            rgb(251, 248, 255);
+    -fx-text-fill: rgb(134, 42, 168);
+}
+
+.login-field:hover {
+    -fx-background-color:
+            rgb(247, 0, 255),
+            rgb(251, 248, 255);
+    -fx-text-fill: rgb(134, 42, 168);
+}
+.login-field:hover:focused {
+    -fx-background-insets: 0, 2;
+    -fx-border-color: white;
+    -fx-border-radius: 4px;
+    -fx-background-color:
+            rgb(134, 42, 168),
+            rgb(251, 248, 255);
+    -fx-text-fill: rgb(134, 42, 168);
+}
+
+
+/* message area */
+JFXTextArea {
+    -fx-text-fill: #ef1400;
+    -fx-text-alignment: center;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+}
+
+JFXTextArea *.text {
+    -fx-text-alignment: center;
+    -fx-padding-top: 30px;
+}
+
+
+/* login button */
+.login-button {
+    -fx-border-color: rgb(251, 248, 255);
+    -fx-border-radius: 4px;
+    -fx-background-color: #6b0c7b;
+    -fx-text-fill: white;
+    -fx-background-radius: 4px;
+}
+.login-button:focused {
+    -fx-background-color:
+            rgb(134, 42, 168),
+            rgba(107, 12, 123, 0.87);
+    -fx-text-fill: white;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+
+}
+
+.login-button:hover {
+    -fx-background-color:
+            rgb(134, 42, 168),
+            rgba(87, 9, 101, 0.87);
+    -fx-text-fill: white;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+}
+
+.login-button:pressed {
+    -fx-background-color: #400967;
+    -fx-border-color: #ee00ff;
+    -fx-text-fill: white;
+}
+
+ProgressIndicator {
+    -fx-accent: rgb(251, 248, 255);
+}

@@ -1,7 +1,6 @@
 package hu.muscles.desktop.models;
 
-import hu.muscles.desktop.profileData.Profiles;
-import hu.muscles.desktop.userData.User;
+import hu.muscles.desktop.responses.userResponse.User;
 import javafx.beans.binding.ObjectBinding;
 
 public class UserModel extends ObjectBinding<User> {

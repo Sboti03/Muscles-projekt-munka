@@ -1,22 +1,22 @@
 package hu.muscles.desktop.models;
 
-import hu.muscles.desktop.foodsData.Foods;
+import hu.muscles.desktop.responses.foodResponse.Food;
 import javafx.beans.binding.ObjectBinding;
 
-public class FoodModel extends ObjectBinding<Foods> {
-    private final Foods food;
+public class FoodModel extends ObjectBinding<Food> {
+    private final Food food;
 
-    public FoodModel(Foods foods) {
-        food = foods;
+    public FoodModel(Food food) {
+        this.food = food;
     }
 
 
-    public Foods getFood() {
+    public Food getFood() {
         return food;
     }
 
     @Override
-    protected Foods computeValue() {
+    protected Food computeValue() {
         return food;
     }
 }
