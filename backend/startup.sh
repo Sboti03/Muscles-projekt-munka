@@ -1,4 +1,5 @@
 sleep 5
-npm run migrate:prod
+npm run push:prod
+npm run seed:prod
 npm run start:prod
 
