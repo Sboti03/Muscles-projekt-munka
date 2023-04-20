@@ -13,13 +13,13 @@ import {toast} from "react-toastify";
 import {useTranslation} from "react-i18next";
 
 export default function RegisterPage() {
-    const {t} = useTranslation()
     const {register, setUser} = useContext(AuthContext)
     const {changePage} = useContext(NavigatorContext)
     const [isLoading, setIsLoading] = useState(false)
     const [isCoach, setIsCoach] = useState(false)
     const [isPasswordVisible, setIsPasswordVisible] = useState(false)
     const [isRePasswordVisible, setReIsPasswordVisible] = useState(false)
+    const {t} = useTranslation()
 
     const handleRegister = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -45,7 +45,6 @@ export default function RegisterPage() {
             return;
         }
         const registerData: RegisterData = {email, password, isCoach}
-        setIsLoading(true)
         handleRegisterResponse(registerData)
     }
 
