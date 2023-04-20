@@ -21,13 +21,29 @@ export class UserGetService {
         });
     }
 
+    getUserRefreshTokensById(userId: number) {
+        return this.prismaService.users.findUnique({
+            where: {
+                userId
+            },
+            select: {
+                refreshTokens: true
+            }
+        })
+    }
+
     getUserById(userId: number) {
         return this.prismaService.users.findUnique({
             where: {
                 userId,
             },
             include: {
-                role: true
+                role: true,
+                profileData: {
+                    select: {
+                        profileId: true
+                    }
+                }
             },
         });
     }

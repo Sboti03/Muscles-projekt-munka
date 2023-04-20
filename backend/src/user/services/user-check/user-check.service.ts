@@ -2,7 +2,7 @@ import {Injectable} from '@nestjs/common';
 import { PrismaService } from '../../../Common/utils/prirsma.service';
 import { compareData } from '../../../Common/utils/bcrypt';
 import { UserGetService } from '../user-get/user-get.service';
-
+import * as argon2 from 'argon2'
 @Injectable()
 export class UserCheckService {
   constructor(
@@ -21,11 +21,12 @@ export class UserCheckService {
   }
 
   async checkRefreshToken(refreshToken: string, userId: number) {
-    const user = await this.getUserService.getUserById(userId);
+    const user = await this.getUserService.getUserRefreshTokensById(userId);
 
     if (user && user.refreshTokens) {
       for (const token of user.refreshTokens) {
-        if (compareData(refreshToken, token)) {
+        const result = await argon2.verify(token, refreshToken)
+        if (result) {
           return true;
         }
       }

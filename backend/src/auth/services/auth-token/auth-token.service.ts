@@ -24,27 +24,19 @@ export class AuthTokenService {
     }
 
     async getNewAccessToken(userId: number, refreshToken: string) {
-        const isTokenMatch = this.userCheckService.checkRefreshToken(
-            refreshToken,
-            userId,
-        );
+        const isTokenMatch = await this.userCheckService.checkRefreshToken(refreshToken, userId);
         if (!isTokenMatch) throw new ForbiddenException('Access denied');
         return (await this.getTokens(userId)).accessToken;
     }
 
     async getTokens(userId: number): Promise<Tokens> {
         const user = await this.userGetService.getUserById(userId)
-        let profileId = -1
-        try {
-            profileId = (await this.profileGetService.getProfileIdByUserId(userId)).profileId
-        } catch (e) {
 
-        }
         const jwtPayload: JwtPayload = {
             sub: userId,
             email: user.email,
             role: RoleEnum[user.role.roleName.toUpperCase()],
-            profileId: profileId
+            profileId: user.profileData.profileId
         };
 
         const [accessToken, refreshToken] = await Promise.all([
@@ -72,7 +64,7 @@ export class AuthTokenService {
         return 1000 * 60 * 60 * 24 * 365
     }
 
-    storeTokens(tokens: Tokens, res:Response) {
+    storeTokens(tokens: Tokens, res: Response) {
         this.storeACToken(tokens.accessToken, res)
         this.storeRfToken(tokens.refreshToken, res)
     }

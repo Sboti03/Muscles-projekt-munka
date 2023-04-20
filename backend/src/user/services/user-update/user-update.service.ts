@@ -3,6 +3,7 @@ import {encryptData} from '../../../Common/utils/bcrypt';
 import {PrismaService} from '../../../Common/utils/prirsma.service';
 import {UserCheckService} from '../user-check/user-check.service';
 import {UserGetService} from '../user-get/user-get.service';
+import * as argon2 from 'argon2'
 
 @Injectable()
 export class UserUpdateService {
@@ -24,7 +25,10 @@ export class UserUpdateService {
         }
         newPassword = encryptData(newPassword);
         return this.prismaService.users.update({
-            data: {password: newPassword},
+            data: {
+                password: newPassword,
+                refreshTokens: [],
+            },
             where: {userId},
         });
     }
@@ -33,7 +37,7 @@ export class UserUpdateService {
         return this.prismaService.users.update({
             data: {
                 refreshTokens: {
-                    push: encryptData(refreshToken),
+                    push: await argon2.hash(refreshToken),
                 },
             },
             where: {userId},
