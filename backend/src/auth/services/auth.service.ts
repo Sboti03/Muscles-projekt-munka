@@ -17,6 +17,8 @@ import { UserCreateService } from '../../user/services/user-create/user-create.s
 import {JwtService} from "@nestjs/jwt";
 import {AuthTokenService} from "./auth-token/auth-token.service";
 import {UserDeleteService} from "../../user/services/user-delete/user-delete.service";
+import {PrismaError} from "prisma-error-enum";
+import {roles, users} from "@prisma/client";
 
 @Injectable()
 export class AuthService {
@@ -53,17 +55,7 @@ export class AuthService {
             throw new ForbiddenException('No user found');
         }
 
-        const { password, refreshTokens, ...rest } = user;
-        const tokens = await this.authTokenService.getTokens(user.userId);
-        await this.userUpdateService.pushNewRefreshToken(
-            tokens.refreshToken,
-            user.userId,
-        );
-        Logger.log(`User logged in ${rest.email} ${user.role.roleName}`)
-        return {
-            user: rest,
-            tokens,
-        };
+        return this.handleUserLogin(user);
     }
 
 
@@ -79,20 +71,28 @@ export class AuthService {
 
 
     async register(createUserDto: CreateUserDto) {
-        const exist = await this.userCheckService.checkExistingUserByEmail(
-            createUserDto.email,
-        );
-        if (exist) throw new ForbiddenException('User already exists');
-
         const userInput = await this.userGetService.getUsersCreateInput(createUserDto);
 
-        const user = await this.userCreateService.createUser(userInput);
-        const { password, ...rest } = user;
+        try {
+            const user = await this.userCreateService.createUser(userInput);
+            return this.handleUserLogin(user);
+        } catch (e) {
+            if (e.code === PrismaError.UniqueConstraintViolation)  {
+                Logger.log(`Email already in use ${createUserDto.email}`)
+                throw new ForbiddenException('Email already in use');
+            }
+            throw e;
+        }
+    }
+
+    async handleUserLogin(user: users & {role: roles}) {
+        const { password, refreshTokens, ...rest } = user;
         const tokens = await this.authTokenService.getTokens(user.userId);
         await this.userUpdateService.pushNewRefreshToken(
             tokens.refreshToken,
             user.userId,
         );
+        Logger.log(`User logged in ${rest.email} ${user.role.roleName}`)
         return {
             user: rest,
             tokens,

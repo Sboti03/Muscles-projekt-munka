@@ -101,14 +101,6 @@ export class AuthController {
         return acToken
     }
 
-
-    @Roles(RoleEnum.ADMIN)
-    @UseGuards(AccessTokenGuard, RolesGuard)
-    @Get('admin')
-    admin() {
-        return 'Szia admin báttya'
-    }
-
     @UseGuards(AccessTokenGuard)
     @Get('logout')
     logout(@Res({passthrough: true}) res: Response, @GetCurrentUserId() userId: number, @GetCurrentUserRefreshToken() refreshToken: string) {
@@ -119,8 +111,15 @@ export class AuthController {
 
     @UseGuards(AccessTokenGuard)
     @Patch('password')
-    changePassword(@Body() passwordChangeDto: PasswordChangeDto, @GetCurrentUserId() userId: number) {
-        return this.userUpdateService.updatePassword(passwordChangeDto.oldPassword, passwordChangeDto.newPassword, userId)
+    async changePassword(@Res({passthrough: true}) res: Response, @Body() passwordChangeDto: PasswordChangeDto, @GetCurrentUserId() userId: number) {
+        await this.userUpdateService.updatePassword(passwordChangeDto.oldPassword, passwordChangeDto.newPassword, userId)
+        const newToken = await this.authTokenService.getNewRefreshToken(userId);
+        this.authTokenService.storeRfToken(newToken, res)
+        await this.userUpdateService.pushNewRefreshToken(newToken, userId)
+            .catch(() => {
+                throw new ConflictException('Error while pushing new token')
+            });
+        return {newToken}
     }
 
 }

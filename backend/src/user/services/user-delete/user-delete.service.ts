@@ -3,8 +3,7 @@ import {compareData} from '../../../Common/utils/bcrypt';
 import {UserCheckService} from '../user-check/user-check.service';
 import {PrismaService} from '../../../Common/utils/prirsma.service';
 import {UserGetService} from '../user-get/user-get.service';
-import * as bcrypt from 'bcrypt'
-import {compareSync} from "bcrypt";
+import * as argon2 from 'argon2'
 
 @Injectable()
 export class UserDeleteService {
@@ -18,17 +17,16 @@ export class UserDeleteService {
     async deleteRefreshTokenById(userId: number, refreshToken: string) {
         const {refreshTokens} = await this.userGetService.getTokensByUserId(userId);
         let newTokens = []
-        Logger.log(refreshTokens)
-        for (let i = 0; i < refreshTokens.length; i++) {
-            Logger.log(refreshTokens[i])
-            Logger.log(i)
-            if (!compareData(refreshToken, refreshTokens[i])) {
-                newTokens.push(refreshTokens[i])
+
+        for (const token of refreshTokens) {
+            const result = await argon2.verify(token, refreshToken)
+            if (!result) {
+                Logger.log('Not match')
+                newTokens.push(token)
             } else {
-                Logger.log("Same token found at: " + i)
+                Logger.log('Match')
             }
         }
-        Logger.log(newTokens)
 
         return this.prismaService.users.update({
             where: {userId},
