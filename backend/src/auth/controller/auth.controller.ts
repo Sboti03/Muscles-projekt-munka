@@ -6,13 +6,16 @@ import {
     Get,
     Header,
     HttpCode,
-    HttpStatus, Logger, NotFoundException, Patch,
+    HttpStatus,
+    Logger,
+    NotFoundException,
+    Patch,
     Post,
     Req,
     Res,
     UseGuards
 } from "@nestjs/common";
-import {GetCurrentUserId, GetCurrentUserRefreshToken, } from '../decorators/decorators';
+import {GetCurrentUserId, GetCurrentUserRefreshToken,} from '../decorators/decorators';
 import {RefreshTokenGuard} from '../guards/refresh-token.guard';
 import {LocalAuthGuard} from '../guards/local-auth.guard';
 import {AuthService} from '../services/auth.service';
@@ -27,7 +30,7 @@ import {Response} from "express";
 import {UserCheckService} from "../../user/services/user-check/user-check.service";
 import {UserDeleteService} from "../../user/services/user-delete/user-delete.service";
 import {UserUpdateService} from "../../user/services/user-update/user-update.service";
-import { PasswordChangeDto } from "../dto/password-change.dto";
+import {PasswordChangeDto} from "../dto/password-change.dto";
 import {ApiOkResponse, ApiResponse, ApiTags} from "@nestjs/swagger";
 import LoginResponse from "../dto/login.response";
 
@@ -35,9 +38,10 @@ import LoginResponse from "../dto/login.response";
 @Controller('auth')
 export class AuthController {
     constructor(private authService: AuthService, private authTokenService: AuthTokenService,
-                private userCheckService:UserCheckService,
-                private userDeleteService:UserDeleteService,
-                private userUpdateService: UserUpdateService) {}
+                private userCheckService: UserCheckService,
+                private userDeleteService: UserDeleteService,
+                private userUpdateService: UserUpdateService) {
+    }
 
     @UseGuards(LocalAuthGuard)
     @Post('login')
@@ -69,7 +73,9 @@ export class AuthController {
     async getRefreshToken(@Res({passthrough: true}) res: Response, @GetCurrentUserId() userId: number, @GetCurrentUserRefreshToken() refreshToken: string) {
         Logger.log(`/auth/refresh (GET)`)
         const isTokenMatch = await this.userCheckService.checkRefreshToken(refreshToken, userId);
-        if (!isTokenMatch) { throw new ForbiddenException('Access denied') }
+        if (!isTokenMatch) {
+            throw new ForbiddenException('Access denied')
+        }
         await this.userDeleteService.deleteRefreshTokenById(userId, refreshToken);
         const newToken = await this.authTokenService.getNewRefreshToken(userId);
         this.authTokenService.storeRfToken(newToken, res)
@@ -105,7 +111,7 @@ export class AuthController {
 
     @UseGuards(AccessTokenGuard)
     @Get('logout')
-    logout(@Res({passthrough: true}) res: Response, @GetCurrentUserId() userId: number, @GetCurrentUserRefreshToken() refreshToken: string){
+    logout(@Res({passthrough: true}) res: Response, @GetCurrentUserId() userId: number, @GetCurrentUserRefreshToken() refreshToken: string) {
         res.clearCookie('accessToken')
         res.clearCookie('refreshToken')
         return this.authService.logOut(userId, refreshToken)
