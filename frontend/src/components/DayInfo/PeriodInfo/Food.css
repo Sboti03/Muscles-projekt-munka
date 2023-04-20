@@ -1,0 +1,43 @@
+.food {
+    display: grid;
+    grid-template-columns: 5fr 0.5fr 1fr 0.5fr;
+    text-align: center;
+    height: 40px;
+    align-items: center;
+    border-radius: 20pt;
+    transition: background-color 100ms ease-in-out;
+    background: none;
+    font-size: 16px;
+    width: 100%;
+}
+
+
+
+.food-btn {
+    margin: 0 10px 0 10px;
+    border: none;
+    font-size: 16px;
+    background: none;
+    display: grid;
+    height: 40px;
+    border-radius: 20pt;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+}
+.delete-btn {
+    width: 40px !important;
+    height: 40px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+
+.food-btn:hover {
+    cursor: pointer;
+    background-color: rgba(111, 0, 179, 0.09);
+    transition: background-color 100ms ease-in-out;
+}
+
+.food-btn:active {
+    background-color: rgba(111, 0, 179, 0.23);
+}

@@ -1,0 +1,24 @@
+
+.mainText {
+    font-size: 30px;
+}
+.welcome-bg {
+
+}
+
+
+.nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    text-align: center;
+    margin: 0 10px 0 10px;
+
+}
+
+
+.navBtn {
+    display: flex;
+    justify-content: right;
+    gap: 10px;
+    align-items: center;
+}

@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import axios, {Axios} from "axios";
 import {AxiosResponse} from 'axios'
 
-function useFetch<T>(path: string, method: Methods, body?: Object) {
+function useFetch<T>(path: string, method: Methods, body?: Object, then?: Function) {
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState<any>(undefined)
     const [response, setResponse] = useState<T | undefined>(undefined)
@@ -12,7 +12,11 @@ function useFetch<T>(path: string, method: Methods, body?: Object) {
             setIsLoading(true)
             try {
                 const res = await getAxios(path, method, body)
-                setResponse(res.data as T)
+                const result = res.data as T
+                for (let key in result) {
+                    result[key] = removeNull(result[key])
+                }
+                setResponse(result)
             } catch (error: any) {
                 if (error.response) {
                     setError(error.response.data)
@@ -34,7 +38,7 @@ function useFetch<T>(path: string, method: Methods, body?: Object) {
 export async function singleFetch<T>(path: string, method: Methods, body?: Object) {
     try {
         const res = await getAxios(path, method, body)
-        return {response: res as T}
+        return {response: res.data as T}
     } catch (error: any) {
         if (error.response) {
             return {error: error.response.data}
@@ -46,7 +50,12 @@ export async function singleFetch<T>(path: string, method: Methods, body?: Objec
     }
 }
 
-
+function removeNull(obj: any) {
+    if (obj === null) {
+        return undefined
+    }
+    return obj
+}
 
 
 export enum Methods {
@@ -54,6 +63,7 @@ export enum Methods {
     GET,
     DELETE,
     PATCH,
+    FILE,
 }
 
 
@@ -64,9 +74,15 @@ function getAxios(path: string, method: Methods, body?: Object) {
         case Methods.POST:
             return axios.post(path, body)
         case Methods.PATCH:
-            return axios.patch(path)
+            return axios.patch(path, body)
         case Methods.DELETE:
             return axios.delete(path)
+        case Methods.FILE:
+            return axios.post(path, body, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
     }
 }
 

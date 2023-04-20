@@ -1,0 +1,23 @@
+.formLabel {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.formContainer {
+    max-width: 200px;
+    margin: 0 auto;
+}
+
+.formContainer > form > div {
+    margin: 10px;
+}
+
+
+.container {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.btn {
+    display: grid;
+}
