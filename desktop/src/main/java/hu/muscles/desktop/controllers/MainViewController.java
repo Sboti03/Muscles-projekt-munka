@@ -175,12 +175,8 @@ public class MainViewController implements Initializable {
         buttonsHbox.visibleProperty().bind(Bindings.createBooleanBinding(() -> !mainListView.getItems().isEmpty(), mainListView.getItems()));
         Platform.runLater(() -> foodsClick(new ActionEvent()));
 
-
-        // TODO test -- need fix
-
-
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!mainListView.getItems().isEmpty()) {
+            if (isFoodShown || isProfileShown) {
                 ObservableList<String> items = FXCollections.observableArrayList();
                 for (String item : originalMainItems) {
                     if (item.toLowerCase().contains(newValue.toLowerCase())) {
@@ -189,16 +185,12 @@ public class MainViewController implements Initializable {
                 }
                 mainListView.setItems(items);
                 if (items.isEmpty()) {
-                    mainListView.setMouseTransparent(true);
                     mainListView.setPlaceholder(new Label("No matches found"));
                 } else {
-                    mainListView.setMouseTransparent(false);
                     mainListView.setPlaceholder(null);
                 }
             }
         });
-
-
 
     }
 
@@ -260,6 +252,9 @@ public class MainViewController implements Initializable {
 
     @FXML
     public void profilesClick(ActionEvent actionEvent) {
+        Platform.runLater(() -> {
+            loading.setVisible(true);
+        });
         isFoodShown = false;
         mainListViewHelper.changeButtonsBetweenProfileAndFood(true, undeleteBtn, loadCreateBtn, deleteBtn, blockButton, unblockButton, editVbox, showDataVbox);
         mainListView.getSelectionModel().clearSelection();
@@ -283,11 +278,17 @@ public class MainViewController implements Initializable {
         } catch (Exception e) {
             mainListViewHelper.couldNotLoadFoodOrProfilesTextSetter(messageTextArea, true, e);
         }
+        Platform.runLater(() -> {
+            loading.setVisible(false);
+        });
     }
 
 
     @FXML
     public void foodsClick(ActionEvent actionEvent) {
+        Platform.runLater(() -> {
+            loading.setVisible(true);
+        });
         mainListView.setBackground(Background.fill(Paint.valueOf("#1F0449B0")));
         isProfileShown = false;
         mainListViewHelper.changeButtonsBetweenProfileAndFood(false, undeleteBtn, loadCreateBtn, deleteBtn, blockButton, unblockButton, editVbox, showDataVbox);
@@ -311,6 +312,9 @@ public class MainViewController implements Initializable {
         } catch (Exception e) {
             mainListViewHelper.couldNotLoadFoodOrProfilesTextSetter(messageTextArea, false, e);
         }
+        Platform.runLater(() -> {
+            loading.setVisible(false);
+        });
     }
 
     @FXML

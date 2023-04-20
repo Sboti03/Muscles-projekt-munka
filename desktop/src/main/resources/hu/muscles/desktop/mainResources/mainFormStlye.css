@@ -50,6 +50,9 @@ JFXListView .list-cell:odd, JFXListView .list-cell:even {
 }
 
 
+JFXListView .placeholder .label {
+    -fx-text-fill: white;
+}
 
 
 JFXListView .scroll-bar:vertical {
@@ -60,8 +63,17 @@ JFXListView .scroll-bar:vertical .thumb {
     -fx-background-color: rgba(60, 8, 141, 0.69);
 }
 
-
-
+#searchBar {
+    -fx-background-color: #1F0449B0;
+    -fx-text-fill: white;
+}
+#searchBar .placeholder {
+    -fx-text-fill: white;
+}
+#searchBar:focused {
+    -fx-border-color: rgba(19, 2, 50, 0.69);
+    -fx-text-fill: white;
+}
 
 
 
