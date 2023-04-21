@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="00e91fc0-96b8-4172-906f-ab5075727363" name="Changes" comment="admin check when delete">
+    <list default="true" id="00e91fc0-96b8-4172-906f-ab5075727363" name="Changes" comment="Replacing background color settings to css">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/mainContentLoad/loadToMainListView/LoadToMainListview.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/mainContentLoad/loadToMainListView/LoadToMainListview.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/mainResources/mainFormStlye.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/mainResources/mainFormStlye.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/MainViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/MainViewController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,7 +115,7 @@
       <workItem from="1680006862680" duration="214781000" />
       <workItem from="1681993328416" duration="21407000" />
       <workItem from="1682028359837" duration="5503000" />
-      <workItem from="1682056688289" duration="13600000" />
+      <workItem from="1682056688289" duration="15113000" />
     </task>
     <task id="LOCAL-00001" summary="refactoring (renaming)">
       <created>1678362647589</created>
@@ -405,7 +404,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682064987382</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="Replacing background color settings to css">
+      <created>1682074387536</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1682074387536</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -423,7 +429,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Profile load in ListView" />
     <MESSAGE value="fixing selection in case of error" />
     <MESSAGE value="refactoring code" />
     <MESSAGE value="refactoring code and little changes" />
@@ -448,7 +453,8 @@
     <MESSAGE value="search between loaded foods and profiles" />
     <MESSAGE value="show loading progress indicator in main + refactoring code" />
     <MESSAGE value="admin check when delete" />
-    <option name="LAST_COMMIT_MESSAGE" value="admin check when delete" />
+    <MESSAGE value="Replacing background color settings to css" />
+    <option name="LAST_COMMIT_MESSAGE" value="Replacing background color settings to css" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
