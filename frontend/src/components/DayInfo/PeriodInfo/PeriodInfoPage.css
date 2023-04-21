@@ -38,23 +38,3 @@
 
 }
 
-
-.add-btn {
-    background: none;
-    font-size: 25px;
-    color: #6F00B3;
-    border-radius: 10px;
-    border: 1px solid black;
-    padding: 5px;
-}
-
-.add-btn:hover {
-    cursor: pointer;
-    color: #58008a;
-    background-color: rgba(111, 0, 179, 0.12);
-}
-
-.add-btn:active {
-    color: #7800c2;
-    background-color: rgba(111, 0, 179, 0.14);
-}
