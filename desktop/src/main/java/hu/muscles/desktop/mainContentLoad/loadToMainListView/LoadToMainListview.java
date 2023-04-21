@@ -4,11 +4,13 @@ package hu.muscles.desktop.mainContentLoad.loadToMainListView;
 import hu.muscles.desktop.responses.foodResponse.Food;
 import hu.muscles.desktop.responses.profileResponse.Profile;
 import hu.muscles.desktop.responses.userResponse.User;
+import javafx.application.Platform;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Background;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,10 +37,10 @@ public class LoadToMainListview {
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
                 if (empty || item == null) {
-                    setText(null);
+                    Platform.runLater(() -> setText(null));
                     setBackground(Background.fill(Paint.valueOf("#1F0449B0")));
                 } else {
-                    setText(item);
+                    Platform.runLater(() -> setText(item));
                     int index = getIndex();
                     setBackground(Background.fill(Paint.valueOf("#1F0449B0")));
                     if (index >= 0 && index < profiles.size() && item.contains("#BLOCKED#")) {
@@ -72,10 +74,10 @@ public class LoadToMainListview {
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
                 if (empty || item == null) {
-                    setText(null);
+                    Platform.runLater(() -> setText(null));
                     setBackground(Background.fill(Paint.valueOf("#1F0449B0")));
                 } else {
-                    setText(item);
+                    Platform.runLater(() -> setText(item));
                     setBackground(Background.fill(Paint.valueOf("#1F0449B0")));
                     int index = getIndex();
                     if (index >= 0 && index < foods.size() && item.contains("#DELETED#")) {

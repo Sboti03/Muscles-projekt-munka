@@ -23,6 +23,7 @@ import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -91,7 +92,6 @@ public class MainViewController implements Initializable {
     private UserModel userModel;
     private FoodModel foodModel;
     private ProfileModel profileModel;
-    private RestTemplate restTemplate = new RestTemplate();
     private boolean isProfileShown = false;
     private boolean isFoodShown = false;
     private LoadFromServerToPojo loadFromServerToPOJO;
@@ -216,124 +216,155 @@ public class MainViewController implements Initializable {
 
     @FXML
     public void deleteClick(ActionEvent actionEvent) {
-        if (!isProfileShown && isFoodShown) {
-            int index = mainListViewHelper.getCurrentSelectedItemIndex(mainListView);
-            Optional<Food> optionalFood = foods.stream().filter(food1 -> food1.getFoodId() == index).findFirst();
-            if (optionalFood.isPresent()) {
-                Food food = optionalFood.get();
-                if (!food.isDeleted()) {
-                    sendRequest(HttpMethod.DELETE, url.DELETE_FOOD(index), actionEvent, "Food deleted successfully", "An error has occurred.", "ERROR: Couldn't delete profile.", true);
-                } else {
-                    informUser.setTextThenEmpty(messageTextArea, "Food is deleted already.", "#ef1400", 3);
+        loading.setVisible(true);
+        Task<Void> task = new Task<>() {
+            @Override
+            protected Void call() throws Exception {
+                if (!isProfileShown && isFoodShown) {
+                    int index = mainListViewHelper.getCurrentSelectedItemIndex(mainListView);
+                    Optional<Food> optionalFood = foods.stream().filter(food1 -> food1.getFoodId() == index).findFirst();
+                    if (optionalFood.isPresent()) {
+                        Food food = optionalFood.get();
+                        if (!food.isDeleted()) {
+                            sendRequest(HttpMethod.DELETE, url.DELETE_FOOD(index), actionEvent, "Food deleted successfully", "An error has occurred.", "ERROR: Couldn't delete profile.", true);
+                        } else {
+                            informUser.setTextThenEmpty(messageTextArea, "Food is deleted already.", "#ef1400", 3);
+                        }
+                    } else {
+                        informUser.setTextThenEmpty(messageTextArea, "Please select an item from the list!", "#ef1400", 3);
+                    }
                 }
-            } else {
-                informUser.setTextThenEmpty(messageTextArea, "Please select an item from the list!", "#ef1400", 3);
+                return null;
             }
-        }
+        };
+        task.setOnSucceeded(event -> loading.setVisible(false));
+        new Thread(task).start();
     }
 
     @FXML
     public void undeleteClick(ActionEvent actionEvent) {
-        if (!isProfileShown && isFoodShown) {
-            int index = mainListViewHelper.getCurrentSelectedItemIndex(mainListView);
-            Optional<Food> optionalFood = foods.stream().filter(food1 -> food1.getFoodId() == index).findFirst();
-            if (optionalFood.isPresent()) {
-                Food food = optionalFood.get();
-                if (food.isDeleted()) {
-                    sendRequest(HttpMethod.PATCH, url.UNDELETE_FOOD(index), actionEvent, "Food undeleted successfully", "An error has occurred.", "ERROR: Couldn't undelete food.", true);
-                } else {
-                    informUser.setTextThenEmpty(messageTextArea, "Food isn't deleted.", "#ef1400", 3);
+        loading.setVisible(true);
+        Task<Void> task = new Task<>() {
+            @Override
+            protected Void call() throws Exception {
+                if (!isProfileShown && isFoodShown) {
+                    int index = mainListViewHelper.getCurrentSelectedItemIndex(mainListView);
+                    Optional<Food> optionalFood = foods.stream().filter(food1 -> food1.getFoodId() == index).findFirst();
+                    if (optionalFood.isPresent()) {
+                        Food food = optionalFood.get();
+                        if (food.isDeleted()) {
+                            sendRequest(HttpMethod.PATCH, url.UNDELETE_FOOD(index), actionEvent, "Food undeleted successfully", "An error has occurred.", "ERROR: Couldn't undelete food.", true);
+                        } else {
+                            informUser.setTextThenEmpty(messageTextArea, "Food isn't deleted.", "#ef1400", 3);
+                        }
+                    } else {
+                        informUser.setTextThenEmpty(messageTextArea, "Please select an item from the list!", "#ef1400", 3);
+                    }
                 }
-            } else {
-                informUser.setTextThenEmpty(messageTextArea, "Please select an item from the list!", "#ef1400", 3);
+                return null;
             }
-        }
+        };
+        task.setOnSucceeded(event -> loading.setVisible(false));
+        new Thread(task).start();
     }
 
     @FXML
     public void profilesClick(ActionEvent actionEvent) {
-        Platform.runLater(() -> {
-            loading.setVisible(true);
-        });
-        isFoodShown = false;
-        mainListViewHelper.changeButtonsBetweenProfileAndFood(true, undeleteBtn, loadCreateBtn, deleteBtn, blockButton, unblockButton, editVbox, showDataVbox);
-        mainListView.getSelectionModel().clearSelection();
-        mainListView.getItems().clear();
-        editVbox.setVisible(false);
+        loading.setVisible(true);
         showListNameText.setText("Profile");
-        try {
-            profiles = loadFromServerToPOJO.loadAllProfile(rqs.sendGet(this.url.GET_ALL_PROFILE(), loginModel));
-        } catch (IOException e) {
-            mainListViewHelper.couldNotLoadFoodOrProfilesTextSetter(messageTextArea, true, e);
-        }
-        try {
-            users = getUsersList();
-            if (profiles != null && users != null) {
-                loadToMainListview.loadProfilesToListView(profiles, users);
-                isProfileShown = true;
-                originalMainItems = mainListView.getItems();
-            } else {
-                informUser.setTextThenEmpty(messageTextArea, "An error has occurred while loading profiles", "#ef1400", 3);
+        mainListView.getItems().clear();
+        Task<Void> task = new Task<>() {
+            @Override
+            protected Void call() throws Exception {
+                isFoodShown = false;
+                mainListViewHelper.changeButtonsBetweenProfileAndFood(true, undeleteBtn, loadCreateBtn, deleteBtn, blockButton, unblockButton, editVbox, showDataVbox);
+                try {
+                    profiles = loadFromServerToPOJO.loadAllProfile(rqs.sendGet(url.GET_ALL_PROFILE(), loginModel));
+                } catch (IOException e) {
+                    mainListViewHelper.couldNotLoadFoodOrProfilesTextSetter(messageTextArea, true, e);
+                }
+                try {
+                    users = getUsersList();
+                    if (profiles != null && users != null) {
+                        loadToMainListview.loadProfilesToListView(profiles, users);
+                        isProfileShown = true;
+                        originalMainItems = mainListView.getItems();
+                        searchField.setText("");
+                    } else {
+                        informUser.setTextThenEmpty(messageTextArea, "An error has occurred while loading profiles", "#ef1400", 3);
+                    }
+                } catch (Exception e) {
+                    mainListViewHelper.couldNotLoadFoodOrProfilesTextSetter(messageTextArea, true, e);
+                }
+                return null;
             }
-        } catch (Exception e) {
-            mainListViewHelper.couldNotLoadFoodOrProfilesTextSetter(messageTextArea, true, e);
-        }
-        Platform.runLater(() -> {
-            loading.setVisible(false);
-        });
+        };
+        task.setOnSucceeded(event -> loading.setVisible(false));
+        new Thread(task).start();
     }
 
 
     @FXML
     public void foodsClick(ActionEvent actionEvent) {
-        Platform.runLater(() -> {
-            loading.setVisible(true);
-        });
-        mainListView.setBackground(Background.fill(Paint.valueOf("#1F0449B0")));
-        isProfileShown = false;
-        mainListViewHelper.changeButtonsBetweenProfileAndFood(false, undeleteBtn, loadCreateBtn, deleteBtn, blockButton, unblockButton, editVbox, showDataVbox);
-        mainListView.getSelectionModel().clearSelection();
+        loading.setVisible(true);
         mainListView.getItems().clear();
         showListNameText.setText("Food");
+        Task<Void> task = new Task<>() {
+            @Override
+            protected Void call() throws Exception {
+                isProfileShown = false;
+                mainListViewHelper.changeButtonsBetweenProfileAndFood(false, undeleteBtn, loadCreateBtn, deleteBtn, blockButton, unblockButton, editVbox, showDataVbox);
 
-        try {
-            foods = loadFromServerToPOJO.loadAllFood(rqs.sendGet(this.url.GET_ALL_FOOD(), loginModel));
-        } catch (IOException e) {
-            mainListViewHelper.couldNotLoadFoodOrProfilesTextSetter(messageTextArea, false, e);
-        }
-        try {
-            if (foods != null) {
-                loadToMainListview.loadFoodsToListView(foods);
-                isFoodShown = true;
-                originalMainItems = mainListView.getItems();
-            } else {
-                informUser.setTextThenEmpty(messageTextArea, "An error has occurred while loading foods", "#ef1400", 3);
+                try {
+                    foods = loadFromServerToPOJO.loadAllFood(rqs.sendGet(url.GET_ALL_FOOD(), loginModel));
+                } catch (IOException e) {
+                    mainListViewHelper.couldNotLoadFoodOrProfilesTextSetter(messageTextArea, false, e);
+                }
+                try {
+                    if (foods != null) {
+                        loadToMainListview.loadFoodsToListView(foods);
+                        isFoodShown = true;
+                        originalMainItems = mainListView.getItems();
+                        searchField.setText("");
+                    } else {
+                        informUser.setTextThenEmpty(messageTextArea, "An error has occurred while loading foods", "#ef1400", 3);
+                    }
+                } catch (Exception e) {
+                    mainListViewHelper.couldNotLoadFoodOrProfilesTextSetter(messageTextArea, false, e);
+                }
+                return null;
             }
-        } catch (Exception e) {
-            mainListViewHelper.couldNotLoadFoodOrProfilesTextSetter(messageTextArea, false, e);
-        }
-        Platform.runLater(() -> {
-            loading.setVisible(false);
-        });
+        };
+        task.setOnSucceeded(event -> loading.setVisible(false));
+        new Thread(task).start();
     }
 
     @FXML
     public void blockClick(ActionEvent actionEvent) {
-        if (isProfileShown && !isFoodShown) {
-            int index = mainListViewHelper.getCurrentSelectedItemIndex(mainListView);
-            Optional<User> optionalUser = users.stream().filter(x -> x.getUserId() == index).findFirst();
-            if (optionalUser.isPresent()) {
-                User user = optionalUser.get();
-                if (!user.isBlocked()) {
-                    sendRequest(HttpMethod.DELETE, url.BLOCK_USER(index), actionEvent, "Profile blocked successfully", "An error has occurred.", "ERROR: Couldn't block profile.", false);
-                } else {
-                    informUser.setTextThenEmpty(messageTextArea, "Profile is blocked.", "#ef1400", 3);
-                }
-            } else {
-                informUser.setTextThenEmpty(messageTextArea, "Please select an item from the list!", "#ef1400", 3);
-            }
+        loading.setVisible(true);
+        Task<Void> task = new Task<>() {
+            @Override
+            protected Void call() throws Exception {
+                if (isProfileShown && !isFoodShown) {
+                    int index = mainListViewHelper.getCurrentSelectedItemIndex(mainListView);
+                    Optional<User> optionalUser = users.stream().filter(x -> x.getUserId() == index).findFirst();
+                    if (optionalUser.isPresent()) {
+                        User user = optionalUser.get();
+                        if (!user.isBlocked()) {
+                            sendRequest(HttpMethod.DELETE, url.BLOCK_USER(index), actionEvent, "Profile blocked successfully", "An error has occurred.", "ERROR: Couldn't block profile.", false);
+                        } else {
+                            informUser.setTextThenEmpty(messageTextArea, "Profile is blocked.", "#ef1400", 3);
+                        }
+                    } else {
+                        informUser.setTextThenEmpty(messageTextArea, "Please select an item from the list!", "#ef1400", 3);
+                    }
 
-        }
+                }
+                return null;
+            }
+        };
+        task.setOnSucceeded(event -> loading.setVisible(false));
+        new Thread(task).start();
     }
 
     @FXML
@@ -370,20 +401,29 @@ public class MainViewController implements Initializable {
 
     @FXML
     public void unblockClick(ActionEvent actionEvent) {
-        if (isProfileShown && !isFoodShown) {
-            int index = mainListViewHelper.getCurrentSelectedItemIndex(mainListView);
-            Optional<User> optionalUser = users.stream().filter(x -> x.getUserId() == index).findFirst();
-            if (optionalUser.isPresent()) {
-                User user = optionalUser.get();
-                if (user.isBlocked()) {
-                    sendRequest(HttpMethod.PATCH, url.UNBLOCK_USER(index), actionEvent, "Profile unblocked successfully", "An error has occurred.", "ERROR: Couldn't unblock profile.", false);
-                } else {
-                    informUser.setTextThenEmpty(messageTextArea, "Profile is not blocked.", "#ef1400", 3);
+        loading.setVisible(true);
+        Task<Void> task = new Task<>() {
+            @Override
+            protected Void call() throws Exception {
+                if (isProfileShown && !isFoodShown) {
+                    int index = mainListViewHelper.getCurrentSelectedItemIndex(mainListView);
+                    Optional<User> optionalUser = users.stream().filter(x -> x.getUserId() == index).findFirst();
+                    if (optionalUser.isPresent()) {
+                        User user = optionalUser.get();
+                        if (user.isBlocked()) {
+                            sendRequest(HttpMethod.PATCH, url.UNBLOCK_USER(index), actionEvent, "Profile unblocked successfully", "An error has occurred.", "ERROR: Couldn't unblock profile.", false);
+                        } else {
+                            informUser.setTextThenEmpty(messageTextArea, "Profile is not blocked.", "#ef1400", 3);
+                        }
+                    } else {
+                        informUser.setTextThenEmpty(messageTextArea, "Please select an item from the list!", "#ef1400", 3);
+                    }
                 }
-            } else {
-                informUser.setTextThenEmpty(messageTextArea, "Please select an item from the list!", "#ef1400", 3);
+                return null;
             }
-        }
+        };
+        task.setOnSucceeded(event -> loading.setVisible(false));
+        new Thread(task).start();
     }
 
     public void sendRequest(HttpMethod httpMethod, String url, ActionEvent actionEvent, String successMessage, String JsonError, String errorMessage, boolean changeInFoodList) {
@@ -440,11 +480,3 @@ public class MainViewController implements Initializable {
     }
 
 }
-
-/*
- * TODO: (NRI - Not really important)
- *  NRI - Food create/update double, (maybe convert to int) stuff
- *  NRI - Loading circle while loading food and profile data
- *      - Exit button custom confirmation window (new View)
- *      - Maybe some error does not give understandable message to user
- * */

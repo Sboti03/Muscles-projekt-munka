@@ -193,8 +193,7 @@ public class Food {
 
     @Override
     public String toString() {
-        return "" +
-                this.name + "\n" +
+        return this.name + "\n" +
                 this.fat + "\n" +
                 this.fiber + "\n" +
                 this.kcal + "\n" +

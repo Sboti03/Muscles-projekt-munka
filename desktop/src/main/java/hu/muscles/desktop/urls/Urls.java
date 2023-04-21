@@ -1,5 +1,6 @@
 package hu.muscles.desktop.urls;
 
+
 public class Urls {
     public Urls() {}
 

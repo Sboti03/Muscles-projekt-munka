@@ -56,7 +56,6 @@ public class CreateFoodController implements Initializable {
 
     private LoginModel loginModel;
     private final Urls url = new Urls();
-    private final RestTemplate restTemplate = new RestTemplate();
     private final CreateFoodMainMethods createFoodMainMethods = new CreateFoodMainMethods();
     private final InformUser informUser = new InformUser();
     private static JFXTextArea staticMessageTextArea;
@@ -72,7 +71,7 @@ public class CreateFoodController implements Initializable {
         unitField.setValue((UnitsEnum.gram));
         staticMessageTextArea = messageTextArea;
         List<TextField> textFields = new ArrayList<>(List.of(nameField, kcalField, perUnitField, proteinField, fatField, saturatedFatField, carbohydrateField, monounsaturatedFatField, sugarField, fiberField, polyunsaturatedFatField));
-        createFoodMainMethods.addEnterExecution(textFields, false,this, null);
+        createFoodMainMethods.addEnterExecution(textFields, unitField,false,this, null);
     }
 
     @FXML

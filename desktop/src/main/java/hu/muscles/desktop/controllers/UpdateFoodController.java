@@ -1,6 +1,5 @@
 package hu.muscles.desktop.controllers;
 
-import com.jfoenix.controls.JFXTextArea;
 import hu.muscles.desktop.foodMethods.createfoodmainmethods.CreateFoodMainMethods;
 import hu.muscles.desktop.foodMethods.foodTextInput.FoodTextInput;
 import hu.muscles.desktop.responses.foodResponse.FoodsCreateOrUpdate;
@@ -13,12 +12,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static hu.muscles.desktop.controllers.MainViewController.setUpdateToInvisible;
+import static hu.muscles.desktop.controllers.MainViewController.*;
 
 public class UpdateFoodController {
 
@@ -27,7 +25,6 @@ public class UpdateFoodController {
     private FoodsCreateOrUpdate foodOriginalValue;
 
     private final Urls url = new Urls();
-    private final RestTemplate restTemplate = new RestTemplate();
     private final CreateFoodMainMethods createFoodMainMethods = new CreateFoodMainMethods();
     private MainViewController mainViewController;
     @FXML
@@ -60,8 +57,6 @@ public class UpdateFoodController {
     private Button cancelFoodBtn;
     @FXML
     private Button resetFoodBtn;
-    @FXML
-    private JFXTextArea messageTextArea;
 
     private final FoodTextInput foodTextInput = new FoodTextInput();
 
@@ -105,7 +100,7 @@ public class UpdateFoodController {
         fiberField.setText(String.valueOf(foodModel.getFood().getFiber()));
         foodOriginalValue = new FoodsCreateOrUpdate(foodModel.getFood().getName(), foodModel.getFood().getKcal(), UnitsEnum.valueOf(foodModel.getFood().getUnit().getUnit()), foodModel.getFood().getPerUnit(), foodModel.getFood().getProtein(), foodModel.getFood().getFat(), foodModel.getFood().getSaturatedFat(), foodModel.getFood().getPolyunsaturatedFat(), foodModel.getFood().getMonounsaturatedFat(), foodModel.getFood().getCarbohydrate(), foodModel.getFood().getSugar(), foodModel.getFood().getFiber());
         List<TextField> textFields = new ArrayList<>(List.of(nameField, kcalField, perUnitField, proteinField, fatField, saturatedFatField, carbohydrateField, monounsaturatedFatField, sugarField, fiberField, polyunsaturatedFatField));
-        createFoodMainMethods.addEnterExecution(textFields, true, null, this);
+        createFoodMainMethods.addEnterExecution(textFields, unitField, true, null, this);
     }
 
     private void resetFieldsToDefault() {

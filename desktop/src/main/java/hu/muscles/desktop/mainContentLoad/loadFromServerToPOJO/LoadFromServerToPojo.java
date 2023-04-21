@@ -22,7 +22,6 @@ public class LoadFromServerToPojo {
     }
 
 
-    // Return lists
     public List<Food> loadAllFood(InputStream responseStream) {
         try {
             return foodConverterToPOJO((new String(responseStream.readAllBytes(), StandardCharsets.UTF_8)));
@@ -45,8 +44,6 @@ public class LoadFromServerToPojo {
         }
     }
 
-
-    // POJO Converters
     private List<Food> foodConverterToPOJO(String response) {
         try {
             ObjectMapper om = new ObjectMapper();
