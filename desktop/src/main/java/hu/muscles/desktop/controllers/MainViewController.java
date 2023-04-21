@@ -222,17 +222,21 @@ public class MainViewController implements Initializable {
             protected Void call() throws Exception {
                 if (!isProfileShown && isFoodShown) {
                     int index = mainListViewHelper.getCurrentSelectedItemIndex(mainListView);
-                    Optional<Food> optionalFood = foods.stream().filter(food1 -> food1.getFoodId() == index).findFirst();
-                    if (optionalFood.isPresent()) {
-                        Food food = optionalFood.get();
-                        if (!food.isDeleted()) {
-                            sendRequest(HttpMethod.DELETE, url.DELETE_FOOD(index), actionEvent, "Food deleted successfully", "An error has occurred.", "ERROR: Couldn't delete profile.", true);
+                    if (index != 1) {
+                        Optional<Food> optionalFood = foods.stream().filter(food1 -> food1.getFoodId() == index).findFirst();
+                        if (optionalFood.isPresent()) {
+                            Food food = optionalFood.get();
+                            if (!food.isDeleted()) {
+                                sendRequest(HttpMethod.DELETE, url.DELETE_FOOD(index), actionEvent, "Food deleted successfully", "An error has occurred.", "ERROR: Couldn't delete profile.", true);
+                            } else {
+                                informUser.setTextThenEmpty(messageTextArea, "Food is deleted already.", "#ef1400", 3);
+                            }
                         } else {
-                            informUser.setTextThenEmpty(messageTextArea, "Food is deleted already.", "#ef1400", 3);
+                            informUser.setTextThenEmpty(messageTextArea, "Please select an item from the list!", "#ef1400", 3);
                         }
-                    } else {
-                        informUser.setTextThenEmpty(messageTextArea, "Please select an item from the list!", "#ef1400", 3);
                     }
+                } else {
+                    informUser.setTextThenEmpty(messageTextArea, "Please do not delete yourself!", "#ef1400", 3);
                 }
                 return null;
             }

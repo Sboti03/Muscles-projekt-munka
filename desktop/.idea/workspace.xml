@@ -4,22 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="00e91fc0-96b8-4172-906f-ab5075727363" name="Changes" comment="search between loaded foods and profiles">
+    <list default="true" id="00e91fc0-96b8-4172-906f-ab5075727363" name="Changes" comment="show loading progress indicator in main + refactoring code">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/CreateFoodController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/CreateFoodController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/MainViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/MainViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/ProfileInfoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/ProfileInfoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/UpdateFoodController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/UpdateFoodController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/foodMethods/createfoodmainmethods/CreateFoodMainMethods.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/foodMethods/createfoodmainmethods/CreateFoodMainMethods.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/foodMethods/foodTextInput/FoodTextInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/foodMethods/foodTextInput/FoodTextInput.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/informUser/InformUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/informUser/InformUser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/mainContentLoad/loadFromServerToPOJO/LoadFromServerToPojo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/mainContentLoad/loadFromServerToPOJO/LoadFromServerToPojo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/mainContentLoad/loadToMainListView/LoadToMainListview.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/mainContentLoad/loadToMainListView/LoadToMainListview.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/responses/foodResponse/Food.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/responses/foodResponse/Food.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/responses/profileResponse/Profile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/responses/profileResponse/Profile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/urls/Urls.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/urls/Urls.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/mainResources/main-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/mainResources/main-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/mainResources/mainFormStlye.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/mainResources/mainFormStlye.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -128,7 +115,7 @@
       <workItem from="1680006862680" duration="214781000" />
       <workItem from="1681993328416" duration="21407000" />
       <workItem from="1682028359837" duration="5503000" />
-      <workItem from="1682056688289" duration="6621000" />
+      <workItem from="1682056688289" duration="8222000" />
     </task>
     <task id="LOCAL-00001" summary="refactoring (renaming)">
       <created>1678362647589</created>
@@ -403,7 +390,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682034119266</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="show loading progress indicator in main + refactoring code">
+      <created>1682063383691</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1682063383691</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -421,7 +415,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="ListViews to show information --fix index = -1" />
     <MESSAGE value="Profile response class and Url" />
     <MESSAGE value="Profile load in ListView" />
     <MESSAGE value="fixing selection in case of error" />
@@ -446,7 +439,8 @@
     <MESSAGE value="Fixing button selections, styling, loading to list on start" />
     <MESSAGE value="resizing elements" />
     <MESSAGE value="search between loaded foods and profiles" />
-    <option name="LAST_COMMIT_MESSAGE" value="search between loaded foods and profiles" />
+    <MESSAGE value="show loading progress indicator in main + refactoring code" />
+    <option name="LAST_COMMIT_MESSAGE" value="show loading progress indicator in main + refactoring code" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
