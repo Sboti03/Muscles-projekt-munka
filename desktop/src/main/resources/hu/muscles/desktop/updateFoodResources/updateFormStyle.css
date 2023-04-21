@@ -27,28 +27,34 @@ Label {
 }
 
 
-Button {
-    -fx-border-color: #8200cc;
-    -fx-border-radius: 120em;
-    -fx-background-color: #460965;
-    -fx-text-fill: white;
-    -fx-background-radius: 120em;
-}
-
-Button:hover {
+Button:focused {
+    -fx-border-radius: 8px;
     -fx-background-color: #40115e;
     -fx-border-color: #ee00ff;
-    -fx-border-radius: 120px;
     -fx-text-fill: white;
-    -fx-background-radius: 120em;
+    -fx-background-radius: 8px;
+}
+Button {
+    -fx-border-color: #8200cc;
+    -fx-border-radius: 8px;
+    -fx-background-color: #460965;
+    -fx-text-fill: white;
+    -fx-background-radius: 8px;
+}
+Button:hover {
+    -fx-background-color: #40115e;
+    -fx-border-color: #ff00ea;
+    -fx-border-radius: 8px;
+    -fx-text-fill: white;
+    -fx-background-radius: 8px;
 }
 
 Button:pressed {
     -fx-background-color: #40115e;
     -fx-border-color: #ee00ff;
-    -fx-border-radius: 120px;
+    -fx-border-radius: 8px;
     -fx-text-fill: white;
-    -fx-background-radius: 120em;
+    -fx-background-radius: 8px;
 }
 
 ComboBox {
@@ -75,4 +81,16 @@ ComboBox .arrow-button .arrow {
 
 ComboBox:focused .arrow-button .arrow {
     -fx-background-color: #ee00ff;
+}
+
+ComboBox .list-view .list-cell {
+    -fx-background-color: #4a096c;
+    -fx-border-color: #4a096c;
+    -fx-text-fill: white;
+}
+
+ComboBox .list-view .list-cell:hover {
+    -fx-background-color: #77098f;
+    -fx-border-color: #4a096c;
+    -fx-text-fill: white;
 }
