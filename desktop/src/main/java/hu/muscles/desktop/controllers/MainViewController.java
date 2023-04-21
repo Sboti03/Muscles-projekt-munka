@@ -205,12 +205,11 @@ public class MainViewController implements Initializable {
         loading.setVisible(true);
         mainListView.getItems().clear();
         showListNameText.setText("Food");
+        isProfileShown = false;
         Task<Void> task = new Task<>() {
             @Override
             protected Void call() throws Exception {
-                isProfileShown = false;
                 mainListViewHelper.changeButtonsBetweenProfileAndFood(false, undeleteBtn, loadCreateBtn, deleteBtn, blockButton, unblockButton, editVbox, showDataVbox);
-
                 try {
                     foods = loadFromServerToPOJO.loadAllFood(rqs.sendGet(url.GET_ALL_FOOD(), loginModel));
                 } catch (IOException e) {
@@ -312,10 +311,10 @@ public class MainViewController implements Initializable {
         loading.setVisible(true);
         showListNameText.setText("Profile");
         mainListView.getItems().clear();
+        isFoodShown = false;
         Task<Void> task = new Task<>() {
             @Override
             protected Void call() throws Exception {
-                isFoodShown = false;
                 mainListViewHelper.changeButtonsBetweenProfileAndFood(true, undeleteBtn, loadCreateBtn, deleteBtn, blockButton, unblockButton, editVbox, showDataVbox);
                 try {
                     profiles = loadFromServerToPOJO.loadAllProfile(rqs.sendGet(url.GET_ALL_PROFILE(), loginModel));
@@ -441,7 +440,6 @@ public class MainViewController implements Initializable {
                     foodsClick(actionEvent);
                     messageTextArea.setText(successMessage);
                     informUser.setTextThenEmpty(messageTextArea, successMessage, "#29be0e", 3);
-
                 } else {
                     profilesClick(actionEvent);
                     informUser.setTextThenEmpty(messageTextArea, successMessage, "#29be0e", 3);

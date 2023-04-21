@@ -30,7 +30,7 @@ public class LoadToMainListview {
         deletedProfiles.forEach(profile -> profile.setFirstName("#BLOCKED#\t" + profile.getFirstName()));
         sortedProfiles.removeAll(deletedProfiles);
         sortedProfiles.addAll(deletedProfiles);
-        mainListView.getItems().addAll(sortedProfiles.stream().map(profile -> profile.getUserId() + "\t" + profile.getFirstName() + " " + (profile.getLastName() != null ? profile.getLastName() : "")).toList());
+       Platform.runLater(() -> mainListView.getItems().addAll(sortedProfiles.stream().map(profile -> profile.getUserId() + "\t" + profile.getFirstName() + " " + (profile.getLastName() != null ? profile.getLastName() : "")).toList()));
 
         mainListView.setCellFactory(listView -> new ListCell<>() {
             @Override
@@ -58,7 +58,7 @@ public class LoadToMainListview {
         deletedFoods.forEach(food -> food.setName("#DELETED#\t" + food.getName()));
         sortedFoods.removeAll(deletedFoods);
         sortedFoods.addAll(deletedFoods);
-        mainListView.getItems().addAll(sortedFoods.stream().map(food -> food.getFoodId() + "\t" + food.getName()).toList());
+        Platform.runLater(() -> mainListView.getItems().addAll(sortedFoods.stream().map(food -> food.getFoodId() + "\t" + food.getName()).toList()));
 
         mainListView.setCellFactory(listView -> new ListCell<>() {
             @Override

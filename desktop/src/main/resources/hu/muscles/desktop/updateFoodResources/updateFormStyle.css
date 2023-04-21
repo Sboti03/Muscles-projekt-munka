@@ -16,6 +16,12 @@ TextField:focused {
     -fx-font-size: 10pt;
 }
 
+Textfield .prompt-text {
+    -fx-text-fill: white;
+    -fx-font-size: 20pt;
+    -fx-font-weight: bold;
+}
+
 Label {
     -fx-text-fill: white;
 }
