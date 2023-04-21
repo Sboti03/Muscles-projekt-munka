@@ -13,9 +13,7 @@ public class InformUser {
     public void setTextThenEmpty(TextArea textArea, String text, String color, int seconds) {
         textArea.setStyle(String.format("-fx-text-fill: %s;", color));
         textArea.setText(text);
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(seconds), event -> {
-            textArea.setText("");
-        }));
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(seconds), event -> textArea.setText("")));
         timeline.play();
     }
 

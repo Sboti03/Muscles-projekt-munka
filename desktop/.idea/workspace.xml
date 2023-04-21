@@ -4,9 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="00e91fc0-96b8-4172-906f-ab5075727363" name="Changes" comment="resizing elements">
+    <list default="true" id="00e91fc0-96b8-4172-906f-ab5075727363" name="Changes" comment="search between loaded foods and profiles">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/CreateFoodController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/CreateFoodController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/MainViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/MainViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/ProfileInfoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/ProfileInfoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/UpdateFoodController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/UpdateFoodController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/foodMethods/createfoodmainmethods/CreateFoodMainMethods.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/foodMethods/createfoodmainmethods/CreateFoodMainMethods.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/foodMethods/foodTextInput/FoodTextInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/foodMethods/foodTextInput/FoodTextInput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/informUser/InformUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/informUser/InformUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/mainContentLoad/loadFromServerToPOJO/LoadFromServerToPojo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/mainContentLoad/loadFromServerToPOJO/LoadFromServerToPojo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/mainContentLoad/loadToMainListView/LoadToMainListview.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/mainContentLoad/loadToMainListView/LoadToMainListview.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/responses/foodResponse/Food.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/responses/foodResponse/Food.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/responses/profileResponse/Profile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/responses/profileResponse/Profile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/urls/Urls.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/urls/Urls.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/mainResources/main-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/mainResources/main-view.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/mainResources/mainFormStlye.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/mainResources/mainFormStlye.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -43,25 +55,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "extract.method.default.visibility": "private",
-    "last_opened_file_path": "C:/Users/k2347/IdeaProjects/Muscles-projekt-munka/desktop",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "spring.configuration.checksum": "b2c79ad7dcf03ba266dc0885e1266675",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;extract.method.default.visibility&quot;: &quot;private&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/k2347/IdeaProjects/Muscles-projekt-munka/desktop&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;b2c79ad7dcf03ba266dc0885e1266675&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="hu.muscles.desktop.controllers" />
@@ -115,7 +127,8 @@
       <workItem from="1678361743381" duration="16631000" />
       <workItem from="1680006862680" duration="214781000" />
       <workItem from="1681993328416" duration="21407000" />
-      <workItem from="1682028359837" duration="5172000" />
+      <workItem from="1682028359837" duration="5503000" />
+      <workItem from="1682056688289" duration="6621000" />
     </task>
     <task id="LOCAL-00001" summary="refactoring (renaming)">
       <created>1678362647589</created>
@@ -383,7 +396,14 @@
       <option name="project" value="LOCAL" />
       <updated>1681994452902</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="search between loaded foods and profiles">
+      <created>1682034119266</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1682034119266</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -401,7 +421,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="ListViews to show information" />
     <MESSAGE value="ListViews to show information --fix index = -1" />
     <MESSAGE value="Profile response class and Url" />
     <MESSAGE value="Profile load in ListView" />
@@ -426,7 +445,8 @@
     <MESSAGE value="Styling in create food and a few changing in update food" />
     <MESSAGE value="Fixing button selections, styling, loading to list on start" />
     <MESSAGE value="resizing elements" />
-    <option name="LAST_COMMIT_MESSAGE" value="resizing elements" />
+    <MESSAGE value="search between loaded foods and profiles" />
+    <option name="LAST_COMMIT_MESSAGE" value="search between loaded foods and profiles" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

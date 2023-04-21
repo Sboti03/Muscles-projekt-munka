@@ -1,18 +1,13 @@
 package hu.muscles.desktop.foodMethods.foodTextInput;
 
-import hu.muscles.desktop.informUser.InformUser;
 import hu.muscles.desktop.responses.foodResponse.UnitsEnum;
 import javafx.collections.FXCollections;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.util.StringConverter;
-import javafx.util.converter.NumberStringConverter;
-import java.text.DecimalFormat;
 
 public class FoodTextInput {
-    private final InformUser informUser = new InformUser();
-
 
     public void setTextFieldToDoubleOrNull(TextField textField) {
         StringConverter<Double> customDoubleStringConverter = new StringConverter<Double>() {
@@ -94,7 +89,6 @@ public class FoodTextInput {
             throw new IllegalArgumentException();
         }
     }
-
 
 
 }

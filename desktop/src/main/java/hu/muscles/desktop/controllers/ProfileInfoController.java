@@ -3,7 +3,6 @@ package hu.muscles.desktop.controllers;
 import hu.muscles.desktop.models.LoginModel;
 import hu.muscles.desktop.models.ProfileModel;
 import hu.muscles.desktop.models.UserModel;
-import hu.muscles.desktop.urls.Urls;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -12,10 +11,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Background;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import hu.muscles.desktop.responses.userResponse.User;
-
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class ProfileInfoController implements Initializable {
@@ -30,8 +26,6 @@ public class ProfileInfoController implements Initializable {
     private UserModel userModel;
     private ProfileModel profileModel;
     private final String[] profileDataString = new String[]{"First name", "Last name", "Email", "Birthdate", "Registration date", "Height", "Role", "Gender", "User last changed", "Profile last Changed"};
-    private final Urls url = new Urls();
-    private List<User> users;
 
     public void setProfileForProfileInfo(ProfileModel profileModel, UserModel userModel) {
         dataListView.getItems().clear();
@@ -48,35 +42,8 @@ public class ProfileInfoController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         dataLabelListView.getItems().addAll(profileDataString);
-        //TODO: dataLabelListView.setCell  Stylehoz
-        dataLabelListView.setCellFactory(listView -> new ListCell<>() {
-            @Override
-            protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText(null);
-                    setBackground(Background.fill(Paint.valueOf("#1F0449B0")));
-                } else {
-                    setText(item);
-                    setTextFill(Color.WHITE);
-                    setBackground(Background.fill(Paint.valueOf("#1F0449B0")));
-                }
-            }
-        });
-        dataListView.setCellFactory(listView -> new ListCell<>() {
-            @Override
-            protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText(null);
-                    setBackground(Background.fill(Paint.valueOf("#1F0449B0")));
-                } else {
-                    setText(item);
-                    setTextFill(Color.WHITE);
-                    setBackground(Background.fill(Paint.valueOf("#1F0449B0")));
-                }
-            }
-        });
+        setCellFactory(dataLabelListView);
+        setCellFactory(dataListView);
     }
 
     public <T> String setStringToEmptyIfItsNull(T val) {
@@ -84,5 +51,22 @@ public class ProfileInfoController implements Initializable {
             return "";
         }
         return val.toString();
+    }
+
+    private void setCellFactory(ListView<String> infoList) {
+        infoList.setCellFactory(listView -> new ListCell<>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                    setBackground(Background.fill(Paint.valueOf("#1F0449B0")));
+                } else {
+                    setText(item);
+                    setTextFill(Color.WHITE);
+                    setBackground(Background.fill(Paint.valueOf("#1F0449B0")));
+                }
+            }
+        });
     }
 }

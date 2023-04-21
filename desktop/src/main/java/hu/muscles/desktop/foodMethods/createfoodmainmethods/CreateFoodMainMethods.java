@@ -21,7 +21,6 @@ import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
-import java.util.Objects;
 
 import static hu.muscles.desktop.controllers.CreateFoodController.setMessageForCreateTextArea;
 import static hu.muscles.desktop.controllers.MainViewController.setMessageForMainTextArea;
@@ -58,21 +57,20 @@ public class CreateFoodMainMethods {
         Double sugar = foodTextInput.returnNullableDoubleValue(sugarField);
         Double fiber = foodTextInput.returnNullableDoubleValue(fiberField);
         return new FoodsCreateOrUpdate(name, kcal, units, perUnit, protein, fat, saturatedFat, polyunsaturatedFat, monounsaturatedFat, carbohydrate, sugar, fiber);
-        //TODO: above here create more constructors to not send values (be null).
     }
 
 
     public void CreateFood(TextField nameField, TextField kcalField, ComboBox<UnitsEnum> unitField, TextField perUnitField, TextField proteinField, TextField fatField, TextField saturatedFatField, TextField polyunsaturatedFatField, TextField monounsaturatedFatField, TextField carbohydrateField, TextField sugarField, TextField fiberField, LoginModel loginModel, Urls url, boolean isUpdate, int foodId) {
         try {
             FoodsCreateOrUpdate food = foodCreate(nameField, kcalField, unitField, perUnitField, proteinField, fatField, saturatedFatField, polyunsaturatedFatField, monounsaturatedFatField, carbohydrateField, sugarField, fiberField, isUpdate);
-            if (food != null && !Objects.equals(food.getName(), "")) {
+            if (food != null && !food.getName().equals("")) {
                 ObjectMapper mapper = new ObjectMapper();
                 mapper.registerModule(new SimpleModule().addSerializer(Double.class, new CustomDoubleSerializer()));
                 String json = "";
                 try {
                     json = mapper.writeValueAsString(food);
                 } catch (JsonProcessingException e) {
-                    setMessage(isUpdate, "Json Processing Error happened.", "#ef1400", 3);
+                    setMessage(isUpdate, "Json Processing Error happened.", "#ef1400");
                     return;
                 }
                 if (!isUpdate) {
@@ -85,10 +83,10 @@ public class CreateFoodMainMethods {
                     }
                 }
             } else {
-                setMessage(isUpdate, "Not all value are valid.", "#ef1400", 3);
+                setMessage(isUpdate, "Not all value are valid.", "#ef1400");
             }
         } catch (Exception e) {
-            setMessage(isUpdate, informUser.messageFromError(e), "#ef1400", 3);
+            setMessage(isUpdate, informUser.messageFromError(e), "#ef1400");
         }
     }
 
@@ -99,33 +97,31 @@ public class CreateFoodMainMethods {
             headers.setContentType(MediaType.APPLICATION_JSON);
             headers.setBearerAuth(loginModel.getLoginData().getTokens().getAccessToken());
             json = json.replaceAll(": \"\"", ": null");
-            System.out.println(json);
             HttpEntity<String> requestEntity = new HttpEntity<>(json, headers);
             RestTemplate restTemplate = new RestTemplate();
             RequestSender rq = new RequestSender();
             restTemplate = rq.getPATCHRestTemplate(restTemplate, httpMethod);
             ResponseEntity<String> responseEntity = restTemplate.exchange(url, httpMethod, requestEntity, String.class);
             if (isValidJSON(requestEntity.getBody())) {
-                setMessage(isUpdate, textareaMessage, "#29be0e", 3);
+                setMessage(isUpdate, textareaMessage, "#29be0e");
             } else {
-                setMessage(isUpdate, "ERROR -> got back: " + responseEntity.getBody(), "#ef1400", 3);
+                setMessage(isUpdate, "ERROR -> got back: " + responseEntity.getBody(), "#ef1400");
             }
         } catch (Exception e) {
-            setMessage(isUpdate, informUser.messageFromError(e), "#ef1400", 3);
+            setMessage(isUpdate, informUser.messageFromError(e), "#ef1400");
         }
     }
 
 
-
-    private void setMessage(boolean isUpdate, String text, String color, int seconds) {
+    private void setMessage(boolean isUpdate, String text, String color) {
         if (isUpdate) {
-            setMessageForMainTextArea(text, color, seconds);
+            setMessageForMainTextArea(text, color, 3);
         } else {
-            setMessageForCreateTextArea(text, color, seconds);
+            setMessageForCreateTextArea(text, color, 3);
         }
     }
 
-    public void addEnterExecution(List<TextField> textFieldList, boolean isUpdate, CreateFoodController createFoodController, UpdateFoodController updateFoodController) {
+    public void addEnterExecution(List<TextField> textFieldList, ComboBox<UnitsEnum> units, boolean isUpdate, CreateFoodController createFoodController, UpdateFoodController updateFoodController) {
         if (isUpdate) {
             for (TextField textField : textFieldList) {
                 textField.setOnKeyPressed(keyEvent -> {
@@ -143,6 +139,11 @@ public class CreateFoodMainMethods {
                 });
             }
         }
+        units.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.ENTER) {
+                updateFoodController.updateFoodClick(new ActionEvent());
+            }
+        });
     }
 
     public boolean isValidJSON(String json) {

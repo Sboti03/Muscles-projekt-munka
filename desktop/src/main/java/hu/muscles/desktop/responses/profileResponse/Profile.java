@@ -124,8 +124,7 @@ public class Profile {
 
     @Override
     public String toString() {
-        return "" +
-                this.firstName + "\n" +
+        return this.firstName + "\n" +
                 this.lastName + "\n" +
                 this.birthDay + "\n" +
                 this.registrationDate + "\n" +
