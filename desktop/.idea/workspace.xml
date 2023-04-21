@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="00e91fc0-96b8-4172-906f-ab5075727363" name="Changes" comment="show loading progress indicator in main + refactoring code">
+    <list default="true" id="00e91fc0-96b8-4172-906f-ab5075727363" name="Changes" comment="admin check when delete">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/MainViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/MainViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/mainContentLoad/loadToMainListView/LoadToMainListview.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/mainContentLoad/loadToMainListView/LoadToMainListview.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/mainResources/mainFormStlye.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/mainResources/mainFormStlye.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,7 +116,7 @@
       <workItem from="1680006862680" duration="214781000" />
       <workItem from="1681993328416" duration="21407000" />
       <workItem from="1682028359837" duration="5503000" />
-      <workItem from="1682056688289" duration="8222000" />
+      <workItem from="1682056688289" duration="13600000" />
     </task>
     <task id="LOCAL-00001" summary="refactoring (renaming)">
       <created>1678362647589</created>
@@ -397,7 +398,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682063383691</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="admin check when delete">
+      <created>1682064987382</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1682064987382</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -415,7 +423,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Profile response class and Url" />
     <MESSAGE value="Profile load in ListView" />
     <MESSAGE value="fixing selection in case of error" />
     <MESSAGE value="refactoring code" />
@@ -440,7 +447,8 @@
     <MESSAGE value="resizing elements" />
     <MESSAGE value="search between loaded foods and profiles" />
     <MESSAGE value="show loading progress indicator in main + refactoring code" />
-    <option name="LAST_COMMIT_MESSAGE" value="show loading progress indicator in main + refactoring code" />
+    <MESSAGE value="admin check when delete" />
+    <option name="LAST_COMMIT_MESSAGE" value="admin check when delete" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

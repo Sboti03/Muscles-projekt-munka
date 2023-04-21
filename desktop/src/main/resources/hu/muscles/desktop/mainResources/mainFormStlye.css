@@ -40,14 +40,19 @@ Button:pressed {
 
 
 JFXListView {
-    -fx-background-color: rgba(31, 4, 73, 0.69);
+    -fx-background-color: #1F0449B0;
     -fx-text-alignment: center;
     -fx-text-fill: white;
 }
 
 JFXListView .list-cell:odd, JFXListView .list-cell:even {
-    -fx-background-color: #1F0449B0
+    -fx-background-color: #1F0449B0;
 }
+
+JFXListView .list-cell:selected:odd, JFXListView .list-cell:selected:even {
+    -fx-background-color: #2b1354;
+}
+
 
 
 JFXListView .placeholder .label {
