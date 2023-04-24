@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="174.0" prefWidth="366.0" stylesheets="@exitStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.muscles.desktop.controllers.ExitController">
+   <children>
+      <GridPane alignment="CENTER_LEFT" VBox.vgrow="ALWAYS">
+        <columnConstraints>
+          <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="121.34399475585947" minHeight="0.0" prefHeight="110.59198059570322" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="99.07197216210945" minHeight="10.0" prefHeight="63.74401408398444" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="366.0" spacing="25.0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+               <children>
+                  <Button fx:id="confirmButton" mnemonicParsing="false" onAction="#confirmClick" prefHeight="30.0" prefWidth="107.0" stylesheets="@exitStyle.css" text="Confirm">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancelClick" prefHeight="30.0" prefWidth="107.0" stylesheets="@exitStyle.css" text="Cancel" textAlignment="CENTER">
+                     <HBox.margin>
+                        <Insets right="25.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" prefHeight="73.0" prefWidth="283.0" spacing="20.0" GridPane.columnSpan="2">
+               <children>
+                  <Text fill="WHITE" focusTraversable="true" mouseTransparent="true" stroke="#531a5b" strokeLineCap="ROUND" strokeType="OUTSIDE" strokeWidth="0.0" text="Are you sure you want to exit the App?" textAlignment="CENTER" wrappingWidth="257.40234375" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="25.0" />
+                     </HBox.margin>
+                  </Text>
+                  <ImageView fitHeight="48.0" fitWidth="48.0" focusTraversable="true" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../backgroundResources/question.png" />
+                     </image>
+                  </ImageView>
+               </children>
+               <GridPane.margin>
+                  <Insets top="15.0" />
+               </GridPane.margin>
+            </HBox>
+         </children>
+      </GridPane>
+   </children>
+</VBox>

@@ -6,19 +6,19 @@ import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextArea;
 import hu.muscles.desktop.App;
 import hu.muscles.desktop.foodMethods.createfoodmainmethods.CreateFoodMainMethods;
-import hu.muscles.desktop.mainContentLoad.mainListViewHelperFunctions.MainListViewHelperFunctions;
-import hu.muscles.desktop.responses.foodResponse.Food;
-import hu.muscles.desktop.mainContentLoad.loadToMainListView.LoadToMainListview;
-import hu.muscles.desktop.mainContentLoad.loadFromServerToPOJO.LoadFromServerToPojo;
 import hu.muscles.desktop.informUser.InformUser;
+import hu.muscles.desktop.mainContentLoad.loadFromServerToPOJO.LoadFromServerToPojo;
+import hu.muscles.desktop.mainContentLoad.loadToMainListView.LoadToMainListview;
+import hu.muscles.desktop.mainContentLoad.mainListViewHelperFunctions.MainListViewHelperFunctions;
 import hu.muscles.desktop.models.FoodModel;
 import hu.muscles.desktop.models.LoginModel;
 import hu.muscles.desktop.models.ProfileModel;
 import hu.muscles.desktop.models.UserModel;
-import hu.muscles.desktop.responses.profileResponse.Profile;
 import hu.muscles.desktop.requestsender.RequestSender;
-import hu.muscles.desktop.urls.Urls;
+import hu.muscles.desktop.responses.foodResponse.Food;
+import hu.muscles.desktop.responses.profileResponse.Profile;
 import hu.muscles.desktop.responses.userResponse.User;
+import hu.muscles.desktop.urls.Urls;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -29,23 +29,23 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
-import org.springframework.http.*;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.http.HttpMethod;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
+
+import static hu.muscles.desktop.controllers.ExitController.getExitStatus;
 
 
 public class MainViewController implements Initializable {
@@ -400,12 +400,23 @@ public class MainViewController implements Initializable {
     @FXML
     public void exitClick(ActionEvent actionEvent) {
         mainVbox.setDisable(true);
-        Optional<ButtonType> optionalButtonType = confirmExit.showAndWait();
-        if (optionalButtonType.get().equals(ButtonType.OK)) {
-            Platform.exit();
-        } else {
-            mainVbox.setDisable(false);
-            confirmExit.close();
+        try {
+            FXMLLoader loadExitConfirmation = new FXMLLoader(App.class.getResource("/hu/muscles/desktop/exitResources/exit-view.fxml"));
+            Scene scene = new Scene( loadExitConfirmation.load(), 366, 174);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.setTitle("Confirm Exit");
+            stage.alwaysOnTopProperty();
+            stage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/hu/muscles/desktop/backgroundResources/question.png"))));
+            stage.showAndWait();
+            if (getExitStatus()) {
+                Platform.exit();
+            } else {
+                mainVbox.setDisable(false);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
