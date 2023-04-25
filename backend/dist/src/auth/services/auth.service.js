@@ -72,6 +72,7 @@ let AuthService = class AuthService {
         const userInput = await this.userGetService.getUsersCreateInput(createUserDto);
         try {
             const user = await this.userCreateService.createUser(userInput);
+            const profile = await this.userCreateService.createProfileData(user.userId);
             return this.handleUserLogin(user);
         }
         catch (e) {

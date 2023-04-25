@@ -11,6 +11,22 @@ export default function ResultSelector() {
 
     const {oneMonthSelect, sixMonthSelect, setNextMonth, setPrevMonth, range} = useContext(ResultsContext)
 
+    const [isOneMonth, setIsOneMonth] = useState(true)
+
+    function sixMonthClick() {
+        if (isOneMonth) {
+            sixMonthSelect()
+            setIsOneMonth(false)
+        }
+    }
+
+    function oneMonthClick() {
+        if (!isOneMonth) {
+            oneMonthSelect()
+            setIsOneMonth(true)
+        }
+    }
+
     return (
         <div>
             <div className={styles.tabContainer}>
@@ -19,15 +35,19 @@ export default function ResultSelector() {
                     <div>-</div>
                     <div>{normalizeDate(range.to)}</div>
                 </div>
-                <Tabs>
-                    <TabList defaultValue={0} variant="soft">
+                <div>
+                    <div className={styles.selectContainer}>
                         <Button onClick={setPrevMonth}>{"<"}</Button>
-                        <Tab value={0} onClick={oneMonthSelect}>1 month</Tab>
-                        <Tab value={1} onClick={sixMonthSelect}>6 month</Tab>
+                        <button className={`${styles.selectBtn} ${isOneMonth ? styles.selected : ''}`} onClick={oneMonthClick}>1 month</button>
+                        <button className={`${styles.selectBtn}  ${!isOneMonth ? styles.selected : ''}`} onClick={sixMonthClick}>6 month</button>
                         <Button onClick={setNextMonth}>{">"}</Button>
-                    </TabList>
-                </Tabs>
+                    </div>
+                </div>
+            </div>
+            <div>
+
             </div>
         </div>
     )
 }
+

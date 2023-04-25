@@ -21,12 +21,10 @@ const id_param_1 = require("../../../Common/params/id.param");
 const access_token_guard_1 = require("../../../auth/guards/access-token.guard");
 const profile_get_service_1 = require("../../../profile/services/profile-get/profile-get.service");
 const swagger_1 = require("@nestjs/swagger");
+const profile_response_1 = require("../response/profile.response");
 let AdminProfileController = class AdminProfileController {
     constructor(profileGetService) {
         this.profileGetService = profileGetService;
-    }
-    async getAllProfileAdminVersion() {
-        return this.profileGetService.getAllProfileAllData();
     }
     async getAllProfileDataById(idParam) {
         return this.profileGetService.getAllProfileDataByProfileId(idParam.id);
@@ -36,12 +34,6 @@ let AdminProfileController = class AdminProfileController {
     }
 };
 __decorate([
-    (0, common_1.Get)('admin/all'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", Promise)
-], AdminProfileController.prototype, "getAllProfileAdminVersion", null);
-__decorate([
     (0, common_1.Get)('admin/id/:id'),
     __param(0, (0, common_1.Param)()),
     __metadata("design:type", Function),
@@ -50,6 +42,10 @@ __decorate([
 ], AdminProfileController.prototype, "getAllProfileDataById", null);
 __decorate([
     (0, common_1.Get)('all'),
+    (0, common_1.Get)('admin/all'),
+    (0, swagger_1.ApiOkResponse)({
+        type: profile_response_1.default
+    }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)

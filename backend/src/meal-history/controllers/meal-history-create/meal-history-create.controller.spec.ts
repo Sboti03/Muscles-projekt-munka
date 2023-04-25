@@ -17,7 +17,6 @@ import {ProfileModule} from "../../../profile/profile.module";
 import {GoalsModule} from "../../../goals/goals.module";
 import {WeightHistoryModule} from "../../../weight-history/weight-history.module";
 import {FoodsModule} from "../../../foods/foods.module";
-import {ConnectionModule} from "../../../Connections/connection/connection.module";
 import {PrismaService} from "../../../Common/utils/prirsma.service";
 import {MealHistoryGetService} from "../../services/meal-history-get/meal-history-get.service";
 import {MealHistoryDeleteService} from "../../services/meal-history-delete/meal-history-delete.service";
@@ -27,6 +26,7 @@ import {CreateMealHistoryDto} from "../../dto/createMealHistory.dto";
 import {PeriodNamesEnum} from "../../../Common/utils/PeriodNames";
 import {NotFoundException} from "@nestjs/common";
 import {PrismaError} from "prisma-error-enum";
+import {ConnectionGetService} from "../../../Connections/connection/services/connection-get/connection-get.service";
 
 describe('MealHistoryCreateController', () => {
     let controller: MealHistoryCreateController;
@@ -40,13 +40,16 @@ describe('MealHistoryCreateController', () => {
     let foodCheckService: FoodCheckService;
     let connectionCheckService: ConnectionCheckService;
     let prismaService: PrismaService;
+    let connectionGetService: ConnectionGetService;
 
     beforeEach(async () => {
+        jest.resetModules()
         const module: TestingModule = await Test.createTestingModule({
-            imports: [MealModule, DayHistoryModule, ProfileModule, GoalsModule, WeightHistoryModule, FoodsModule, ConnectionModule, ConnectionModule],
-            controllers: [MealHistoryCreateController],
+            imports: [MealModule, DayHistoryModule, ProfileModule, GoalsModule, WeightHistoryModule, FoodsModule],
             providers: [
                 MealHistoryCreateService,
+                ConnectionGetService,
+                ConnectionCheckService,
                 PrismaService,
                 DayHistoryGetService,
                 DayHistoryCreateService,
@@ -55,7 +58,10 @@ describe('MealHistoryCreateController', () => {
                 MealHistoryDeleteService,
                 MealHistoryCheckService,
             ],
+            controllers: [MealHistoryCreateController],
         }).compile();
+
+
         controller = module.get<MealHistoryCreateController>(MealHistoryCreateController);
         dayHistoryGetService = module.get<DayHistoryGetService>(DayHistoryGetService);
         dayHistoryCreateService = module.get<DayHistoryCreateService>(DayHistoryCreateService);
@@ -67,7 +73,8 @@ describe('MealHistoryCreateController', () => {
         foodCheckService = module.get<FoodCheckService>(FoodCheckService);
         connectionCheckService = module.get<ConnectionCheckService>(ConnectionCheckService);
         prismaService = module.get<PrismaService>(PrismaService);
-    })
+        connectionGetService = module.get<ConnectionGetService>(ConnectionGetService)
+    });
 
     const createDto: CreateMealHistoryDto = {
         userId: 1,
@@ -78,13 +85,17 @@ describe('MealHistoryCreateController', () => {
     }
 
     describe('create as coach', () => {
+
+
         it('should reject, no connection', async function () {
-            prismaService.connections.findUniqueOrThrow = jest.fn().mockImplementationOnce(()=>{
+            prismaService.connections.findUniqueOrThrow = jest.fn().mockImplementationOnce(()=> {
                 throw new Object({code: PrismaError.RecordsNotFound})
             })
             const result = controller.createMealHistory(RoleEnum.COACH, createDto, 10)
             await expect(result).rejects.toBeInstanceOf(NotFoundException)
         });
+
+
 
         it('should reject, no food', async function () {
             prismaService.connections.findUniqueOrThrow = jest.fn().mockImplementationOnce(()=>{
@@ -97,7 +108,6 @@ describe('MealHistoryCreateController', () => {
             await expect(result).rejects.toBeInstanceOf(NotFoundException)
         })
 
-        
     })
 
 })

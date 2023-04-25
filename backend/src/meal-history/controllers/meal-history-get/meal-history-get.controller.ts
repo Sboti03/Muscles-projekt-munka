@@ -30,6 +30,7 @@ export class MealHistoryGetController {
     async getMealHistory(@Query() historyGetDto: MealHistoryGetDto,
                          @GetAndCheckProfileId() currentProfileId,
                          @GetCurrentUserId() currentUserId: number) {
+        Logger.log(`/meal-history (GET) ${JSON.stringify(historyGetDto)} requesterId: ${currentUserId} `)
         return this.mealHistoryGetService.getMealHistory(historyGetDto, currentProfileId, currentUserId);
     }
 
@@ -37,6 +38,7 @@ export class MealHistoryGetController {
     async getMealHistoryData(@Query() dayHistoryQuery: UserDayHistoryQuery,
                              @GetAndCheckProfileId() currentProfileId,
                              @GetCurrentUserId() currentUserId: number) {
+        Logger.log(`/meal-history/data (GET) ${JSON.stringify(dayHistoryQuery)} requesterId: ${currentUserId} `)
         return this.mealHistoryGetService.getMealHistoryData(currentUserId, dayHistoryQuery.date, dayHistoryQuery.userId, currentProfileId);
     }
 

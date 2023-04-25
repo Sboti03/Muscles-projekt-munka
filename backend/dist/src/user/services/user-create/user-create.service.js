@@ -24,6 +24,21 @@ let UserCreateService = class UserCreateService {
             }
         });
     }
+    async createProfileData(userId) {
+        return this.prismaService.profileData.create({
+            data: {
+                user: {
+                    connect: {
+                        userId
+                    }
+                },
+                profileId: userId,
+                goal: {
+                    create: [{}]
+                },
+            },
+        });
+    }
 };
 UserCreateService = __decorate([
     (0, common_1.Injectable)(),

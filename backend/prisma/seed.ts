@@ -8,6 +8,7 @@ import * as fs from "fs";
 import * as process from "process";
 
 const prisma = new PrismaClient()
+
 async function main() {
     const prisma: PrismaService = new PrismaService()
 
@@ -44,14 +45,34 @@ async function main() {
         where: {email: 'admin@muscles.com'},
         update: {},
         create: {
-            role: {connectOrCreate: {where: {roleId: Roles.ADMIN.roleId}, create: {roleId: Roles.ADMIN.roleId, roleName: Roles.ADMIN.roleName}}},
+            role: {
+                connectOrCreate: {
+                    where: {roleId: Roles.ADMIN.roleId},
+                    create: {roleId: Roles.ADMIN.roleId, roleName: Roles.ADMIN.roleName}
+                }
+            },
             email: 'admin@muscles.com',
             password: encryptData('admin'),
-            profileData: {
-                create: {birthDay: new Date(),goal: {create: [{}]}, height: 200, firstName: 'admin', male: true, registrationDate: new Date(1969, 2, 2  )}
-            }
         }
     })
+    if (admin) {
+        await prisma.profileData.upsert({
+            where: {userId: admin.userId},
+            update: {},
+            create: {
+                profileId: 1,
+                birthDay: new Date(),
+                goal: {create: [{}]},
+                height: 200,
+                firstName: 'admin',
+                male: true,
+                registrationDate: new Date(1969, 2, 2),
+                user: {
+                    connect: {userId: admin.userId}
+                }
+            }
+        })
+    }
     console.log(admin)
 
 
@@ -89,6 +110,7 @@ async function main() {
         console.log(result)
     }
 }
+
 main()
     .then(async () => {
         await prisma.$disconnect()
@@ -100,13 +122,12 @@ main()
     })
 
 
-
 function readFoods() {
 
     let foods: Prisma.foodsCreateInput[] = []
     // [0]     [1]                [2]            [3]    [4]                  [5]          [6]
     // [0]Name;[1]Calories (kcal);[2]Protein (g);[3]Fat;[4]Carbohydrates (g);[5]Fiber (g);[6]Sugar (g)
-    const file = fs.readFileSync( process.cwd() +'/prisma/food.csv', 'utf8')
+    const file = fs.readFileSync(process.cwd() + '/prisma/food.csv', 'utf8')
     const lines = file.split('\n');
     for (let i = 0; i < lines.length; i++) {
         if (i !== 0) {

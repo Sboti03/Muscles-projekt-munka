@@ -22,15 +22,16 @@ export class RefreshTokenStrategy extends PassportStrategy(
     }
 
     validate(req: express.Request, payload: JwtPayload) {
-        const refreshToken = req.cookies.refreshToken
+        const refreshTokenFromCookie = req.cookies.refreshToken
+        if (refreshTokenFromCookie) {
+            return payload
+        }
+        const refreshTokenFromHeader = req.headers.authorization.slice(7)
+        if (refreshTokenFromHeader) {
+            return payload;
+        }
 
-        if (!refreshToken)
-            throw new ForbiddenException('Refresh token malformed');
-
-        return {
-            ...payload,
-            refreshToken,
-        };
+        throw new ForbiddenException("Token is malformed")
     }
 
     private static extractJWT(req: express.Request): string | null {

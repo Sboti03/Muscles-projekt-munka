@@ -1,11 +1,18 @@
 .formLabel {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
 }
 
+
+
+
 .formContainer {
-    max-width: 200px;
+    max-width: 600px;
     margin: 0 auto;
+}
+
+.form > div {
+    gap: 10px;
 }
 
 .formContainer > form > div {

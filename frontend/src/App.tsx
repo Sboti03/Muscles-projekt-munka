@@ -10,6 +10,8 @@ import React, {useContext} from "react";
 import ConnectionContextProvider from "./components/connection/ConnectionContextProvider";
 import UserCoachContextProvider from "./components/UserCoach/context/UserCoachContextProvider";
 import {ToastContainer} from "react-toastify";
+import 'react-date-picker/dist/DatePicker.css';
+import 'react-calendar/dist/Calendar.css';
 import 'react-toastify/dist/ReactToastify.css';
 
 

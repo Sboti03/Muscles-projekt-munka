@@ -15,14 +15,18 @@ export default function UserCoachPageNavigator() {
     const {userCoachPage} = useContext(UserCoachNavigatorContext)
     const {user} = useContext(AuthContext)
     const {showProfileId, connections, connectionRequests, refresh} = useContext(UserCoachContext)
+
+
+    const base = <div>
+        <UserSearch/>
+        <UserResult/>
+        <Connections/>
+    </div>
+
     switch (userCoachPage) {
         case UserCoachPages.SEARCH:
         case UserCoachPages.BASE:
-            return <div>
-                <UserSearch/>
-                <UserResult/>
-                <Connections/>
-            </div>
+            return base
         case UserCoachPages.PROFILE_VIEW:
             let status: ConnectionStatus = ConnectionStatus.NONE
             if (showProfileId) {
@@ -49,8 +53,10 @@ export default function UserCoachPageNavigator() {
                 }
                 return <ProfileView refresh={refresh} changeAction={refresh} profileId={showProfileId} connectionStatus={status}/>;
             }
+            return base
         case UserCoachPages.COACH_MANAGER:
             return <UserCoachManager />
+        default:
             return <LoadingManager isLoading={!showProfileId} fullCenter={true}/>
     }
 }

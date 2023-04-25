@@ -1,4 +1,4 @@
-import {useContext, useEffect, useRef, useState} from "react";
+import React, {useContext, useEffect, useRef, useState} from "react";
 import styles from './WeightInfo.module.css'
 import LongPressButton from "../../Common/LongPressButton";
 import {Methods, singleFetch} from "../../utils/Fetch";
@@ -32,7 +32,7 @@ export default function WeightInfo(props: { currentDate: Date, weight: number })
     }, [weight])
 
     function handleDecrease() {
-        if (weight > 0.1) {
+        if (weight > 0) {
             setWeight(prevState => Math.round((prevState - 0.1) * 10) / 10)
         }
     }
@@ -44,11 +44,17 @@ export default function WeightInfo(props: { currentDate: Date, weight: number })
     function handleBigDecrease() {
         setWeight(prevState => {
             const newValue = Math.round((prevState - 1) * 10) / 10
-            if (newValue > 0.1) {
+            if (newValue > 0) {
                 return newValue
             }
-            return 0.1
+            return 0
         })
+    }
+
+    function handleInput(event: React.ChangeEvent<HTMLInputElement>) {
+        if (event.target.valueAsNumber >= 0) {
+            setWeight(event.target.valueAsNumber)
+        }
     }
 
     function handleBigIncrease() {
@@ -67,7 +73,7 @@ export default function WeightInfo(props: { currentDate: Date, weight: number })
                             <LongPressButton longAction={handleBigDecrease} simpleAction={handleDecrease}
                                              time={100}>-</LongPressButton>
                             <div>
-                                {weight} kg
+                                <input className={styles.input} type={"number"} onChange={handleInput} placeholder={"weight"} value={weight}/>
                             </div>
                             <LongPressButton longAction={handleBigIncrease} simpleAction={handleIncrease}
                                              time={100}>+</LongPressButton>

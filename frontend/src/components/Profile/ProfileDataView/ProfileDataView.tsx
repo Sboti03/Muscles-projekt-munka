@@ -140,9 +140,9 @@ export default function ProfileDataView(props: Props) {
                         <FormControl>
                             <FormLabel>{t("profile.date-of-birth")}</FormLabel>
                             <DatePicker value={newProfileData.birthDay}
-                                        onChange={(value: Date) => setNewProfileData({
+                                        onChange={value => setNewProfileData({
                                             ...newProfileData,
-                                            birthDay: value
+                                            birthDay: value ? value as Date : undefined
                                         })}/>
                         </FormControl>
                     </div>

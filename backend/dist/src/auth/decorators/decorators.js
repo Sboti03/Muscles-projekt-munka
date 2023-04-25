@@ -43,6 +43,10 @@ exports.GetCurrentUserRefreshToken = (0, common_2.createParamDecorator)((_, cont
     const request = context.switchToHttp().getRequest();
     const cookies = request.cookies;
     if (!(cookies === null || cookies === void 0 ? void 0 : cookies.refreshToken)) {
+        const tokenFromHeader = request.headers.authorization.slice(7);
+        if (tokenFromHeader) {
+            return tokenFromHeader;
+        }
         throw new common_1.NotFoundException('No token found');
     }
     return cookies.refreshToken;

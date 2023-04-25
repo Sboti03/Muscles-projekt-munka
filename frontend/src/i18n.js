@@ -6,8 +6,8 @@ import { initReactI18next } from "react-i18next";
 
 
 i18n
-    .use(Backend)
     .use(initReactI18next)
+    .use(Backend)
     .init({
         lng: "en",
         debug: true,

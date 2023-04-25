@@ -13,13 +13,13 @@ export declare class MealHistoryGetController {
     constructor(prismaService: PrismaService, dayHistoryGetService: DayHistoryGetService, dayHistoryCheckService: DayHistoryCheckService, mealHistoryGetService: MealHistoryGetService);
     getMealHistory(historyGetDto: MealHistoryGetDto, currentProfileId: any, currentUserId: number): Promise<{
         meal: {
+            food: import(".prisma/client").foods & {
+                unit: import(".prisma/client").units;
+            };
             mealId: number;
             amount: number;
             addedBy: string;
             completed: boolean;
-            food: import(".prisma/client").foods & {
-                unit: import(".prisma/client").units;
-            };
         };
         mealHistoryId: number;
     }[]>;
@@ -34,27 +34,27 @@ export declare class MealHistoryGetController {
     getMealHistoryBetween(dayHistoryBetweenQuery: DayHistoryBetweenQuery, currentProfileId: number, currentUserId: number): Promise<{
         date: Date;
         mealHistory: {
-            periodName: string;
             meal: {
-                amount: number;
-                addedBy: string;
-                completed: boolean;
                 food: {
+                    foodId: number;
                     unit: {
                         unit: string;
                         defaultValue: number;
                     };
-                    name: string;
                     kcal: number;
-                    perUnit: number;
-                    protein: number;
                     fat: number;
-                    carbohydrate: number;
-                    sugar: number;
                     fiber: number;
-                    foodId: number;
+                    sugar: number;
+                    protein: number;
+                    carbohydrate: number;
+                    name: string;
+                    perUnit: number;
                 };
+                amount: number;
+                addedBy: string;
+                completed: boolean;
             };
+            periodName: string;
         }[];
         weightHistory: {
             weight: number;

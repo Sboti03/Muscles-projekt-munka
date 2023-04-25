@@ -8,3 +8,16 @@
     display: flex;
     justify-content: space-around;
 }
+
+.selectBtn {
+
+}
+
+.selected {
+    @apply bg-white border-0 focus:outline-none rounded;
+}
+.selectContainer {
+    display: grid;
+    grid-template-columns: .3fr 1fr 1fr .3fr;
+    @apply bg-gray-200 rounded-lg p-1 gap-2;
+}

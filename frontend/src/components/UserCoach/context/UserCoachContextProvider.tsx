@@ -1,7 +1,7 @@
 import UserCoachContext from "./UserCoachContext";
 import {PropsWithChildren, useContext, useEffect, useState} from "react";
 import {Methods, singleFetch} from "../../utils/Fetch";
-import {convertResponseToData, SearchResponse} from "../data/SearchResponse";
+import {SearchResponse} from "../data/SearchResponse";
 import {ConnectionRequestResponse, ConnectionResponse} from "../data/ConnectionResponse";
 import AuthContext from "../../Auth/AuthContext";
 import {RoleEnum} from "../../Types/Role";
@@ -17,13 +17,19 @@ export default function UserCoachContextProvider(props:PropsWithChildren) {
     const {user} = useContext(AuthContext)
     const {fetchProfileData} = useContext(ProfileContext)
     const [profile, setProfile] = useState<ProfileData>()
+
+
     useEffect(()=> {
         if (user) {
-            loadConnections().then()
+            if (user.role.roleName !== RoleEnum.ADMIN) {
+                loadConnections().then()
+            }
         }
+
     }, [user])
 
     async function loadConnections() {
+        console.log(user?.role.roleName)
         const connectionsResponse = await singleFetch<ConnectionResponse[]>('/api/connection/all', Methods.GET)
         if (connectionsResponse.response) {
             const accessAllConnection = connectionsResponse.response.find(connectionsResponse => connectionsResponse.accessAll)

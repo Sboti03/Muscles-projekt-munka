@@ -4,8 +4,8 @@ export declare class DayHistoryGetController {
     private dayHistoryGetService;
     constructor(dayHistoryGetService: DayHistoryGetService);
     findComment(commentGetDto: CommentGetDto, requesterUserId: number): Promise<{
-        changedAt: Date;
         comment: string;
+        changedAt: Date;
     } | {
         comment: string;
     }>;

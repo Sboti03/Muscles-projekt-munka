@@ -5,7 +5,7 @@ import { IsDate, IsNumber } from "class-validator";
 
 export default class DayHistoryBetweenQuery {
 
-    @ApiProperty({example: 12})
+    @ApiProperty({example: 12, required: false})
     @IsUndefinable()
     @Type(()=> Number)
     @IsNumber()

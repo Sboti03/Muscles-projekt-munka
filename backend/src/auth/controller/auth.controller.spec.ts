@@ -48,13 +48,6 @@ describe('AuthController', () => {
             },
         },
         refreshTokens: [],
-        profileData: {
-            create: {
-                goal: {
-                    create: [{}]
-                },
-            }
-        }
     }
 
     const {password, refreshTokens, ...simpleUserWithoutPassword} = simpleUser
@@ -102,6 +95,7 @@ describe('AuthController', () => {
         })
         it('should create a user', async () => {
             prismaService.users.create = jest.fn().mockImplementationOnce((args: Prisma.usersCreateArgs) => args.data)
+            prismaService.profileData.create = jest.fn().mockImplementationOnce((args: Prisma.usersCreateArgs) => args.data)
             prismaService.users.update = jest.fn().mockImplementationOnce((args: Prisma.usersUpdateArgs) => {
             })
             jest.spyOn(authTokenService, 'getTokens').mockImplementationOnce(() => Promise.resolve(tokens))
@@ -128,7 +122,7 @@ describe('AuthController', () => {
             prismaService.users.findUnique = jest.fn().mockImplementationOnce(() => ({isBlocked: false}))
             authTokenService.getNewAccessToken = jest.fn().mockImplementationOnce(() => true)
             const result = await controller.getAccessToken(response as any, '', 1)
-            expect(result).toEqual(true)
+            expect(result).toEqual({newToken: true})
 
         });
 
@@ -156,7 +150,7 @@ describe('AuthController', () => {
             jest.spyOn(userCheckService, 'checkUserById').mockImplementation(()=> Promise.resolve(true))
             jest.spyOn(authTokenService, 'getNewAccessToken').mockImplementation(()=> Promise.resolve(tokens.accessToken))
             const result = await controller.getAccessToken(response as any, 'asd', 1)
-            expect(result).toEqual(tokens.accessToken)
+            expect(result).toEqual({newToken: tokens.accessToken})
         });
 
 

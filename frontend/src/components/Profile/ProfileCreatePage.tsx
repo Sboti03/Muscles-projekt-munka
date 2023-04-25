@@ -7,6 +7,7 @@ import AuthContext from "../Auth/AuthContext";
 import {RoleEnum} from "../Types/Role";
 
 
+
 export default function ProfileCreatePage() {
     const {user} = useContext(AuthContext)
     const profile = <>
@@ -18,23 +19,20 @@ export default function ProfileCreatePage() {
     const goals = <GoalsDataView saveBtnAction={next} saveBtn={"Next"} backBtn={undefined} />
     const {changePage} = useContext(NavigatorContext)
     const [render, setRender] = useState(profile)
-    const renderState = signal(0)
+    const [renderCount , setRenderCount] = useState(0)
     const renderList = [profile, goals]
 
-    useEffect(()=> {
-        renderState.value = 0
-    }, [])
 
     function next() {
-        renderState.value++
-        if (renderState.value === renderList.length) {
+        setRenderCount(prevState => prevState + 1)
+        if (renderCount === renderList.length) {
             if (user?.role.roleName === RoleEnum.COACH) {
                 changePage(Page.COACH_HOME)
             } else {
                 changePage(Page.HOME)
             }
         } else {
-            setRender(renderList[renderState.value])
+            setRender(renderList[renderCount])
         }
     }
 

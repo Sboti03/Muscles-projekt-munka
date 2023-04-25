@@ -7,13 +7,17 @@ export declare class ProfileGetService {
         profileId: number;
     }, never>;
     getAllProfileDataByProfileId(profileId: number): import(".prisma/client").Prisma.Prisma__profileDataClient<import(".prisma/client").profileData, never>;
-    getAllProfileAllData(): import(".prisma/client").Prisma.PrismaPromise<import(".prisma/client").profileData[]>;
+    getAllProfileAllData(): import(".prisma/client").Prisma.PrismaPromise<(import(".prisma/client").profileData & {
+        user: import(".prisma/client").users & {
+            role: import(".prisma/client").roles;
+        };
+    })[]>;
     getAllProfile(): import(".prisma/client").Prisma.PrismaPromise<{
         userId: number;
+        profileId: number;
         firstName: string;
         lastName: string;
         male: boolean;
-        profileId: number;
     }[]>;
     getProfileDataByProfileId(profileId: number): import(".prisma/client").Prisma.Prisma__profileDataClient<{
         userId: number;
@@ -32,10 +36,10 @@ export declare class ProfileGetService {
             };
         };
         userId: number;
+        profileId: number;
         firstName: string;
         lastName: string;
         male: boolean;
-        profileId: number;
     }[]>;
     getProfiles(name: string, role: RoleEnum, profileId: number): Promise<{
         user: {
@@ -45,10 +49,10 @@ export declare class ProfileGetService {
             };
         };
         userId: number;
+        profileId: number;
         firstName: string;
         lastName: string;
         male: boolean;
-        profileId: number;
     }[]>;
     getProfilesByName(name: string, role?: RoleEnum, profileId?: number): import(".prisma/client").Prisma.PrismaPromise<{
         user: {
@@ -58,9 +62,9 @@ export declare class ProfileGetService {
             };
         };
         userId: number;
+        profileId: number;
         firstName: string;
         lastName: string;
         male: boolean;
-        profileId: number;
     }[]>;
 }

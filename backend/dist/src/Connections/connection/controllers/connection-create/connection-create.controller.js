@@ -36,26 +36,31 @@ let ConnectionCreateController = class ConnectionCreateController {
         this.userCheckService = userCheckService;
     }
     async acceptConnection(idParam, requesterId, requesterRole) {
+        common_1.Logger.log(`/connection/accept/${idParam.id} (POST) requesterId: ${requesterId} requesterRole: ${requesterRole}`);
         if (idParam.id === requesterId) {
             throw new common_1.BadRequestException('Cannot accept own connection request');
         }
         const { userId, coachId } = this.connReqGetService.getUserAndCoachId(idParam.id, requesterId, requesterRole);
         const isConnectionRequestExist = await this.connReqCheckService.checkExistingConnectionRequest(userId, coachId);
         if (!isConnectionRequestExist) {
+            common_1.Logger.log(`Connection request not found userId: ${userId} coachId: ${coachId}`);
             throw new common_1.NotFoundException('No connection request found');
         }
         const isConnectionExist = await this.connCheckService.checkExistingConnection(userId, coachId);
         if (isConnectionExist) {
+            common_1.Logger.log(`Connection already exists userId: ${userId} coachId: ${coachId}`);
             throw new common_1.BadRequestException('Connection is already exists');
         }
         const isUserBlocked = await this.userCheckService.isUserBlocked(idParam.id);
         if (isUserBlocked) {
+            common_1.Logger.log(`User is blocked userId: ${userId}`);
             throw new common_1.ForbiddenException("Other user is banned");
         }
         const { connectionRequestId, accessAll } = await this.connReqGetService.getConnectionRequestIdByIds(userId, coachId);
         if (accessAll) {
             const isAccessAllConnectionExist = await this.connCheckService.checkExistingAccessAllConnection(userId);
             if (isAccessAllConnectionExist) {
+                common_1.Logger.log(`User already has a main coach userId: ${userId}`);
                 throw new common_1.ForbiddenException("User already has a main coach");
             }
         }
@@ -63,6 +68,7 @@ let ConnectionCreateController = class ConnectionCreateController {
             return await this.connCreateService.createConnection(connectionRequestId);
         }
         catch (e) {
+            common_1.Logger.error(e);
             throw new common_1.BadRequestException('Unknown error :(');
         }
     }

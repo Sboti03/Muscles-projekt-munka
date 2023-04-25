@@ -59,5 +59,37 @@
       "no-user": "No user found with this email or password",
       "blocked": "Sorry you are blocked :("
     }
+  },
+  "goals": {
+    "error": {
+      "macro-percent": "Carbohydrate per day, Fat per day, Protein per day sum should equal 100",
+      "day-percent": "Breakfast per day, Lunch per day, Dinner per day, Other per day sum should equal 100",
+      "less-then-0": {
+        "target-weight": "Target weight cannot be less then 0",
+        "target-cal": "Target calorie cannot be less then 0",
+        "carbohydrate": "Carbohydrate per day cannot be less then 0",
+        "fat": "Fat per day cannot be less then 0",
+        "protein": "Protein per day cannot be less then 0",
+        "breakfast": "Breakfast per day cannot be less then 0",
+        "dinner": "Dinner per day cannot be less then 0",
+        "lunch": "Lunch per day cannot be less then 0",
+        "other": "Other per day cannot be less then 0"
+      }
+
+    },
+    "target": {
+      "weight": "Target weight (kg)",
+      "cal": "Target calorie"
+    },
+    "per-day": {
+      "carbohydrate": "Carbohydrate per day (%)",
+      "fat": "Fat per day (%)",
+      "protein": "Protein per day (%)",
+
+      "breakfast": "Breakfast per day (%)",
+      "lunch": "Lunch per day (%)",
+      "dinner": "Dinner per day (%)",
+      "other": "Other per day (%)"
+    }
   }
 }
