@@ -12,7 +12,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,9 +62,10 @@ public class UpdateFoodController {
 
     @FXML
     public void updateFoodClick(ActionEvent actionEvent) {
-        createFoodMainMethods.CreateFood(nameField, kcalField, unitField, perUnitField, proteinField, fatField, saturatedFatField, polyunsaturatedFatField, monounsaturatedFatField, carbohydrateField, sugarField, fiberField, loginModel, url, true, foodModel.getFood().getFoodId());
-        mainViewController.foodsClick(actionEvent);
-        cancelFoodClick(actionEvent);
+       if (createFoodMainMethods.CreateFood(nameField, kcalField, unitField, perUnitField, proteinField, fatField, saturatedFatField, polyunsaturatedFatField, monounsaturatedFatField, carbohydrateField, sugarField, fiberField, loginModel, url, true, foodModel.getFood().getFoodId())) {
+           mainViewController.foodsClick(actionEvent);
+           cancelFoodClick(actionEvent);
+       }
     }
 
     @FXML
@@ -92,12 +92,12 @@ public class UpdateFoodController {
         perUnitField.setText(String.valueOf(foodModel.getFood().getPerUnit()));
         proteinField.setText(String.valueOf(foodModel.getFood().getProtein()));
         fatField.setText(String.valueOf(foodModel.getFood().getFat()));
-        saturatedFatField.setText(String.valueOf(foodModel.getFood().getSaturatedFat()));
-        polyunsaturatedFatField.setText(String.valueOf(foodModel.getFood().getPolyunsaturatedFat()));
+        saturatedFatField.setText((foodModel.getFood().getSaturatedFat() != -1 ? String.valueOf(foodModel.getFood().getSaturatedFat()) : ""));
+        polyunsaturatedFatField.setText((foodModel.getFood().getPolyunsaturatedFat() != -1 ? String.valueOf(foodModel.getFood().getPolyunsaturatedFat()) : ""));
         carbohydrateField.setText(String.valueOf(foodModel.getFood().getCarbohydrate()));
-        monounsaturatedFatField.setText(String.valueOf(foodModel.getFood().getMonounsaturatedFat()));
-        sugarField.setText(String.valueOf(foodModel.getFood().getSugar()));
-        fiberField.setText(String.valueOf(foodModel.getFood().getFiber()));
+        monounsaturatedFatField.setText((foodModel.getFood().getMonounsaturatedFat() != -1 ? String.valueOf(foodModel.getFood().getMonounsaturatedFat()) : ""));
+        sugarField.setText((foodModel.getFood().getSugar() != -1 ? String.valueOf(foodModel.getFood().getSugar()) : ""));
+        fiberField.setText((foodModel.getFood().getFiber() != -1 ? String.valueOf(foodModel.getFood().getFiber()) : ""));
         foodOriginalValue = new FoodsCreateOrUpdate(foodModel.getFood().getName(), foodModel.getFood().getKcal(), UnitsEnum.valueOf(foodModel.getFood().getUnit().getUnit()), foodModel.getFood().getPerUnit(), foodModel.getFood().getProtein(), foodModel.getFood().getFat(), foodModel.getFood().getSaturatedFat(), foodModel.getFood().getPolyunsaturatedFat(), foodModel.getFood().getMonounsaturatedFat(), foodModel.getFood().getCarbohydrate(), foodModel.getFood().getSugar(), foodModel.getFood().getFiber());
         List<TextField> textFields = new ArrayList<>(List.of(nameField, kcalField, perUnitField, proteinField, fatField, saturatedFatField, carbohydrateField, monounsaturatedFatField, sugarField, fiberField, polyunsaturatedFatField));
         createFoodMainMethods.addEnterExecution(textFields, unitField, true, null, this);
@@ -110,12 +110,12 @@ public class UpdateFoodController {
         perUnitField.setText(String.valueOf(foodOriginalValue.getPerUnit()));
         proteinField.setText(String.valueOf(foodOriginalValue.getProtein()));
         fatField.setText(String.valueOf(foodOriginalValue.getFat()));
-        saturatedFatField.setText(String.valueOf(foodOriginalValue.getSaturatedFat()));
-        polyunsaturatedFatField.setText(String.valueOf(foodOriginalValue.getPolyunsaturatedFat()));
-        monounsaturatedFatField.setText(String.valueOf(foodOriginalValue.getMonounsaturatedFat()));
+        saturatedFatField.setText((foodOriginalValue.getSaturatedFat() != -1 ? String.valueOf(foodOriginalValue.getSaturatedFat()) : ""));
+        polyunsaturatedFatField.setText((foodOriginalValue.getPolyunsaturatedFat() != -1 ? String.valueOf(foodOriginalValue.getPolyunsaturatedFat()) : ""));
+        monounsaturatedFatField.setText((foodOriginalValue.getMonounsaturatedFat() != -1 ? String.valueOf(foodOriginalValue.getMonounsaturatedFat()) : ""));
         carbohydrateField.setText(String.valueOf(foodOriginalValue.getCarbohydrate()));
-        sugarField.setText(String.valueOf(foodOriginalValue.getSugar()));
-        fiberField.setText(String.valueOf(foodOriginalValue.getFiber()));
+        sugarField.setText((foodOriginalValue.getSugar() != -1 ? String.valueOf(foodOriginalValue.getSugar()) : ""));
+        fiberField.setText((foodOriginalValue.getFiber() != -1 ? String.valueOf(foodOriginalValue.getFiber()): ""));
     }
 
 

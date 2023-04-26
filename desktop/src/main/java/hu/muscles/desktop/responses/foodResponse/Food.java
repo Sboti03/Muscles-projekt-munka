@@ -24,7 +24,7 @@ public class Food {
     private Date changedAt;
     private Unit unit;
 
-    public Food(int foodId, String name, int kcal, int unitId, int perUnit, double protein, double fat, double saturatedFat, double polyunsaturatedFat, double monounsaturatedFat, double carbohydrate, double sugar, double fiber, boolean isDeleted, Date changedAt, Unit unit) {
+    public Food(int foodId, String name, double kcal, int unitId, int perUnit, double protein, double fat, double saturatedFat, double polyunsaturatedFat, double monounsaturatedFat, double carbohydrate, double sugar, double fiber, boolean isDeleted, Unit unit) {
         this.foodId = foodId;
         this.name = name;
         this.kcal = kcal;
@@ -32,15 +32,14 @@ public class Food {
         this.perUnit = perUnit;
         this.protein = protein;
         this.fat = fat;
+        this.carbohydrate = carbohydrate;
+        this.isDeleted = isDeleted;
+        this.unit = unit;
         this.saturatedFat = saturatedFat;
         this.polyunsaturatedFat = polyunsaturatedFat;
         this.monounsaturatedFat = monounsaturatedFat;
-        this.carbohydrate = carbohydrate;
         this.sugar = sugar;
         this.fiber = fiber;
-        this.isDeleted = isDeleted;
-        this.changedAt = changedAt;
-        this.unit = unit;
     }
 
 

@@ -2,9 +2,13 @@ package hu.muscles.desktop.mainContentLoad.loadFromServerToPOJO;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import hu.muscles.desktop.foodMethods.foodJsonDeserializer.FoodJsonDeserializer;
 import hu.muscles.desktop.responses.foodResponse.Food;
 import hu.muscles.desktop.responses.profileResponse.Profile;
+import javafx.application.Platform;
 import javafx.scene.control.ListView;
 
 import java.io.IOException;
@@ -47,11 +51,14 @@ public class LoadFromServerToPojo {
     private List<Food> foodConverterToPOJO(String response) {
         try {
             ObjectMapper om = new ObjectMapper();
+            SimpleModule module = new SimpleModule();
+            module.addDeserializer(Food.class, new FoodJsonDeserializer());
+            om.registerModule(module);
             return om.readValue(response, new TypeReference<>() {
             });
         } catch (JsonProcessingException e) {
             edit.getItems().clear();
-            edit.getItems().add(e.getMessage());
+            Platform.runLater(() -> edit.getItems().add(e.getMessage()));
             return null;
         }
     }

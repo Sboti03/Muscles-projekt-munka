@@ -6,39 +6,32 @@
     -fx-background-repeat: no-repeat;
 }
 
-
-/* login fields */
 .login-field {
-    -fx-background-color:
-            rgb(134, 42, 168),
-            rgb(251, 248, 255);
-    -fx-text-fill: rgb(134, 42, 168);
+    -fx-background-color: rgb(134, 42, 168), rgb(251, 248, 255);
+    -fx-text-fill: rgb(73, 20, 98);
 }
 
 .login-field:focused {
     -fx-background-insets: 0, 2;
     -fx-border-color: white;
     -fx-border-radius: 4px;
-    -fx-background-color:
-            rgb(134, 42, 168),
-            rgb(251, 248, 255);
-    -fx-text-fill: rgb(134, 42, 168);
+    -fx-background-color: rgb(134, 42, 168), rgb(251, 248, 255);
+    -fx-text-fill: rgb(73, 20, 98);
 }
 
 .login-field:hover {
-    -fx-background-color:
-            rgb(247, 0, 255),
-            rgb(251, 248, 255);
-    -fx-text-fill: rgb(134, 42, 168);
+    -fx-background-color: rgb(247, 0, 255),
+    rgb(251, 248, 255);
+    -fx-text-fill: rgb(73, 20, 98);
 }
+
 .login-field:hover:focused {
     -fx-background-insets: 0, 2;
     -fx-border-color: white;
     -fx-border-radius: 4px;
-    -fx-background-color:
-            rgb(134, 42, 168),
-            rgb(251, 248, 255);
-    -fx-text-fill: rgb(134, 42, 168);
+    -fx-background-color: rgb(134, 42, 168),
+    rgb(251, 248, 255);
+    -fx-text-fill: rgb(73, 20, 98);
 }
 
 
@@ -55,40 +48,30 @@ JFXTextArea *.text {
     -fx-padding-top: 30px;
 }
 
-
-/* login button */
-.login-button {
-    -fx-border-color: rgb(251, 248, 255);
-    -fx-border-radius: 4px;
-    -fx-background-color: #6b0c7b;
-    -fx-text-fill: white;
-    -fx-background-radius: 4px;
-}
-.login-button:focused {
-    -fx-background-color:
-            rgb(134, 42, 168),
-            rgba(107, 12, 123, 0.87);
-    -fx-text-fill: white;
-    -fx-border-radius: 4px;
-    -fx-background-radius: 4px;
-
+ProgressIndicator {
+    -fx-accent: rgb(251, 248, 255);
 }
 
-.login-button:hover {
-    -fx-background-color:
-            rgb(134, 42, 168),
-            rgba(87, 9, 101, 0.87);
-    -fx-text-fill: white;
-    -fx-border-radius: 4px;
-    -fx-background-radius: 4px;
-}
-
-.login-button:pressed {
-    -fx-background-color: #400967;
+Button:focused {
+    -fx-background-color: #40115e;
     -fx-border-color: #ee00ff;
     -fx-text-fill: white;
 }
 
-ProgressIndicator {
-    -fx-accent: rgb(251, 248, 255);
+Button {
+    -fx-border-color: rgb(251, 248, 255);
+    -fx-background-color: #460965;
+    -fx-text-fill: white;
+}
+
+Button:hover {
+    -fx-background-color: #40115e;
+    -fx-border-color: #ff00ea;
+    -fx-text-fill: white;
+}
+
+Button:pressed {
+    -fx-background-color: #5d2688;
+    -fx-border-color: #ee00ff;
+    -fx-text-fill: white;
 }

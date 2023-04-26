@@ -33,6 +33,7 @@ public class RequestSender {
         }
     }
 
+
     public RestTemplate getPATCHRestTemplate(RestTemplate restTemplate, HttpMethod httpMethod) {
         if (httpMethod == HttpMethod.PATCH) {
             HttpClient httpClient = HttpClientBuilder.create().build();

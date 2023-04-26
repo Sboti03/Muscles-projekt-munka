@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="00e91fc0-96b8-4172-906f-ab5075727363" name="Changes" comment="show loading progress indicator in main + refactoring code">
+    <list default="true" id="00e91fc0-96b8-4172-906f-ab5075727363" name="Changes" comment="little changes in methods">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/MainViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/MainViewController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,7 +48,7 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;extract.method.default.visibility&quot;: &quot;private&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/k2347/IdeaProjects/Muscles-projekt-munka/desktop&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/k2347/IdeaProjects/autokTest&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -66,6 +65,7 @@
       <recent name="hu.muscles.desktop.controllers" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\k2347\IdeaProjects\Muscles-projekt-munka\desktop\src\main\resources\hu\muscles\desktop\backgroundResources" />
       <recent name="C:\Users\oktatas\Downloads\M_N\Muscles-Project-munka\desktop\src\main\resources\hu\muscles\desktop\style\backgrounds" />
       <recent name="C:\Users\oktatas\Downloads\M_N\Muscles-Project-munka\desktop\src\main\resources\hu\muscles\desktop" />
     </key>
@@ -115,28 +115,12 @@
       <workItem from="1680006862680" duration="214781000" />
       <workItem from="1681993328416" duration="21407000" />
       <workItem from="1682028359837" duration="5503000" />
-      <workItem from="1682056688289" duration="8222000" />
-    </task>
-    <task id="LOCAL-00001" summary="refactoring (renaming)">
-      <created>1678362647589</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1678362647589</updated>
-    </task>
-    <task id="LOCAL-00002" summary="creating login-view">
-      <created>1678362965725</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1678362965725</updated>
-    </task>
-    <task id="LOCAL-00003" summary="adding spring and jackson dependencies">
-      <created>1678363160965</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1678363160965</updated>
+      <workItem from="1682056688289" duration="27934000" />
+      <workItem from="1682284127793" duration="1946000" />
+      <workItem from="1682335025631" duration="10317000" />
+      <workItem from="1682436380294" duration="680000" />
+      <workItem from="1682437106118" duration="12271000" />
+      <workItem from="1682498751734" duration="16660000" />
     </task>
     <task id="LOCAL-00004" summary="creating login">
       <created>1678364177935</created>
@@ -397,7 +381,91 @@
       <option name="project" value="LOCAL" />
       <updated>1682063383691</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="admin check when delete">
+      <created>1682064987382</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1682064987382</updated>
+    </task>
+    <task id="LOCAL-00042" summary="Replacing background color settings to css">
+      <created>1682074387536</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1682074387536</updated>
+    </task>
+    <task id="LOCAL-00043" summary="Rearrange methods in main-view">
+      <created>1682076397680</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1682076397680</updated>
+    </task>
+    <task id="LOCAL-00044" summary="Creating custom food Json serializer and fixing">
+      <created>1682082883880</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1682082883880</updated>
+    </task>
+    <task id="LOCAL-00045" summary="Fixing button and add ComboBox style">
+      <created>1682102757133</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1682102757133</updated>
+    </task>
+    <task id="LOCAL-00046" summary="Adding custom exit confirmation window">
+      <created>1682347561153</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1682347561153</updated>
+    </task>
+    <task id="LOCAL-00047" summary="fixed search">
+      <created>1682499342167</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1682499342167</updated>
+    </task>
+    <task id="LOCAL-00048" summary="fixing search and load in order to prevent &lt;local1&gt; to be null, fixing error messages to user">
+      <created>1682506946172</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1682506946172</updated>
+    </task>
+    <task id="LOCAL-00049" summary="fixing in function buttons">
+      <created>1682508013946</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1682508013946</updated>
+    </task>
+    <task id="LOCAL-00050" summary="Reformat css, exit button in login window with a new class">
+      <created>1682515179446</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1682515179447</updated>
+    </task>
+    <task id="LOCAL-00051" summary="Login css, remove unused imports and fixing double issues while creating/updating foods">
+      <created>1682516917176</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1682516917176</updated>
+    </task>
+    <task id="LOCAL-00052" summary="little changes in methods">
+      <created>1682517747066</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1682517747066</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -415,18 +483,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Profile response class and Url" />
-    <MESSAGE value="Profile load in ListView" />
-    <MESSAGE value="fixing selection in case of error" />
-    <MESSAGE value="refactoring code" />
-    <MESSAGE value="refactoring code and little changes" />
-    <MESSAGE value="Creating editable cell factory" />
-    <MESSAGE value="adding update and cancel update buttons" />
-    <MESSAGE value="ListView update element (currently working with enter) and create food view" />
-    <MESSAGE value="Initialize text fields in create-food-view" />
-    <MESSAGE value="Create food" />
-    <MESSAGE value="Refactoring create food" />
-    <MESSAGE value="adding gender to profile and designing login form" />
     <MESSAGE value="adding radius to background" />
     <MESSAGE value="install controlsfx dependency" />
     <MESSAGE value="rewriting food load and update" />
@@ -440,7 +496,19 @@
     <MESSAGE value="resizing elements" />
     <MESSAGE value="search between loaded foods and profiles" />
     <MESSAGE value="show loading progress indicator in main + refactoring code" />
-    <option name="LAST_COMMIT_MESSAGE" value="show loading progress indicator in main + refactoring code" />
+    <MESSAGE value="admin check when delete" />
+    <MESSAGE value="Replacing background color settings to css" />
+    <MESSAGE value="Rearrange methods in main-view" />
+    <MESSAGE value="Creating custom food Json serializer and fixing" />
+    <MESSAGE value="Fixing button and add ComboBox style" />
+    <MESSAGE value="Adding custom exit confirmation window" />
+    <MESSAGE value="fixed search" />
+    <MESSAGE value="fixing search and load in order to prevent &lt;local1&gt; to be null, fixing error messages to user" />
+    <MESSAGE value="fixing in function buttons" />
+    <MESSAGE value="Reformat css, exit button in login window with a new class" />
+    <MESSAGE value="Login css, remove unused imports and fixing double issues while creating/updating foods" />
+    <MESSAGE value="little changes in methods" />
+    <option name="LAST_COMMIT_MESSAGE" value="little changes in methods" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

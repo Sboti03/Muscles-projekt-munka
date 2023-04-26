@@ -1,0 +1,43 @@
+#root {
+    -fx-background-color: #490c7a;
+    -fx-background-image: url('../backgroundResources/exit-bg.png');
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+    -fx-background-repeat: no-repeat;
+}
+
+Button:focused {
+    -fx-border-radius: 8px;
+    -fx-background-color: #40115e;
+    -fx-border-color: #ee00ff;
+    -fx-text-fill: white;
+    -fx-background-radius: 8px;
+}
+
+Button {
+    -fx-border-color: #6b04a4;
+    -fx-border-radius: 8px;
+    -fx-background-color: #460965;
+    -fx-text-fill: white;
+    -fx-background-radius: 8px;
+}
+
+Button:hover {
+    -fx-background-color: #40115e;
+    -fx-border-color: #ff00ea;
+    -fx-border-radius: 8px;
+    -fx-text-fill: white;
+    -fx-background-radius: 8px;
+}
+
+Button:pressed {
+    -fx-background-color: #240a33;
+    -fx-border-color: #ee00ff;
+    -fx-border-radius: 8px;
+    -fx-text-fill: white;
+    -fx-background-radius: 8px;
+}
+
+.menu-bar {
+    background-color: #40115e;
+}

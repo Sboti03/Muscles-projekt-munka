@@ -3,9 +3,10 @@ package hu.muscles.desktop.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jfoenix.controls.JFXTextArea;
 import hu.muscles.desktop.App;
-import hu.muscles.desktop.responses.loginResponse.LoginResponse;
+import hu.muscles.desktop.exitFromApp.ExitFromApp;
 import hu.muscles.desktop.informUser.InformUser;
 import hu.muscles.desktop.models.LoginModel;
+import hu.muscles.desktop.responses.loginResponse.LoginResponse;
 import hu.muscles.desktop.urls.Urls;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
@@ -13,8 +14,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.ProgressIndicator;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -23,7 +28,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -40,9 +44,12 @@ public class LoginController implements Initializable {
     private PasswordField passwordTextField;
     @FXML
     private ProgressIndicator loading;
+    @FXML
+    private Button exitBtn;
+    @FXML
+    private VBox mainVbox;
 
     private final InformUser informUser = new InformUser();
-
     private final static RestTemplate restTemplate = new RestTemplate();
     private final Urls url = new Urls();
     private LoginModel loginModel;
@@ -59,7 +66,7 @@ public class LoginController implements Initializable {
         }
 
         loading.setVisible(true);
-        Task<Void> loginTask = new Task<Void>() {
+        Task<Void> loginTask = new Task<>() {
             @Override
             protected Void call() throws Exception {
                 String response = login(email, password);
@@ -141,4 +148,8 @@ public class LoginController implements Initializable {
         loading.setProgress(ProgressIndicator.INDETERMINATE_PROGRESS);
     }
 
+    @FXML
+    public void exitClick(ActionEvent actionEvent) {
+        new ExitFromApp(mainVbox, infoArea);
+    }
 }
