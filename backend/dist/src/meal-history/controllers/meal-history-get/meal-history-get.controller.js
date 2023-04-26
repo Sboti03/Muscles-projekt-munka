@@ -32,9 +32,11 @@ let MealHistoryGetController = class MealHistoryGetController {
         this.mealHistoryGetService = mealHistoryGetService;
     }
     async getMealHistory(historyGetDto, currentProfileId, currentUserId) {
+        common_1.Logger.log(`/meal-history (GET) ${JSON.stringify(historyGetDto)} requesterId: ${currentUserId} `);
         return this.mealHistoryGetService.getMealHistory(historyGetDto, currentProfileId, currentUserId);
     }
     async getMealHistoryData(dayHistoryQuery, currentProfileId, currentUserId) {
+        common_1.Logger.log(`/meal-history/data (GET) ${JSON.stringify(dayHistoryQuery)} requesterId: ${currentUserId} `);
         return this.mealHistoryGetService.getMealHistoryData(currentUserId, dayHistoryQuery.date, dayHistoryQuery.userId, currentProfileId);
     }
     async getMealHistoryBetween(dayHistoryBetweenQuery, currentProfileId, currentUserId) {

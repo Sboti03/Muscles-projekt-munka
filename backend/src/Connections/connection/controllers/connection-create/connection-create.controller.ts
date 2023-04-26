@@ -1,7 +1,7 @@
 import {
     BadRequestException,
     Controller,
-    ForbiddenException,
+    ForbiddenException, Logger,
     NotFoundException, Param,
     Post,
     UseGuards
@@ -42,20 +42,24 @@ export class ConnectionCreateController {
     async acceptConnection(@Param() idParam: IdParam,
                            @GetCurrentUserId() requesterId: number,
                            @GetCurrentUser('role') requesterRole: RoleEnum) {
+        Logger.log(`/connection/accept/${idParam.id} (POST) requesterId: ${requesterId} requesterRole: ${requesterRole}`)
         if (idParam.id === requesterId) {
             throw new BadRequestException('Cannot accept own connection request')
         }
         const {userId, coachId} = this.connReqGetService.getUserAndCoachId(idParam.id, requesterId, requesterRole)
         const isConnectionRequestExist = await this.connReqCheckService.checkExistingConnectionRequest(userId, coachId)
         if (!isConnectionRequestExist) {
+            Logger.log(`Connection request not found userId: ${userId} coachId: ${coachId}`)
             throw new NotFoundException('No connection request found')
         }
         const isConnectionExist = await this.connCheckService.checkExistingConnection(userId, coachId)
         if (isConnectionExist) {
+            Logger.log(`Connection already exists userId: ${userId} coachId: ${coachId}`)
             throw new BadRequestException('Connection is already exists')
         }
         const isUserBlocked = await this.userCheckService.isUserBlocked(idParam.id)
         if (isUserBlocked) {
+            Logger.log(`User is blocked userId: ${userId}`)
             throw new ForbiddenException("Other user is banned")
         }
 
@@ -63,6 +67,7 @@ export class ConnectionCreateController {
         if (accessAll) {
             const isAccessAllConnectionExist = await this.connCheckService.checkExistingAccessAllConnection(userId)
             if (isAccessAllConnectionExist) {
+                Logger.log(`User already has a main coach userId: ${userId}`)
                 throw new ForbiddenException("User already has a main coach")
             }
         }
@@ -70,6 +75,7 @@ export class ConnectionCreateController {
         try {
             return await this.connCreateService.createConnection(connectionRequestId)
         } catch (e) {
+            Logger.error(e)
             throw new BadRequestException('Unknown error :(')
         }
     }

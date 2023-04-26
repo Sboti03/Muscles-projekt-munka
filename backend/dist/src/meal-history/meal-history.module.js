@@ -32,7 +32,7 @@ let MealHistoryModule = class MealHistoryModule {
 MealHistoryModule = __decorate([
     (0, common_1.Module)({
         imports: [meal_module_1.MealModule, day_history_module_1.DayHistoryModule, profile_module_1.ProfileModule, goals_module_1.GoalsModule, weight_history_module_1.WeightHistoryModule, foods_module_1.FoodsModule, connection_module_1.ConnectionModule, connection_module_1.ConnectionModule],
-        controllers: [meal_history_get_controller_1.MealHistoryGetController, meal_history_create_controller_1.MealHistoryCreateController, meal_history_update_controller_1.MealHistoryUpdateController, meal_history_delete_controller_1.MealHistoryDeleteController],
+        controllers: [meal_history_create_controller_1.MealHistoryCreateController, meal_history_update_controller_1.MealHistoryUpdateController, meal_history_delete_controller_1.MealHistoryDeleteController, meal_history_get_controller_1.MealHistoryGetController],
         providers: [
             meal_history_create_service_1.MealHistoryCreateService,
             prirsma_service_1.PrismaService,

@@ -25,13 +25,16 @@ let UserUpdateService = class UserUpdateService {
     async updatePassword(oldPassword, newPassword, userId) {
         const isOldPasswordMatch = await this.checkUserService.checkPassword(oldPassword, userId);
         if (!isOldPasswordMatch) {
+            common_1.Logger.log(`Password is not the same userId: ${userId}`);
             throw new common_1.NotFoundException('Password is not the same');
         }
         const isNewPasswordNotTheSame = await this.checkUserService.checkPassword(newPassword, userId);
         if (isNewPasswordNotTheSame) {
+            common_1.Logger.log(`Cannot be the same password userId: ${userId}`);
             throw new common_1.BadRequestException('Cannot be the same password');
         }
         newPassword = (0, bcrypt_1.encryptData)(newPassword);
+        common_1.Logger.log(`Password changed userId: ${userId}`);
         return this.prismaService.users.update({
             data: {
                 password: newPassword,

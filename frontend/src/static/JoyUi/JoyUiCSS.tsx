@@ -78,6 +78,7 @@ mergedTheme.generateCssVars = (colorScheme) => ({
         // @ts-ignore
         ...joyTheme.generateCssVars(colorScheme).css
     },
+    // @ts-ignore
     vars: deepmerge(
         // @ts-ignore
         muiTheme.generateCssVars(colorScheme).vars,

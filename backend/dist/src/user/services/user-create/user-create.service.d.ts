@@ -6,4 +6,5 @@ export declare class UserCreateService {
     createUser(user: Prisma.usersCreateInput): Prisma.Prisma__usersClient<import(".prisma/client").users & {
         role: import(".prisma/client").roles;
     }, never>;
+    createProfileData(userId: number): Promise<import(".prisma/client").profileData>;
 }

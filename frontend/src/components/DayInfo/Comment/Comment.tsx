@@ -22,11 +22,10 @@ export default function Comment() {
     const [editMode, setEditMode] = useState(false)
     const commentInput = useRef<HTMLInputElement>(null)
     const isCommentExist = commentData ?  commentData.comment !==  '' : false;
-
+    const [comment, setComment] = useState('')
     const [renderedComment, setRenderedComment] = useState(<></>)
 
     useEffect(()=> {
-        console.log(isCommentExist)
         if (isCommentExist) {
             setRenderedComment(showComment)
         } else {
@@ -50,6 +49,7 @@ export default function Comment() {
 
         if (result.response) {
             setCommentData(result.response)
+            setComment(result.response.comment)
         }
     }
 
@@ -61,7 +61,6 @@ export default function Comment() {
 
 
     function handleSend(ownComment?: string) {
-        console.log(ownComment)
         singleFetch('api/day-history/comment', Methods.POST, {
             date: normalizeDate(currentDate),
             userId: showProfileId,
@@ -70,6 +69,8 @@ export default function Comment() {
     }
 
     function handleEditClick() {
+        console.log(editMode, 'edit mode')
+        console.log('Edit ')
         if (editMode) {
             setEditMode(false)
             handleSend()
@@ -80,14 +81,17 @@ export default function Comment() {
     }
 
     function changeComment(event: React.KeyboardEvent<HTMLTextAreaElement>) {
-        if (event.key === 'Enter') {
-            handleSend()
+        console.log(event.key)
+        if (event.key === 'Enter' || event.key === 'enter' && editMode) {
+            console.log('Seed')
             setEditMode(false)
+            handleSend()
         }
     }
 
     function handleDeleteComment() {
         setCommentData({...commentData!, comment: ''})
+        setComment('')
         handleSend('')
     }
 
@@ -129,11 +133,11 @@ export default function Comment() {
             {
                 editMode ? <>
                         <Textarea onKeyDown={changeComment} ref={commentInput} className="bg-gray-200"
-                                  onChange={(event) => setCommentData({...commentData!, comment: event.target.value})} value={commentData?.comment}/>
+                                  onChange={(event) => setComment(event.target.value)} value={comment}/>
                     </>
                     :
                     <>
-                        {commentData?.comment}
+                        {comment}
                     </>
             }
             <div className="text-sm text-gray-700">
@@ -154,7 +158,7 @@ export default function Comment() {
         return (
             <div className="mt-5">
                 <Textarea placeholder="Write something..." onKeyDown={changeComment} ref={commentInput} className="bg-gray-200"
-                          onChange={(event) => setCommentData({...commentData!, comment: event.target.value})} value={commentData?.comment}/>
+                          onChange={(event) => setComment(event.target.value)} value={comment}/>
             </div>
         )
     }

@@ -59,6 +59,10 @@ export const GetCurrentUserRefreshToken = createParamDecorator(
         const request = context.switchToHttp().getRequest();
         const cookies = request.cookies;
         if (!cookies?.refreshToken) {
+            const tokenFromHeader = request.headers.authorization.slice(7)
+            if (tokenFromHeader) {
+                return tokenFromHeader
+            }
             throw new NotFoundException('No token found')
         }
         return cookies.refreshToken

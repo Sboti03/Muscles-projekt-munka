@@ -42,15 +42,34 @@ async function main() {
         where: { email: 'admin@muscles.com' },
         update: {},
         create: {
-            role: { connectOrCreate: { where: { roleId: roles_1.Roles.ADMIN.roleId }, create: { roleId: roles_1.Roles.ADMIN.roleId, roleName: roles_1.Roles.ADMIN.roleName } } },
+            role: {
+                connectOrCreate: {
+                    where: { roleId: roles_1.Roles.ADMIN.roleId },
+                    create: { roleId: roles_1.Roles.ADMIN.roleId, roleName: roles_1.Roles.ADMIN.roleName }
+                }
+            },
             email: 'admin@muscles.com',
             password: (0, bcrypt_1.encryptData)('admin'),
-            profileData: {
-                create: { birthDay: new Date(), goal: { create: [{}] }, height: 200, firstName: 'admin', male: true, registrationDate: new Date(1969, 2, 2) }
-            }
         }
     });
-    console.log(admin);
+    if (admin) {
+        await prisma.profileData.upsert({
+            where: { userId: admin.userId },
+            update: {},
+            create: {
+                profileId: 1,
+                birthDay: new Date(),
+                goal: { create: [{}] },
+                height: 200,
+                firstName: 'admin',
+                male: true,
+                registrationDate: new Date(1969, 2, 2),
+                user: {
+                    connect: { userId: admin.userId }
+                }
+            }
+        });
+    }
     for (const objOfUnit of units_1.Units) {
         await prisma.units.upsert({
             where: { unit: objOfUnit.unit },

@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import NavigatorContext, {Page} from "./NavigatorContext";
 import LoginPage from "../Auth/Login/LoginPage";
 import DayPage from "../DayInfo/DayPage";
@@ -14,20 +14,23 @@ import ResultsPage from "../Results/ResultsPage";
 import ProfileViewPage from "../Profile/ProfileDataViewPage/ProfileViewPage";
 import UserCoachPage from "../UserCoach/UserCoachPage";
 import WelcomePage from "../Welcome/WelcomePage";
+import AdminPageContextProvider from "../Admin/Context/AdminPageContextProvider";
 
 export default function Pages() {
 
     const {page} = useContext(NavigatorContext)
 
     switch (page) {
+        case Page.ADMIN:
+            return <AdminPageContextProvider>
+                <AdminPage />
+            </AdminPageContextProvider>
         case Page.LOGIN:
             return <LoginPage />
         case Page.HOME:
             return <DayPage />
         case Page.REGISTER:
             return <RegisterPage />
-        case Page.ADMIN:
-            return <AdminPage />
         case Page.FOOD_SEARCH:
             return <FoodAdderPage />
         case Page.PROFILE_CREATE:
@@ -47,10 +50,6 @@ export default function Pages() {
         case Page.WELCOME:
             return <WelcomePage />
         default:
-            return (
-                <div className="full-height full-center">
-
-                </div>
-            )
+            return (<></>)
     }
 }

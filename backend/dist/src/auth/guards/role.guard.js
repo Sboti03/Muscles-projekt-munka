@@ -27,7 +27,6 @@ let RolesGuard = class RolesGuard {
         }
         const { user } = context.switchToHttp().getRequest();
         const userPayload = user;
-        console.log(userPayload.role);
         return requiredRoles.some((role) => userPayload.role.includes(role));
     }
 };

@@ -51,6 +51,7 @@ export class AuthController {
     @ApiResponse({status: 400, description: 'Wrong post body'})
     @HttpCode(200)
     login(@Req() req, @Body() loginDto: LoginDto, @Res({passthrough: true}) res: Response) {
+        Logger.log(`/auth/login (POST) email: ${loginDto.email} password: ********`)
         const tokens = req.user.tokens
         this.authTokenService.storeTokens(tokens, res)
         return req.user;
@@ -69,11 +70,11 @@ export class AuthController {
     @UseGuards(RefreshTokenGuard)
     @Get('refresh')
     @HttpCode(HttpStatus.OK)
-    @Header('Content-Type', 'application/json')
     async getRefreshToken(@Res({passthrough: true}) res: Response, @GetCurrentUserId() userId: number, @GetCurrentUserRefreshToken() refreshToken: string) {
-        Logger.log(`/auth/refresh (GET)`)
+        Logger.log(`/auth/refresh (GET) userId: ${userId}`)
         const isTokenMatch = await this.userCheckService.checkRefreshToken(refreshToken, userId);
         if (!isTokenMatch) {
+            Logger.log(`Access denied for userId: ${userId} refreshToken: ${refreshToken}`)
             throw new ForbiddenException('Access denied')
         }
         await this.userDeleteService.deleteRefreshTokenById(userId, refreshToken);
@@ -81,13 +82,14 @@ export class AuthController {
         this.authTokenService.storeRfToken(newToken, res)
         await this.userUpdateService.pushNewRefreshToken(newToken, userId)
             .catch(() => {
+                Logger.log(`Error while pushing new token userId: ${userId}`)
                 throw new ConflictException('Error while pushing new token')
             });
+        Logger.log(`New token for userId: ${userId}`)
         return {newToken}
     }
 
     @UseGuards(RefreshTokenGuard)
-    @Header('Content-Type', 'application/json')
     @Get('access')
     async getAccessToken(@Res({passthrough: true}) res: Response, @GetCurrentUserRefreshToken() refreshToken: string, @GetCurrentUserId() userId: number) {
         Logger.log(`/auth/access (GET)`)
@@ -98,12 +100,13 @@ export class AuthController {
         }
         const acToken = await this.authTokenService.getNewAccessToken(userId, refreshToken);
         this.authTokenService.storeACToken(acToken, res)
-        return acToken
+        return {newToken: acToken}
     }
 
-    @UseGuards(AccessTokenGuard)
+    @UseGuards(RefreshTokenGuard)
     @Get('logout')
     logout(@Res({passthrough: true}) res: Response, @GetCurrentUserId() userId: number, @GetCurrentUserRefreshToken() refreshToken: string) {
+        Logger.log(`/auth/logout (GET) userId: ${userId}`)
         res.clearCookie('accessToken')
         res.clearCookie('refreshToken')
         return this.authService.logOut(userId, refreshToken)
@@ -112,6 +115,7 @@ export class AuthController {
     @UseGuards(AccessTokenGuard)
     @Patch('password')
     async changePassword(@Res({passthrough: true}) res: Response, @Body() passwordChangeDto: PasswordChangeDto, @GetCurrentUserId() userId: number) {
+        Logger.log(`/auth/password (PATCH) userId: ${userId}`)
         await this.userUpdateService.updatePassword(passwordChangeDto.oldPassword, passwordChangeDto.newPassword, userId)
         const newToken = await this.authTokenService.getNewRefreshToken(userId);
         this.authTokenService.storeRfToken(newToken, res)
@@ -119,6 +123,7 @@ export class AuthController {
             .catch(() => {
                 throw new ConflictException('Error while pushing new token')
             });
+        Logger.log(`New token for userId: ${userId}`)
         return {newToken}
     }
 

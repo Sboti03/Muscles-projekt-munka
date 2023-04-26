@@ -37,6 +37,7 @@ let AuthController = class AuthController {
         this.userUpdateService = userUpdateService;
     }
     login(req, loginDto, res) {
+        common_1.Logger.log(`/auth/login (POST) email: ${loginDto.email} password: ********`);
         const tokens = req.user.tokens;
         this.authTokenService.storeTokens(tokens, res);
         return req.user;
@@ -49,9 +50,10 @@ let AuthController = class AuthController {
         return userData;
     }
     async getRefreshToken(res, userId, refreshToken) {
-        common_1.Logger.log(`/auth/refresh (GET)`);
+        common_1.Logger.log(`/auth/refresh (GET) userId: ${userId}`);
         const isTokenMatch = await this.userCheckService.checkRefreshToken(refreshToken, userId);
         if (!isTokenMatch) {
+            common_1.Logger.log(`Access denied for userId: ${userId} refreshToken: ${refreshToken}`);
             throw new common_1.ForbiddenException('Access denied');
         }
         await this.userDeleteService.deleteRefreshTokenById(userId, refreshToken);
@@ -59,8 +61,10 @@ let AuthController = class AuthController {
         this.authTokenService.storeRfToken(newToken, res);
         await this.userUpdateService.pushNewRefreshToken(newToken, userId)
             .catch(() => {
+            common_1.Logger.log(`Error while pushing new token userId: ${userId}`);
             throw new common_1.ConflictException('Error while pushing new token');
         });
+        common_1.Logger.log(`New token for userId: ${userId}`);
         return { newToken };
     }
     async getAccessToken(res, refreshToken, userId) {
@@ -72,14 +76,16 @@ let AuthController = class AuthController {
         }
         const acToken = await this.authTokenService.getNewAccessToken(userId, refreshToken);
         this.authTokenService.storeACToken(acToken, res);
-        return acToken;
+        return { newToken: acToken };
     }
     logout(res, userId, refreshToken) {
+        common_1.Logger.log(`/auth/logout (GET) userId: ${userId}`);
         res.clearCookie('accessToken');
         res.clearCookie('refreshToken');
         return this.authService.logOut(userId, refreshToken);
     }
     async changePassword(res, passwordChangeDto, userId) {
+        common_1.Logger.log(`/auth/password (PATCH) userId: ${userId}`);
         await this.userUpdateService.updatePassword(passwordChangeDto.oldPassword, passwordChangeDto.newPassword, userId);
         const newToken = await this.authTokenService.getNewRefreshToken(userId);
         this.authTokenService.storeRfToken(newToken, res);
@@ -87,6 +93,7 @@ let AuthController = class AuthController {
             .catch(() => {
             throw new common_1.ConflictException('Error while pushing new token');
         });
+        common_1.Logger.log(`New token for userId: ${userId}`);
         return { newToken };
     }
 };
@@ -118,7 +125,6 @@ __decorate([
     (0, common_1.UseGuards)(refresh_token_guard_1.RefreshTokenGuard),
     (0, common_1.Get)('refresh'),
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
-    (0, common_1.Header)('Content-Type', 'application/json'),
     __param(0, (0, common_1.Res)({ passthrough: true })),
     __param(1, (0, decorators_1.GetCurrentUserId)()),
     __param(2, (0, decorators_1.GetCurrentUserRefreshToken)()),
@@ -128,7 +134,6 @@ __decorate([
 ], AuthController.prototype, "getRefreshToken", null);
 __decorate([
     (0, common_1.UseGuards)(refresh_token_guard_1.RefreshTokenGuard),
-    (0, common_1.Header)('Content-Type', 'application/json'),
     (0, common_1.Get)('access'),
     __param(0, (0, common_1.Res)({ passthrough: true })),
     __param(1, (0, decorators_1.GetCurrentUserRefreshToken)()),
@@ -138,7 +143,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "getAccessToken", null);
 __decorate([
-    (0, common_1.UseGuards)(access_token_guard_1.AccessTokenGuard),
+    (0, common_1.UseGuards)(refresh_token_guard_1.RefreshTokenGuard),
     (0, common_1.Get)('logout'),
     __param(0, (0, common_1.Res)({ passthrough: true })),
     __param(1, (0, decorators_1.GetCurrentUserId)()),

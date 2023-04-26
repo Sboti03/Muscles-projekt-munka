@@ -16,25 +16,5 @@ export class ProfileConvertService {
         }
     }
 
-    convertProfileCreateDtoToInput(profileCreateDto: ProfileCreateDto, userId: number): Prisma.profileDataCreateInput {
-        return {
-            birthDay: profileCreateDto.birthDay,
-            firstName: profileCreateDto.firstName,
-            lastName: profileCreateDto.lastName,
-            height: profileCreateDto.height,
-            male: profileCreateDto.male,
-            goal: {
-                create: {
-
-                }
-            },
-            user: {
-                connect: {
-                    userId
-                }
-            },
-        }
-    }
-
 
 }

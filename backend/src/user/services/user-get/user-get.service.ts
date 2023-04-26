@@ -63,13 +63,7 @@ export class UserGetService {
                 },
             },
             refreshTokens: [],
-            profileData: {
-                create: {
-                    goal: {
-                        create: [{}]
-                    },
-                }
-            }
+
         };
     }
 

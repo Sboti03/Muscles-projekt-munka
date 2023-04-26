@@ -12,10 +12,10 @@ export declare class ProfileGetController {
             };
         };
         userId: number;
+        profileId: number;
         firstName: string;
         lastName: string;
         male: boolean;
-        profileId: number;
     }[]>;
     getProfileDataById(idParam: IdParam): Promise<{
         userId: number;

@@ -27,10 +27,15 @@ let RefreshTokenStrategy = RefreshTokenStrategy_1 = class RefreshTokenStrategy e
         });
     }
     validate(req, payload) {
-        const refreshToken = req.cookies.refreshToken;
-        if (!refreshToken)
-            throw new common_1.ForbiddenException('Refresh token malformed');
-        return Object.assign(Object.assign({}, payload), { refreshToken });
+        const refreshTokenFromCookie = req.cookies.refreshToken;
+        if (refreshTokenFromCookie) {
+            return payload;
+        }
+        const refreshTokenFromHeader = req.headers.authorization.slice(7);
+        if (refreshTokenFromHeader) {
+            return payload;
+        }
+        throw new common_1.ForbiddenException("Token is malformed");
     }
     static extractJWT(req) {
         if (req.cookies && 'refreshToken' in req.cookies) {

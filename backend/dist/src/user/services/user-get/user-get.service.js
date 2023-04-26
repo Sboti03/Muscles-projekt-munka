@@ -67,13 +67,6 @@ let UserGetService = class UserGetService {
                 },
             },
             refreshTokens: [],
-            profileData: {
-                create: {
-                    goal: {
-                        create: [{}]
-                    },
-                }
-            }
         };
     }
     getTokensByUserId(userId) {

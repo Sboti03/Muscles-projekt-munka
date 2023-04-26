@@ -21,22 +21,6 @@ export default function ProfileView(props: {profileId: number, connectionStatus:
     const [isLoading, setIsLoading] = useState(false)
     const {createConnectionRequest, acceptConnectionRequest, deleteConnection, deleteConnectionRequest} = useContext(ConnectionContext)
     const {t} = useTranslation()
-
-
-    async function fetchUser() {
-        const result = await singleFetch<ProfileResponse>(`/api/profile/search/id/${profileId}`, Methods.GET)
-        if (result.response) {
-            const profileData = convertResponseToData(result.response)
-            setProfileData(profileData)
-        } else {
-            toast.error(result.error.message)
-        }
-        setIsLoading(false)
-        if (refresh) {
-            refresh()
-        }
-    }
-
     useEffect(()=> {
         fetchUser()
     }, [])
@@ -69,6 +53,24 @@ export default function ProfileView(props: {profileId: number, connectionStatus:
                 return <Button color="danger" onClick={handleDeleteConnectionRequest}>Delete request</Button>
         }
     }, [connectionStatus])
+
+    async function fetchUser() {
+        const result = await singleFetch<ProfileResponse>(`/api/profile/search/id/${profileId}`, Methods.GET)
+        if (result.response) {
+            const profileData = convertResponseToData(result.response)
+            setProfileData(profileData)
+        } else {
+            toast.error(result.error.message)
+        }
+        setIsLoading(false)
+        if (refresh) {
+            refresh()
+        }
+    }
+
+
+
+
 
 
     async function handleAcceptConnection() {

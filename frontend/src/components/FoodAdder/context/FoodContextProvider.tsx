@@ -14,6 +14,7 @@ export default function FoodContextProvider(props: PropsWithChildren) {
     const [loadingFoodAdd, setLoadingFoodAdd] = useState(false)
     const {showProfileId} = useContext(UserCoachContext)
     const {page} = useContext(NavigatorContext)
+
     async function addFood(amount: number, foodId?: number, isCompleted?: boolean) {
         let userId = undefined
         if (page === Page.COACH_HOME) {

@@ -29,7 +29,9 @@ export declare class AuthController {
     getRefreshToken(res: Response, userId: number, refreshToken: string): Promise<{
         newToken: string;
     }>;
-    getAccessToken(res: Response, refreshToken: string, userId: number): Promise<string>;
+    getAccessToken(res: Response, refreshToken: string, userId: number): Promise<{
+        newToken: string;
+    }>;
     logout(res: Response, userId: number, refreshToken: string): Promise<import(".prisma/client").users>;
     changePassword(res: Response, passwordChangeDto: PasswordChangeDto, userId: number): Promise<{
         newToken: string;

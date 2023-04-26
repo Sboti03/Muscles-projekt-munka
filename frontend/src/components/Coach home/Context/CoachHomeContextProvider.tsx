@@ -7,7 +7,7 @@ export function CoachHomeContextProvider(props: PropsWithChildren) {
     const [ownUsers, setOwnUsers] = useState<any>()
 
     useEffect(()=> {
-        // singleFetch('/api/')
+
     }, [])
 
     return (

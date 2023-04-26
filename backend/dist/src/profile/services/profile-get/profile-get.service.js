@@ -34,7 +34,15 @@ let ProfileGetService = class ProfileGetService {
         });
     }
     getAllProfileAllData() {
-        return this.prismaService.profileData.findMany({});
+        return this.prismaService.profileData.findMany({
+            include: {
+                user: {
+                    include: {
+                        role: true
+                    }
+                }
+            }
+        });
     }
     getAllProfile() {
         return this.prismaService.profileData.findMany({

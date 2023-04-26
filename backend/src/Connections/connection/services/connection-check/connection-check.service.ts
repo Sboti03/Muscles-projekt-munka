@@ -32,6 +32,7 @@ export class ConnectionCheckService {
             const res = await this.getService.getConnectionByIds(userId, coachId)
             return res.accessAll
         } catch (e) {
+
             return false
         }
     }

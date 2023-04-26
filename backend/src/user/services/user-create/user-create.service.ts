@@ -14,4 +14,21 @@ export class UserCreateService {
       }
     });
   }
+
+  async createProfileData(userId: number) {
+    return this.prismaService.profileData.create({
+        data: {
+            user: {
+              connect: {
+                userId
+              }
+            },
+          profileId: userId,
+          goal: {
+            create: [{}]
+          },
+        },
+    })
+
+  }
 }

@@ -140,9 +140,9 @@ export default function ProfileDataView(props: Props) {
                         <FormControl>
                             <FormLabel>{t("profile.date-of-birth")}</FormLabel>
                             <DatePicker value={newProfileData.birthDay}
-                                        onChange={(value: Date) => setNewProfileData({
+                                        onChange={value => setNewProfileData({
                                             ...newProfileData,
-                                            birthDay: value
+                                            birthDay: value ? value as Date : undefined
                                         })}/>
                         </FormControl>
                     </div>
@@ -254,9 +254,10 @@ export default function ProfileDataView(props: Props) {
             profileDataToSend = {...profileDataToSend, male: newProfileData.male}
         }
         if (Object.keys(profileDataToSend).length === 0) {
-            toast.info(t("profile.error.no-change")!)
             if (props.saveBtnAction) {
                 props.saveBtnAction()
+            } else {
+                toast.info(t("profile.error.no-change")!)
             }
             return
         }

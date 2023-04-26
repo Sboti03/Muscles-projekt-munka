@@ -18,23 +18,6 @@ let ProfileConvertService = class ProfileConvertService {
             male: profileUpdateDto.male
         };
     }
-    convertProfileCreateDtoToInput(profileCreateDto, userId) {
-        return {
-            birthDay: profileCreateDto.birthDay,
-            firstName: profileCreateDto.firstName,
-            lastName: profileCreateDto.lastName,
-            height: profileCreateDto.height,
-            male: profileCreateDto.male,
-            goal: {
-                create: {}
-            },
-            user: {
-                connect: {
-                    userId
-                }
-            },
-        };
-    }
 };
 ProfileConvertService = __decorate([
     (0, common_1.Injectable)()

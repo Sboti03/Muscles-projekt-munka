@@ -35,7 +35,6 @@ function AuthContextProvider(props: PropsWithChildren) {
 
     function handlePageLoadFirstTime() {
         const user = loadUser()
-        console.log(user, 'user')
         if (user) {
             handleAccessToken().then(result=> {
                 if (result) {
@@ -95,6 +94,7 @@ function AuthContextProvider(props: PropsWithChildren) {
     function redirectUser(role: RoleEnum) {
         switch (role) {
             case RoleEnum.ADMIN:
+                changePage(Page.ADMIN)
                 break
             case RoleEnum.USER:
                 changePage(Page.HOME)

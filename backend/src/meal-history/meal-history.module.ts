@@ -21,7 +21,7 @@ import {ProfileModule} from "../profile/profile.module";
 
 @Module({
     imports: [MealModule, DayHistoryModule ,ProfileModule, GoalsModule, WeightHistoryModule, FoodsModule, ConnectionModule, ConnectionModule],
-    controllers: [MealHistoryGetController, MealHistoryCreateController, MealHistoryUpdateController, MealHistoryDeleteController],
+    controllers: [MealHistoryCreateController, MealHistoryUpdateController, MealHistoryDeleteController, MealHistoryGetController],
     providers: [
         MealHistoryCreateService,
         PrismaService,

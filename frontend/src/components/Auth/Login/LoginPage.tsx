@@ -1,16 +1,13 @@
 import './Login.css'
-import {FormEvent, useContext, useState} from "react";
+import React, {FormEvent, useContext} from "react";
 import AuthContext from "../AuthContext";
 import NavigatorContext, {Page} from "../../Navigator/NavigatorContext";
 import { Input} from "@mui/joy";
 import Mail from '../../../assets/SVG/mail.svg'
-import Lock from '../../../assets/SVG/Lock.svg'
-import Eye from '../../../assets/SVG/eye.svg'
-import {Methods, singleFetch} from "../../utils/Fetch";
-import {LoginResponse} from "./LoginFetch";
 import { Button } from '@mui/joy';
 import {toast} from "react-toastify";
 import {useTranslation} from "react-i18next";
+import PasswordInput from "../../PasswordInput/PasswordInput";
 
 
 function LoginPage() {
@@ -76,7 +73,7 @@ function LoginPage() {
                         <Input className="Input" startDecorator={<img src={Mail}/>} placeholder="Email" name="email"/>
                     </div>
                     <div>
-                        <Input className="Input" startDecorator={<img src={Lock} />} endDecorator={<button className="classic-btn"><img src={Eye}/></button>} placeholder="Password" name="password"/>
+                        <PasswordInput name={"password"} placeHolder={"password"} />
                     </div>
                     <div className="flex justify-center">
                         <Button className="w-1/2" type="submit">Login</Button>

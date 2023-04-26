@@ -1,4 +1,4 @@
-import {capitalize} from "@mui/material";
+import {capitalize, TableBody, TableHead} from "@mui/material";
 import {Button, Table} from "@mui/joy";
 import LoadingManager from "../../Loading/LoadingManager";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -27,9 +27,7 @@ export default function ListFoods(props: Props) {
     const {currentDate} = useContext(DayInfoContext)
 
     function showFood(food: Food) {
-        console.log(food)
         setCurrentFood(food)
-
     }
     const [loadingIds, setLoadingIds] = useState<number[]>([])
 
@@ -46,15 +44,15 @@ export default function ListFoods(props: Props) {
 
     return (
         <Table>
-            <thead>
+            <TableHead>
                 <tr>
                     <th style={{width: '50%'}} >Name</th>
                     <th>kCal</th>
                     <th style={{width: '15%'}}></th>
                     <th style={{width: '10%'}}></th>
                 </tr>
-            </thead>
-            <tbody>
+            </TableHead>
+            <TableBody>
             {foods?.map(food => (
                 <tr key={food.foodId}>
                     <td>
@@ -77,7 +75,7 @@ export default function ListFoods(props: Props) {
                     </td>
                 </tr>
             ))}
-            </tbody>
+            </TableBody>
         </Table>
     )
 }

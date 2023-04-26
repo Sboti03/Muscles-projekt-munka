@@ -61,6 +61,7 @@ describe('AuthService', () => {
         refreshTokens: [],
         profileData: {
             create: {
+                profileId: 1,
                 goal: {
                     create: [{}]
                 },

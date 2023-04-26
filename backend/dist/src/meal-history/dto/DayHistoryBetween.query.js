@@ -16,7 +16,7 @@ const class_validator_1 = require("class-validator");
 class DayHistoryBetweenQuery {
 }
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 12 }),
+    (0, swagger_1.ApiProperty)({ example: 12, required: false }),
     (0, IsNullable_validation_1.IsUndefinable)(),
     (0, class_transformer_1.Type)(() => Number),
     (0, class_validator_1.IsNumber)(),
