@@ -4,13 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="00e91fc0-96b8-4172-906f-ab5075727363" name="Changes" comment="Login css, remove unused imports and fixing double issues while creating/updating foods">
+    <list default="true" id="00e91fc0-96b8-4172-906f-ab5075727363" name="Changes" comment="little changes in methods">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/CreateFoodController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/CreateFoodController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/MainViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/MainViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/foodMethods/createfoodmainmethods/CreateFoodMainMethods.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/foodMethods/createfoodmainmethods/CreateFoodMainMethods.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/foodMethods/foodTextInput/FoodTextInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/foodMethods/foodTextInput/FoodTextInput.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -125,14 +120,7 @@
       <workItem from="1682335025631" duration="10317000" />
       <workItem from="1682436380294" duration="680000" />
       <workItem from="1682437106118" duration="12271000" />
-      <workItem from="1682498751734" duration="15823000" />
-    </task>
-    <task id="LOCAL-00003" summary="adding spring and jackson dependencies">
-      <created>1678363160965</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1678363160965</updated>
+      <workItem from="1682498751734" duration="16660000" />
     </task>
     <task id="LOCAL-00004" summary="creating login">
       <created>1678364177935</created>
@@ -470,7 +458,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682516917176</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="little changes in methods">
+      <created>1682517747066</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1682517747066</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -488,7 +483,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="adding gender to profile and designing login form" />
     <MESSAGE value="adding radius to background" />
     <MESSAGE value="install controlsfx dependency" />
     <MESSAGE value="rewriting food load and update" />
@@ -513,7 +507,8 @@
     <MESSAGE value="fixing in function buttons" />
     <MESSAGE value="Reformat css, exit button in login window with a new class" />
     <MESSAGE value="Login css, remove unused imports and fixing double issues while creating/updating foods" />
-    <option name="LAST_COMMIT_MESSAGE" value="Login css, remove unused imports and fixing double issues while creating/updating foods" />
+    <MESSAGE value="little changes in methods" />
+    <option name="LAST_COMMIT_MESSAGE" value="little changes in methods" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
