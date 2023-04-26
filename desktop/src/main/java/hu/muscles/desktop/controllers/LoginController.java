@@ -66,7 +66,7 @@ public class LoginController implements Initializable {
         }
 
         loading.setVisible(true);
-        Task<Void> loginTask = new Task<Void>() {
+        Task<Void> loginTask = new Task<>() {
             @Override
             protected Void call() throws Exception {
                 String response = login(email, password);

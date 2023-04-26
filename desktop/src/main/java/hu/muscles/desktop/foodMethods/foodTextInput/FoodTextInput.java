@@ -10,7 +10,7 @@ import javafx.util.StringConverter;
 public class FoodTextInput {
 
     public void setTextFieldToDoubleOrNull(TextField textField) {
-        StringConverter<Number> customDoubleStringConverter = new StringConverter<Number>() {
+        StringConverter<Number> customDoubleStringConverter = new StringConverter<>() {
             @Override
             public String toString(Number value) {
                 if (value == null) {
@@ -86,7 +86,7 @@ public class FoodTextInput {
     }
 
 
-    public Double returnDoubleValue(TextField field, boolean isUpdate) {
+    public Double returnDoubleValue(TextField field) {
         try {
             return Double.parseDouble(field.getText());
         } catch (NumberFormatException e) {

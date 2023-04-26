@@ -4,15 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="00e91fc0-96b8-4172-906f-ab5075727363" name="Changes" comment="Reformat css, exit button in login window with a new class">
+    <list default="true" id="00e91fc0-96b8-4172-906f-ab5075727363" name="Changes" comment="Login css, remove unused imports and fixing double issues while creating/updating foods">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/CreateFoodController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/CreateFoodController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/LoginController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/MainViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/MainViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/UpdateFoodController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/UpdateFoodController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/foodMethods/createfoodmainmethods/CreateFoodMainMethods.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/foodMethods/createfoodmainmethods/CreateFoodMainMethods.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/foodMethods/foodTextInput/FoodTextInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/foodMethods/foodTextInput/FoodTextInput.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/loginResources/login-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/loginResources/login-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/loginResources/loginFormStyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/loginResources/loginFormStyle.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,14 +125,7 @@
       <workItem from="1682335025631" duration="10317000" />
       <workItem from="1682436380294" duration="680000" />
       <workItem from="1682437106118" duration="12271000" />
-      <workItem from="1682498751734" duration="15053000" />
-    </task>
-    <task id="LOCAL-00002" summary="creating login-view">
-      <created>1678362965725</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1678362965725</updated>
+      <workItem from="1682498751734" duration="15823000" />
     </task>
     <task id="LOCAL-00003" summary="adding spring and jackson dependencies">
       <created>1678363160965</created>
@@ -472,7 +463,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682515179447</updated>
     </task>
-    <option name="localTasksCounter" value="51" />
+    <task id="LOCAL-00051" summary="Login css, remove unused imports and fixing double issues while creating/updating foods">
+      <created>1682516917176</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1682516917176</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -490,7 +488,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Refactoring create food" />
     <MESSAGE value="adding gender to profile and designing login form" />
     <MESSAGE value="adding radius to background" />
     <MESSAGE value="install controlsfx dependency" />
@@ -515,7 +512,8 @@
     <MESSAGE value="fixing search and load in order to prevent &lt;local1&gt; to be null, fixing error messages to user" />
     <MESSAGE value="fixing in function buttons" />
     <MESSAGE value="Reformat css, exit button in login window with a new class" />
-    <option name="LAST_COMMIT_MESSAGE" value="Reformat css, exit button in login window with a new class" />
+    <MESSAGE value="Login css, remove unused imports and fixing double issues while creating/updating foods" />
+    <option name="LAST_COMMIT_MESSAGE" value="Login css, remove unused imports and fixing double issues while creating/updating foods" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

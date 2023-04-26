@@ -34,7 +34,7 @@ public class CreateFoodMainMethods {
         foodTextInput = new FoodTextInput();
     }
 
-    public FoodsCreateOrUpdate foodCreate(TextField nameField, TextField kcalField, ComboBox<UnitsEnum> unitField, TextField perUnitField, TextField proteinField, TextField fatField, TextField saturatedFatField, TextField polyunsaturatedFatField, TextField monounsaturatedFatField, TextField carbohydrateField, TextField sugarField, TextField fiberField, boolean isUpdate) {
+    public FoodsCreateOrUpdate foodCreate(TextField nameField, TextField kcalField, ComboBox<UnitsEnum> unitField, TextField perUnitField, TextField proteinField, TextField fatField, TextField saturatedFatField, TextField polyunsaturatedFatField, TextField monounsaturatedFatField, TextField carbohydrateField, TextField sugarField, TextField fiberField) {
         String name = nameField.getText().trim();
         UnitsEnum units = unitField.getValue();
         Double kcal;
@@ -43,11 +43,11 @@ public class CreateFoodMainMethods {
         Double fat;
         Double carbohydrate;
         try {
-            kcal = foodTextInput.returnDoubleValue(kcalField, isUpdate);
-            perUnit = foodTextInput.returnDoubleValue(perUnitField, isUpdate);
-            protein = foodTextInput.returnDoubleValue(proteinField, isUpdate);
-            fat = foodTextInput.returnDoubleValue(fatField, isUpdate);
-            carbohydrate = foodTextInput.returnDoubleValue(carbohydrateField, isUpdate);
+            kcal = foodTextInput.returnDoubleValue(kcalField);
+            perUnit = foodTextInput.returnDoubleValue(perUnitField);
+            protein = foodTextInput.returnDoubleValue(proteinField);
+            fat = foodTextInput.returnDoubleValue(fatField);
+            carbohydrate = foodTextInput.returnDoubleValue(carbohydrateField);
         } catch (IllegalArgumentException e) {
             return null;
         }
@@ -62,7 +62,7 @@ public class CreateFoodMainMethods {
 
     public boolean CreateFood(TextField nameField, TextField kcalField, ComboBox<UnitsEnum> unitField, TextField perUnitField, TextField proteinField, TextField fatField, TextField saturatedFatField, TextField polyunsaturatedFatField, TextField monounsaturatedFatField, TextField carbohydrateField, TextField sugarField, TextField fiberField, LoginModel loginModel, Urls url, boolean isUpdate, int foodId) {
         try {
-            FoodsCreateOrUpdate food = foodCreate(nameField, kcalField, unitField, perUnitField, proteinField, fatField, saturatedFatField, polyunsaturatedFatField, monounsaturatedFatField, carbohydrateField, sugarField, fiberField, isUpdate);
+            FoodsCreateOrUpdate food = foodCreate(nameField, kcalField, unitField, perUnitField, proteinField, fatField, saturatedFatField, polyunsaturatedFatField, monounsaturatedFatField, carbohydrateField, sugarField, fiberField);
             if (food != null && !food.getName().equals("")) {
                 ObjectMapper mapper = new ObjectMapper();
                 mapper.registerModule(new SimpleModule().addSerializer(Double.class, new CustomDoubleSerializer()));

@@ -216,7 +216,7 @@ public class MainViewController implements Initializable {
         searchField.setPromptText("");
         Task<Void> task = new Task<>() {
             @Override
-            protected Void call() throws Exception {
+            protected Void call() {
                 mainListViewHelper.changeButtonsBetweenProfileAndFood(false, undeleteBtn, loadCreateBtn, deleteBtn, blockButton, unblockButton, editVbox, showDataVbox);
                 try {
                     foods = loadFromServerToPOJO.loadAllFood(rqs.sendGet(url.GET_ALL_FOOD(), loginModel));
@@ -250,7 +250,7 @@ public class MainViewController implements Initializable {
         loading.setVisible(true);
         Task<Void> task = new Task<>() {
             @Override
-            protected Void call() throws Exception {
+            protected Void call() {
                 if (!isProfileShown && isFoodShown) {
                     int index = mainListViewHelper.getCurrentSelectedItemIndex(mainListView);
                     Optional<Food> optionalFood = foods.stream().filter(food1 -> food1.getFoodId() == index).findFirst();
@@ -279,7 +279,7 @@ public class MainViewController implements Initializable {
         loading.setVisible(true);
         Task<Void> task = new Task<>() {
             @Override
-            protected Void call() throws Exception {
+            protected Void call() {
                 if (!isProfileShown && isFoodShown) {
                     int index = mainListViewHelper.getCurrentSelectedItemIndex(mainListView);
                     Optional<Food> optionalFood = foods.stream().filter(food1 -> food1.getFoodId() == index).findFirst();
@@ -326,7 +326,7 @@ public class MainViewController implements Initializable {
         searchField.setPromptText("");
         Task<Void> task = new Task<>() {
             @Override
-            protected Void call() throws Exception {
+            protected Void call() {
                 mainListViewHelper.changeButtonsBetweenProfileAndFood(true, undeleteBtn, loadCreateBtn, deleteBtn, blockButton, unblockButton, editVbox, showDataVbox);
                 try {
                     profiles = loadFromServerToPOJO.loadAllProfile(rqs.sendGet(url.GET_ALL_PROFILE(), loginModel));
@@ -361,7 +361,7 @@ public class MainViewController implements Initializable {
         loading.setVisible(true);
         Task<Void> task = new Task<>() {
             @Override
-            protected Void call() throws Exception {
+            protected Void call() {
                 if (isProfileShown && !isFoodShown) {
                     int index = mainListViewHelper.getCurrentSelectedItemIndex(mainListView);
                     Optional<User> optionalUser = users.stream().filter(x -> x.getUserId() == index).findFirst();
@@ -393,7 +393,7 @@ public class MainViewController implements Initializable {
         loading.setVisible(true);
         Task<Void> task = new Task<>() {
             @Override
-            protected Void call() throws Exception {
+            protected Void call() {
                 if (isProfileShown && !isFoodShown) {
                     int index = mainListViewHelper.getCurrentSelectedItemIndex(mainListView);
                     Optional<User> optionalUser = users.stream().filter(x -> x.getUserId() == index).findFirst();
