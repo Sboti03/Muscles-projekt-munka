@@ -86,7 +86,6 @@ public class MainViewController implements Initializable {
 
     private List<Food> foods;
     private List<Profile> profiles;
-    private Alert confirmExit;
     private LoginModel loginModel;
     private UserModel userModel;
     private FoodModel foodModel;
@@ -112,10 +111,6 @@ public class MainViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         mainVbox.setDisable(false);
-        confirmExit = new Alert(Alert.AlertType.CONFIRMATION);
-        confirmExit.setResizable(false);
-        confirmExit.setTitle("Exit");
-        confirmExit.setHeaderText("Are you sure you want to exit the App?");
         loadFromServerToPOJO = new LoadFromServerToPojo(mainListView);
         loadToMainListview = new LoadToMainListview(mainListView);
         editVboxStatic = editVbox;
@@ -135,14 +130,18 @@ public class MainViewController implements Initializable {
                         foodModel = new FoodModel(food);
                         ((UpdateFoodController) updateFoodLoader.getController()).setMainController(this);
                         ((UpdateFoodController) updateFoodLoader.getController()).setUpdateModelForUpdate(foodModel);
-                        editVbox.setVisible(true);
-                        editVbox.setManaged(true);
+                        Platform.runLater(() -> {
+                            editVbox.setVisible(true);
+                            editVbox.setManaged(true);
+                        });
                     }
                 }
 
                 if (mainListView.getSelectionModel().isEmpty()) {
-                    editVbox.setVisible(false);
-                    editVbox.setManaged(false);
+                    Platform.runLater(() -> {
+                        editVbox.setVisible(false);
+                        editVbox.setManaged(false);
+                    });
                 }
             }
             if (isProfileShown && !isFoodShown) {
@@ -158,14 +157,18 @@ public class MainViewController implements Initializable {
                             userModel = new UserModel(user.get());
                             profileModel = new ProfileModel(profile);
                             ((ProfileInfoController) profileInfoLoader.getController()).setProfileForProfileInfo(profileModel, userModel);
-                            showDataVbox.setVisible(true);
-                            showDataVbox.setManaged(true);
+                            Platform.runLater(() -> {
+                                showDataVbox.setVisible(true);
+                                showDataVbox.setManaged(true);
+                            });
                         }
                     }
                 }
                 if (mainListView.getSelectionModel().isEmpty()) {
-                    showDataVbox.setVisible(false);
-                    showDataVbox.setManaged(false);
+                    Platform.runLater(() -> {
+                        showDataVbox.setVisible(false);
+                        showDataVbox.setManaged(false);
+                    });
 
                 }
             }
@@ -186,7 +189,7 @@ public class MainViewController implements Initializable {
                 if (items.isEmpty()) {
                     Platform.runLater(() -> mainListView.setPlaceholder(new Label("No matches found")));
                 } else {
-                    Platform.runLater(() ->  mainListView.setPlaceholder(null));
+                    Platform.runLater(() -> mainListView.setPlaceholder(null));
                 }
             }
         });
@@ -203,10 +206,12 @@ public class MainViewController implements Initializable {
     @FXML
     public void foodsClick(ActionEvent actionEvent) {
         loading.setVisible(true);
-        mainListView.getItems().clear();
         showListNameText.setText("Food");
         isProfileShown = false;
         searchField.setText("");
+        mainListView.getItems().clear();
+        searchField.setEditable(false);
+        searchField.setPromptText("");
         Task<Void> task = new Task<>() {
             @Override
             protected Void call() throws Exception {
@@ -216,17 +221,21 @@ public class MainViewController implements Initializable {
                 } catch (IOException e) {
                     mainListViewHelper.couldNotLoadFoodOrProfilesTextSetter(messageTextArea, false, e);
                 }
-                try {
-                    if (foods != null) {
-                        loadToMainListview.loadFoodsToListView(foods);
-                        isFoodShown = true;
-                        originalMainItems = mainListView.getItems();
-                    } else {
-                        informUser.setTextThenEmpty(messageTextArea, "An error has occurred while loading foods", "#ef1400", 3);
+                Platform.runLater(() -> {
+                    try {
+                        if (foods != null) {
+                            loadToMainListview.loadFoodsToListView(foods);
+                            isFoodShown = true;
+                            originalMainItems = mainListView.getItems();
+                            searchField.setEditable(true);
+                            searchField.setPromptText("Search from the list here...");
+                        } else {
+                            informUser.setTextThenEmpty(messageTextArea, "An error has occurred while loading foods (probably cannot reach server).", "#ef1400", 3);
+                        }
+                    } catch (Exception e) {
+                        mainListViewHelper.couldNotLoadFoodOrProfilesTextSetter(messageTextArea, false, e);
                     }
-                } catch (Exception e) {
-                    mainListViewHelper.couldNotLoadFoodOrProfilesTextSetter(messageTextArea, false, e);
-                }
+                });
                 return null;
             }
         };
@@ -310,9 +319,11 @@ public class MainViewController implements Initializable {
     public void profilesClick(ActionEvent actionEvent) {
         loading.setVisible(true);
         showListNameText.setText("Profile");
-        mainListView.getItems().clear();
         isFoodShown = false;
         searchField.setText("");
+        mainListView.getItems().clear();
+        searchField.setEditable(false);
+        searchField.setPromptText("");
         Task<Void> task = new Task<>() {
             @Override
             protected Void call() throws Exception {
@@ -322,18 +333,22 @@ public class MainViewController implements Initializable {
                 } catch (IOException e) {
                     mainListViewHelper.couldNotLoadFoodOrProfilesTextSetter(messageTextArea, true, e);
                 }
-                try {
-                    users = getUsersList();
-                    if (profiles != null && users != null) {
-                        loadToMainListview.loadProfilesToListView(profiles, users);
-                        isProfileShown = true;
-                        originalMainItems = mainListView.getItems();
-                    } else {
-                        informUser.setTextThenEmpty(messageTextArea, "An error has occurred while loading profiles", "#ef1400", 3);
+                Platform.runLater(() -> {
+                    try {
+                        users = getUsersList();
+                        if (profiles != null && users != null) {
+                            loadToMainListview.loadProfilesToListView(profiles, users);
+                            isProfileShown = true;
+                            originalMainItems = mainListView.getItems();
+                            searchField.setEditable(true);
+                            searchField.setPromptText("Search from the list here...");
+                        } else {
+                            informUser.setTextThenEmpty(messageTextArea, "An error has occurred while loading profiles (probably cannot reach server)", "#ef1400", 3);
+                        }
+                    } catch (Exception e) {
+                        mainListViewHelper.couldNotLoadFoodOrProfilesTextSetter(messageTextArea, true, e);
                     }
-                } catch (Exception e) {
-                    mainListViewHelper.couldNotLoadFoodOrProfilesTextSetter(messageTextArea, true, e);
-                }
+                });
                 return null;
             }
         };
@@ -402,7 +417,7 @@ public class MainViewController implements Initializable {
         mainVbox.setDisable(true);
         try {
             FXMLLoader loadExitConfirmation = new FXMLLoader(App.class.getResource("/hu/muscles/desktop/exitResources/exit-view.fxml"));
-            Scene scene = new Scene( loadExitConfirmation.load(), 366, 174);
+            Scene scene = new Scene(loadExitConfirmation.load(), 366, 174);
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.setResizable(false);
@@ -472,9 +487,8 @@ public class MainViewController implements Initializable {
             return mapper.readValue(content, new TypeReference<>() {
             });
         } catch (Exception e) {
-            e.printStackTrace();
+            informUser.setTextThenEmpty(messageTextArea, "Cannot read users -> " + informUser.messageFromError(e), "#ef1400", 3);
             return null;
-
         }
     }
 

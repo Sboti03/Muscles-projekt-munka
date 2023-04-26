@@ -26,6 +26,9 @@ public class InformUser {
             }
             return error;
         } else {
+            if (errorMessage.contains("No route to host")) {
+                return "Cannot connect to server";
+            }
             return errorMessage;
         }
     }
