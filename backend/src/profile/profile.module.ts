@@ -1,6 +1,5 @@
 import {Module} from '@nestjs/common';
 import {ProfileGetService} from './services/profile-get/profile-get.service';
-import {ProfileCreateController} from './controllers/profile-create/profile-create.controller';
 import {ProfileCreateService} from './services/profile-create/profile-create.service';
 import {ProfileUpdateService} from './services/profile-update/profile-update.service';
 import {ProfileDeleteService} from './services/profile-delete/profile-delete.service';
@@ -12,6 +11,9 @@ import {ProfileUpdateController} from "./controllers/profile-update/profile-upda
 import {ProfileGetController} from "./controllers/profile-get/profile-get.controller";
 import {AuthModule} from "../auth/auth.module";
 import {ProfileCheckService} from './services/profile-check/profile-check.service';
+import { ImageService } from "../Image/image.service";
+import { ProfileImageService } from "./services/profile-image/profile-image.service";
+import { ProfileImageController } from './controllers/profile-image/profile-image.controller';
 
 @Module({
     imports: [AuthModule],
@@ -22,9 +24,11 @@ import {ProfileCheckService} from './services/profile-check/profile-check.servic
         ProfileDeleteService,
         ProfileConvertService,
         PrismaService,
-        ProfileCheckService
+        ProfileCheckService,
+        ImageService,
+        ProfileImageService
     ],
-    controllers: [ProfileCreateController, ProfileUpdateController, ProfileGetController],
+    controllers: [ProfileUpdateController, ProfileGetController, ProfileImageController],
     exports:
         [ProfileGetService,
         ProfileCreateService,

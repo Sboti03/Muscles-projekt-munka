@@ -6,30 +6,39 @@ export class GoalsGetService {
     constructor(private prismaService:PrismaService) {}
 
     getGoalsByProfileId(profileId: number) {
-        return this.prismaService.goals.findUnique({
-            select: {
-                fatPerDay: true,
-                carbohydratesPerDay: true,
-                proteinPerDay: true,
-                targetCalories: true,
-                targetWeight: true
+        return this.prismaService.goals.findFirst({
+            orderBy: {
+                date: 'desc'
             },
-            where:{profileId}
+            where: {
+                profileId,
+            }
         })
     }
 
-    getGoalByProfileIdAndDate(profileId: number, date: Date) {
-        return this.prismaService.goals.findFirst({
-            where: {
-                profileId: profileId,
-                date: {
-                    lte: date
+    async getGoalByProfileIdAndDate(profileId: number, date: Date) {
+        try {
+            return await this.prismaService.goals.findFirstOrThrow({
+                where: {
+                    profileId: profileId,
+                    date: {
+                        lte: date
+                    }
+                },
+                orderBy: {
+                    date: 'desc'
                 }
-            },
-            orderBy: {
-                date: 'desc'
-            }
-        })
+            })
+        } catch (e) {
+            return this.prismaService.goals.findFirst({
+                where: {
+                    profileId: profileId
+                },
+                orderBy: {
+                    date: 'asc'
+                }
+            })
+        }
     }
 
 

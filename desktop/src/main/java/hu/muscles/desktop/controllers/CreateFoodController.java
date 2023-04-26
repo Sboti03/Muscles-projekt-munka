@@ -96,7 +96,3 @@ public class CreateFoodController implements Initializable {
         informUser1.setTextThenEmpty(staticMessageTextArea, text, color, seconds);
     }
 }
-
-
-
-

@@ -1,0 +1,42 @@
+.containerBasic {
+    display: flex;
+    justify-content: center;
+    max-width: 300px;
+}
+
+.containerBasic > form > div {
+    margin: 10px;
+}
+
+.profilePic {
+    width: 100px;
+    height: 100px;
+    background: none;
+    border: none;
+    margin: 0 auto;
+}
+
+.profilePic:active > div > div > div {
+    border-color: #5b2e73;
+}
+
+.container {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.btn {
+    display: grid;
+}
+.form > div {
+    margin: 10px;
+    text-align: center;
+}
+
+.miniInput {
+    width: 150px;
+}
+
+.genderInput > div{
+    display: flex !important;
+}

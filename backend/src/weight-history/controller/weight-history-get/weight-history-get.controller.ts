@@ -1,8 +1,12 @@
-import {ConflictException, Controller, Get, Param} from '@nestjs/common';
+import {ConflictException, Controller, Get, Param, UseGuards} from '@nestjs/common';
 import {GetAndCheckProfileId} from "../../../auth/decorators/decorators";
 import {DateParam} from "../../../Common/params/date.param";
 import {DayHistoryGetService} from "../../../day-history/services/day-history-get/day-history-get.service";
+import {AccessTokenGuard} from "../../../auth/guards/access-token.guard";
+import {ApiTags} from "@nestjs/swagger";
 
+@ApiTags('weight-history')
+@UseGuards(AccessTokenGuard)
 @Controller('weight-history')
 export class WeightHistoryGetController {
 
@@ -15,7 +19,7 @@ export class WeightHistoryGetController {
     }
 
     @Get('/weight/:date')
-    async getWeight(@Param() currentDate: DateParam, @GetAndCheckProfileId() currentProfileId) {
+    async getWeight(@Param('date') currentDate: DateParam, @GetAndCheckProfileId() currentProfileId) {
         const day = await this.dayHistoryGetService.getLatestDayId(currentDate.date)
         if (!day) {
             throw new ConflictException('No day found')

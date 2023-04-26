@@ -1,0 +1,25 @@
+.login-btn {
+    width: 250px;
+    height: 30px;
+
+}
+
+.btn {
+    border: none;
+    border-radius: 20pt;
+    background: #6F00B3;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.register-btn {
+    width: 200px;
+    height: 30px;
+}
+
+.white {
+    color: white;
+}

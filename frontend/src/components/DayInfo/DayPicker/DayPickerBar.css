@@ -1,0 +1,63 @@
+.rdp-day_selected,
+.rdp-day_selected:focus-visible,
+.rdp-day_selected:hover {
+    color: white !important;
+    opacity: 1 !important;
+    background-color: #6F00B3 !important;
+}
+
+
+
+.day-picker {
+    display: flex;
+    justify-content: center;
+}
+.day-picker-elements {
+    text-align: center;
+    display: flex;
+    justify-content: space-around;
+    position: relative;
+}
+
+.btn {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    border: none;
+    font-size: 18px;
+    border-radius: 10pt;
+    margin: 5pt;
+    color: white;
+    padding: 4pt;
+}
+
+.btn:hover {
+    cursor: pointer;
+}
+
+.mini-btn {
+    width: 35pt;
+    background-color: #6F00B3;
+}
+
+.mini-btn:hover {
+    background-color: #58008a;
+}
+
+.big-btn {
+    width: 80pt;
+    background-color: rgba(136, 27, 203, 1);
+}
+
+.big-btn:hover {
+    background-color: rgb(101, 13, 155);
+}
+
+.day-picker-component {
+    position: absolute;
+    background-color: white;
+    top: 70pt;
+    border: 1px solid rgba(0, 0, 0, 0.42);
+    border-radius: 10pt;
+    z-index: 1;
+}

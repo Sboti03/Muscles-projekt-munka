@@ -16,9 +16,20 @@ export class UserGetService {
                 email,
             },
             include: {
-                roles: true,
+                role: true
             },
         });
+    }
+
+    getUserRefreshTokensById(userId: number) {
+        return this.prismaService.users.findUnique({
+            where: {
+                userId
+            },
+            select: {
+                refreshTokens: true
+            }
+        })
     }
 
     getUserById(userId: number) {
@@ -27,7 +38,12 @@ export class UserGetService {
                 userId,
             },
             include: {
-                roles: true
+                role: true,
+                profileData: {
+                    select: {
+                        profileId: true
+                    }
+                }
             },
         });
     }
@@ -41,11 +57,19 @@ export class UserGetService {
         return {
             email: user.email,
             password: encryptData(user.password),
-            roles: {
+            role: {
                 connect: {
                     roleId,
                 },
             },
+            refreshTokens: [],
+            profileData: {
+                create: {
+                    goal: {
+                        create: [{}]
+                    },
+                }
+            }
         };
     }
 
@@ -64,7 +88,7 @@ export class UserGetService {
 
     getAllUser() {
         return this.prismaService.users.findMany({
-            include: {roles: true}
+            include: {role: true}
         })
     }
 }

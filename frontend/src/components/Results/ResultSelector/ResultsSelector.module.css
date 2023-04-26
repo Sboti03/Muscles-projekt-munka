@@ -1,0 +1,10 @@
+.tabContainer {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.rangeInfoContainer {
+
+    display: flex;
+    justify-content: space-around;
+}

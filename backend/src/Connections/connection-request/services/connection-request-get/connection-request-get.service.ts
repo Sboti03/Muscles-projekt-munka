@@ -36,10 +36,11 @@ export class ConnectionRequestGetService {
     }
 
 
-    getConnectionRequestCreateInput(userId: number, requesterId: number, coachId: number): Prisma.connectionRequestCreateInput {
+    getConnectionRequestCreateInput(userId: number, requesterId: number, coachId: number, accessAll: boolean | undefined): Prisma.connectionRequestCreateInput {
         return {
             coach: {connect: {userId: coachId}},
             user: {connect: {userId}},
+            accessAll: accessAll,
             requestBy: requesterId,
         }
     }

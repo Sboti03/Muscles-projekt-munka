@@ -1,8 +1,9 @@
-import {ConflictException, Injectable} from '@nestjs/common';
+import {ConflictException, Injectable, Logger} from '@nestjs/common';
 import {compareData} from '../../../Common/utils/bcrypt';
 import {UserCheckService} from '../user-check/user-check.service';
 import {PrismaService} from '../../../Common/utils/prirsma.service';
 import {UserGetService} from '../user-get/user-get.service';
+import * as argon2 from 'argon2'
 
 @Injectable()
 export class UserDeleteService {
@@ -14,21 +15,19 @@ export class UserDeleteService {
     }
 
     async deleteRefreshTokenById(userId: number, refreshToken: string) {
-        const checkedRefreshToken: boolean =
-            await this.checkUserService.checkRefreshToken(refreshToken, userId);
-        if (!checkedRefreshToken) {
-            throw new ConflictException('No token found');
-        }
-        const {refreshTokens} = await this.userGetService.getTokensByUserId(
-            userId,
-        );
+        const {refreshTokens} = await this.userGetService.getTokensByUserId(userId);
+        let newTokens = []
 
-        const newTokens = refreshTokens.filter((token) => compareData(refreshToken, token))
-        console.log(refreshToken)
-        console.log(refreshTokens.filter(token => {
-            console.log(!compareData(refreshToken, token))
-            return !compareData(refreshToken, token)
-        }));
+        for (const token of refreshTokens) {
+            const result = await argon2.verify(token, refreshToken)
+            if (!result) {
+                Logger.log('Not match')
+                newTokens.push(token)
+            } else {
+                Logger.log('Match')
+            }
+        }
+
         return this.prismaService.users.update({
             where: {userId},
             data: {

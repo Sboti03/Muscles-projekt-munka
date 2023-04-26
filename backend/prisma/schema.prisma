@@ -25,7 +25,7 @@ model units {
 
 model foods {
   foodId             Int      @id(map: "foodIdPK") @default(autoincrement())
-  name               String   @db.VarChar(200)
+  name               String   @unique @db.VarChar(200)
   kcal               Float
   unitId             Int
   perUnit            Float
@@ -39,6 +39,7 @@ model foods {
   fiber              Float?
   unit               units    @relation(fields: [unitId], references: [unitId], map: "unitIdFK") // DELETE TEST
   meals              meals[]
+  isDeleted          Boolean  @default(false)
   changedAt          DateTime @default(now()) @updatedAt @db.Timestamp(6)
 }
 
@@ -49,6 +50,7 @@ model connections {
   user         users       @relation("connections_coachIdTousers", fields: [userId], references: [userId], onDelete: Cascade, onUpdate: NoAction, map: "userIdFK")
   coach        users       @relation("connections_userIdTousers", fields: [coachId], references: [userId], onDelete: Cascade, onUpdate: NoAction, map: "coachIdFK")
   changedAt    DateTime    @default(now()) @updatedAt @db.Timestamp(6)
+  accessAll    Boolean     @default(false)
   schedules    schedules[]
 
   @@unique([userId, coachId])
@@ -62,6 +64,7 @@ model connectionRequest {
   coach               users    @relation("conn_req_coachToUser", fields: [coachId], references: [userId], onDelete: Cascade)
   requestDate         DateTime @default(now())
   requestBy           Int
+  accessAll           Boolean  @default(false)
   changedAt           DateTime @default(now()) @updatedAt @db.Timestamp(6)
 
   @@unique([userId, coachId])
@@ -75,8 +78,8 @@ model users {
   refreshTokens          String[]
   coachConnections       connections[]       @relation("connections_coachIdTousers")
   userConnections        connections[]       @relation("connections_userIdTousers")
-  profile_data           profileData?
-  roles                  roles               @relation(fields: [roleId], references: [roleId], onDelete: NoAction, onUpdate: NoAction, map: "roleIdFK")
+  profileData            profileData?
+  role                   roles               @relation(fields: [roleId], references: [roleId], onDelete: NoAction, onUpdate: NoAction, map: "roleIdFK")
   userConnectionRequest  connectionRequest[] @relation("conn_req_userToUser")
   coachConnectionRequest connectionRequest[] @relation("conn_req_coachToUser")
   changedAt              DateTime            @default(now()) @updatedAt @db.Timestamp(6)
@@ -111,7 +114,7 @@ model mealHistory {
   changedAt     DateTime    @default(now()) @updatedAt @db.Timestamp(6)
   day           dayHistory  @relation(fields: [dayId], references: [dayId], onDelete: Cascade)
   mealPeriod    mealPeriods @relation(fields: [periodName], references: [periodName])
-  meals         meals       @relation(fields: [mealId], references: [mealId], map: "mealIdFK", onDelete: Cascade)
+  meal          meals       @relation(fields: [mealId], references: [mealId], map: "mealIdFK", onDelete: Cascade)
 }
 
 model meals {
@@ -133,9 +136,10 @@ model dayHistory {
   changedAt     DateTime       @default(now()) @updatedAt @db.Timestamp(6)
   profileData   profileData    @relation(fields: [profileId], references: [profileId], onDelete: NoAction, onUpdate: NoAction, map: "profileIdFK")
   mealHistory   mealHistory[]
+  comment       String?
   weightHistory weightHistory?
 
-  @@unique([dayId, profileId], map: "dayIdProfileIdUQ")
+  @@unique([date, profileId], map: "dayIdProfileIdUQ")
 }
 
 model mealPeriods {
@@ -147,14 +151,16 @@ model mealPeriods {
 model profileData {
   profileId        Int          @id(map: "profileIdPK") @default(autoincrement())
   userId           Int          @unique
-  registrationDate DateTime     @default(now()) @db.Date
-  firstName        String       @db.VarChar(100)
-  birthDay         DateTime     @db.Date
+  registrationDate DateTime     @default(now()) @db.Timestamp(6)
+  firstName        String       @default("") @db.VarChar(100)
+  birthDay         DateTime?    @db.Date
   lastName         String?      @db.VarChar(200)
   height           Float?
   dayHistory       dayHistory[]
   user             users        @relation(fields: [userId], references: [userId], onDelete: NoAction, onUpdate: NoAction, map: "userIdFK")
   goal             goals[]
+  male             Boolean      @default(true)
+  profilePicPath   String       @default("")
   changedAt        DateTime     @default(now()) @updatedAt @db.Timestamp(6)
 }
 
@@ -162,11 +168,15 @@ model goals {
   goalId              Int         @id() @default(autoincrement())
   profileId           Int         @unique
   profile             profileData @relation(fields: [profileId], references: [profileId])
-  targetWeight        Float?
-  targetCalories      Float?
+  targetWeight        Float       @default(70)
+  targetCalories      Float       @default(2000)
   carbohydratesPerDay Int         @default(50)
   proteinPerDay       Int         @default(30)
   fatPerDay           Int         @default(20)
+  breakfastPerDay     Int         @default(30)
+  lunchPerDay         Int         @default(40)
+  dinnerPerDay        Int         @default(25)
+  otherPerDay         Int         @default(5)
   date                DateTime    @default(now()) @db.Date
 
   @@unique([profileId, date])

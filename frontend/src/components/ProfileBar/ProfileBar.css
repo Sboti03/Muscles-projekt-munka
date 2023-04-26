@@ -1,0 +1,10 @@
+.profile-bar-container {
+    display: grid;
+    justify-content: center;
+    text-align: center;
+    @apply m-1
+}
+
+.profile-bar-container > div {
+    margin-bottom: 5px;
+}

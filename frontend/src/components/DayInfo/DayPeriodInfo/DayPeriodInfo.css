@@ -1,0 +1,45 @@
+.dpi-container {
+    display: grid;
+    justify-content: space-between;
+    grid-template-columns: 1fr 1fr 1fr;
+    background-color: #58008a;
+    border-radius: 20pt;
+    color: white;
+    margin-top: 5pt;
+    margin-bottom: 5pt;
+    width: 100%;
+    padding: 10pt;
+    border: none;
+    font-size: 16px;
+}
+.no-style {
+    all: unset;
+}
+
+.dpi-container:hover {
+    background-color: #6F00B3;
+    cursor: pointer;
+}
+
+.dpi-container:active {
+    background-color: #7800c2;
+}
+.dpi {
+    margin: 0 auto;
+    max-width: 300pt;
+}
+
+.dpi-good {
+    color: #7aff66;
+    font-weight: bold;
+}
+
+.dpi-bad {
+    color: #ff2121;
+    font-weight: bold;
+}
+
+
+.dpi > button {
+    @apply shadow-md shadow-gray-400
+}

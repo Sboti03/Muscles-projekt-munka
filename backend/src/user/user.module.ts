@@ -7,9 +7,11 @@ import {UserUpdateService} from './services/user-update/user-update.service';
 import {UserCreateService} from './services/user-create/user-create.service';
 import {UserDeleteService} from "./services/user-delete/user-delete.service";
 import {AuthModule} from "../auth/auth.module";
+import { ProfileGetService } from "../profile/services/profile-get/profile-get.service";
 
 @Module({
     providers: [
+        ProfileGetService,
         PrismaService,
         UserGetService,
         UserCheckService,
