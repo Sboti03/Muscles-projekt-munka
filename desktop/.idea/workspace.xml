@@ -4,20 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="00e91fc0-96b8-4172-906f-ab5075727363" name="Changes" comment="fixing in function buttons">
-      <change afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/exitFromApp/ExitFromApp.java" afterDir="false" />
+    <list default="true" id="00e91fc0-96b8-4172-906f-ab5075727363" name="Changes" comment="Reformat css, exit button in login window with a new class">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/ExitController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/ExitController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/CreateFoodController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/CreateFoodController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/LoginController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/MainViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/MainViewController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/UpdateFoodController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/UpdateFoodController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/foodMethods/createfoodmainmethods/CreateFoodMainMethods.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/foodMethods/createfoodmainmethods/CreateFoodMainMethods.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/createFoodResources/createFoodStyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/createFoodResources/createFoodStyle.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/exitResources/exitStyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/exitResources/exitStyle.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/foodMethods/foodTextInput/FoodTextInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/foodMethods/foodTextInput/FoodTextInput.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/loginResources/login-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/loginResources/login-view.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/loginResources/loginFormStyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/loginResources/loginFormStyle.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/mainResources/mainFormStlye.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/mainResources/mainFormStlye.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/updateFoodResources/updateFormStyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hu/muscles/desktop/updateFoodResources/updateFormStyle.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -132,14 +127,7 @@
       <workItem from="1682335025631" duration="10317000" />
       <workItem from="1682436380294" duration="680000" />
       <workItem from="1682437106118" duration="12271000" />
-      <workItem from="1682498751734" duration="13288000" />
-    </task>
-    <task id="LOCAL-00001" summary="refactoring (renaming)">
-      <created>1678362647589</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1678362647589</updated>
+      <workItem from="1682498751734" duration="15053000" />
     </task>
     <task id="LOCAL-00002" summary="creating login-view">
       <created>1678362965725</created>
@@ -477,7 +465,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682508013946</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="Reformat css, exit button in login window with a new class">
+      <created>1682515179446</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1682515179447</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -495,7 +490,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Create food" />
     <MESSAGE value="Refactoring create food" />
     <MESSAGE value="adding gender to profile and designing login form" />
     <MESSAGE value="adding radius to background" />
@@ -520,7 +514,8 @@
     <MESSAGE value="fixed search" />
     <MESSAGE value="fixing search and load in order to prevent &lt;local1&gt; to be null, fixing error messages to user" />
     <MESSAGE value="fixing in function buttons" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixing in function buttons" />
+    <MESSAGE value="Reformat css, exit button in login window with a new class" />
+    <option name="LAST_COMMIT_MESSAGE" value="Reformat css, exit button in login window with a new class" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

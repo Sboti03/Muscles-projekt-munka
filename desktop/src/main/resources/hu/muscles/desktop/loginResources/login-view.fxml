@@ -27,11 +27,11 @@
                   <Insets bottom="20.0" />
                </VBox.margin>
             </Text>
-        <TextField fx:id="emailTextField" prefHeight="38.0" promptText="email" styleClass="login-field" stylesheets="@loginFormStyle.css">
+        <TextField fx:id="emailTextField" minHeight="-Infinity" prefHeight="33.0" promptText="email" styleClass="login-field" stylesheets="@loginFormStyle.css">
                <VBox.margin>
                   <Insets bottom="5.0" />
                </VBox.margin></TextField>
-        <PasswordField fx:id="passwordTextField" prefHeight="38.0" promptText="password" styleClass="login-field" stylesheets="@loginFormStyle.css" />
+        <PasswordField fx:id="passwordTextField" minHeight="-Infinity" prefHeight="33.0" promptText="password" styleClass="login-field" stylesheets="@loginFormStyle.css" />
         <Button fx:id="loginButton" focusTraversable="false" mnemonicParsing="false" onAction="#LoginButtonClick" prefHeight="34.0" prefWidth="140.0" styleClass="login-button" stylesheets="@loginFormStyle.css" text="Login" textAlignment="CENTER">
                <VBox.margin>
                   <Insets bottom="30.0" top="15.0" />

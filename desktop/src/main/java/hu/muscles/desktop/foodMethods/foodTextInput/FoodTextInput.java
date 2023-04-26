@@ -10,18 +10,22 @@ import javafx.util.StringConverter;
 public class FoodTextInput {
 
     public void setTextFieldToDoubleOrNull(TextField textField) {
-        StringConverter<Double> customDoubleStringConverter = new StringConverter<Double>() {
+        StringConverter<Number> customDoubleStringConverter = new StringConverter<Number>() {
             @Override
-            public String toString(Double value) {
+            public String toString(Number value) {
                 if (value == null) {
                     return "";
                 } else {
-                    return value.toString();
+                    if (value.doubleValue() == Math.floor(value.doubleValue())) {
+                        return String.format("%.0f", value.doubleValue());
+                    } else {
+                        return value.toString();
+                    }
                 }
             }
 
             @Override
-            public Double fromString(String string) {
+            public Number fromString(String string) {
                 if (string == null || string.isEmpty()) {
                     return null;
                 }

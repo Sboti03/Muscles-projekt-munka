@@ -7,8 +7,7 @@
 }
 
 .login-field {
-    -fx-background-color: rgb(134, 42, 168),
-    rgb(251, 248, 255);
+    -fx-background-color: rgb(134, 42, 168), rgb(251, 248, 255);
     -fx-text-fill: rgb(73, 20, 98);
 }
 
@@ -16,8 +15,7 @@
     -fx-background-insets: 0, 2;
     -fx-border-color: white;
     -fx-border-radius: 4px;
-    -fx-background-color: rgb(134, 42, 168),
-    rgb(251, 248, 255);
+    -fx-background-color: rgb(134, 42, 168), rgb(251, 248, 255);
     -fx-text-fill: rgb(73, 20, 98);
 }
 
