@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="00e91fc0-96b8-4172-906f-ab5075727363" name="Changes" comment="fixed search">
+    <list default="true" id="00e91fc0-96b8-4172-906f-ab5075727363" name="Changes" comment="fixing search and load in order to prevent &lt;local1&gt; to be null, fixing error messages to user">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/MainViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/controllers/MainViewController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/informUser/InformUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/informUser/InformUser.java" afterDir="false" />
@@ -122,7 +122,7 @@
       <workItem from="1682335025631" duration="10317000" />
       <workItem from="1682436380294" duration="680000" />
       <workItem from="1682437106118" duration="12271000" />
-      <workItem from="1682498751734" duration="6418000" />
+      <workItem from="1682498751734" duration="7426000" />
     </task>
     <task id="LOCAL-00001" summary="refactoring (renaming)">
       <created>1678362647589</created>
@@ -453,7 +453,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682499342167</updated>
     </task>
-    <option name="localTasksCounter" value="48" />
+    <task id="LOCAL-00048" summary="fixing search and load in order to prevent &lt;local1&gt; to be null, fixing error messages to user">
+      <created>1682506946172</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1682506946172</updated>
+    </task>
+    <option name="localTasksCounter" value="49" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -471,7 +478,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="ListView update element (currently working with enter) and create food view" />
     <MESSAGE value="Initialize text fields in create-food-view" />
     <MESSAGE value="Create food" />
     <MESSAGE value="Refactoring create food" />
@@ -496,7 +502,8 @@
     <MESSAGE value="Fixing button and add ComboBox style" />
     <MESSAGE value="Adding custom exit confirmation window" />
     <MESSAGE value="fixed search" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed search" />
+    <MESSAGE value="fixing search and load in order to prevent &lt;local1&gt; to be null, fixing error messages to user" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixing search and load in order to prevent &lt;local1&gt; to be null, fixing error messages to user" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

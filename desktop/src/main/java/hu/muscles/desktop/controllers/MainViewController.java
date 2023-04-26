@@ -251,18 +251,16 @@ public class MainViewController implements Initializable {
             protected Void call() throws Exception {
                 if (!isProfileShown && isFoodShown) {
                     int index = mainListViewHelper.getCurrentSelectedItemIndex(mainListView);
-                    if (index != 1) {
-                        Optional<Food> optionalFood = foods.stream().filter(food1 -> food1.getFoodId() == index).findFirst();
-                        if (optionalFood.isPresent()) {
-                            Food food = optionalFood.get();
-                            if (!food.isDeleted()) {
-                                sendRequest(HttpMethod.DELETE, url.DELETE_FOOD(index), actionEvent, "Food deleted successfully", "An error has occurred.", "ERROR: Couldn't delete profile.", true);
-                            } else {
-                                informUser.setTextThenEmpty(messageTextArea, "Food is deleted already.", "#ef1400", 3);
-                            }
+                    Optional<Food> optionalFood = foods.stream().filter(food1 -> food1.getFoodId() == index).findFirst();
+                    if (optionalFood.isPresent()) {
+                        Food food = optionalFood.get();
+                        if (!food.isDeleted()) {
+                            sendRequest(HttpMethod.DELETE, url.DELETE_FOOD(index), actionEvent, "Food deleted successfully", "An error has occurred.", "ERROR: Couldn't delete profile.", true);
                         } else {
-                            informUser.setTextThenEmpty(messageTextArea, "Please select an item from the list!", "#ef1400", 3);
+                            informUser.setTextThenEmpty(messageTextArea, "Food is deleted already.", "#ef1400", 3);
                         }
+                    } else {
+                        informUser.setTextThenEmpty(messageTextArea, "Please select an item from the list!", "#ef1400", 3);
                     }
                 } else {
                     informUser.setTextThenEmpty(messageTextArea, "Please do not delete yourself!", "#ef1400", 3);
@@ -366,11 +364,15 @@ public class MainViewController implements Initializable {
                     int index = mainListViewHelper.getCurrentSelectedItemIndex(mainListView);
                     Optional<User> optionalUser = users.stream().filter(x -> x.getUserId() == index).findFirst();
                     if (optionalUser.isPresent()) {
-                        User user = optionalUser.get();
-                        if (!user.isBlocked()) {
-                            sendRequest(HttpMethod.DELETE, url.BLOCK_USER(index), actionEvent, "Profile blocked successfully", "An error has occurred.", "ERROR: Couldn't block profile.", false);
+                        if (index != 1) {
+                            User user = optionalUser.get();
+                            if (!user.isBlocked()) {
+                                sendRequest(HttpMethod.DELETE, url.BLOCK_USER(index), actionEvent, "Profile blocked successfully.", "An error has occurred.", "ERROR: Couldn't block profile.", false);
+                            } else {
+                                informUser.setTextThenEmpty(messageTextArea, "Profile is blocked.", "#ef1400", 3);
+                            }
                         } else {
-                            informUser.setTextThenEmpty(messageTextArea, "Profile is blocked.", "#ef1400", 3);
+                            informUser.setTextThenEmpty(messageTextArea, "Please do not delete admin.", "#ef1400", 3);
                         }
                     } else {
                         informUser.setTextThenEmpty(messageTextArea, "Please select an item from the list!", "#ef1400", 3);
@@ -396,7 +398,7 @@ public class MainViewController implements Initializable {
                     if (optionalUser.isPresent()) {
                         User user = optionalUser.get();
                         if (user.isBlocked()) {
-                            sendRequest(HttpMethod.PATCH, url.UNBLOCK_USER(index), actionEvent, "Profile unblocked successfully", "An error has occurred.", "ERROR: Couldn't unblock profile.", false);
+                            sendRequest(HttpMethod.PATCH, url.UNBLOCK_USER(index), actionEvent, "Profile unblocked successfully.", "An error has occurred.", "ERROR: Couldn't unblock profile.", false);
                         } else {
                             informUser.setTextThenEmpty(messageTextArea, "Profile is not blocked.", "#ef1400", 3);
                         }
