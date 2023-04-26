@@ -29,7 +29,6 @@ export default function UserCoachContextProvider(props:PropsWithChildren) {
     }, [user])
 
     async function loadConnections() {
-        console.log(user?.role.roleName)
         const connectionsResponse = await singleFetch<ConnectionResponse[]>('/api/connection/all', Methods.GET)
         if (connectionsResponse.response) {
             const accessAllConnection = connectionsResponse.response.find(connectionsResponse => connectionsResponse.accessAll)

@@ -103,7 +103,7 @@ export class AuthController {
         return {newToken: acToken}
     }
 
-    @UseGuards(AccessTokenGuard)
+    @UseGuards(RefreshTokenGuard)
     @Get('logout')
     logout(@Res({passthrough: true}) res: Response, @GetCurrentUserId() userId: number, @GetCurrentUserRefreshToken() refreshToken: string) {
         Logger.log(`/auth/logout (GET) userId: ${userId}`)

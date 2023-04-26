@@ -26,7 +26,6 @@ export default function Comment() {
     const [renderedComment, setRenderedComment] = useState(<></>)
 
     useEffect(()=> {
-        console.log(isCommentExist)
         if (isCommentExist) {
             setRenderedComment(showComment)
         } else {
@@ -62,7 +61,6 @@ export default function Comment() {
 
 
     function handleSend(ownComment?: string) {
-        console.log(ownComment)
         singleFetch('api/day-history/comment', Methods.POST, {
             date: normalizeDate(currentDate),
             userId: showProfileId,

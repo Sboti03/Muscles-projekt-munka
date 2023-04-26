@@ -27,9 +27,7 @@ export default function ListFoods(props: Props) {
     const {currentDate} = useContext(DayInfoContext)
 
     function showFood(food: Food) {
-        console.log(food)
         setCurrentFood(food)
-
     }
     const [loadingIds, setLoadingIds] = useState<number[]>([])
 

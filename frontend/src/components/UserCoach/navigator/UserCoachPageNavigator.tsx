@@ -42,7 +42,6 @@ export default function UserCoachPageNavigator() {
                         return req.userId === showProfileId && req.coachId === user.userId;
                     }
                 })
-                console.log(connectionReq)
                 if (connectionReq) {
                     status = connectionReq.requestBy === user.userId ? ConnectionStatus.REQUEST_PENDING : ConnectionStatus.REQUEST
                 }else  {

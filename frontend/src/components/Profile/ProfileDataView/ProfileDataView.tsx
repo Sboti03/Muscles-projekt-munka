@@ -254,9 +254,10 @@ export default function ProfileDataView(props: Props) {
             profileDataToSend = {...profileDataToSend, male: newProfileData.male}
         }
         if (Object.keys(profileDataToSend).length === 0) {
-            toast.info(t("profile.error.no-change")!)
             if (props.saveBtnAction) {
                 props.saveBtnAction()
+            } else {
+                toast.info(t("profile.error.no-change")!)
             }
             return
         }

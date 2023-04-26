@@ -12,17 +12,20 @@ import LoginResponse from "../src/auth/dto/login.response";
 describe('AppController (e2e)', () => {
     let app: INestApplication;
 
-    const user = {
+    let user = {
         email: `test@user.com`,
         password: 'test',
         isCoach: false
     }
 
-    const coach = {
+    let coach = {
         email: 'test@coach.com',
         password: 'test',
         isCoach: true
     }
+
+    let userToken: Tokens = {accessToken: '', refreshToken: ''};
+    let coachToken: Tokens = {refreshToken: '', accessToken: ''};
 
     beforeAll(async () => {
         const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -48,6 +51,18 @@ describe('AppController (e2e)', () => {
         app.use(cookieParser())
         await app.init();
     });
+
+    async function loginUser(pass?: string) {
+        if (pass) {
+            user.password = pass
+        }
+        const res = await request(app.getHttpServer())
+            .post('/api/auth/login')
+            .send(user)
+            .expect(200)
+        const resBody = res.body as LoginResponse
+        userToken = resBody.tokens
+    }
 
 
     describe('POST /api/auth/register', () => {
@@ -110,8 +125,6 @@ describe('AppController (e2e)', () => {
                 .expect(403)
         })
     })
-    let userToken: Tokens;
-    let coachToken: Tokens;
     describe('POST /api/auth/login', () => {
 
         it('should return 403 wrong email', () => {
@@ -135,8 +148,6 @@ describe('AppController (e2e)', () => {
             const body = response.body as LoginResponse
             expect(body.tokens.accessToken).toBeDefined()
             expect(body.tokens.refreshToken).toBeDefined()
-            userToken = body.tokens
-
         })
         it('should return 200', async () => {
             const response = await request(app.getHttpServer())
@@ -146,11 +157,10 @@ describe('AppController (e2e)', () => {
             const body = response.body as LoginResponse
             expect(body.tokens.accessToken).toBeDefined()
             expect(body.tokens.refreshToken).toBeDefined()
-            coachToken = body.tokens
         })
     })
 
-    describe('GEt /api/auth/refresh', () => {
+    describe('GEt /api/auth/refresh',  () => {
         it('should return 401 wrong refresh token', () => {
             return request(app.getHttpServer())
                 .get('/api/auth/refresh')
@@ -158,16 +168,16 @@ describe('AppController (e2e)', () => {
                 .expect(401)
         })
         it('should return 200', async () => {
+            await loginUser()
             const response = await request(app.getHttpServer())
                 .get('/api/auth/refresh')
                 .set('Authorization', `Bearer ${userToken.refreshToken}`)
             expect(response.body.newToken).toBeDefined()
-            userToken.refreshToken = response.body.newToken
         });
     })
 
     // Get new access token
-    describe('GET /api/auth/access', () => {
+    describe('GET /api/auth/access',  () => {
         it('should return 401 wrong refresh token', () => {
             return request(app.getHttpServer())
                 .get('/api/auth/access')
@@ -175,19 +185,19 @@ describe('AppController (e2e)', () => {
                 .expect(401)
         })
         it('should return 200', async () => {
+            await loginUser()
             const result = await request(app.getHttpServer())
                 .get('/api/auth/access')
                 .set('Authorization', `Bearer ${userToken.refreshToken}`)
                 .expect(200)
             expect(result.body.newToken).toBeDefined()
-            userToken.accessToken = result.body.newToken
         })
     })
 
-
     describe('PATCH /api/auth/password', () => {
         // Pass not match
-        it('should return 404', () => {
+        it('should return 404', async () => {
+            await loginUser()
             return request(app.getHttpServer())
                 .patch('/api/auth/password')
                 .set('Authorization', `Bearer ${userToken.accessToken}`)
@@ -202,12 +212,45 @@ describe('AppController (e2e)', () => {
                 .send({oldPassword: user.password, newPassword: user.password})
                 .expect(400)
         })
-        it('should return 200', () => {
-          return request(app.getHttpServer())
+        it('should return 200', async () => {
+            const response = await request(app.getHttpServer())
                 .patch('/api/auth/password')
                 .set('Authorization', `Bearer ${userToken.accessToken}`)
                 .send({oldPassword: user.password, newPassword: 'asdasd'})
                 .expect(200)
+            expect(response.body.newToken).toBeDefined()
+        })
+    })
+
+
+    describe('GET /api/auth/logout',  () => {
+        it('should return 200', async () => {
+            await loginUser('asdasd')
+            return request(app.getHttpServer())
+                .get('/api/auth/logout')
+                .set('Authorization', `Bearer ${userToken.refreshToken}`)
+                .expect(200)
+        })
+
+        it('should return 404', () => {
+            return request(app.getHttpServer())
+                .get('/api/auth/logout')
+                .set('Authorization', `Bearer ${userToken.refreshToken}`)
+                .expect(404)
+        })
+
+        it('should return 403', () => {
+            return request(app.getHttpServer())
+                .get('/api/auth/refresh')
+                .set('Authorization', `Bearer ${userToken.refreshToken}`)
+                .expect(403)
+        })
+
+        it('should return 403', () => {
+            return request(app.getHttpServer())
+                .get('/api/auth/access')
+                .set('Authorization', `Bearer ${userToken.refreshToken}`)
+                .expect(403)
         })
     })
 

@@ -143,7 +143,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "getAccessToken", null);
 __decorate([
-    (0, common_1.UseGuards)(access_token_guard_1.AccessTokenGuard),
+    (0, common_1.UseGuards)(refresh_token_guard_1.RefreshTokenGuard),
     (0, common_1.Get)('logout'),
     __param(0, (0, common_1.Res)({ passthrough: true })),
     __param(1, (0, decorators_1.GetCurrentUserId)()),

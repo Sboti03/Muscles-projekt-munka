@@ -73,8 +73,6 @@ async function main() {
             }
         })
     }
-    console.log(admin)
-
 
     for (const objOfUnit of Units) {
         await prisma.units.upsert({

@@ -20,10 +20,6 @@ export default function Pages() {
 
     const {page} = useContext(NavigatorContext)
 
-    useEffect(()=> {
-        console.log(page)
-    }, [page])
-
     switch (page) {
         case Page.ADMIN:
             return <AdminPageContextProvider>
@@ -54,10 +50,6 @@ export default function Pages() {
         case Page.WELCOME:
             return <WelcomePage />
         default:
-            return (
-                <div className="full-height full-center">
-                    asd
-                </div>
-            )
+            return (<></>)
     }
 }

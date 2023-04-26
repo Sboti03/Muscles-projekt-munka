@@ -1,6 +1,5 @@
 import {PropsWithChildren, useMemo, useState} from "react";
 import NavigatorContext, {Page} from "./NavigatorContext";
-import LoginPage from "../Auth/Login/LoginPage";
 
 export default function NavigatorContextProvider(props:PropsWithChildren) {
 

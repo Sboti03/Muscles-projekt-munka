@@ -5,7 +5,6 @@ export declare class ProfileGetController {
     constructor(profileGetService: ProfileGetService);
     getProfileData(profileId: number): Promise<import(".prisma/client").profileData>;
     getProfileByName(name: string, role: string, profileId: number): Promise<{
-        profileId: number;
         user: {
             email: string;
             role: {
@@ -13,6 +12,7 @@ export declare class ProfileGetController {
             };
         };
         userId: number;
+        profileId: number;
         firstName: string;
         lastName: string;
         male: boolean;
