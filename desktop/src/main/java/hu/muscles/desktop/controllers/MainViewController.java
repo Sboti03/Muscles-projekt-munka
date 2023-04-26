@@ -182,11 +182,11 @@ public class MainViewController implements Initializable {
                         items.add(item);
                     }
                 }
-                mainListView.setItems(items);
+                Platform.runLater(() -> mainListView.setItems(items));
                 if (items.isEmpty()) {
-                    mainListView.setPlaceholder(new Label("No matches found"));
+                    Platform.runLater(() -> mainListView.setPlaceholder(new Label("No matches found")));
                 } else {
-                    mainListView.setPlaceholder(null);
+                    Platform.runLater(() ->  mainListView.setPlaceholder(null));
                 }
             }
         });
@@ -206,6 +206,7 @@ public class MainViewController implements Initializable {
         mainListView.getItems().clear();
         showListNameText.setText("Food");
         isProfileShown = false;
+        searchField.setText("");
         Task<Void> task = new Task<>() {
             @Override
             protected Void call() throws Exception {
@@ -220,7 +221,6 @@ public class MainViewController implements Initializable {
                         loadToMainListview.loadFoodsToListView(foods);
                         isFoodShown = true;
                         originalMainItems = mainListView.getItems();
-                        searchField.setText("");
                     } else {
                         informUser.setTextThenEmpty(messageTextArea, "An error has occurred while loading foods", "#ef1400", 3);
                     }
@@ -312,6 +312,7 @@ public class MainViewController implements Initializable {
         showListNameText.setText("Profile");
         mainListView.getItems().clear();
         isFoodShown = false;
+        searchField.setText("");
         Task<Void> task = new Task<>() {
             @Override
             protected Void call() throws Exception {
@@ -327,7 +328,6 @@ public class MainViewController implements Initializable {
                         loadToMainListview.loadProfilesToListView(profiles, users);
                         isProfileShown = true;
                         originalMainItems = mainListView.getItems();
-                        searchField.setText("");
                     } else {
                         informUser.setTextThenEmpty(messageTextArea, "An error has occurred while loading profiles", "#ef1400", 3);
                     }
