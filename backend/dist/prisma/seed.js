@@ -70,7 +70,6 @@ async function main() {
             }
         });
     }
-    console.log(admin);
     for (const objOfUnit of units_1.Units) {
         await prisma.units.upsert({
             where: { unit: objOfUnit.unit },

@@ -11,8 +11,8 @@ export default function Connections() {
     return (
         <>
             <div>
-                {connectionRequests.map(value => <ConnectionRequest connectionRequest={value} />)}
-                {connections.map(value => <Connection connection={value} />)}
+                {connectionRequests.map(value => <ConnectionRequest key={value.connectionRequestId} connectionRequest={value} />)}
+                {connections.map(value => <Connection key={value.connectionId} connection={value} />)}
             </div>
         </>
     )
