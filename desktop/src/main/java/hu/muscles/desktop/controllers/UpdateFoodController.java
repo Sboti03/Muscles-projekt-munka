@@ -63,9 +63,10 @@ public class UpdateFoodController {
 
     @FXML
     public void updateFoodClick(ActionEvent actionEvent) {
-        createFoodMainMethods.CreateFood(nameField, kcalField, unitField, perUnitField, proteinField, fatField, saturatedFatField, polyunsaturatedFatField, monounsaturatedFatField, carbohydrateField, sugarField, fiberField, loginModel, url, true, foodModel.getFood().getFoodId());
-        mainViewController.foodsClick(actionEvent);
-        cancelFoodClick(actionEvent);
+       if (createFoodMainMethods.CreateFood(nameField, kcalField, unitField, perUnitField, proteinField, fatField, saturatedFatField, polyunsaturatedFatField, monounsaturatedFatField, carbohydrateField, sugarField, fiberField, loginModel, url, true, foodModel.getFood().getFoodId())) {
+           mainViewController.foodsClick(actionEvent);
+           cancelFoodClick(actionEvent);
+       }
     }
 
     @FXML

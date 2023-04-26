@@ -13,6 +13,7 @@ Button:focused {
     -fx-text-fill: white;
     -fx-background-radius: 8px;
 }
+
 Button {
     -fx-border-color: #8200cc;
     -fx-border-radius: 8px;
@@ -20,6 +21,7 @@ Button {
     -fx-text-fill: white;
     -fx-background-radius: 8px;
 }
+
 Button:hover {
     -fx-background-color: #40115e;
     -fx-border-color: #ff00ea;

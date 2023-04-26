@@ -3,6 +3,7 @@ package hu.muscles.desktop.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jfoenix.controls.JFXTextArea;
 import hu.muscles.desktop.App;
+import hu.muscles.desktop.exitFromApp.ExitFromApp;
 import hu.muscles.desktop.responses.loginResponse.LoginResponse;
 import hu.muscles.desktop.informUser.InformUser;
 import hu.muscles.desktop.models.LoginModel;
@@ -13,9 +14,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -26,7 +31,10 @@ import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
+
+import static hu.muscles.desktop.controllers.ExitController.getExitStatus;
 
 public class LoginController implements Initializable {
 
@@ -40,9 +48,12 @@ public class LoginController implements Initializable {
     private PasswordField passwordTextField;
     @FXML
     private ProgressIndicator loading;
+    @FXML
+    private Button exitBtn;
+    @FXML
+    private VBox mainVbox;
 
     private final InformUser informUser = new InformUser();
-
     private final static RestTemplate restTemplate = new RestTemplate();
     private final Urls url = new Urls();
     private LoginModel loginModel;
@@ -141,4 +152,8 @@ public class LoginController implements Initializable {
         loading.setProgress(ProgressIndicator.INDETERMINATE_PROGRESS);
     }
 
+    @FXML
+    public void exitClick(ActionEvent actionEvent) {
+        new ExitFromApp(mainVbox, infoArea);
+    }
 }

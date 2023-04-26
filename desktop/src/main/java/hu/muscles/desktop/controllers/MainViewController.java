@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextArea;
 import hu.muscles.desktop.App;
+import hu.muscles.desktop.exitFromApp.ExitFromApp;
 import hu.muscles.desktop.foodMethods.createfoodmainmethods.CreateFoodMainMethods;
 import hu.muscles.desktop.informUser.InformUser;
 import hu.muscles.desktop.mainContentLoad.loadFromServerToPOJO.LoadFromServerToPojo;
@@ -37,6 +38,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import org.springframework.http.HttpMethod;
 
 import java.io.IOException;
@@ -416,25 +418,7 @@ public class MainViewController implements Initializable {
 
     @FXML
     public void exitClick(ActionEvent actionEvent) {
-        mainVbox.setDisable(true);
-        try {
-            FXMLLoader loadExitConfirmation = new FXMLLoader(App.class.getResource("/hu/muscles/desktop/exitResources/exit-view.fxml"));
-            Scene scene = new Scene(loadExitConfirmation.load(), 366, 174);
-            Stage stage = new Stage();
-            stage.setScene(scene);
-            stage.setResizable(false);
-            stage.setTitle("Confirm Exit");
-            stage.alwaysOnTopProperty();
-            stage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/hu/muscles/desktop/backgroundResources/question.png"))));
-            stage.showAndWait();
-            if (getExitStatus()) {
-                Platform.exit();
-            } else {
-                mainVbox.setDisable(false);
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        new ExitFromApp(mainVbox, messageTextArea);
     }
 
     private void loadEditVboxContent() {

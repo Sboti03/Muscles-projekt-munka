@@ -29,7 +29,7 @@ public class ExitController {
         stage.close();
     }
 
-    protected static boolean getExitStatus() {
+    public static boolean getExitStatus() {
         return exit;
     }
 }

@@ -60,7 +60,7 @@ public class CreateFoodMainMethods {
     }
 
 
-    public void CreateFood(TextField nameField, TextField kcalField, ComboBox<UnitsEnum> unitField, TextField perUnitField, TextField proteinField, TextField fatField, TextField saturatedFatField, TextField polyunsaturatedFatField, TextField monounsaturatedFatField, TextField carbohydrateField, TextField sugarField, TextField fiberField, LoginModel loginModel, Urls url, boolean isUpdate, int foodId) {
+    public boolean CreateFood(TextField nameField, TextField kcalField, ComboBox<UnitsEnum> unitField, TextField perUnitField, TextField proteinField, TextField fatField, TextField saturatedFatField, TextField polyunsaturatedFatField, TextField monounsaturatedFatField, TextField carbohydrateField, TextField sugarField, TextField fiberField, LoginModel loginModel, Urls url, boolean isUpdate, int foodId) {
         try {
             FoodsCreateOrUpdate food = foodCreate(nameField, kcalField, unitField, perUnitField, proteinField, fatField, saturatedFatField, polyunsaturatedFatField, monounsaturatedFatField, carbohydrateField, sugarField, fiberField, isUpdate);
             if (food != null && !food.getName().equals("")) {
@@ -71,27 +71,30 @@ public class CreateFoodMainMethods {
                     json = mapper.writeValueAsString(food);
                 } catch (JsonProcessingException e) {
                     setMessage(isUpdate, "Json Processing Error happened.", "#ef1400");
-                    return;
+                    return false;
                 }
                 if (!isUpdate) {
                     if (!json.isEmpty()) {
-                        sendRequest(loginModel, url.CREATE_FOOD(), json, "Food created successfully!", HttpMethod.POST, false);
+                       return sendRequest(loginModel, url.CREATE_FOOD(), json, "Food created successfully!", HttpMethod.POST, false);
                     }
                 } else {
                     if (!json.isEmpty()) {
-                        sendRequest(loginModel, url.UPDATE_FOOD(foodId), json, "Food updated successfully!", HttpMethod.PATCH, true);
+                       return sendRequest(loginModel, url.UPDATE_FOOD(foodId), json, "Food updated successfully!", HttpMethod.PATCH, true);
                     }
                 }
             } else {
                 setMessage(isUpdate, "Not all value are valid.", "#ef1400");
+                return false;
             }
         } catch (Exception e) {
             setMessage(isUpdate, informUser.messageFromError(e), "#ef1400");
+            return false;
         }
+        return false;
     }
 
 
-    private void sendRequest(LoginModel loginModel, String url, String json, String textareaMessage, HttpMethod httpMethod, boolean isUpdate) {
+    private boolean sendRequest(LoginModel loginModel, String url, String json, String textareaMessage, HttpMethod httpMethod, boolean isUpdate) {
         try {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
@@ -104,11 +107,14 @@ public class CreateFoodMainMethods {
             ResponseEntity<String> responseEntity = restTemplate.exchange(url, httpMethod, requestEntity, String.class);
             if (isValidJSON(requestEntity.getBody())) {
                 setMessage(isUpdate, textareaMessage, "#29be0e");
+                return true;
             } else {
                 setMessage(isUpdate, "ERROR -> got back: " + responseEntity.getBody(), "#ef1400");
+                return false;
             }
         } catch (Exception e) {
             setMessage(isUpdate, informUser.messageFromError(e), "#ef1400");
+            return false;
         }
     }
 

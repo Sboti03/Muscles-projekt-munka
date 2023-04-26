@@ -14,6 +14,7 @@ Button:focused {
     -fx-text-fill: white;
     -fx-background-radius: 8px;
 }
+
 Button {
     -fx-border-color: #8200cc;
     -fx-border-radius: 8px;
@@ -21,6 +22,7 @@ Button {
     -fx-text-fill: white;
     -fx-background-radius: 8px;
 }
+
 Button:hover {
     -fx-background-color: #40115e;
     -fx-border-color: #ff00ea;
@@ -38,7 +40,6 @@ Button:pressed {
 }
 
 
-
 JFXListView {
     -fx-background-color: #1F0449B0;
     -fx-text-alignment: center;
@@ -52,7 +53,6 @@ JFXListView .list-cell:odd, JFXListView .list-cell:even {
 JFXListView .list-cell:selected:odd, JFXListView .list-cell:selected:even {
     -fx-background-color: #2b1354;
 }
-
 
 
 JFXListView .placeholder .label {
@@ -72,9 +72,11 @@ JFXListView .scroll-bar:vertical .thumb {
     -fx-background-color: rgba(31, 4, 73, 0.85);
     -fx-text-fill: white;
 }
+
 #searchBar .placeholder {
     -fx-text-fill: white;
 }
+
 #searchBar:focused {
     -fx-border-color: rgba(19, 2, 50, 0.69);
     -fx-text-fill: white;
