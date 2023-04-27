@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="00e91fc0-96b8-4172-906f-ab5075727363" name="Changes" comment="little changes in methods">
-      <change beforePath="$PROJECT_DIR$/.idea/desktop.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/desktop.iml" afterDir="false" />
+    <list default="true" id="00e91fc0-96b8-4172-906f-ab5075727363" name="Changes" comment="addig changeable base url">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/mainContentLoad/loadFromServerToPOJO/LoadFromServerToPojo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/mainContentLoad/loadFromServerToPOJO/LoadFromServerToPojo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/responses/profileResponse/Profile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/responses/profileResponse/Profile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/urls/Urls.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/urls/Urls.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,25 +42,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "extract.method.default.visibility": "private",
-    "last_opened_file_path": "C:/Users/k2347/IdeaProjects/TEST_IF_MUSCLES_WORK/desktop",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "spring.configuration.checksum": "b2c79ad7dcf03ba266dc0885e1266675",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;extract.method.default.visibility&quot;: &quot;private&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/k2347/IdeaProjects/TEST_IF_MUSCLES_WORK&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;b2c79ad7dcf03ba266dc0885e1266675&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="hu.muscles.desktop.controllers" />
@@ -124,14 +122,8 @@
       <workItem from="1682436380294" duration="680000" />
       <workItem from="1682437106118" duration="12271000" />
       <workItem from="1682498751734" duration="16660000" />
-      <workItem from="1682613170741" duration="809000" />
-    </task>
-    <task id="LOCAL-00004" summary="creating login">
-      <created>1678364177935</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1678364177935</updated>
+      <workItem from="1682613170741" duration="1368000" />
+      <workItem from="1682615109460" duration="1044000" />
     </task>
     <task id="LOCAL-00005" summary="Change Scene between login and main">
       <created>1678719256781</created>
@@ -469,7 +461,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682517747066</updated>
     </task>
-    <option name="localTasksCounter" value="53" />
+    <task id="LOCAL-00053" summary="Fixing profile loading after backend change">
+      <created>1682614336080</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1682614336080</updated>
+    </task>
+    <option name="localTasksCounter" value="54" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -487,8 +486,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="adding radius to background" />
-    <MESSAGE value="install controlsfx dependency" />
     <MESSAGE value="rewriting food load and update" />
     <MESSAGE value="Food CRUD" />
     <MESSAGE value="Profile data show and refactoring" />
@@ -512,7 +509,9 @@
     <MESSAGE value="Reformat css, exit button in login window with a new class" />
     <MESSAGE value="Login css, remove unused imports and fixing double issues while creating/updating foods" />
     <MESSAGE value="little changes in methods" />
-    <option name="LAST_COMMIT_MESSAGE" value="little changes in methods" />
+    <MESSAGE value="Fixing profile loading after backend change" />
+    <MESSAGE value="addig changeable base url" />
+    <option name="LAST_COMMIT_MESSAGE" value="addig changeable base url" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
