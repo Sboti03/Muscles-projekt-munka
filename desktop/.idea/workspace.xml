@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="00e91fc0-96b8-4172-906f-ab5075727363" name="Changes" comment="Adding documentations">
+    <list default="true" id="00e91fc0-96b8-4172-906f-ab5075727363" name="Changes" comment="updating developer documentation">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
@@ -127,14 +127,7 @@
       <workItem from="1682498751734" duration="16660000" />
       <workItem from="1682613170741" duration="1368000" />
       <workItem from="1682615109460" duration="1189000" />
-      <workItem from="1682631182838" duration="8327000" />
-    </task>
-    <task id="LOCAL-00007" summary="successful food getting">
-      <created>1678978981124</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1678978981124</updated>
+      <workItem from="1682631182838" duration="8454000" />
     </task>
     <task id="LOCAL-00008" summary="successful food convert to Pojo">
       <created>1679058827197</created>
@@ -472,7 +465,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682638500187</updated>
     </task>
-    <option name="localTasksCounter" value="56" />
+    <task id="LOCAL-00056" summary="updating developer documentation">
+      <created>1682639575020</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1682639575021</updated>
+    </task>
+    <option name="localTasksCounter" value="57" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -490,7 +490,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Profile data show and refactoring" />
     <MESSAGE value="Styling and profile block, unblock" />
     <MESSAGE value="Styling and fixing some errors" />
     <MESSAGE value="Styling and fixing responses in login and food delete, undelete" />
@@ -515,7 +514,8 @@
     <MESSAGE value="addig changeable base url" />
     <MESSAGE value="adding changeable base url" />
     <MESSAGE value="Adding documentations" />
-    <option name="LAST_COMMIT_MESSAGE" value="Adding documentations" />
+    <MESSAGE value="updating developer documentation" />
+    <option name="LAST_COMMIT_MESSAGE" value="updating developer documentation" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
