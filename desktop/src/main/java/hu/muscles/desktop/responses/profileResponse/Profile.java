@@ -3,6 +3,7 @@ package hu.muscles.desktop.responses.profileResponse;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import hu.muscles.desktop.responses.userResponse.User;
 
 public class Profile {
     private int profileId;
@@ -15,8 +16,9 @@ public class Profile {
     private boolean male;
     private String profilePicPath;
     private Date changedAt;
+    private User user;
 
-    public Profile(int profileId, int userId, Date registrationDate, String firstName, Date birthDay, String lastName, int height, boolean male, String profilePicPath, Date changedAt) {
+    public Profile(int profileId, int userId, Date registrationDate, String firstName, Date birthDay, String lastName, int height, boolean male, String profilePicPath, Date changedAt, User user) {
         this.profileId = profileId;
         this.userId = userId;
         this.registrationDate = registrationDate;
@@ -27,6 +29,7 @@ public class Profile {
         this.changedAt = changedAt;
         this.male = male;
         this.profilePicPath = profilePicPath;
+        this.user = user;
     }
 
     public Profile() {
@@ -120,6 +123,15 @@ public class Profile {
 
     public void setChangedAt(Date changedAt) {
         this.changedAt = changedAt;
+    }
+
+    @JsonProperty("user")
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
