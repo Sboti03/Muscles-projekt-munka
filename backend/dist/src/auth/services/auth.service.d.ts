@@ -24,6 +24,7 @@ export declare class AuthService {
             roleId: number;
             changedAt: Date;
             isBlocked: boolean;
+            isDeleted: boolean;
             role: roles;
         };
         tokens: import("../types/token").Tokens;
@@ -36,6 +37,7 @@ export declare class AuthService {
             roleId: number;
             changedAt: Date;
             isBlocked: boolean;
+            isDeleted: boolean;
             role: roles;
         };
         tokens: import("../types/token").Tokens;
@@ -49,6 +51,7 @@ export declare class AuthService {
             roleId: number;
             changedAt: Date;
             isBlocked: boolean;
+            isDeleted: boolean;
             role: roles;
         };
         tokens: import("../types/token").Tokens;

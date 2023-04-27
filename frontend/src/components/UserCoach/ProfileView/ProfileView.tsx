@@ -11,6 +11,7 @@ import AuthContext from "../../Auth/AuthContext";
 import ConnectionContext from "../../connection/ConnectionContext";
 import {useTranslation} from "react-i18next";
 import {toast} from "react-toastify";
+import {Dialog, DialogActions, DialogTitle} from "@mui/material";
 
 export default function ProfileView(props: {profileId: number, connectionStatus: ConnectionStatus, changeAction?: ()=> void, size?: SIZE, refresh?: Function}){
 
@@ -19,6 +20,7 @@ export default function ProfileView(props: {profileId: number, connectionStatus:
     const [profileData, setProfileData] = useState<ProfileData>()
     const {changePage} = useContext(UserCoachNavigatorContext)
     const [isLoading, setIsLoading] = useState(false)
+    const [dialogOpen, setDialogOpen] = useState(false)
     const {createConnectionRequest, acceptConnectionRequest, deleteConnection, deleteConnectionRequest} = useContext(ConnectionContext)
     const {t} = useTranslation()
     useEffect(()=> {
@@ -43,7 +45,7 @@ export default function ProfileView(props: {profileId: number, connectionStatus:
             case ConnectionStatus.NONE:
                 return <></>
             case ConnectionStatus.CONNECTED:
-                return <Button color="danger" onClick={handleDeleteConnection}>Delete connection</Button>
+                return <Button color="danger" onClick={()=> setDialogOpen(true)}>Delete connection</Button>
             case ConnectionStatus.REQUEST:
                 return <>
                     <Button onClick={handleAcceptConnection}>Accept</Button>
@@ -83,8 +85,11 @@ export default function ProfileView(props: {profileId: number, connectionStatus:
 
     }
 
+
+
     async function handleDeleteConnection() {
         const result = await deleteConnection(profileId)
+        setDialogOpen(false)
         if (!result){
             toast.error(t("connection.error.accept"))
         } else {
@@ -124,6 +129,13 @@ export default function ProfileView(props: {profileId: number, connectionStatus:
                     }
                     {cancelBtn}
                 </div>
+                <Dialog open={dialogOpen} >
+                    <DialogTitle>Are you sure you want to delete the connection with {profileData?.firstName} {profileData?.lastName}?</DialogTitle>
+                    <DialogActions>
+                        <Button color={"danger"} onClick={handleDeleteConnection}>Yes</Button>
+                        <Button onClick={()=> setDialogOpen(false)}>Cancel</Button>
+                    </DialogActions>
+                </Dialog>
             </LoadingManager>
         </div>
     )

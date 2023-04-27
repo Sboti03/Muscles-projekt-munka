@@ -47,50 +47,61 @@ export default function GoalsDataView(props: Props) {
             targetWeight
         } = goalsData
 
+        if (isNaN(carbohydratesPerDay) || isNaN(proteinPerDay) || isNaN(fatPerDay)) {
+            toast.error(t("goals.error.macro-percent"))
+            return false
+        }
+
         if (carbohydratesPerDay + proteinPerDay + fatPerDay !== 100) {
             toast.error(t("goals.error.macro-percent"))
             return false
         }
+
+        if (isNaN(breakfastPerDay) || isNaN(lunchPerDay) || isNaN(otherPerDay) || isNaN(dinnerPerDay)) {
+            toast.error(t("goals.error.day-percent"))
+            return false
+        }
+
         if (breakfastPerDay + lunchPerDay + otherPerDay + dinnerPerDay !== 100) {
             toast.error(t("goals.error.day-percent"))
             return false
         }
-        if (targetWeight < 0) {
+        if (isNaN(targetWeight) || targetWeight < 0) {
             toast.error(t("goals.error.less-then-0.target-weight"))
             return false;
         }
 
-        if (targetCalories < 0) {
+        if (isNaN(targetCalories) || targetCalories < 0) {
             toast.error(t("goals.error.less-then-0.target-cal"))
             return false;
         }
 
-        if (carbohydratesPerDay < 0) {
+        if (isNaN(carbohydratesPerDay) || carbohydratesPerDay < 0) {
             toast.error(t("goals.error.less-then-0.carbohydrate"))
             return false;
         }
-        if (fatPerDay < 0) {
+        if (isNaN(fatPerDay) || fatPerDay < 0) {
             toast.error(t("goals.error.less-then-0.fat"))
             return false;
         }
-        if (proteinPerDay < 0) {
+        if (isNaN(proteinPerDay) || proteinPerDay < 0) {
             toast.error(t("goals.error.less-then-0.protein"))
             return false;
         }
 
-        if (breakfastPerDay < 0) {
+        if (isNaN(breakfastPerDay) || breakfastPerDay < 0) {
             toast.error(t("goals.error.less-then-0.breakfast"))
             return false;
         }
-        if (lunchPerDay < 0) {
+        if (isNaN(lunchPerDay) || lunchPerDay < 0) {
             toast.error(t("goals.error.less-then-0.lunch"))
             return false;
         }
-        if (dinnerPerDay < 0) {
+        if (isNaN(dinnerPerDay) || dinnerPerDay < 0) {
             toast.error(t("goals.error.less-then-0.dinner"))
             return false;
         }
-        if (otherPerDay < 0) {
+        if (isNaN(otherPerDay) || otherPerDay < 0) {
             toast.error(t("goals.error.less-then-0.other"))
             return false;
         }
@@ -171,10 +182,10 @@ export default function GoalsDataView(props: Props) {
                             </FormControl>
                         </div>
                     </div>
-                    {macroPercent !== 100 &&
-                    <div className="text-center text-gray-400">
-                        {macroPercent}
-                    </div>}
+                    {macroPercent !== 100 && !isNaN(macroPercent) &&
+                        <div className="text-center text-gray-400">
+                            {macroPercent}
+                        </div>}
                     <Divider/>
                     <div className={"grid grid-cols-2"}>
                         <div>
@@ -210,7 +221,7 @@ export default function GoalsDataView(props: Props) {
                             </FormControl>
                         </div>
                     </div>
-                    {dayPercent !== 100 &&
+                    {dayPercent !== 100 && !isNaN(dayPercent) &&
                         <div className="text-center text-gray-400">
                             {dayPercent}
                         </div>}
@@ -227,49 +238,40 @@ export default function GoalsDataView(props: Props) {
 
 
     function changeTargetWeight(event: React.ChangeEvent<HTMLInputElement>) {
-        if (isNaN(event.target.valueAsNumber)) { return}
-        setGoalsData({...goalsData, targetWeight: event.target.valueAsNumber})
+        setGoalsData({...goalsData, targetWeight: parseFloat(event.target.value)})
     }
 
     function changeCarboPerDay(event: React.ChangeEvent<HTMLInputElement>) {
-        if (isNaN(event.target.valueAsNumber)) { return}
-        setGoalsData({...goalsData, carbohydratesPerDay: event.target.valueAsNumber})
+        setGoalsData({...goalsData, carbohydratesPerDay: parseFloat(event.target.value)})
     }
 
     function changeFatPerDay(event: React.ChangeEvent<HTMLInputElement>) {
-        if (isNaN(event.target.valueAsNumber)) { return}
-        setGoalsData({...goalsData, fatPerDay: event.target.valueAsNumber})
+        setGoalsData({...goalsData, fatPerDay: parseFloat(event.target.value)})
     }
 
     function changeProteinPerDay(event: React.ChangeEvent<HTMLInputElement>) {
-        if (isNaN(event.target.valueAsNumber)) { return}
-        setGoalsData({...goalsData, proteinPerDay: event.target.valueAsNumber})
+        setGoalsData({...goalsData, proteinPerDay: parseFloat(event.target.value)})
 
     }
 
     function changeTargetCalories(event: React.ChangeEvent<HTMLInputElement>) {
-        if (isNaN(event.target.valueAsNumber)) { return}
-        setGoalsData({...goalsData, targetCalories: event.target.valueAsNumber})
+        setGoalsData({...goalsData, targetCalories: parseFloat(event.target.value)})
     }
 
     function changeBreakfastPerDay(event: React.ChangeEvent<HTMLInputElement>) {
-        if (isNaN(event.target.valueAsNumber)) { return}
-        setGoalsData({...goalsData, breakfastPerDay: event.target.valueAsNumber})
+        setGoalsData({...goalsData, breakfastPerDay: parseFloat(event.target.value)})
     }
 
     function changeLunchPerDay(event: React.ChangeEvent<HTMLInputElement>) {
-        if (isNaN(event.target.valueAsNumber)) { return}
-        setGoalsData({...goalsData, lunchPerDay: event.target.valueAsNumber})
+        setGoalsData({...goalsData, lunchPerDay: parseFloat(event.target.value)})
     }
 
     function changeDinnerPerDay(event: React.ChangeEvent<HTMLInputElement>) {
-        if (isNaN(event.target.valueAsNumber)) { return}
-        setGoalsData({...goalsData, dinnerPerDay: event.target.valueAsNumber})
+        setGoalsData({...goalsData, dinnerPerDay: parseFloat(event.target.value)})
     }
 
     function changeOtherPerDay(event: React.ChangeEvent<HTMLInputElement>) {
-        if (isNaN(event.target.valueAsNumber)) { return}
-        setGoalsData({...goalsData, otherPerDay: event.target.valueAsNumber})
+        setGoalsData({...goalsData, otherPerDay: parseFloat(event.target.value)})
     }
 
 }

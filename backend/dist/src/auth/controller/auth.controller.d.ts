@@ -22,6 +22,7 @@ export declare class AuthController {
             roleId: number;
             changedAt: Date;
             isBlocked: boolean;
+            isDeleted: boolean;
             role: import(".prisma/client").roles;
         };
         tokens: import("../types/token").Tokens;

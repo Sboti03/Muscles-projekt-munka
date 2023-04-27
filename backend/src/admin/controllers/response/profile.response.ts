@@ -28,6 +28,8 @@ class user implements users {
     refreshTokens: string[];
     @ApiProperty()
     role: role
+    @ApiProperty()
+    isDeleted: boolean
 }
 
 

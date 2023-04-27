@@ -13,6 +13,7 @@ declare class user implements users {
     userId: number;
     refreshTokens: string[];
     role: role;
+    isDeleted: boolean;
 }
 export default class AllProfileResponse implements profileData {
     birthDay: Date | null;

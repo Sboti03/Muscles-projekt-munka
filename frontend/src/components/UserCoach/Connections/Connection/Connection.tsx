@@ -1,5 +1,5 @@
 import {ConnectionResponse} from "../../data/ConnectionResponse";
-import {useContext, useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import AuthContext from "../../../Auth/AuthContext";
 import ProfilePicture from "../../../ProfilePicture/ProfilePicture";
 import {convertResponseToData, ProfileData, ProfileResponse} from "../../data/SearchResponse";
@@ -9,18 +9,25 @@ import LoadingManager from "../../../Loading/LoadingManager";
 import {RoleEnum} from "../../../Types/Role";
 import UserCoachNavigatorContext, {UserCoachPages} from "../../navigator/UserCoachNavigatorContext";
 import UserCoachContext from "../../context/UserCoachContext";
+import {Button} from "@mui/joy";
+import ConnectionContext from "../../../connection/ConnectionContext";
+import {Dialog, DialogActions, DialogTitle} from "@mui/material";
 
-export default function Connection(props: {connection: ConnectionResponse}) {
+export default function Connection(props: { connection: ConnectionResponse }) {
     const {userId, coachId} = props.connection
     const {user} = useContext(AuthContext)
     const {changePage} = useContext(UserCoachNavigatorContext)
-    const {setShowProfileId} = useContext(UserCoachContext)
+    const {deleteConnection} = useContext(ConnectionContext)
+    const {setShowProfileId, refresh} = useContext(UserCoachContext)
     const otherId = user!.userId === userId ? coachId : userId
     const [profile, setProfile] = useState<ProfileData>()
 
-    useEffect(()=> {
+    const [dialogOpen, setDialogOpen] = useState(false)
+
+    useEffect(() => {
         fetchProfile()
     }, [])
+
     async function fetchProfile() {
         const profileIdResult = await singleFetch<{ profileId: number }>(`/api/user/profile/${otherId}`, Methods.GET)
         if (profileIdResult.response) {
@@ -41,9 +48,17 @@ export default function Connection(props: {connection: ConnectionResponse}) {
         }
     }
 
-    if (!profile) {
-        return <LoadingManager isLoading={true} />
+    async function handleDelete() {
+        await deleteConnection(profile!.userId)
+        setDialogOpen(false)
+        refresh()
     }
+
+    if (!profile) {
+        return <LoadingManager isLoading={true}/>
+    }
+
+
     return (
         <div className={styles.container}>
             <button className={styles.userData} onClick={handleClick}>
@@ -52,6 +67,16 @@ export default function Connection(props: {connection: ConnectionResponse}) {
                 </div>
                 <div>{profile.firstName} {profile.lastName}</div>
             </button>
+            <Button color="danger" onClick={()=> setDialogOpen(true)}>
+                Delete
+            </Button>
+            <Dialog open={dialogOpen} >
+                <DialogTitle>Are you sure you want to delete the connection with {profile.firstName} {profile.lastName}?</DialogTitle>
+                <DialogActions>
+                    <Button color={"danger"} onClick={handleDelete}>Yes</Button>
+                    <Button onClick={()=> setDialogOpen(false)}>Cancel</Button>
+                </DialogActions>
+            </Dialog>
         </div>
     )
 }

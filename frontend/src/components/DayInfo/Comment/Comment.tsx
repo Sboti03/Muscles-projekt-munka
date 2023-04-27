@@ -8,9 +8,9 @@ import UserCoachContext from "../../UserCoach/context/UserCoachContext";
 import ProfilePicture from "../../ProfilePicture/ProfilePicture";
 import ProfileContext from "../../Profile/context/ProfileContext";
 import './Comment.css'
-import {Textarea} from "@mui/joy";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEdit, faRemove} from "@fortawesome/free-solid-svg-icons";
+import {TextField} from "@mui/material";
 
 export default function Comment() {
     const {user} = useContext(AuthContext)
@@ -19,23 +19,12 @@ export default function Comment() {
     const [commentData, setCommentData] = useState<{comment: string, changedAt: string}>()
     const {profileData} = useContext(ProfileContext)
     const connection = connections.find(value => value.accessAll)
+
     const [editMode, setEditMode] = useState(false)
-    const commentInput = useRef<HTMLInputElement>(null)
+    const commentInput = useRef<HTMLTextAreaElement>(null)
     const isCommentExist = commentData ?  commentData.comment !==  '' : false;
     const [comment, setComment] = useState('')
     const [renderedComment, setRenderedComment] = useState(<></>)
-
-    useEffect(()=> {
-        if (isCommentExist) {
-            setRenderedComment(showComment)
-        } else {
-            if (user?.role.roleName === RoleEnum.COACH) {
-                setRenderedComment(showWriteSomeThing)
-            } else {
-                setRenderedComment(<></>)
-            }
-        }
-    }, [isCommentExist])
 
     async function fetchComment() {
         let query = '?date=' + normalizeDate(currentDate)
@@ -60,25 +49,36 @@ export default function Comment() {
     }, [user, currentDate])
 
 
+    const textAreaEdit = <textarea placeholder="Write something..." onKeyDown={changeComment} value={comment} onChange={e=> setComment(e.target.value)} ref={commentInput} className="bg-white rounded-xl p-2"/>
+
     function handleSend(ownComment?: string) {
+        console.log(commentInput.current)
+        const commentToSend = ownComment != undefined ? ownComment : comment
         singleFetch('api/day-history/comment', Methods.POST, {
             date: normalizeDate(currentDate),
             userId: showProfileId,
-            comment: ownComment != undefined ? ownComment : commentData?.comment
+            comment: commentToSend
         }).then(() => fetchComment());
     }
 
     function handleEditClick() {
-        console.log(editMode, 'edit mode')
-        console.log('Edit ')
-        if (editMode) {
-            setEditMode(false)
-            handleSend()
+        console.log(editMode)
+        if (!editMode) {
+            if (commentInput.current && commentData && commentData.comment !== commentInput.current.value) {
+                handleSend()
+            }
         } else {
-            setEditMode(true)
-            commentInput.current?.focus()
+            if (commentInput?.current) {
+                commentInput.current.focus()
+            }
+
         }
     }
+
+    useEffect(()=> {
+        handleEditClick()
+    }, [editMode])
+
 
     function changeComment(event: React.KeyboardEvent<HTMLTextAreaElement>) {
         console.log(event.key)
@@ -120,47 +120,33 @@ export default function Comment() {
                             </>
                         }
                     </div>
-                    {
-                        renderedComment
-                    }
+                    <>
+                        {commentData.comment !== '' && !editMode ?
+                        <>
+                            {comment}
+                            <div className="text-sm text-gray-700">
+                                {new Date(commentData!.changedAt).toUTCString()}
+                            </div>
+                            {user?.role.roleName === RoleEnum.COACH &&
+                                <div className="absolute bottom-1 right-1">
+                                    <button onClick={()=> setEditMode(prevState => !prevState)} className="comment-edit-btn"><FontAwesomeIcon
+                                        icon={faEdit}/></button>
+                                    <button onClick={handleDeleteComment} className="comment-delete-btn"><FontAwesomeIcon icon={faRemove}/>
+                                    </button>
+                                </div>
+                            }
+                        </>
+                        :
+                         <>
+                             <div className="mt-5">
+                                 {textAreaEdit}
+                             </div>
+                         </>
+                        }
+                    </>
                 </div>
             </div>
         </div>
     )
-
-    function showComment() {
-        return <div className="mt-5">
-            {
-                editMode ? <>
-                        <Textarea onKeyDown={changeComment} ref={commentInput} className="bg-gray-200"
-                                  onChange={(event) => setComment(event.target.value)} value={comment}/>
-                    </>
-                    :
-                    <>
-                        {comment}
-                    </>
-            }
-            <div className="text-sm text-gray-700">
-                {new Date(commentData!.changedAt).toUTCString()}
-            </div>
-            {user?.role.roleName === RoleEnum.COACH &&
-                <div className="absolute bottom-1 right-1">
-                    <button onClick={handleEditClick} className="comment-edit-btn"><FontAwesomeIcon
-                        icon={faEdit}/></button>
-                    <button onClick={handleDeleteComment} className="comment-delete-btn"><FontAwesomeIcon icon={faRemove}/>
-                    </button>
-                </div>
-            }
-        </div>;
-    }
-
-    function showWriteSomeThing() {
-        return (
-            <div className="mt-5">
-                <Textarea placeholder="Write something..." onKeyDown={changeComment} ref={commentInput} className="bg-gray-200"
-                          onChange={(event) => setComment(event.target.value)} value={comment}/>
-            </div>
-        )
-    }
 }
 

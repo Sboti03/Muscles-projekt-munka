@@ -58,6 +58,10 @@ __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", role)
 ], user.prototype, "role", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", Boolean)
+], user.prototype, "isDeleted", void 0);
 class AllProfileResponse {
 }
 __decorate([

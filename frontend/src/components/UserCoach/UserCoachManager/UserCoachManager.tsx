@@ -3,6 +3,10 @@ import UserCoachContext from "../context/UserCoachContext";
 import DayPage from "../../DayInfo/DayPage";
 import {Button} from "@mui/joy";
 import UserCoachNavigatorContext, {UserCoachPages} from "../navigator/UserCoachNavigatorContext";
+import DayInfoNavbar from "../../DayInfo/DayInfoNavbar";
+import DayPickerBar from "../../DayInfo/DayPicker/DayPickerBar";
+import {RoleEnum} from "../../Types/Role";
+import {Page} from "../../Navigator/NavigatorContext";
 
 export default function UserCoachManager() {
 
@@ -18,6 +22,7 @@ export default function UserCoachManager() {
                 <Button onClick={handleBackClick}>Home</Button>
             </div>
             <DayPage/>
+
         </>
     )
 }

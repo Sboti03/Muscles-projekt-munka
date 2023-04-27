@@ -43,6 +43,8 @@ export default function ConnectionRequest(props: { connectionRequest: Connection
     }, [])
 
 
+
+
     function handleLoadProfile() {
         setShowProfileId(otherUserId)
         changePage(UserCoachPages.PROFILE_VIEW)

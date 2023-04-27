@@ -84,6 +84,7 @@ model users {
   coachConnectionRequest connectionRequest[] @relation("conn_req_coachToUser")
   changedAt              DateTime            @default(now()) @updatedAt @db.Timestamp(6)
   isBlocked              Boolean             @default(false)
+  isDeleted              Boolean             @default(false)
 }
 
 model schedules {

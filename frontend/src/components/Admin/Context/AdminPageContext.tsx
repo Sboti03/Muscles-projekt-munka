@@ -6,6 +6,7 @@ interface AdminPageContextType {
     unBlock: (userId: number) => void;
     users: ProfileUserRoleResponse[];
     fetchUsers: () => void;
+    deleteUser: (email: string) => void;
 }
 
 
