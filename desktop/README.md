@@ -8,8 +8,8 @@ Ezen kívül blokkolhatja a web- és mobilalkalmazás felhasználóit is, illetv
 
 ## Belépés
 #### Admin felhasználónévvel és jelszóval történik:
-- Felhasználónév: admin@muscles.com
-- Jelszó: admin
+- Felhasználónév: *`admin@muscles.com`*
+- Jelszó: *`admin`*
 
 
 ## Futtatás – IntelliJ IDEA
@@ -20,7 +20,7 @@ Ezen kívül blokkolhatja a web- és mobilalkalmazás felhasználóit is, illetv
 #### Közvetlen a futtatás előtt:
 
 - A futtatás előtt mindenképpen fusson a [backend](../backend/README.md). 
-Az alkalmazást lehet futtatni helyi [backend](../backend/README.md) eléréssel és Google Cloud eléréssel. 
+Az alkalmazást lehet futtatni helyi backend eléréssel és Google Cloud eléréssel. 
 
 
 - Alapértelmezetten az alkalmazás a lokális backendet éri el, ez a beállítás a
@@ -49,7 +49,7 @@ private String BASE_URL() {
 Az alkalmazás futtatható úgy is, hogy előtte lefuttatjuk a `desktop/out/installer/muscles-admin-app-installer.exe` fájlt, amely feltelepíti az alkalmazást a számítógépünkre.
 
 ## Felhasználói Dokumentáció
-[Ide kattintva olvashatja el.](.)
+[Ide kattintva olvashatja el.](./desktop-user-documentation/README.md)
 
 ## Hasznos dokkumentáció
 [JavaFX](https://openjfx.io/)
