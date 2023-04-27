@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="00e91fc0-96b8-4172-906f-ab5075727363" name="Changes" comment="addig changeable base url">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/urls/Urls.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/urls/Urls.java" afterDir="false" />
-    </list>
+    <list default="true" id="00e91fc0-96b8-4172-906f-ab5075727363" name="Changes" comment="adding changeable base url" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -123,14 +120,7 @@
       <workItem from="1682437106118" duration="12271000" />
       <workItem from="1682498751734" duration="16660000" />
       <workItem from="1682613170741" duration="1368000" />
-      <workItem from="1682615109460" duration="1044000" />
-    </task>
-    <task id="LOCAL-00005" summary="Change Scene between login and main">
-      <created>1678719256781</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1678719256781</updated>
+      <workItem from="1682615109460" duration="1189000" />
     </task>
     <task id="LOCAL-00006" summary="main site basic design">
       <created>1678976524449</created>
@@ -468,7 +458,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682614336080</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary="adding changeable base url">
+      <created>1682616180926</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1682616180926</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -486,7 +483,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="rewriting food load and update" />
     <MESSAGE value="Food CRUD" />
     <MESSAGE value="Profile data show and refactoring" />
     <MESSAGE value="Styling and profile block, unblock" />
@@ -511,7 +507,8 @@
     <MESSAGE value="little changes in methods" />
     <MESSAGE value="Fixing profile loading after backend change" />
     <MESSAGE value="addig changeable base url" />
-    <option name="LAST_COMMIT_MESSAGE" value="addig changeable base url" />
+    <MESSAGE value="adding changeable base url" />
+    <option name="LAST_COMMIT_MESSAGE" value="adding changeable base url" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
