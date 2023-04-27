@@ -6,7 +6,7 @@ import {AdminPageContext} from "../Context/AdminPageContext";
 import {getAge} from "../../UserCoach/UserProfileDataView/UserProfileDataView";
 
 export default function Profile(props: {data: ProfileUserRoleResponse}) {
-    const {blockUser, unBlock} = React.useContext(AdminPageContext)
+    const {blockUser, unBlock, deleteUser} = React.useContext(AdminPageContext)
     const {user, changedAt, profileId, profilePicPath, height,birthDay,male,userId, registrationDate, lastName, firstName} = props.data
     useEffect(()=> {
         console.log(props.data, 'asd')
@@ -24,13 +24,21 @@ export default function Profile(props: {data: ProfileUserRoleResponse}) {
             <td>{user.refreshTokens.length}</td>
             <td>{user.role.roleName}</td>
             <td>
-                {!user.isBlocked &&
-                    <Button color="danger"
-                            onClick={() => blockUser(user.userId)}>Block</Button>
-                }
-                {user.isBlocked &&
-                    <Button onClick={() => unBlock(user.userId)}>un block</Button>
-                }
+                <div className="flex gap-2">
+                    {!user.isBlocked && !user.isDeleted &&
+                        <Button color="danger"
+                                onClick={() => blockUser(user.userId)}>Block</Button>
+                    }
+                    {user.isBlocked && !user.isDeleted &&
+                        <Button onClick={() => unBlock(user.userId)}>un block</Button>
+                    }
+                    { !user.isDeleted &&
+                        <Button onClick={()=> deleteUser(user.email)}>Delete</Button>
+                    }
+                    {
+                        user.isDeleted && "DELETED"
+                    }
+                </div>
             </td>
         </tr>
     )

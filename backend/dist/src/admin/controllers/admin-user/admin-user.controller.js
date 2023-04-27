@@ -31,6 +31,7 @@ let AdminUserController = class AdminUserController {
         return this.adminBlockService.blockUserByUserId(idParam.id);
     }
     async deleteAllData(email) {
+        common_1.Logger.log(`delete all data for ${email}`);
         try {
             return await this.adminBlockService.deleteAllUserData(email);
         }

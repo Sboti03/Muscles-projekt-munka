@@ -1,4 +1,4 @@
-import {Controller, Delete, Get, NotFoundException, Param, Patch, Query, UseGuards} from "@nestjs/common";
+import {Controller, Delete, Get, Logger, NotFoundException, Param, Patch, Query, UseGuards} from "@nestjs/common";
 import {AccessTokenGuard} from "../../../auth/guards/access-token.guard";
 import {AdminBlockService} from "../../services/admin-block/admin-block.service";
 import {RoleEnum} from "../../../Common/Role/utils/roles";
@@ -24,6 +24,7 @@ export class AdminUserController {
 
     @Delete('delete-all/')
     async deleteAllData(@Query('email') email: string) {
+        Logger.log(`delete all data for ${email}`)
         try {
             return await this.adminBlockService.deleteAllUserData(email)
         } catch (e) {

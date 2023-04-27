@@ -61,6 +61,7 @@ interface user {
     userId: number;
     refreshTokens: string[];
     role: role
+    isDeleted: boolean
 }
 
 interface role {

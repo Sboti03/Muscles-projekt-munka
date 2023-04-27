@@ -38,12 +38,30 @@ let AdminBlockService = class AdminBlockService {
             data: { isBlocked: false }
         });
     }
-    deleteAllUserData(email) {
+    async deleteAllUserData(email) {
+        const res = await this.prismaService.users.findFirst({
+            where: {
+                email,
+                role: {
+                    OR: [
+                        { roleName: roles_1.RoleEnum.USER },
+                        { roleName: roles_1.RoleEnum.COACH }
+                    ]
+                },
+                isDeleted: false
+            },
+        });
+        common_1.Logger.log(`${res.roleId}`);
+        if (!res) {
+            throw new common_1.NotFoundException("No user found");
+        }
         return this.prismaService.users.update({
             where: { email },
             data: {
                 email: crypto.randomUUID(),
                 password: '',
+                isDeleted: true,
+                isBlocked: true,
                 profileData: {
                     update: {
                         birthDay: null,

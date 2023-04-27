@@ -149,6 +149,7 @@ describe('AuthService', () => {
                 password: simpleUser.password,
                 refreshTokens: [],
                 isBlocked: false,
+                isDeleted: false,
                 role: {
                     roleId: Roles.USER.roleId,
                     roleName: Roles.USER.roleName,

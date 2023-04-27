@@ -23,7 +23,8 @@ Linux:
 
 ### Tesztelés
 
-A teszteléshez a backend mappában az `npm run test` parancsot kell lefuttatni.
+A Unit tesztek futtatásához a backend mappában az `npm run test` parancsot kell lefuttatni.
+Az e2e tesztekhez, pedig a `npm run test:e2e` parancsot kell lefuttatni. (Az adatbázisnak futnia kell)
 Csak a fontosabb tesztek vannak megírva:
 - **Auth** tesztek
 - **User** tesztek

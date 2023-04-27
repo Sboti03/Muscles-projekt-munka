@@ -11,6 +11,7 @@ export declare class LocalStrategy extends LocalStrategy_base {
             roleId: number;
             changedAt: Date;
             isBlocked: boolean;
+            isDeleted: boolean;
             role: import(".prisma/client").roles;
         };
         tokens: import("../types/token").Tokens;

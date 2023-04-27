@@ -1,4 +1,4 @@
-import {Injectable, NotFoundException} from '@nestjs/common';
+import {Injectable, Logger, NotFoundException} from '@nestjs/common';
 import {PrismaService} from "../../../Common/utils/prirsma.service";
 import {RoleEnum} from "../../../Common/Role/utils/roles";
 import * as crypto from "crypto";
@@ -30,12 +30,30 @@ export class AdminBlockService {
         });
     }
 
-    deleteAllUserData(email: string) {
-        return this.prismaService.users.update({
+   async deleteAllUserData(email: string) {
+        const res = await this.prismaService.users.findFirst({
+            where: {
+                email,
+                role: {
+                    OR: [
+                        {roleName: RoleEnum.USER},
+                        {roleName: RoleEnum.COACH}
+                    ]
+                },
+                isDeleted: false
+            },
+        })
+       Logger.log(`${res.roleId}`)
+       if (!res) {
+           throw new NotFoundException("No user found")
+       }
+       return this.prismaService.users.update({
             where: {email},
             data: {
                 email: crypto.randomUUID(),
                 password: '',
+                isDeleted: true,
+                isBlocked: true,
                 profileData: {
                     update: {
                         birthDay: null,
