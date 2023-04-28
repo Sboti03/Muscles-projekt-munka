@@ -1,28 +1,62 @@
-# Mobile
+# Mobil
 
 
-## Install
+## Letöltés
 
-Clone the project
+Klónozd a projektet a local repóba
     
     ~ cd .\mobile\
     ~ npm install
 
 ## Start development server
 
++ Telefonon kapcsold be az 'adb debugging'-ot [*Többet róla itt](https://developer.android.com/tools/adb#Enabling)
 
-On android you should download the 'Expo Go' app to be able to connect to your development server  
-You will need to install '@expo/ngrok@^4.1.0' to get to use 'tunnel'. After `npm install` it will automatically ask for it  
-You either connect your phone via cable or you need to be on the same network.
+Androidon töltsd le az 'Expo Go' applikációt, hogy csatlakozni tudj a fejlesztési szerverhez  
+Szükséged lesz az '@expo/ngrok@^4.1.0' vagy újabb verziójára hogy használni tudd a 'tunnel' funkciót. `npm install` után automatikusan rá fog kérdezni.  
+Kábelesen vagy wifi-n keresztül is lehet majd csatlakoznia  szerverre.
 
     ~ npm start
         
-##### Connect through cable
-+ Press 'a' in the terminal
-+ Use your phone 'Expo Go' app's camera to scan the QR-code shown in the terminal 
+##### Kapcsolat létrehozása kábelen keresztül
++ Nyomd meg az 'a' gombot mikor aktív a terminál
++ Használd a  telefonodon lévő 'Expo Go' alkalmazás kameráját hogy beszkennelje a QR kódot 
 
-##### Connect through network
+##### Kapcsolat létrehozása wifin keresztül
 + Use your phone 'Expo Go' app's camera to scan the QR-code shown in the terminal   
-After you are connected, there will be a link named after your project in the Expo Go application  
 
+Sikeres csatlakozás után a főoldalon meg kell jelenjen a projekt neve amire kattintva elérhetjük azt.
+
+## Buildelés
+
+#### Legkorábbi EAS CLI letöltése
+
+    ~ npm install -g eas-cli
+
+#### Belépés az Expo fiókunkba
+
+    ~ eas login
+
+#### Konfiguráció elvégzése
+
+    ~ eas build:configure
+
+#### Másold be az alábbiakat az eas.json fájlba
+
+```
+{
+  "build": {
+    "preview": {
+      "android": {
+        "buildType": "apk"
+      }
+    },
+    "production": {}
+  }
+}
+
+``` 
+#### Futtasd az alábbi parancsot
+
+    ~ eas build -p android --profile muscles
 
