@@ -1,9 +1,8 @@
-import {Flex, HStack, IconButton, ListItem, Pressable, Text} from "@react-native-material/core";
+import {Flex, HStack, IconButton, Pressable, Text} from "@react-native-material/core";
 import * as React from "react";
-import {useContext, useEffect, useState} from "react";
+import {useContext, useEffect} from "react";
 import MealHistoryContext from "../mealHistoryContext";
 import {BASE_URL} from "@env";
-import FoodInterface from "../../food/foodInterface";
 import axios from "axios";
 import NavigatorContext, {Page} from "../../navigator/NavigatorProvider";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
@@ -11,22 +10,16 @@ import {DayPeriodResponse} from "../types/Meal";
 import {NormalizeDate} from "./CreateMealHistory";
 import {getOneFoodCalorie} from "../../food/foodCalculations";
 import PageHistoryContext from "../../pageHistory/PageHistoryProvider";
-import {LinearGradient} from "expo-linear-gradient";
-import {StyleSheet, TouchableNativeFeedback} from "react-native";
-
+import {ImageBackground, StyleSheet} from "react-native";
 const getDayHistoriesByMealPeriodAndDate= BASE_URL + 'api/meal-history?date='
-const getFoodByFoodIdAPI = BASE_URL + 'api/food/?id='
 const deleteMealHistoryAPI = BASE_URL + 'api/meal-history/'
-const getMealHistoryData = BASE_URL + 'api/meal-history/data/?date='
 
 
 
 function ShowMealHistory() {
-    const {mealHistory, mealPeriod, setFoods, foods, dayHistories, date, setDayHistories, setCurrentPlaceOfDayPeriodResponse, setMealHistory, deleteDayHistory} = useContext(MealHistoryContext)
+    const {mealHistory, mealPeriod, dayHistories, date, setDayHistories, setCurrentPlaceOfDayPeriodResponse, deleteDayHistory} = useContext(MealHistoryContext)
     const {changePage} = useContext(NavigatorContext)
     const {deleteLastPage, addPage, pageHistory} = useContext(PageHistoryContext)
-
-    const [currentMealHistories, setCurrentMealHistories] = useState<DayPeriodResponse[]>([])
 
     const deleteFood = (id: number) => {
         console.log(id)
@@ -68,50 +61,18 @@ function ShowMealHistory() {
         setDayHistories(mealHistory.dayHistory!)
     }, [mealHistory])
 
-    // useEffect(() => {
-    //     let foodsFromBackend: FoodInterface[] = []
-    //     console.log('CURRENT DAY HISTORIES')
-    //     console.log(dayHistories)
-    //     dayHistories?.forEach(function (dayHistoryResponse) {
-    //         foodsFromBackend.push(dayHistoryResponse.meal.food)
-    //     })
-    //     console.log('FOODS FROM BACKEND')
-    //     console.log(foodsFromBackend)
-    //     // dayHistories!.map(async (dayHistory) => {
-    //     //     await axios.get(getFoodByFoodIdAPI + dayHistory.meal.food.foodId.toString())
-    //     //         .then(function (response) {
-    //     //             console.log('RESPONSE DATA')
-    //     //             console.log(response.data)
-    //     //             foodsFromBackend.push(response.data as FoodInterface)
-    //     //         })
-    //     //         .catch(function (error) {
-    //     //             console.log(error)
-    //     //         })
-    //     // })
-    //     setFoods(foodsFromBackend)
-    // }, [dayHistories])
-    //
-    // useEffect(() => {
-    //     console.log('FOODS')
-    //     console.log(foods)
-    // }, [foods])
-
-
-
-
-
     return(
-        <LinearGradient  colors={['#efe8fd', '#865eff']}
-                         style={{width: '100%', flex: 1, alignItems: "center"}}>
+        <ImageBackground source={ require('../../../assets/background/abstract.png')} style={{flex: 1, alignItems: 'center'}} imageStyle={{flex: 1}}>
+
         <Flex fill style={{width: '90%'}}>
             <Text style={showMealHistoryStyles.title}>{mealPeriod?.toUpperCase()}</Text>
             <IconButton onPress={() => {
                 changePage(Page.HOME)
                 deleteLastPage()
             }}
-                        icon={<MaterialCommunityIcons name={'arrow-left-bold-outline'} size={30} color={'#7a44cf'} />} style={{marginLeft:5}}/>
+                        icon={<MaterialCommunityIcons name={'arrow-left-bold-outline'} size={30} color={'#ae7bfc'} />} style={{marginLeft:5}}/>
             {dayHistories.length === 0?
-                <Text>There are no foods</Text>:
+                <Text style={{color: '#FFF', alignSelf: 'center'}}>There are no foods</Text>:
             dayHistories.map((currentDayPeriodResponse, index) => {
                 console.log(currentDayPeriodResponse.mealHistoryId)
                     return ( <Pressable style={showMealHistoryStyles.pressable}
@@ -127,30 +88,16 @@ function ShowMealHistory() {
                                     <Text style={{marginLeft: 10, textAlign: 'center', color: '#FFF'}}>{currentDayPeriodResponse.meal.food.name}</Text>
                                     <Text style={{color: '#FFF'}}>{getOneFoodCalorie(currentDayPeriodResponse.meal.food.perUnit, currentDayPeriodResponse.meal.food.kcal, currentDayPeriodResponse.meal.amount).toFixed(2).toString()} kcal</Text>
                                 </HStack>
-                                <IconButton icon={<MaterialCommunityIcons name={'delete-forever'} size={30} color={'#7235d2'}/>}
+                                <IconButton icon={<MaterialCommunityIcons name={'delete-forever'} size={30} color={'#8b20d3'}/>}
                                             style={{width: '15%', marginLeft: '3%'}}
                                             onPress={() => deleteFood(currentDayPeriodResponse.mealHistoryId)}
 
                                 />
                             </HStack>
                         </Pressable>
-                //         <ListItem key={currentDayPeriodResponse.mealHistoryId}
-                //                  title={currentDayPeriodResponse.meal.food.name + '     ' + getOneFoodCalorie(currentDayPeriodResponse.meal.food.perUnit, currentDayPeriodResponse.meal.food.kcal, currentDayPeriodResponse.meal.amount).toFixed(2).toString() + ' kcal'}
-                //                  onPress={() => {
-                //                      setCurrentPlaceOfDayPeriodResponse(index)
-                //                      changePage(Page.SHOWFODDETAILS)
-                //                      addPage(Page.SHOWFODDETAILS)
-                //                  }}
-                //                  trailing={<IconButton icon={<MaterialCommunityIcons name={'delete-forever'} size={30} color={'#7a44cf'}/>}
-                //                                        style={{marginRight: 20}}
-                //                                        onPress={() => deleteFood(currentDayPeriodResponse.mealHistoryId)}
-                //                                        key={currentDayPeriodResponse.mealHistoryId}
-                //                  />}
-                // />
-
             )}) }
         </Flex>
-        </LinearGradient>
+        </ImageBackground>
     )
 }
 export default ShowMealHistory
@@ -171,7 +118,7 @@ const showMealHistoryStyles = StyleSheet.create({
         borderWidth: 2,
         borderColor: '#cab6ff',
         justifyContent: "center",
-        marginBottom: 7
+        marginBottom: 7,
     },
     hStack: {
         width: '80%',
