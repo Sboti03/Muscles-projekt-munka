@@ -1,16 +1,13 @@
-import {Flex, HStack, TextInput, VStack, Text, Button, IconButton, Box, Pressable} from "@react-native-material/core";
+import {Flex, HStack, TextInput, VStack, Text, Button, Pressable} from "@react-native-material/core";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import * as React from "react";
-import {useContext, useEffect, useState} from "react";
-import ProfileContext, {Profile, ProfileResponse} from "./ProfileProvider";
+import {useContext} from "react";
+import ProfileContext, {Profile} from "./ProfileProvider";
 import {DateTimePickerAndroid} from "@react-native-community/datetimepicker";
 import {BASE_URL} from "@env";
 import axios from "axios";
 import NavigatorContext, {Page} from "../navigator/NavigatorProvider";
-import {loginPageStyle} from "../loginPage";
-import {StyleSheet} from "react-native";
-import {createMealHistoryStyle} from "../mealHistory/pages/CreateMealHistory";
-import PageHistoryProvider from "../pageHistory/PageHistoryProvider";
+import {ImageBackground, StyleSheet} from "react-native";
 import PageHistoryContext from "../pageHistory/PageHistoryProvider";
 
 const patchProfileURL = BASE_URL + 'api/profile/update'
@@ -50,6 +47,8 @@ export default function ProfileInformation() {
     }
 
     return(
+        <ImageBackground source={ require('../../assets/background/gears.png')} style={{flex: 1}} imageStyle={{flex: 1}}>
+
         <Flex fill style={profInfoStyle.page}>
             <MaterialCommunityIcons name="account-circle-outline" size={80} color='#7a44cf' style={{alignSelf: 'center', marginBottom: 30}}/>
 
@@ -112,12 +111,12 @@ export default function ProfileInformation() {
                 </HStack>
             </VStack>
         </Flex>
+        </ImageBackground>
     )
 }
 
 const profInfoStyle = StyleSheet.create({
     page: {
-        backgroundColor: "#cbb9ff",
         justifyContent: "center"
     },
     mainVStack: {
