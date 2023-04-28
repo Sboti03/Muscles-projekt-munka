@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="00e91fc0-96b8-4172-906f-ab5075727363" name="Changes" comment="addig changeable base url">
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="00e91fc0-96b8-4172-906f-ab5075727363" name="Changes" comment="updating base url, and readme + adding executable jar" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -38,25 +35,31 @@
     </option>
   </component>
   <component name="ProjectId" id="2Mm8QrSkF8Ze8iJQhghFBkk1tVp" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "extract.method.default.visibility": "private",
-    "git-widget-placeholder": "minden",
-    "last_opened_file_path": "/home/botondsomogyi/IdeaProjects/Muscles-last",
+    "last_opened_file_path": "C:/Users/k2347/IdeaProjects/Good Project/desktop/run/runnableJAR",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "SDKs",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "preferences.pluginManager",
     "spring.configuration.checksum": "b2c79ad7dcf03ba266dc0885e1266675",
     "vue.rearranger.settings.migration": "true"
@@ -67,9 +70,11 @@
       <recent name="hu.muscles.desktop.controllers" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\k2347\IdeaProjects\Good Project\desktop\run\runnableJAR" />
+      <recent name="C:\Users\k2347\IdeaProjects\muszkli\desktop\build\installer" />
+      <recent name="C:\Users\k2347\IdeaProjects\muszkli\desktop\build\runnableJAR" />
       <recent name="C:\Users\k2347\IdeaProjects\Muscles-projekt-munka\desktop\src\main\resources\hu\muscles\desktop\backgroundResources" />
       <recent name="C:\Users\oktatas\Downloads\M_N\Muscles-Project-munka\desktop\src\main\resources\hu\muscles\desktop\style\backgrounds" />
-      <recent name="C:\Users\oktatas\Downloads\M_N\Muscles-Project-munka\desktop\src\main\resources\hu\muscles\desktop" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\k2347\IdeaProjects\Muscles-projekt-munka\desktop\src\main\resources\hu\muscles\desktop\backround-resources" />
@@ -124,59 +129,10 @@
       <workItem from="1682437106118" duration="12271000" />
       <workItem from="1682498751734" duration="16660000" />
       <workItem from="1682613170741" duration="1368000" />
-      <workItem from="1682615109460" duration="1044000" />
-      <workItem from="1682624906541" duration="512000" />
-      <workItem from="1682707819192" duration="27000" />
-      <workItem from="1682707853790" duration="29000" />
-    </task>
-    <task id="LOCAL-00005" summary="Change Scene between login and main">
-      <created>1678719256781</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1678719256781</updated>
-    </task>
-    <task id="LOCAL-00006" summary="main site basic design">
-      <created>1678976524449</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1678976524449</updated>
-    </task>
-    <task id="LOCAL-00007" summary="successful food getting">
-      <created>1678978981124</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1678978981124</updated>
-    </task>
-    <task id="LOCAL-00008" summary="successful food convert to Pojo">
-      <created>1679058827197</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1679058827197</updated>
-    </task>
-    <task id="LOCAL-00009" summary="Creating food table">
-      <created>1679060906808</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1679060906809</updated>
-    </task>
-    <task id="LOCAL-00010" summary="Creating food ListView">
-      <created>1679300092034</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1679300092034</updated>
-    </task>
-    <task id="LOCAL-00011" summary="Food ListView changes, exit button, and new app view">
-      <created>1679308601410</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1679308601410</updated>
+      <workItem from="1682615109460" duration="1189000" />
+      <workItem from="1682631182838" duration="16741000" />
+      <workItem from="1682711282227" duration="361000" />
+      <workItem from="1682713771773" duration="624000" />
     </task>
     <task id="LOCAL-00012" summary="TextArea show details of a food">
       <created>1679313428767</created>
@@ -472,7 +428,56 @@
       <option name="project" value="LOCAL" />
       <updated>1682614336080</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary="adding changeable base url">
+      <created>1682616180926</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1682616180926</updated>
+    </task>
+    <task id="LOCAL-00055" summary="Adding documentations">
+      <created>1682638500186</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1682638500187</updated>
+    </task>
+    <task id="LOCAL-00056" summary="updating developer documentation">
+      <created>1682639575020</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1682639575021</updated>
+    </task>
+    <task id="LOCAL-00057" summary="updating developer documentation #2">
+      <created>1682639690092</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1682639690092</updated>
+    </task>
+    <task id="LOCAL-00058" summary="Fixing errors caused by merge and update user documentation">
+      <created>1682641577169</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1682641577170</updated>
+    </task>
+    <task id="LOCAL-00059" summary="update user documentation">
+      <created>1682648279849</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1682648279849</updated>
+    </task>
+    <task id="LOCAL-00060" summary="updating base url, and readme + adding executable jar">
+      <created>1682714337691</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1682714337691</updated>
+    </task>
+    <option name="localTasksCounter" value="61" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -490,13 +495,7 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="rewriting food load and update" />
-    <MESSAGE value="Food CRUD" />
-    <MESSAGE value="Profile data show and refactoring" />
-    <MESSAGE value="Styling and profile block, unblock" />
-    <MESSAGE value="Styling and fixing some errors" />
-    <MESSAGE value="Styling and fixing responses in login and food delete, undelete" />
-    <MESSAGE value="Styling in create food and a few changing in update food" />
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Fixing button selections, styling, loading to list on start" />
     <MESSAGE value="resizing elements" />
     <MESSAGE value="search between loaded foods and profiles" />
@@ -515,7 +514,14 @@
     <MESSAGE value="little changes in methods" />
     <MESSAGE value="Fixing profile loading after backend change" />
     <MESSAGE value="addig changeable base url" />
-    <option name="LAST_COMMIT_MESSAGE" value="addig changeable base url" />
+    <MESSAGE value="adding changeable base url" />
+    <MESSAGE value="Adding documentations" />
+    <MESSAGE value="updating developer documentation" />
+    <MESSAGE value="updating developer documentation #2" />
+    <MESSAGE value="Fixing errors caused by merge and update user documentation" />
+    <MESSAGE value="update user documentation" />
+    <MESSAGE value="updating base url, and readme + adding executable jar" />
+    <option name="LAST_COMMIT_MESSAGE" value="updating base url, and readme + adding executable jar" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

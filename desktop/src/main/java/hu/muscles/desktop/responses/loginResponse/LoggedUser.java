@@ -10,6 +10,8 @@ public class LoggedUser {
     private String email;
     private int roleId;
     private Date changedAt;
+    private boolean isDeleted;
+    private boolean isBlocked;
     private Role role;
 
 
@@ -59,8 +61,14 @@ public class LoggedUser {
         this.isBlocked = isBlocked;
     }
 
-    boolean isBlocked;
+    @JsonProperty("isDeleted")
+    public boolean getIsDeleted() {
+        return this.isDeleted;
+    }
 
+    public void setIsDeleted(boolean isDeleted) {
+        this.isDeleted = isDeleted;
+    }
 
     @JsonProperty("role")
     public Role getRole() {
