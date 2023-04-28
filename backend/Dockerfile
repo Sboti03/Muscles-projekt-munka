@@ -5,9 +5,9 @@ WORKDIR /app/backend
 COPY package*.json ./
 COPY prisma ./prisma/
 
-RUN npx primsa db push
-RUN npx primsa generate
 RUN npm install
+RUN npx prisma generate
+
 
 
 COPY . .
@@ -15,4 +15,4 @@ COPY . .
 RUN npm run build
 
 EXPOSE 3000
-CMD [ "npm", "run", "start:prod"]
+CMD ["./startup.sh"]

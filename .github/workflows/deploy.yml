@@ -1,0 +1,29 @@
+name: Deploy to Google Cloud
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: SSH into Google Cloud VM
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.GCLOUD_VM_INSTANCE_IP }}
+        username: ${{ secrets.GCLOUD_VM_USERNAME }}
+        key: ${{ secrets.GCLOUD_VM_PRIVATE_KEY }}
+        port: ${{ secrets.GCLOUD_VM_SSH_PORT }}
+        script: |
+          cd Muscles-projekt-munka/backend/
+          git fetch
+          git reset --hard origin/main
+          sudo chmod +x startup.sh
+          sudo docker compose down
+          sudo docker compose up --build -d
+

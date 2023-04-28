@@ -1,5 +1,6 @@
 import {Injectable} from '@nestjs/common';
 import {PrismaService} from "../../../Common/utils/prirsma.service";
+import {PeriodNamesEnum} from "../../../Common/utils/PeriodNames";
 @Injectable()
 export class MealHistoryGetService {
     constructor(private prismaService: PrismaService) {
@@ -10,7 +11,7 @@ export class MealHistoryGetService {
             where: {
                 dayId,
                 periodName,
-                meals: {
+                meal: {
                     foodId
                 }
             },
@@ -55,23 +56,49 @@ export class MealHistoryGetService {
         })
     }
 
-    getAllMealHistory(dayId: number, periodName: string) {
+    getAllMealHistory(dayId: number, periodName: PeriodNamesEnum) {
         return this.prismaService.mealHistory.findMany({
             where: {
                 dayId,
-                periodName
+                periodName: periodName.valueOf()
             },
             include: {
-                meals: {
-                    select: {
+                meal: {
+                    include: {
                         food: {
-                            select: {
+                            include: {
                                 unit: true
                             }
                         },
                     }
                 },
             },
+        })
+    }
+
+    getAllMealDataByDayId(dayId: number) {
+        return this.prismaService.mealHistory.findMany({
+            where: {
+                dayId
+            },
+            select: {
+                meal: {
+                    select: {
+                        amount: true,
+                        food: {
+                            select: {
+                                perUnit: true,
+                                fat: true,
+                                fiber: true,
+                                protein: true,
+                                sugar: true,
+                                carbohydrate: true,
+                                kcal: true
+                            }
+                        }
+                    }
+                }
+            }
         })
     }
 
@@ -94,7 +121,7 @@ export class MealHistoryGetService {
                 periodName
             },
             include: {
-                meals: {
+                meal: {
                     include: {
                         food: {
                             include: {

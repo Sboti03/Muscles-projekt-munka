@@ -21,10 +21,9 @@ export class FoodCreateDto {
     kcal: number
 
 
-    @Transform(({value}) => UnitsEnum[value])
+    @Transform(({value}) => Object.values(UnitsEnum).find(unit=> unit === value))
     @IsNotEmpty()
     @ApiProperty({example: 'GRAM'})
-
     unit: UnitsEnum
 
     @Type(() => Number)

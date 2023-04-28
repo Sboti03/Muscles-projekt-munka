@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="fe0bce2a-6dc9-4010-8bdc-3fb14eb8c174" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../frontend/public/locales/en/translation.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/components/Alert/AlertBox.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/components/Alert/AlertBoxContext.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/components/FoodAdder/ListFoods/ListFoods.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/components/Profile/context/ProfileContext.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/components/Profile/context/ProfileContextProvider.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/components/ProfileBar/ProfileBar.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/components/ProfilePicture/ProfilePicture.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/components/ProfilePicture/ProfilePicture.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/components/UserCoach/Connections/Connection/Connection.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/components/UserCoach/Connections/ConnectionRequest/ConnectionRequest.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/components/UserCoach/Connections/ConnectionRequest/ConnectionRequest.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/components/UserCoach/Connections/Connections.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/components/UserCoach/ProfileView/ProfileView.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/components/UserCoach/ProfileView/ProfileView.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/components/UserCoach/UserCoachPage.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/components/UserCoach/UserProfileDataView/UserProfileDataView.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/components/UserCoach/UserResult/UserResult.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/components/UserCoach/UserSearch/UserSearch.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/components/UserCoach/UserSearch/UserView.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/components/UserCoach/UserSearch/UserView.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/components/UserCoach/context/UserCoachContext.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/components/UserCoach/context/UserCoachContextProvider.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/components/UserCoach/data/ConnectionResponse.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/components/UserCoach/data/ConnectionStatus.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/components/UserCoach/data/SearchResponse.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/components/UserCoach/navigator/UserCoachNavigator.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/components/UserCoach/navigator/UserCoachNavigatorContext.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/components/UserCoach/navigator/UserCoachPageNavigator.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/components/Welcome/Welcome.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/components/Welcome/WelcomePage.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/i18n.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/Auth/AuthContextProvider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/Auth/AuthContextProvider.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/DayInfo/Data/DayInfoData.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/DayInfo/Data/DayInfoData.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/DayInfo/DayInfoContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/DayInfo/context/DayInfoContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/DayInfo/DayInfoContextProvider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/DayInfo/context/DayInfoContextProvider.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/DayInfo/DayInfoNavbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/DayInfo/DayInfoNavbar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/DayInfo/DayPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/DayInfo/DayPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/DayInfo/DayPeriodInfo/DayPeriodInfo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/DayInfo/DayPeriodInfo/DayPeriodInfo.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/DayInfo/DayPeriodInfo/DayPeriodInfoFetch.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/DayInfo/DayPeriodInfo/DayPeriodInfoFetch.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/DayInfo/DayPeriodInfo/context/DayPeriodContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/DayInfo/DayPeriodInfo/context/DayPeriodContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/DayInfo/DayPeriodInfo/context/DayPeriodInfoContextProvider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/DayInfo/DayPeriodInfo/context/DayPeriodInfoContextProvider.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/DayInfo/DayPicker/DayPickerBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/DayInfo/DayPicker/DayPickerBar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/DayInfo/FoodDayInfo/FoodDayInfo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/DayInfo/FoodDayInfo/FoodDayInfo.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/DayInfo/MinimalDayData.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/DayInfo/MinimalDayData.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/DayInfo/Navigator/Context/DayInfoNavigatorContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/DayInfo/Navigator/Context/DayInfoNavigatorContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/DayInfo/Navigator/DayInfoNavigator.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/DayInfo/Navigator/DayInfoNavigator.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/DayInfo/PeriodInfo/Food.css" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/DayInfo/PeriodInfo/Food.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/DayInfo/PeriodInfo/Food.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/DayInfo/PeriodInfo/Food.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/DayInfo/PeriodInfo/PeriodInfoPage.css" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/DayInfo/PeriodInfo/PeriodInfoPage.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/DayInfo/PeriodInfo/PeriodInfoPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/DayInfo/PeriodInfo/PeriodInfoPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/DayInfo/ProfileBar/ProfileBar.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/DayInfo/ProfileBar/ProfileBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/ProfileBar/ProfileBar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/DayInfo/WeightInfo/WeightInfo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/DayInfo/WeightInfo/WeightInfo.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/FoodAdder/FoodAdderPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/FoodAdder/FoodAdderPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/FoodAdder/FoodSearchPage.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/FoodAdder/FoodSearchPage.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/FoodAdder/FoodSearchPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/FoodAdder/FoodSearchPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/FoodAdder/context/FoodContextProvider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/FoodAdder/context/FoodContextProvider.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/Home/HomePage.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/Navigator/NavigatorContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/Navigator/NavigatorContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/Navigator/Pages.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/Navigator/Pages.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/Profile/GoalsDataView/GoalsDataView.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/Profile/GoalsDataView/GoalsDataView.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/Profile/ProfileDataEditSelector.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/Profile/ProfileDataEditSelector.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/Profile/ProfileDataView/ProfileDataView.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/Profile/ProfileDataView/ProfileDataView.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/Profile/ProfileDataView/ProfileDataView.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/Profile/ProfileDataView/ProfileDataView.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/Profile/data/ProfileData.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/Profile/data/ProfileData.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/Profile/data/ProfileResponse.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/Profile/data/ProfileResponse.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/Results/ResultSelector/ResultSelector.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/Results/ResultSelector/ResultSelector.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/utils/Fetch.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/utils/Fetch.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/main.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/main.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/static/JoyUi/JoyUiCSS.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/static/JoyUi/JoyUiCSS.tsx" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="2NpshU9id57bBjA4qDAQ6awWzVu" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "frontend/development/register",
+    "last_opened_file_path": "/home/botondsomogyi/IdeaProjects/Muscles-projekt-munka/frontend",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="fe0bce2a-6dc9-4010-8bdc-3fb14eb8c174" name="Changes" comment="" />
+      <created>1680372477349</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1680372477349</updated>
+      <workItem from="1680372478286" duration="37000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

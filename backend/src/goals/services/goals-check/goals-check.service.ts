@@ -9,10 +9,12 @@ export class GoalsCheckService {
                 private goalsGetService:GoalsGetService) {}
 
     async checkGoalsUpdateDto(goalsUpdateDto:GoalsUpdateDto, profileId: number) {
-        const oldData = await this.goalsGetService.getGoalByProfileId(profileId)
-        const {fatPerDay, proteinPerDay, carbohydratesPerDay} = Object.assign(oldData, goalsUpdateDto)
-        const sum = fatPerDay + carbohydratesPerDay + proteinPerDay
-        return sum === 100;
-    }
+        const oldData = await this.goalsGetService.getGoalsByProfileId(profileId)
+        const {fatPerDay, proteinPerDay, carbohydratesPerDay, breakfastPerDay, lunchPerDay, dinnerPerDay, otherPerDay} = Object.assign(oldData, goalsUpdateDto)
+        const sumOfMacros = fatPerDay + carbohydratesPerDay + proteinPerDay
 
+        const sumOfPeriodCalories = breakfastPerDay + lunchPerDay + dinnerPerDay + otherPerDay
+
+        return sumOfMacros === 100 && sumOfPeriodCalories === 100;
+    }
 }
