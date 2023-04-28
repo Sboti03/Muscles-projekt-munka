@@ -4,8 +4,7 @@ import NavigatorContext, {Page} from "../navigator/NavigatorProvider";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import * as React from "react";
 import {useContext, useEffect, useState} from "react";
-import {LinearGradient} from "expo-linear-gradient";
-import {KeyboardAvoidingView, StyleSheet} from "react-native";
+import {ImageBackground, KeyboardAvoidingView, StyleSheet} from "react-native";
 import {getOneFoodInfo} from "./foodCalculations";
 import FoodInterface from "./foodInterface";
 import {BASE_URL} from "@env";
@@ -40,14 +39,14 @@ export default function ShowOneFood(props: { DayPeriodResponse: DayPeriodRespons
         setOneFoodData(getOneFoodInfo(props.DayPeriodResponse, Number(currentAmount)))
     }, [currentAmount])
     return (
-        <LinearGradient  colors={['#efe8fd', '#865eff']}
-                         style={{width: '100%', flex: 1, alignItems: "center"}}>
+        <ImageBackground source={ require('../../assets/background/abstract.png')} style={{flex: 1, alignItems: 'center'}} imageStyle={{flex: 1}}>
+
         <Flex fill style={{ width: '90%'}}>
             <IconButton onPress={() => {
                 changePage(Page.SHOWMEALHISTORY)
                 deleteLastPage()
             }}
-                        icon={<MaterialCommunityIcons name={'arrow-left-bold-outline'} size={30} color={'#7a44cf'} />}
+                        icon={<MaterialCommunityIcons name={'arrow-left-bold-outline'} size={30} color={'#b144cf'} />}
                         style={{marginLeft:5, marginTop: 30}}/>
             <Text style={oneFoodStyle.title}>{props.DayPeriodResponse.meal.food.name}</Text>
             <VStack style={oneFoodStyle.basicVStack}>
@@ -100,7 +99,7 @@ export default function ShowOneFood(props: { DayPeriodResponse: DayPeriodRespons
                 </HStack>
             </KeyboardAvoidingView>
         </Flex>
-            </LinearGradient>
+        </ImageBackground>
     )
 }
 const oneFoodStyle = StyleSheet.create({
@@ -178,6 +177,8 @@ const oneFoodStyle = StyleSheet.create({
         borderWidth: 3,
         borderRadius: 10,
         paddingLeft: 15,
+        color: '#FFF',
+        backgroundColor: '#c467d9'
     },
     inputContainer: {
         backgroundColor: 'transparent',
