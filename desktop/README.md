@@ -19,7 +19,7 @@ Ezen kívül blokkolhatja a web- és mobilalkalmazás felhasználóit is, illetv
 
 #### Közvetlen a futtatás előtt
 
-- A futtatás előtt mindenképpen fusson a [backend](../backend/README.md). 
+- A futtatás előtt mindenképpen fusson a [backend](../backend/README.md).
 Az alkalmazást lehet futtatni helyi backend eléréssel és Google Cloud eléréssel. 
 
 
@@ -46,8 +46,8 @@ private String BASE_URL() {
 
 ## Futtatás – Telepítővel vagy JAR fájllal
 
-Az alkalmazás futtatható úgy is, hogy előtte lefuttatjuk a `desktop/build/installer/muscles-admin-app-installer.msi` fájlt, amely feltelepíti az alkalmazást a számítógépünkre.
-Vagy választhatjuk a futtatható JAR fájlt.
+Az alkalmazás futtatható úgy is, hogy előtte kitömörítjük a `desktop/run/installer/muscles-admin-app-installer.zip` fájlt, majd futtatjuk a `muscles-admin-app-installer.msi` fájlt, amely feltelepíti az alkalmazást a számítógépünkre.
+Vagy választhatjuk a futtatható `desktop/run/runnableJAR/Admin App Muscles.jar` fájlt, amit elindítva elindul az alkalmazás.
 
 ## Felhasználói Dokumentáció
 [Ide kattintva olvashatja el.](./desktop-user-documentation/README.md)
