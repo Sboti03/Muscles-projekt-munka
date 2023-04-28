@@ -6,8 +6,8 @@ public class Urls {
     }
 
     private String BASE_URL() {
-           return "http://localhost:3000"; // Local backend
-        // return "http://34.22.242.178:3000"; // Google Cloud backend
+        //   return "http://localhost:3000"; // Local backend
+         return "http://34.22.242.178:3000"; // Google Cloud backend
     }
 
 

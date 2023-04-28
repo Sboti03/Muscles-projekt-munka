@@ -4,9 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="00e91fc0-96b8-4172-906f-ab5075727363" name="Changes" comment="updating developer documentation">
+    <list default="true" id="00e91fc0-96b8-4172-906f-ab5075727363" name="Changes" comment="updating developer documentation #2">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/desktop-user-documentation/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/desktop-user-documentation/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/responses/loginResponse/LoggedUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/responses/loginResponse/LoggedUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/responses/userResponse/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/responses/userResponse/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/urls/Urls.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hu/muscles/desktop/urls/Urls.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,14 +130,7 @@
       <workItem from="1682498751734" duration="16660000" />
       <workItem from="1682613170741" duration="1368000" />
       <workItem from="1682615109460" duration="1189000" />
-      <workItem from="1682631182838" duration="8454000" />
-    </task>
-    <task id="LOCAL-00008" summary="successful food convert to Pojo">
-      <created>1679058827197</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1679058827197</updated>
+      <workItem from="1682631182838" duration="10175000" />
     </task>
     <task id="LOCAL-00009" summary="Creating food table">
       <created>1679060906808</created>
@@ -472,7 +468,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682639575021</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="updating developer documentation #2">
+      <created>1682639690092</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1682639690092</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -490,7 +493,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Styling and profile block, unblock" />
     <MESSAGE value="Styling and fixing some errors" />
     <MESSAGE value="Styling and fixing responses in login and food delete, undelete" />
     <MESSAGE value="Styling in create food and a few changing in update food" />
@@ -515,7 +517,8 @@
     <MESSAGE value="adding changeable base url" />
     <MESSAGE value="Adding documentations" />
     <MESSAGE value="updating developer documentation" />
-    <option name="LAST_COMMIT_MESSAGE" value="updating developer documentation" />
+    <MESSAGE value="updating developer documentation #2" />
+    <option name="LAST_COMMIT_MESSAGE" value="updating developer documentation #2" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

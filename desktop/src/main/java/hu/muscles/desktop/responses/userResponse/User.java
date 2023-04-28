@@ -14,6 +14,7 @@ public class User {
     public ArrayList<String> refreshTokens;
     public Date changedAt;
     public boolean isBlocked;
+    public boolean isDeleted;
     public Role role;
 
     @JsonProperty("userId")
@@ -50,6 +51,10 @@ public class User {
     public boolean isBlocked() {
         return isBlocked;
     }
+    @JsonProperty("isDeleted")
+    public boolean isDeleted() {
+        return isDeleted;
+    }
 
     @JsonProperty("role")
     public Role getRole() {
@@ -57,7 +62,7 @@ public class User {
     }
 
 
-    public User(int userId, String email, String password, int roleId, ArrayList<String> refreshTokens, Date changedAt, boolean isBlocked, Role role) {
+    public User(int userId, String email, String password, int roleId, ArrayList<String> refreshTokens, Date changedAt, boolean isBlocked, boolean isDeleted, Role role) {
         this.userId = userId;
         this.email = email;
         this.password = password;
@@ -66,6 +71,7 @@ public class User {
         this.changedAt = changedAt;
         this.isBlocked = isBlocked;
         this.role = role;
+        this.isDeleted = isDeleted;
     }
 
     public User() {
