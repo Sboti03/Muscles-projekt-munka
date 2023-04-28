@@ -6,10 +6,8 @@ import {BASE_URL} from "@env";
 import axios from "axios";
 import FoodInterface from "../../food/foodInterface";
 import NavigatorContext, {Page} from "../../navigator/NavigatorProvider";
-import {StyleSheet} from "react-native";
+import {ImageBackground, StyleSheet} from "react-native";
 import PageHistoryContext from "../../pageHistory/PageHistoryProvider";
-import {LinearGradient} from "expo-linear-gradient";
-import {loginPageStyle} from "../../loginPage";
 
 const getAllFoodApi = BASE_URL + 'api/food'
 const createMealHistoryAPI = BASE_URL + 'api/meal-history/create'
@@ -18,7 +16,7 @@ export function NormalizeDate(newDate: Date) {
 }
 
 function CreateMealHistory() {
-    const {mealPeriod, dayHistories, date} = useContext(MealHistoryContext)
+    const {mealPeriod, date} = useContext(MealHistoryContext)
     const {changePage} = useContext(NavigatorContext)
     const {deleteLastPage} = useContext(PageHistoryContext)
 
@@ -73,18 +71,22 @@ function CreateMealHistory() {
     }, [])
 
     return (
-        <LinearGradient colors={['#efe8fd', '#865eff']}
-                        style={{width: '100%', flex: 1, alignItems: "center"}}>
-            <Flex fill >
+        <ImageBackground source={ require('../../../assets/background/abstract.png')} style={{flex: 1}} imageStyle={{flex: 1}}>
+
+        <Flex fill >
                 <Text style={createMealHistoryStyle.title}>{mealPeriod?.toString()}</Text>
                 <VStack spacing={10} style={createMealHistoryStyle.content}>
                     <SelectList searchPlaceholder={'Search'}
                                 placeholder={'Search foods'}
                                 data={data}
                                 setSelected={setSelected}
-                                save={'key'}/>
+                                save={'key'}
+                                dropdownTextStyles={{color: '#FFF'}}
+                                inputStyles={{color: '#FFF'}}
+                                boxStyles={{backgroundColor: '#8d60bb'}}
+                    />
                     <Text style={createMealHistoryStyle.warningText}>{foodWarning}</Text>
-                    <Text>Amount (g)</Text>
+                    <Text style={{color: '#FFF'}}>Amount (g)</Text>
                     <TextInput maxLength={4}
                                keyboardType={'numeric'}
                                onChangeText={text => setAmount(Number(text))}
@@ -111,7 +113,7 @@ function CreateMealHistory() {
                     </HStack>
                 </VStack>
             </Flex>
-        </LinearGradient>
+        </ImageBackground>
     )
 }
 export default CreateMealHistory
