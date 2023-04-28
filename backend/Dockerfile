@@ -4,6 +4,8 @@ WORKDIR /app/backend
 
 COPY package*.json ./
 COPY prisma ./prisma/
+COPY client ./client/
+
 
 RUN npm install
 RUN npx prisma generate

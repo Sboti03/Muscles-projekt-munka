@@ -1,0 +1,1 @@
+//# sourceMappingURL=period-name.js.map
