@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="00e91fc0-96b8-4172-906f-ab5075727363" name="Changes" comment="update user documentation">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-    </list>
+    <list default="true" id="00e91fc0-96b8-4172-906f-ab5075727363" name="Changes" comment="updating base url, and readme + adding executable jar" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -53,7 +50,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "extract.method.default.visibility": "private",
-    "last_opened_file_path": "C:/Users/k2347/IdeaProjects/muszkli/desktop/build/installer",
+    "last_opened_file_path": "C:/Users/k2347/IdeaProjects/Good Project/desktop/run/runnableJAR",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -73,11 +70,11 @@
       <recent name="hu.muscles.desktop.controllers" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\k2347\IdeaProjects\Good Project\desktop\run\runnableJAR" />
       <recent name="C:\Users\k2347\IdeaProjects\muszkli\desktop\build\installer" />
       <recent name="C:\Users\k2347\IdeaProjects\muszkli\desktop\build\runnableJAR" />
       <recent name="C:\Users\k2347\IdeaProjects\Muscles-projekt-munka\desktop\src\main\resources\hu\muscles\desktop\backgroundResources" />
       <recent name="C:\Users\oktatas\Downloads\M_N\Muscles-Project-munka\desktop\src\main\resources\hu\muscles\desktop\style\backgrounds" />
-      <recent name="C:\Users\oktatas\Downloads\M_N\Muscles-Project-munka\desktop\src\main\resources\hu\muscles\desktop" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\k2347\IdeaProjects\Muscles-projekt-munka\desktop\src\main\resources\hu\muscles\desktop\backround-resources" />
@@ -135,13 +132,7 @@
       <workItem from="1682615109460" duration="1189000" />
       <workItem from="1682631182838" duration="16741000" />
       <workItem from="1682711282227" duration="361000" />
-    </task>
-    <task id="LOCAL-00011" summary="Food ListView changes, exit button, and new app view">
-      <created>1679308601410</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1679308601410</updated>
+      <workItem from="1682713771773" duration="624000" />
     </task>
     <task id="LOCAL-00012" summary="TextArea show details of a food">
       <created>1679313428767</created>
@@ -479,7 +470,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682648279849</updated>
     </task>
-    <option name="localTasksCounter" value="60" />
+    <task id="LOCAL-00060" summary="updating base url, and readme + adding executable jar">
+      <created>1682714337691</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1682714337691</updated>
+    </task>
+    <option name="localTasksCounter" value="61" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -498,7 +496,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Styling in create food and a few changing in update food" />
     <MESSAGE value="Fixing button selections, styling, loading to list on start" />
     <MESSAGE value="resizing elements" />
     <MESSAGE value="search between loaded foods and profiles" />
@@ -523,7 +520,8 @@
     <MESSAGE value="updating developer documentation #2" />
     <MESSAGE value="Fixing errors caused by merge and update user documentation" />
     <MESSAGE value="update user documentation" />
-    <option name="LAST_COMMIT_MESSAGE" value="update user documentation" />
+    <MESSAGE value="updating base url, and readme + adding executable jar" />
+    <option name="LAST_COMMIT_MESSAGE" value="updating base url, and readme + adding executable jar" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
