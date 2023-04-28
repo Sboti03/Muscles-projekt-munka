@@ -19,6 +19,16 @@ export default function AdminPageContextProvider(props: PropsWithChildren) {
         }
     }
 
+    async function deleteUser(email: string) {
+        const result = await singleFetch('api/admin/user/delete-all/?email=' + email, Methods.DELETE)
+        if (result.error) {
+            toast.error(result.error.message)
+        } else {
+            toast.info("Done")
+        }
+        fetchUsers()
+    }
+
     async function blockUser(userId: number) {
         const result = await singleFetch('api/admin/user/block/' + userId, Methods.DELETE)
         if (result.error) {
@@ -43,6 +53,7 @@ export default function AdminPageContextProvider(props: PropsWithChildren) {
             blockUser,
             unBlock,
             users,
+            deleteUser,
             fetchUsers,
         }}>{props.children}</AdminPageContext.Provider>
     )

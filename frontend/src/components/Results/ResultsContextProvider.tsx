@@ -1,13 +1,12 @@
 import ResultsContext, {ResultFilter, ResultsData, ResultsMode, ResultsRange} from "./ResultsContext";
-import {PropsWithChildren, useEffect, useState} from "react";
+import {PropsWithChildren, useContext, useEffect, useState} from "react";
 import {Methods, singleFetch} from "../utils/Fetch";
 import {normalizeDate} from "../DayInfo/context/DayInfoContextProvider";
+import UserCoachContext from "../UserCoach/context/UserCoachContext";
 
 export default function ResultsContextProvider(props:PropsWithChildren) {
 
-
-
-
+    const {showProfileId} = useContext(UserCoachContext)
     const defaultOneMonth = new Date()
     defaultOneMonth.setMonth(defaultOneMonth.getMonth() - 1)
 
@@ -29,7 +28,8 @@ export default function ResultsContextProvider(props:PropsWithChildren) {
     }, [range])
 
     async function fetchResults() {
-        const result = await singleFetch<ResultsData[]>(`api/meal-history/data/between?from=${normalizeDate(range.from)}&to=${normalizeDate(range.to)}`, Methods.GET)
+        const result = await singleFetch<ResultsData[]>(
+            `api/meal-history/data/between?from=${normalizeDate(range.from)}&to=${normalizeDate(range.to)}${showProfileId ? '&userId=' + showProfileId : ''}`, Methods.GET)
         if (result.response) {
             const resultsResponse = result.response.map(data => {
                 return {...data, date: new Date(data.date)}

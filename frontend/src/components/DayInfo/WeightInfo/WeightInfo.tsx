@@ -9,16 +9,23 @@ import {RoleEnum} from "../../Types/Role";
 export default function WeightInfo(props: { currentDate: Date, weight: number }) {
     const {currentDate} = props
     const {user} = useContext(AuthContext)
-    const [weight, setWeight] = useState(props.weight)
-
+    const [weight, setWeight] = useState<number>(props.weight)
+    const [weightInput, setWeightInput] = useState<string>(props.weight.toString())
     const sendTimeOutRef = useRef<any>(undefined)
 
     useEffect(() => {
         setWeight(props.weight)
     }, [props.weight])
 
+    useEffect(()=> {
+        setWeight(parseFloat(weightInput))
+    }, [weightInput])
+
     useEffect(() => {
         if (weight !== props.weight) {
+            if (isNaN(weight)) {
+                return
+            }
             if (sendTimeOutRef.current) {
                 clearTimeout(sendTimeOutRef.current)
             }
@@ -52,9 +59,7 @@ export default function WeightInfo(props: { currentDate: Date, weight: number })
     }
 
     function handleInput(event: React.ChangeEvent<HTMLInputElement>) {
-        if (event.target.valueAsNumber >= 0) {
-            setWeight(event.target.valueAsNumber)
-        }
+        setWeightInput(event.target.value)
     }
 
     function handleBigIncrease() {

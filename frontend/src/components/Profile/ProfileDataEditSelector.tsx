@@ -23,7 +23,6 @@ export default function ProfileDataEditSelector(props: {coachMode?: boolean}) {
                 <div>{getAge(profileData.birthDay)} yo</div>
                 <div><Button onClick={()=> changePage(Page.PROFILE_DATA)}>Personal information</Button></div>
                 {/*<div><Button onClick={()=> changePage(Page.GOALS)}>Goals</Button></div>*/}
-                <div><Button onClick={()=> changePage(Page.USER_COACH)}>Clients</Button></div>
                 {/*<div><Button onClick={()=> changePage(Page.RESULTS)}>Results</Button></div>*/}
                 <div><Button color="danger" onClick={logout}>Logout</Button></div>
             </div>

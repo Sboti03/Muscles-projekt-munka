@@ -1,5 +1,6 @@
 import ProfileBar from "../ProfileBar/ProfileBar";
 import UserCoachPage from "../UserCoach/UserCoachPage";
+import DayInfoNavbar from "../DayInfo/DayInfoNavbar";
 
 export function CoachHomePage() {
 
