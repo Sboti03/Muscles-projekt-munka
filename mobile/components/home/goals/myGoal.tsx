@@ -1,4 +1,3 @@
-import {LinearGradient} from "expo-linear-gradient";
 import {Button, Flex, HStack, Text, TextInput, VStack} from "@react-native-material/core";
 import React, {useContext, useEffect, useState} from "react";
 import MealHistoryContext from "../../mealHistory/mealHistoryContext";
@@ -7,11 +6,9 @@ import GoalWarnings from "./warnings";
 import {BASE_URL} from "@env";
 import axios from "axios";
 import BasicGoal from "./basicGoal";
-import mealHistoryContext from "../../mealHistory/mealHistoryContext";
 import NavigatorContext, {Page} from "../../navigator/NavigatorProvider";
 import PageHistoryContext from "../../pageHistory/PageHistoryProvider";
-import {StyleSheet} from "react-native";
-import {loginPageStyle} from "../../loginPage";
+import {ImageBackground, StyleSheet} from "react-native";
 
 export const goalAPI = BASE_URL + 'api/goals'
 
@@ -46,9 +43,9 @@ export default function MyGoal() {
     }
 
     return(
-        <LinearGradient  colors={['#efe8fd', '#865eff']}
-                         style={{width: '100%', flex: 1, alignItems: "center"}}>
-            <Flex fill>
+        <ImageBackground source={ require('../../../assets/background/gears.png')} style={{flex: 1}} imageStyle={{flex: 1}}>
+
+        <Flex fill>
                 <Text style={myGoalStyles.title}>
                     My Goal
                 </Text>
@@ -139,7 +136,7 @@ export default function MyGoal() {
                     </HStack>
                 </VStack>
             </Flex>
-        </LinearGradient>
+        </ImageBackground>
     )
 }
 const myGoalStyles = StyleSheet.create({
@@ -177,7 +174,7 @@ const myGoalStyles = StyleSheet.create({
     text: {
         marginLeft: 15,
         marginBottom: 10,
-        color: '#6934cc',
+        color: '#ffffff',
         fontSize: 18,
     },
     warningText: {
