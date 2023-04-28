@@ -1,4 +1,4 @@
-# Muslces Frontend
+# Muscles Frontend
 *Felhasználói dokkumentáció*
 
 ## Regisztráció
