@@ -2,7 +2,7 @@
 Fejlesztői dokumentáció
 
 ## Alkalmazásról
-JavaFX-ben írodott asztali alkalmazás, melynek célja, hogy admin funkciókat lásson el a projekt munka keretein belül.
+JavaFX-ben íródott asztali alkalmazás, melynek célja, hogy admin funkciókat lásson el a projekt munka keretein belül.
 Adminnak joga van ételek felvételére az adatbázisba, meglévő ételek módosítására, törlésére és annak visszavonására.
 Ezen kívül blokkolhatja a web- és mobilalkalmazás felhasználóit is, illetve vissza állíthatja a fiókokat.
 
@@ -24,7 +24,7 @@ Az alkalmazást lehet futtatni helyi backend eléréssel és Google Cloud elér�
 
 
 - Alapértelmezetten az alkalmazás a lokális backendet éri el, ez a beállítás a
-`desktop/src/main/java/hu/muscles/desktop/urls/Urls.java` fáljban található, illetve módosítható:
+`desktop/src/main/java/hu/muscles/desktop/urls/Urls.java` fájlban található, illetve módosítható:
 ```java
 // Lokális backend elérése
 private String BASE_URL() {
@@ -41,7 +41,7 @@ private String BASE_URL() {
 ```
 
 #### Alkalmazás indítása
-- A `desktop` mappát célszerű új Intellij IDEA projektként megnyitni, és az `src/main/java/hu/muscles/desktop/App.java` fáljt kiválasztva, a run gombra kattintva elindítható az alkalmazás.
+- A `desktop` mappát célszerű új Intellij IDEA projektként megnyitni, és az `src/main/java/hu/muscles/desktop/App.java` fájlt kiválasztva, a run gombra kattintva elindítható az alkalmazás.
 
 
 ## Futtatás – Telepítővel
@@ -51,5 +51,5 @@ Az alkalmazás futtatható úgy is, hogy előtte lefuttatjuk a `desktop/out/inst
 ## Felhasználói Dokumentáció
 [Ide kattintva olvashatja el.](./desktop-user-documentation/README.md)
 
-## Hasznos dokkumentáció
+## Hasznos dokumentáció
 [JavaFX](https://openjfx.io/)

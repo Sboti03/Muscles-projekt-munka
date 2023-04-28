@@ -1,7 +1,7 @@
 ## Muscles Asztali Alkalmazás
 Felhasználói dokumentáció
 
-## Fő oldal
+## Főoldal
 #### A bejelentkezést követően a főoldal tölt be. Az admin felhasználónév és jelszó a [fejlesztői dokumentációban](../README.md) található meg.
 <img src="./main_site_1.jpg">
 
@@ -22,7 +22,7 @@ Ez egy igen egyszerű folyamat, csak rá kell kattintani a kiválasztani kíván
 
 #### Étel frissítési elemek funkciói
 1. A megadott adatokkal a kiválasztott étel frissítése
-2. Eltünteti a kiválasztott elem adatait és a kijelőlést is a listából
+2. Eltünteti a kiválasztott elem adatait, és a kijelölést is a listából
 3. Visszaállítja a kiválasztott étel adatait az eredetire
 
 ### A kiválasztott profil adatait meg lehet tekinteni.
@@ -44,6 +44,6 @@ Ez egy igen egyszerű folyamat, csak rá kell kattintani a kiválasztani kíván
   - Többszörösen telítetlen zsír `[Polyunsaturated Fat]`
   - Rost `[Fiber]`
   - Cukor `[Sugar]`
-  - 
+  
 ## Fejlesztői Dokumentáció
 [Ide kattintva olvashatja el.](../README.md)

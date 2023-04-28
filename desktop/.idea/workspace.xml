@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="00e91fc0-96b8-4172-906f-ab5075727363" name="Changes" comment="Fixing errors caused by merge and update user documentation">
-      <change afterPath="$PROJECT_DIR$/desktop-user-documentation/main_site_1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/desktop-user-documentation/main_site_2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/desktop-user-documentation/main_site_3.jpg" afterDir="false" />
+    <list default="true" id="00e91fc0-96b8-4172-906f-ab5075727363" name="Changes" comment="update user documentation">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/desktop-user-documentation/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/desktop-user-documentation/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -134,14 +132,7 @@
       <workItem from="1682498751734" duration="16660000" />
       <workItem from="1682613170741" duration="1368000" />
       <workItem from="1682615109460" duration="1189000" />
-      <workItem from="1682631182838" duration="16092000" />
-    </task>
-    <task id="LOCAL-00010" summary="Creating food ListView">
-      <created>1679300092034</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1679300092034</updated>
+      <workItem from="1682631182838" duration="16741000" />
     </task>
     <task id="LOCAL-00011" summary="Food ListView changes, exit button, and new app view">
       <created>1679308601410</created>
@@ -479,7 +470,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682641577170</updated>
     </task>
-    <option name="localTasksCounter" value="59" />
+    <task id="LOCAL-00059" summary="update user documentation">
+      <created>1682648279849</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1682648279849</updated>
+    </task>
+    <option name="localTasksCounter" value="60" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -498,7 +496,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Styling and fixing responses in login and food delete, undelete" />
     <MESSAGE value="Styling in create food and a few changing in update food" />
     <MESSAGE value="Fixing button selections, styling, loading to list on start" />
     <MESSAGE value="resizing elements" />
@@ -523,7 +520,8 @@
     <MESSAGE value="updating developer documentation" />
     <MESSAGE value="updating developer documentation #2" />
     <MESSAGE value="Fixing errors caused by merge and update user documentation" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixing errors caused by merge and update user documentation" />
+    <MESSAGE value="update user documentation" />
+    <option name="LAST_COMMIT_MESSAGE" value="update user documentation" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
