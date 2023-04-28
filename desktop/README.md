@@ -44,9 +44,10 @@ private String BASE_URL() {
 - A `desktop` mappát célszerű új Intellij IDEA projektként megnyitni, és az `src/main/java/hu/muscles/desktop/App.java` fájlt kiválasztva, a run gombra kattintva elindítható az alkalmazás.
 
 
-## Futtatás – Telepítővel
+## Futtatás – Telepítővel vagy JAR fájllal
 
-Az alkalmazás futtatható úgy is, hogy előtte lefuttatjuk a `desktop/out/installer/muscles-admin-app-installer.exe` fájlt, amely feltelepíti az alkalmazást a számítógépünkre.
+Az alkalmazás futtatható úgy is, hogy előtte lefuttatjuk a `desktop/build/installer/muscles-admin-app-installer.msi` fájlt, amely feltelepíti az alkalmazást a számítógépünkre.
+Vagy választhatjuk a futtatható JAR fájlt.
 
 ## Felhasználói Dokumentáció
 [Ide kattintva olvashatja el.](./desktop-user-documentation/README.md)

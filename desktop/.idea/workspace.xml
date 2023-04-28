@@ -7,7 +7,6 @@
     <list default="true" id="00e91fc0-96b8-4172-906f-ab5075727363" name="Changes" comment="update user documentation">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/desktop-user-documentation/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/desktop-user-documentation/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,7 +53,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "extract.method.default.visibility": "private",
-    "last_opened_file_path": "C:/Users/k2347/IdeaProjects/TEST_MUSCLES_PROJECT/desktop",
+    "last_opened_file_path": "C:/Users/k2347/IdeaProjects/muszkli/desktop/build/installer",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -74,6 +73,8 @@
       <recent name="hu.muscles.desktop.controllers" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\k2347\IdeaProjects\muszkli\desktop\build\installer" />
+      <recent name="C:\Users\k2347\IdeaProjects\muszkli\desktop\build\runnableJAR" />
       <recent name="C:\Users\k2347\IdeaProjects\Muscles-projekt-munka\desktop\src\main\resources\hu\muscles\desktop\backgroundResources" />
       <recent name="C:\Users\oktatas\Downloads\M_N\Muscles-Project-munka\desktop\src\main\resources\hu\muscles\desktop\style\backgrounds" />
       <recent name="C:\Users\oktatas\Downloads\M_N\Muscles-Project-munka\desktop\src\main\resources\hu\muscles\desktop" />
@@ -133,6 +134,7 @@
       <workItem from="1682613170741" duration="1368000" />
       <workItem from="1682615109460" duration="1189000" />
       <workItem from="1682631182838" duration="16741000" />
+      <workItem from="1682711282227" duration="361000" />
     </task>
     <task id="LOCAL-00011" summary="Food ListView changes, exit button, and new app view">
       <created>1679308601410</created>
