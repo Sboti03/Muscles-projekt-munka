@@ -1,10 +1,10 @@
-import {Avatar, Button, Flex, HStack, Pressable, Spacer, Text, VStack} from "@react-native-material/core";
+import { Button, Flex, HStack, Pressable, Spacer, Text, VStack} from "@react-native-material/core";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import * as React from "react";
 import {useContext, useEffect} from "react";
 import NavigatorContext, {Page} from "../navigator/NavigatorProvider";
 import AuthContext from "../auth/AuthContext";
-import {Image, StyleSheet} from "react-native";
+import { StyleSheet} from "react-native";
 import ProfileContext from "../profile/ProfileProvider";
 import PageHistoryContext from "../pageHistory/PageHistoryProvider";
 import {BASE_URL} from "@env";
@@ -22,7 +22,7 @@ export default function SideBarContent() {
         console.log('SIDEBAR_____________________')
 
         axios.get(getImageAPI)
-            .then(function (response) {
+            .then(function () {
                 console.log('PICTURE___________WORKS')
 
             })
@@ -52,21 +52,24 @@ export default function SideBarContent() {
                         </HStack>
                     </VStack>
                 </HStack>
-                <Pressable
-                           onPress={() => {
-                    changePage(Page.PROFILE)
-                    addPage(Page.PROFILE)
-                }}
-                           style={{}}
-                >
-                    <Text>Change profile</Text>
-                </Pressable>
-                <Pressable onPress={() => {
-                    changePage(Page.MYGOAL)
-                    addPage(Page.MYGOAL)
-                }}>
-                    <Text>My goal</Text>
-                </Pressable>
+                <VStack spacing={30} style={{alignSelf: 'center', height: '50%', justifyContent: 'center'}}>
+                    <Pressable
+                               onPress={() => {
+                        changePage(Page.PROFILE)
+                        addPage(Page.PROFILE)
+                    }}
+                               style={{}}
+                    >
+                        <Text>Personal information</Text>
+                    </Pressable>
+
+                    <Pressable onPress={() => {
+                        changePage(Page.MYGOAL)
+                        addPage(Page.MYGOAL)
+                    }}>
+                        <Text style={{width: '100%', textAlign: 'center'}}>My goal</Text>
+                    </Pressable>
+                </VStack>
             </VStack>
             <Spacer/>
             <Button title={'Logout'}
